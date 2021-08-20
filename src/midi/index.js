@@ -25,7 +25,9 @@ export class FancyMidiPlayer {
     this.currentNotes = [];
     this.previousChord = null;
     this.tempo = 120;
-
+    this.intialTempoSet = false;
+    this.keySig = null;
+    this.timeSig = null;
     //JS.extend(this.safeAudioContext);
 
     // 2) Load the impulse response; upon load, connect it to the audio output.
@@ -48,13 +50,37 @@ export class FancyMidiPlayer {
     );
 
     this.player = new MidiPlayer.Player((event) => {
-      console.log("event1: " + JSON.stringify(event));
       if (event.name === "Controller Change") {
+        console.log("controller event: " + JSON.stringify(event));
+
         this.onControllerChange(event);
       } else if (event.name === "Note on") {
+        console.log("note one event: " + JSON.stringify(event));
+
         this.onNoteOnEvent(event);
       } else if (event.name === "Note off") {
+        console.log("note off event: " + JSON.stringify(event));
+
         this.onNoteOffEvent(event);
+      } else {
+        console.log("other event: " + JSON.stringify(event));
+
+        if (event.name === "Set Tempo") {
+          this.intialTempoSet = true;
+          this.tempo = event.data;
+          console.log("tempo set");
+        } else if (event.name === "Key Signature") {
+          this.keySig = event.keySignature;
+          console.log("key sig set: " + this.keySig);
+
+          keySig.innerHTML = this.keySig;
+        } else if (event.name === "Time Signature") {
+          this.timeSig = event.timeSignature;
+
+          timeSig.innerHTML = this.timeSig;
+
+          console.log("time sig set: " + this.timeSig);
+        }
       }
     });
   }
