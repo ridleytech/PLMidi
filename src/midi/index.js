@@ -22,9 +22,9 @@ export class FancyMidiPlayer {
     this.player = null;
     this.piano = new FancyPiano(document);
     this.volume = 3;
-
     this.currentNotes = [];
     this.previousChord = null;
+    this.tempo = 120;
 
     //JS.extend(this.safeAudioContext);
 
@@ -92,7 +92,7 @@ export class FancyMidiPlayer {
       );
       this.piano.setKey(event.noteNumber, keyEvent);
 
-      //manage chord array
+      //manage chord display
 
       if (!this.currentNotes.includes(event.noteName)) {
         this.currentNotes.push(event.noteName);
@@ -106,6 +106,8 @@ export class FancyMidiPlayer {
   onNoteOffEvent(event) {
     const keyToStop = this.piano.stopKey(event.noteNumber);
     if (keyToStop) keyToStop.stop();
+
+    //manage chord display
 
     const index = this.currentNotes.indexOf(event.noteName);
     if (index > -1) {
@@ -153,6 +155,13 @@ export class FancyMidiPlayer {
     chordDisplay.innerHTML = html;
   }
 
+  setTempo(tempo) {
+    this.tempo = tempo;
+    //console.log("tempo: " + this.tempo);
+
+    this.player.setTempo(tempo);
+  }
+
   async setMidi(midiUrl) {
     //console.log("midiUrl: " + midiUrl);
     // "../assets/chopin_etude_rev.mid"
@@ -162,6 +171,10 @@ export class FancyMidiPlayer {
 
   playMidi() {
     this.player.play();
+  }
+
+  pauseMidi() {
+    this.player.pause();
   }
 
   stopMidi() {

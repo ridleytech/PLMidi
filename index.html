@@ -12,8 +12,22 @@
     <div style="margin-bottom: 20px">
       <input id="musical-piece" type="file" />
     </div>
-    <button id="play-piece" disabled="">Play piece</button>
-    <button id="stop-piece" disabled="">Stop piece</button>
+    <button id="play-piece" disabled="">Play</button>
+    <button id="pause-piece" disabled="">Pause</button>
+    <button id="stop-piece" disabled="">Stop</button>
+    <div style="margin-top: 20px" id="tempo-display">Tempo: 120</div>
+    <div class="slidecontainer">
+      <input
+        type="range"
+        min="1"
+        max="200"
+        value="120"
+        class="slider"
+        id="myRange"
+      />
+    </div>
+    <div style="margin-top: 20px">Chords</div>
+
     <div
       id="chordDisplay"
       style="
@@ -21,36 +35,13 @@
         height: 20px;
         text-align: center;
         padding: 20px;
-        margin-top: 20px;
         margin-bottom: 20px;
         border: 1px solid;
       "
     ></div>
-    <svg
-      id="sustain-pedal"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 1100 150"
-      style="margin-top: 8px"
-    >
-      <defs>
-        <style>
-          .cls-11 {
-            fill: #fff;
-          }
 
-          .cls-11,
-          .cls-2 {
-            stroke: #000;
-            stroke-miterlimit: 10;
-          }
+    <div style="margin-top: 20px">Notes</div>
 
-          .pressed1 {
-            fill: gold;
-          }
-        </style>
-      </defs>
-      <rect id="1081" class="cls-11" x="1" y="1" width="23" height="149"></rect>
-    </svg>
     <div
       id="notesDisplay"
       style="
@@ -58,7 +49,6 @@
         height: 20px;
         text-align: center;
         padding: 20px;
-        margin-top: 20px;
         margin-bottom: 20px;
         border: 1px solid;
       "
@@ -259,6 +249,32 @@
         width="13"
         height="98"
       ></rect>
+    </svg>
+
+    <svg
+      id="sustain-pedal"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1100 150"
+      style="margin-top: 8px"
+    >
+      <defs>
+        <style>
+          .cls-11 {
+            fill: #fff;
+          }
+
+          .cls-11,
+          .cls-2 {
+            stroke: #000;
+            stroke-miterlimit: 10;
+          }
+
+          .pressed1 {
+            fill: gold;
+          }
+        </style>
+      </defs>
+      <rect id="1081" class="cls-11" x="1" y="1" width="23" height="149"></rect>
     </svg>
 
     <script src="/src/index.js"></script>

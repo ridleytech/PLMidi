@@ -61,17 +61,35 @@ const instrumentUrl =
 const setAppBusy = (isBusy) => {
   const playButton = document.querySelector("#play-piece");
   const stopButton = document.querySelector("#stop-piece");
+
+  const pauseButton = document.querySelector("#pause-piece");
   const musicalPiecesSelect = document.querySelector("#musical-pieces");
 
   if (isBusy) {
     playButton.setAttribute("disabled", true);
     stopButton.setAttribute("disabled", true);
+    pauseButton.setAttribute("disabled", true);
     //musicalPiecesSelect.setAttribute("disabled", true);
   } else {
     playButton.removeAttribute("disabled");
     stopButton.removeAttribute("disabled");
+    pauseButton.removeAttribute("disabled");
     //musicalPiecesSelect.removeAttribute("disabled");
   }
+};
+
+var slider = document.getElementById("myRange");
+var output = document.getElementById("tempo-display");
+output.innerHTML = slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+
+//output.innerHTML = "Tempo: " + this.value;
+output.innerHTML = "Tempo: 120 bpm";
+
+slider.oninput = function () {
+  output.innerHTML = "Tempo: " + this.value + " bpm";
+  fmp.setTempo(this.value);
 };
 
 const fmp = new FancyMidiPlayer(document);
@@ -79,8 +97,11 @@ setAppBusy(true);
 fmp.setInstrument(instrumentUrl).then(() => {
   const playButton = document.querySelector("#play-piece");
   const stopButton = document.querySelector("#stop-piece");
+
+  const pauseButton = document.querySelector("#pause-piece");
   playButton.onclick = fmp.playMidi.bind(fmp);
   stopButton.onclick = fmp.stopMidi.bind(fmp);
+  pauseButton.onclick = fmp.pauseMidi.bind(fmp);
   changePiece(0);
 });
 
