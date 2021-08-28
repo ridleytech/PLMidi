@@ -78,19 +78,19 @@ const setAppBusy = (isBusy) => {
   }
 };
 
-var slider = document.getElementById("myRange");
-var output = document.getElementById("tempo-display");
-output.innerHTML = slider.value; // Display the default slider value
+// var slider = document.getElementById("myRange");
+// var output = document.getElementById("tempo-display");
+//output.innerHTML = slider.value; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
 
 //output.innerHTML = "Tempo: " + this.value;
-output.innerHTML = "Tempo: 120 bpm";
+//output.innerHTML = "Tempo: 120 bpm";
 
-slider.oninput = function () {
-  output.innerHTML = "Tempo: " + this.value + " bpm";
-  fmp.setTempo(this.value);
-};
+// slider.oninput = function () {
+//   output.innerHTML = "Tempo: " + this.value + " bpm";
+//   fmp.setTempo(this.value);
+// };
 
 const fmp = new FancyMidiPlayer(document);
 setAppBusy(true);
