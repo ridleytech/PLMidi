@@ -121,6 +121,12 @@ const changePiece = (pieceId) => {
 // const musicalPiecesSelectForm = document.querySelector("#musical-piece");
 // musicalPiecesSelectForm.onchange = (evt) => changePiece2(evt.target.value);
 
+document.querySelector("#tempo").addEventListener("change", function (e) {
+  console.log("e: " + event.target.value);
+
+  fmp.setTempo(e.target.value);
+});
+
 document.querySelector("#musical-piece").addEventListener(
   "change",
   function (e) {
