@@ -7,15 +7,11 @@ import {
   pitchWheel,
   modWheel,
   polyPressure,
-} from './events';
-import { setChordHtml, setNotesHtml, setAppError, setAppLoaded } from './ui';
-import { getSetting, setSetting } from './settings';
+} from "./events";
+import { setChordHtml, setNotesHtml, setAppError, setAppLoaded } from "./ui";
+import { getSetting, setSetting } from "./settings";
 
-const PREFERRED_MIDI = [
-  'mpk',
-  'key',
-  'piano',
-];
+const PREFERRED_MIDI = ["mpk", "key", "piano"];
 
 const CMD_NOTE_OFF = 8;
 const CMD_NOTE_ON = 9;
@@ -50,7 +46,9 @@ function midiMessageReceived(ev) {
   } else if (cmd === CMD_AFTERTOUCH) {
     // poly aftertouch
     polyPressure(noteNumber, velocity / 127);
-  } else console.log('' + ev.data[0] + ' ' + ev.data[1] + ' ' + ev.data[2]);
+  } else {
+    //console.log('' + ev.data[0] + ' ' + ev.data[1] + ' ' + ev.data[2])
+  }
 }
 
 let selectMIDI = null;
@@ -60,28 +58,28 @@ let midiIn = null;
 export function selectMIDIIn(ev) {
   if (midiIn) midiIn.onmidimessage = null;
   let id = ev.target[ev.target.selectedIndex].value;
-  if (typeof midiAccess.inputs === 'function')
+  if (typeof midiAccess.inputs === "function")
     //Old Skool MIDI inputs() code
     midiIn = midiAccess.inputs()[ev.target.selectedIndex];
   else midiIn = midiAccess.inputs.get(id);
   if (midiIn) midiIn.onmidimessage = midiMessageReceived;
 
-  setSetting('midiIn', midiIn.name.toString());
+  setSetting("midiIn", midiIn.name.toString());
 }
 
 function populateMIDIInSelect() {
-  const midiInSetting = getSetting('midiIn');
+  const midiInSetting = getSetting("midiIn");
 
   // clear the MIDI input select
   selectMIDI.options.length = 0;
-  if (midiIn && midiIn.state == 'disconnected') midiIn = null;
+  if (midiIn && midiIn.state == "disconnected") midiIn = null;
   let firstInput = null;
 
   let inputs = midiAccess.inputs.values();
   for (let input = inputs.next(); input && !input.done; input = inputs.next()) {
     input = input.value;
     const str = input.name.toString();
-    
+
     if (!firstInput) {
       firstInput = input;
     }
@@ -92,18 +90,22 @@ function populateMIDIInSelect() {
       preferred = true;
     }
 
-    if (!midiIn && midiInSetting && str.toLowerCase().indexOf(midiInSetting.toLowerCase()) !== -1) {
+    if (
+      !midiIn &&
+      midiInSetting &&
+      str.toLowerCase().indexOf(midiInSetting.toLowerCase()) !== -1
+    ) {
       preferred = true;
     }
 
     for (const pref of PREFERRED_MIDI) {
       if (!midiIn && str.toLowerCase().indexOf(pref) !== -1) {
         preferred = true;
-      } 
+      }
     }
 
     selectMIDI.appendChild(
-      new Option(input.name, input.id, preferred, preferred),
+      new Option(input.name, input.id, preferred, preferred)
     );
 
     if (preferred) {
@@ -118,28 +120,29 @@ function populateMIDIInSelect() {
 }
 
 function midiConnectionStateChange(e) {
-  console.log(`connection: ${e.port.name} ${e.port.connection} ${e.port.state}`);
+  console.log(
+    `connection: ${e.port.name} ${e.port.connection} ${e.port.state}`
+  );
   populateMIDIInSelect();
 }
 
 function onMIDIStarted(midi) {
   midiAccess = midi;
   setAppLoaded();
-  selectMIDI = document.getElementById('midiIn');
+  selectMIDI = document.getElementById("midiIn");
   midi.onstatechange = midiConnectionStateChange;
   populateMIDIInSelect();
 }
 
 function onMIDISystemError(err) {
-  setAppError('Cannot initialize MIDI');
+  setAppError("Cannot initialize MIDI");
   console.log(`MIDI not initialized - error encountered: ${err.code}`);
 }
-
 
 export function initializeMidi() {
   if (navigator.requestMIDIAccess) {
     navigator.requestMIDIAccess().then(onMIDIStarted, onMIDISystemError);
   } else {
-    setAppError('Your browser has no MIDI features.');
+    setAppError("Your browser has no MIDI features.");
   }
 }

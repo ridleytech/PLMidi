@@ -25,7 +25,7 @@ export class FancyPiano {
     //     PIANO_KEYS_COUNT
     // );
     for (let i = 21; i < FIRST_KEY_NOTE_NUMBER + PIANO_KEYS_COUNT; i++) {
-      this.paintReleasedKey(i);
+      //this.paintReleasedKey(i);
     }
   }
 

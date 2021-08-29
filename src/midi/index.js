@@ -10,6 +10,7 @@ import ReverbJS from "reverb.js";
 import { chord as detectChord } from "tonal/detect";
 
 import { chordToHtml, keyToHtml } from "../chord-display/chords";
+import { noteOn, noteOff } from "../chord-display/events";
 
 export class FancyMidiPlayer {
   constructor(document) {
@@ -116,7 +117,8 @@ export class FancyMidiPlayer {
             : NON_SUSTAINED_NOTE_DURATION,
         }
       );
-      this.piano.setKey(event.noteNumber, keyEvent);
+      //this.piano.setKey(event.noteNumber, keyEvent);
+      noteOn(event.noteNumber);
 
       //manage chord display
 
@@ -130,8 +132,10 @@ export class FancyMidiPlayer {
   }
 
   onNoteOffEvent(event) {
-    const keyToStop = this.piano.stopKey(event.noteNumber);
-    if (keyToStop) keyToStop.stop();
+    // const keyToStop = this.piano.stopKey(event.noteNumber);
+    // if (keyToStop) keyToStop.stop();
+
+    noteOff(event.noteNumber);
 
     //manage chord display
 
@@ -178,7 +182,7 @@ export class FancyMidiPlayer {
 
   setChordHtml(html) {
     console.log("chord html: " + html);
-    chordDisplay.innerHTML = html;
+    chordDisplay1.innerHTML = html;
   }
 
   setTempo(tempo) {
