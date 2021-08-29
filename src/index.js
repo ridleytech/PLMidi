@@ -1,5 +1,3 @@
-console.log("index");
-
 import { FancyMidiPlayer } from "./midi";
 import "babel-polyfill";
 const createMusicalPiece = (id, name, path) => ({ id, name, path });
@@ -106,12 +104,12 @@ fmp.setInstrument(instrumentUrl).then(() => {
 });
 
 const changePiece = (pieceId) => {
-  console.log("pieceid: " + pieceId);
+  //console.log("pieceid: " + pieceId);
 
   setAppBusy(true);
   fmp.stopMidi();
 
-  console.log("current path: " + pieces[pieceId].path);
+  //console.log("current path: " + pieces[pieceId].path);
   fmp.setMidi(pieces[pieceId].path).then(() => setAppBusy(false));
 };
 
@@ -122,7 +120,7 @@ const changePiece = (pieceId) => {
 // musicalPiecesSelectForm.onchange = (evt) => changePiece2(evt.target.value);
 
 document.querySelector("#tempo").addEventListener("change", function (e) {
-  console.log("e: " + event.target.value);
+  //console.log("e: " + e.target.value);
 
   fmp.setTempo(e.target.value);
 });

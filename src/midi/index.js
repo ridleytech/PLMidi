@@ -14,7 +14,7 @@ import { noteOn, noteOff } from "../chord-display/events";
 
 export class FancyMidiPlayer {
   constructor(document) {
-    console.log("FanceyMidiPlayer");
+    //console.log("FanceyMidiPlayer");
     this.audioContext =
       window.AudioContext || window.webkitAudioContext || false;
     this.safeAudioContext = new this.audioContext();

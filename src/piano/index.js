@@ -5,7 +5,7 @@ const FIRST_KEY_NOTE_NUMBER = 21;
 
 export class FancyPiano {
   constructor(document) {
-    console.log("FancyPiano");
+    //console.log("FancyPiano");
 
     this.keys = new Array(PIANO_KEYS_COUNT);
     this.isSustainPedalPressed = false;
