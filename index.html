@@ -24,15 +24,6 @@
     }
 
     @media screen and (max-width: 645px) {
-      #topContent {
-        flex-direction: column;
-        margin-top: 20px;
-      }
-
-      #middle-content {
-        margin-top: 20px !important;
-        margin-left: 0px !important;
-      }
 
       #header-logo {
         left: 45% !important;
@@ -86,6 +77,10 @@
         line-height: 32px;
         border-radius: 5px;
     }
+
+    .pressed2 {
+                background-color: gold !important;
+              }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -222,8 +217,10 @@
       ></div>
 
       <div id="info-container" style="background-color: black; height: 65px">
-        <div style="margin-top: 17px; margin-left: 15px; position: absolute">
-          <input id="musical-piece" type="file" class="foo" />
+        <div style="margin-top: 17px; margin-left: 15px; position: absolute; color: white">
+          <div style="display: flex;
+          align-items: center;"><span style="margin-right: 10px;"></span>
+          <input id="musical-piece" type="file" class="foo" /></div>
         </div>
         <div
           id="file-info"
@@ -270,7 +267,6 @@
             />
             bpm
           </div>
-          <!-- <div style="padding-bottom: 5px;">bpm</div> -->
           <div style="padding-top: 15px; height: 75px; text-align: center">
             <div><strong>Bar</strong></div>
             <div id="bar" style="padding-top: 10px">001</div>
@@ -285,11 +281,6 @@
           </div>
         </div>
       </div>
-
-      <!-- <h1>MIDI Player</h1> -->
-      <!-- <div style="margin-bottom: 20px"<label for="musical-pieces">Choose a musical piece:</label>
-    <select id="musical-pieces" disabled></select></div> -->
-      
         <div id="middle-content" style="margin-top: 30px;
         margin-left: auto;
         margin-right: auto;
@@ -322,15 +313,12 @@
             C maj
           </div>
           <div id="buttons-container" style="text-align: center">
-            <!-- <input type="image" src="url(./assets/images/loop-btn@3x.png)" alt="Submit" width="48" height="48"> -->
-
             <button id="play-piece"  disabled=""></button>
             <button id="pause-piece"  disabled="">Pause</button>
             <button id="stop-piece"  disabled=""></button>
           </div>
         </div>
       </div>
-      <!-- <div style="margin-top: 20px">Notes</div> -->
       <div
         id="notesDisplay"
         style="
@@ -350,43 +338,15 @@
       ></div>
 
       <div id="piano-pedal" style="display: flex; flex-direction: column; background-color: #232323;">
-        <div id="keyboard" style="filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4));"></div>
-        <svg
-          id="sustain-pedal"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 100 50"
-          style="
-            margin-top: 8px;
-            margin-left: auto;
-            margin-right: auto;
-            width: 80px;
-          "
-        >
-          <defs>
-            <style>
-              .cls-11 {
-                fill: #fff;
-              }
-              .cls-11,
-              .cls-2 {
-                stroke: #000;
-                stroke-miterlimit: 10;
-              }
-              .pressed1 {
-                fill: gold;
-              }
-            </style>
-          </defs>
-          <rect
-            id="1081"
-            class="cls-11"
-            x="1"
-            y="1"
-            width="23"
-            height="149"
-          ></rect>
-        </svg>
-
+        <div id="keyboard" style="filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4)); z-index: 1;"></div>
+        <div style="width: 25px;
+        height: 40px;
+        background-color: white;
+        margin-left: auto;
+        margin-right: auto; border: 1px solid black; 
+        border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px; filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4));" id="sustain-pedal2"></div>
+      
         <div
           id="midi-container"
           style="

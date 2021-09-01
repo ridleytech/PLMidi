@@ -11,7 +11,8 @@ export class FancyPiano {
     this.isSustainPedalPressed = false;
     this.setKey = this.setKey.bind(this);
     this.svg = document.getElementById("piano-keyboard");
-    this.svg2 = document.getElementById("sustain-pedal");
+    //this.svg2 = document.getElementById("sustain-pedal");
+    this.svg3 = document.getElementById("sustain-pedal2");
 
     // console.log("this.keys: " + this.keys);
     // console.log("svg in piano index: " + this.svg);
@@ -34,7 +35,8 @@ export class FancyPiano {
   }
 
   paintPressedKey2(noteNumber) {
-    this.svg2.getElementById(noteNumber).classList.add("pressed1");
+    //this.svg2.getElementById(noteNumber).classList.add("pressed1");
+    this.svg3.classList.add("pressed2");
   }
 
   paintReleasedKey(noteNumber) {
@@ -48,8 +50,11 @@ export class FancyPiano {
 
   paintReleasedKey2(noteNumber) {
     try {
-      this.svg2.getElementById(noteNumber).removeAttribute("style");
-      this.svg2.getElementById(noteNumber).classList.remove("pressed1");
+      // this.svg2.getElementById(noteNumber).removeAttribute("style");
+      // this.svg2.getElementById(noteNumber).classList.remove("pressed1");
+
+      //this.svg3.removeAttribute("style");
+      this.svg3.classList.remove("pressed2");
     } catch {
       console.error("Could not repaint key " + noteNumber);
     }
