@@ -38,54 +38,6 @@
         left: 45% !important;
       }
     }
-
-    #play-piece:hover {
-      background-image: url(./assets/images/play.png); width: 82px; height: 35px; opacity: 0.9;
-    }
-    #play-piece {
-      background-image: url(./assets/images/play.png); width: 82px; height: 35px; border: none;
-    }
-
-    #stop-piece:hover {
-      background-image: url(./assets/images/stop.png); width: 82px; height: 35px; opacity: 0.9;
-    }
-    #stop-piece {
-      background-image: url(./assets/images/stop.png); width: 82px; height: 35px; border: none;
-    }
-
-    .foo {
-      display: block;
-    position: relative;
-    width: 85px;
-    margin: auto;
-    cursor: pointer;
-    border: 0;
-    height: 30px;
-    border-radius: 5px;
-    outline: 0;
-    }
-    .foo:hover:after {
-        background: #5978f8;
-    }
-    .foo:after {
-        transition: 200ms all ease;
-        border-bottom: 3px solid rgba(0,0,0,.2);
-        background: #FCFF00;
-        /* text-shadow: 0 2px 0 rgba(0,0,0,.2); */
-        color: black;
-        font-weight: bold;
-        font-size: 12px;
-        text-align: center;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: block;
-        content: 'BROWSE';
-        line-height: 32px;
-        border-radius: 5px;
-    }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -221,79 +173,105 @@
         id="header"
       ></div>
 
-      <div id="info-container" style="background-color: black; height: 65px">
-        <div style="margin-top: 17px; margin-left: 15px; position: absolute">
-          <input id="musical-piece" type="file" class="foo" />
-        </div>
-        <div
-          id="file-info"
-          style="
-            display: flex;
-
-            height: 85px;
-            align-items: center;
-            color: white;
-            font-size: 12px;
-            min-width: 400px;
-            width: 400px;
-            justify-content: space-evenly;
-            margin-left: auto;
-            margin-right: auto;
-          "
-        >
-          <div style="padding-top: 15px; height: 75px; text-align: center">
-            <div><strong>Key</strong></div>
-            <div id="keySig" style="padding-top: 10px">C major</div>
-          </div>
-          <div
-            style="
-              padding-top: 15px;
-              padding-right: 0px;
-              height: 75px;
-              text-align: center;
-              padding-left: 0px;
-            "
-          >
-            <div><strong>Tempo</strong></div>
-            <input
-              id="tempo"
-              style="
-                padding: 5px;
-                width: 25px;
-                text-align: center;
-                margin-top: 5px;
-                background-color: #1f971700;
-                border: 1px solid gray;
-                color: white;
-              "
-              value="120"
-            />
-            bpm
-          </div>
-          <!-- <div style="padding-bottom: 5px;">bpm</div> -->
-          <div style="padding-top: 15px; height: 75px; text-align: center">
-            <div><strong>Bar</strong></div>
-            <div id="bar" style="padding-top: 10px">001</div>
-          </div>
-          <div style="padding-top: 15px; height: 75px; text-align: center">
-            <div><strong>Beat</strong></div>
-            <div id="beat" style="padding-top: 10px; text-align: left">: 1</div>
-          </div>
-          <div style="padding-top: 15px; height: 75px; text-align: center">
-            <div><strong>Signature</strong></div>
-            <div id="timeSig" style="padding-top: 10px">4/4</div>
-          </div>
-        </div>
-      </div>
-
       <!-- <h1>MIDI Player</h1> -->
       <!-- <div style="margin-bottom: 20px"<label for="musical-pieces">Choose a musical piece:</label>
     <select id="musical-pieces" disabled></select></div> -->
-      
-        <div id="middle-content" style="margin-top: 30px;
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 30px;">
+      <div
+        id="topContent"
+        style="
+          display: flex;
+          align-items: center;
+          padding: 10px;
+          padding-top: 0px;
+          margin-bottom: 20px;
+        "
+      >
+        <div id="left-content">
+          <div style="margin-bottom: 20px">
+            <input id="musical-piece" type="file" />
+          </div>
+          <div
+            id="file-info"
+            style="
+              display: flex;
+              background: rgb(226, 226, 226);
+              background: linear-gradient(
+                180deg,
+                rgba(226, 226, 226, 1) 0%,
+                rgba(162, 201, 159, 1) 6%,
+                rgba(31, 151, 20, 1) 46%,
+                rgba(31, 151, 20, 1) 75%
+              );
+              height: 85px;
+              align-items: center;
+              color: white;
+              border-radius: 10px;
+              border: 2px solid black;
+              font-size: 14px;
+              min-width: 300px;
+              width: 300px;
+              max-width: 300px;
+              justify-content: space-evenly;
+            "
+          >
+            <div style="padding-top: 25px; height: 75px; text-align: center">
+              <div><strong>Key</strong></div>
+              <div id="keySig" style="padding-top: 10px">C major</div>
+            </div>
+            <div
+              style="
+                padding-top: 25px;
+                padding-right: 0px;
+                height: 75px;
+                text-align: center;
+                padding-left: 0px;
+              "
+            >
+              <div><strong>Tempo</strong></div>
+              <input
+                id="tempo"
+                style="
+                  padding: 5px;
+                  width: 25px;
+                  text-align: center;
+                  margin-top: 5px;
+                  background-color: #1f971700;
+                  border: 1px solid green;
+                  color: white;
+                "
+                value="120"
+              />
+              bpm
+            </div>
+            <!-- <div style="padding-bottom: 5px;">bpm</div> -->
+            <div style="padding-top: 25px; height: 75px; text-align: center">
+              <div><strong>Bar</strong></div>
+              <div id="bar" style="padding-top: 10px">001</div>
+            </div>
+            <div style="padding-top: 25px; height: 75px; text-align: center">
+              <div><strong>Beat</strong></div>
+              <div id="beat" style="padding-top: 10px; text-align: left">
+                : 1
+              </div>
+            </div>
+            <div style="padding-top: 25px; height: 75px; text-align: center">
+              <div><strong>Signature</strong></div>
+              <div id="timeSig" style="padding-top: 10px">4/4</div>
+            </div>
+          </div>
+          <!-- <div style="margin-top: 20px;" id="tempo-display">Tempo: 120</div>
+    <div class="slidecontainer">
+      <input
+        type="range"
+        min="1"
+        max="200"
+        value="120"
+        class="slider"
+        id="myRange"
+      />
+    </div> -->
+        </div>
+        <div id="middle-content" style="margin-top: 80px; margin-left: 30px">
           <div
             id="chordDisplay1"
             style="
@@ -322,11 +300,9 @@
             C maj
           </div>
           <div id="buttons-container" style="text-align: center">
-            <!-- <input type="image" src="url(./assets/images/loop-btn@3x.png)" alt="Submit" width="48" height="48"> -->
-
-            <button id="play-piece"  disabled=""></button>
-            <button id="pause-piece"  disabled="">Pause</button>
-            <button id="stop-piece"  disabled=""></button>
+            <button id="play-piece" disabled="">Play</button>
+            <button id="pause-piece" disabled="">Pause</button>
+            <button id="stop-piece" disabled="">Stop</button>
           </div>
         </div>
       </div>
@@ -349,8 +325,8 @@
         "
       ></div>
 
-      <div id="piano-pedal" style="display: flex; flex-direction: column; background-color: #232323;">
-        <div id="keyboard" style="filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4));"></div>
+      <div id="piano-pedal" style="display: flex; flex-direction: column">
+        <div id="keyboard"></div>
         <svg
           id="sustain-pedal"
           xmlns="http://www.w3.org/2000/svg"
