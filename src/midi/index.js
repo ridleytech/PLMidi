@@ -31,7 +31,8 @@ export class FancyMidiPlayer {
     this.timeSig = null;
     this.currentlyPlaying = false;
     this.playButton = document.querySelector("#play-piece");
-
+    this.isLooping = true;
+    this.loopTimer = null;
     //JS.extend(this.safeAudioContext);
 
     // 2) Load the impulse response; upon load, connect it to the audio output.
@@ -55,27 +56,24 @@ export class FancyMidiPlayer {
 
     this.player = new MidiPlayer.Player((event) => {
       if (event.name === "Controller Change") {
-        console.log("controller event: " + JSON.stringify(event));
-
+        //console.log("controller event: " + JSON.stringify(event));
         this.onControllerChange(event);
       } else if (event.name === "Note on") {
-        console.log("note one event: " + JSON.stringify(event));
-
+        //console.log("note one event: " + JSON.stringify(event));
         this.onNoteOnEvent(event);
       } else if (event.name === "Note off") {
-        console.log("note off event: " + JSON.stringify(event));
-
+        //console.log("note off event: " + JSON.stringify(event));
         this.onNoteOffEvent(event);
       } else {
-        console.log("other event: " + JSON.stringify(event));
+        //console.log("other event: " + JSON.stringify(event));
 
         if (event.name === "Set Tempo") {
           this.intialTempoSet = true;
           this.tempo = event.data;
-          console.log("tempo set");
+          //console.log("tempo set");
         } else if (event.name === "Key Signature") {
           this.keySig = event.keySignature;
-          console.log("key sig set: " + this.keySig);
+          //console.log("key sig set: " + this.keySig);
 
           keySig.innerHTML = this.keySig;
         } else if (event.name === "Time Signature") {
@@ -83,7 +81,7 @@ export class FancyMidiPlayer {
 
           timeSig.innerHTML = this.timeSig;
 
-          console.log("time sig set: " + this.timeSig);
+          //console.log("time sig set: " + this.timeSig);
         }
       }
     });
@@ -93,6 +91,11 @@ export class FancyMidiPlayer {
       console.log("end of file reached");
     });
 
+    this.player.on("fileLoaded", function () {
+      // Do something when file is loaded
+      //console.log("loaded: " + JSON.stringify(this.player));
+    });
+
     this.player.on("playing", function (currentTick) {
       console.log("current tick: " + currentTick);
       // Do something while player is playing
@@ -100,11 +103,31 @@ export class FancyMidiPlayer {
     });
   }
 
+  checkPer() {
+    //console.log("checkPer");
+
+    if (this.isLooping) {
+      var per = this.player.getSongPercentRemaining();
+      console.log("per: " + per);
+
+      //debug loop
+
+      if (per <= 97) {
+        console.log("rewind");
+        this.player.skipToPercent(0);
+        this.player.play();
+        return;
+      }
+    }
+  }
+
   onControllerChange(event) {
     if (event.number === 64) {
       // Sustain Pedal Change
       this.piano.setSustainPedal(event.value);
-      console.log(this.piano.isSustainPedalPressed ? "Pressed" : "Released");
+
+      //console.log(this.piano.isSustainPedalPressed ? "Pressed" : "Released");
+
       if (!this.piano.isSustainPedalPressed) {
         this.piano.paintReleasedKey2(1081);
 
@@ -190,12 +213,12 @@ export class FancyMidiPlayer {
   }
 
   setNotesHtml(html) {
-    console.log("notes html: " + html);
+    //console.log("notes html: " + html);
     notesDisplay.innerHTML = html;
   }
 
   setChordHtml(html) {
-    console.log("chord html: " + html);
+    //console.log("chord html: " + html);
     chordDisplay1.innerHTML = html;
   }
 
@@ -240,14 +263,22 @@ export class FancyMidiPlayer {
   }
 
   playMidi() {
+    clearInterval(this.loopTimer);
+    this.loopTimer = setInterval(() => {
+      this.checkPer();
+    }, 1000);
+
     this.player.play();
   }
 
   pauseMidi() {
+    clearInterval(this.loopTimer);
+
     this.player.pause();
   }
 
   stopMidi() {
+    clearInterval(this.loopTimer);
     //console.log("stop midi");
     this.player.stop();
     this.currentlyPlaying = false;
