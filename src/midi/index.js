@@ -29,6 +29,7 @@ export class FancyMidiPlayer {
     this.intialTempoSet = false;
     this.keySig = null;
     this.timeSig = null;
+    this.currentlyPlaying = false;
     //JS.extend(this.safeAudioContext);
 
     // 2) Load the impulse response; upon load, connect it to the audio output.
@@ -197,6 +198,28 @@ export class FancyMidiPlayer {
     // "../assets/chopin_etude_rev.mid"
     this.midi = await fetch(midiUrl).then((response) => response.arrayBuffer());
     this.player.loadArrayBuffer(this.midi);
+  }
+
+  manageMidi() {
+    console.log("manage midi");
+
+    // this.playMidi();
+
+    const playButton = document.querySelector("#play-piece");
+
+    // return;
+    if (this.currentlyPlaying) {
+      console.log("playing");
+      this.pauseMidi();
+      this.currentlyPlaying = false;
+      playButton.classList.remove("paused");
+    } else {
+      console.log("paused");
+      this.currentlyPlaying = true;
+      this.playMidi();
+
+      playButton.classList.add("paused");
+    }
   }
 
   playMidi() {

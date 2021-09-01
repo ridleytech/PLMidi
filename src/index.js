@@ -66,12 +66,12 @@ const setAppBusy = (isBusy) => {
   if (isBusy) {
     playButton.setAttribute("disabled", true);
     stopButton.setAttribute("disabled", true);
-    pauseButton.setAttribute("disabled", true);
+    //pauseButton.setAttribute("disabled", true);
     //musicalPiecesSelect.setAttribute("disabled", true);
   } else {
     playButton.removeAttribute("disabled");
     stopButton.removeAttribute("disabled");
-    pauseButton.removeAttribute("disabled");
+    //pauseButton.removeAttribute("disabled");
     //musicalPiecesSelect.removeAttribute("disabled");
   }
 };
@@ -96,10 +96,10 @@ fmp.setInstrument(instrumentUrl).then(() => {
   const playButton = document.querySelector("#play-piece");
   const stopButton = document.querySelector("#stop-piece");
 
-  const pauseButton = document.querySelector("#pause-piece");
-  playButton.onclick = fmp.playMidi.bind(fmp);
+  //const pauseButton = document.querySelector("#pause-piece");
+  playButton.onclick = fmp.manageMidi.bind(fmp);
   stopButton.onclick = fmp.stopMidi.bind(fmp);
-  pauseButton.onclick = fmp.pauseMidi.bind(fmp);
+  //pauseButton.onclick = fmp.pauseMidi.bind(fmp);
   changePiece(0);
 });
 
