@@ -12,45 +12,6 @@ const pieces = [
     "Pass Me Not - Advanced",
     "../assets/Pass Me Not - Advanced.mid"
   ),
-  // createMusicalPiece(
-  //   1,
-  //   "Chopin - Etude 25 No. 1",
-  //   "../assets/chopin_etude25_1.mid"
-  // ),
-  // createMusicalPiece(2, "Chopin - Op. 27 No. 1", "../assets/chopin_op27_1.mid"),
-  // createMusicalPiece(
-  //   3,
-  //   "Chopin - Ballade no.1 G minor",
-  //   "../assets/chopin_ballade23_g_minor.mid"
-  // ),
-  // createMusicalPiece(4, "Mozart - Minuet", "../assets/mozart_minuet.mid"),
-  // createMusicalPiece(5, "Death Waltz", "../assets/death_waltz.mid"),
-  // createMusicalPiece(
-  //   6,
-  //   "Elgar - Salut D'Amour",
-  //   "../assets/elgar_salut_amour.mid"
-  // ),
-  // createMusicalPiece(
-  //   7,
-  //   "Liszt - Liebestraum",
-  //   "../assets/liszt_liebestraum.mid"
-  // ),
-  // createMusicalPiece(
-  //   8,
-  //   "Bach - Invention 773",
-  //   "../assets/bach_inventions_773.mid"
-  // ),
-  // createMusicalPiece(
-  //   9,
-  //   "Bach - Invention 774",
-  //   "../assets/bach_inventions_774.mid"
-  // ),
-  // createMusicalPiece(
-  //   10,
-  //   "Bach - Invention 775",
-  //   "../assets/bach_inventions_775.mid"
-  // ),
-  // createMusicalPiece(11, "Wiz", "../assets/wiz.mid"),
 ];
 
 const instrumentUrl =
@@ -60,18 +21,19 @@ const setAppBusy = (isBusy) => {
   const playButton = document.querySelector("#play-piece");
   const stopButton = document.querySelector("#stop-piece");
 
-  const pauseButton = document.querySelector("#pause-piece");
+  //const pauseButton = document.querySelector("#pause-piece");
+  const skipToButton = document.querySelector("#skip-to");
   const musicalPiecesSelect = document.querySelector("#musical-pieces");
 
   if (isBusy) {
     playButton.setAttribute("disabled", true);
     stopButton.setAttribute("disabled", true);
-    //pauseButton.setAttribute("disabled", true);
+    skipToButton.setAttribute("disabled", true);
     //musicalPiecesSelect.setAttribute("disabled", true);
   } else {
     playButton.removeAttribute("disabled");
     stopButton.removeAttribute("disabled");
-    //pauseButton.removeAttribute("disabled");
+    skipToButton.removeAttribute("disabled");
     //musicalPiecesSelect.removeAttribute("disabled");
   }
 };
@@ -95,10 +57,12 @@ setAppBusy(true);
 fmp.setInstrument(instrumentUrl).then(() => {
   const playButton = document.querySelector("#play-piece");
   const stopButton = document.querySelector("#stop-piece");
+  const skipToButton = document.querySelector("#skip-to");
 
   //const pauseButton = document.querySelector("#pause-piece");
   playButton.onclick = fmp.manageMidi.bind(fmp);
   stopButton.onclick = fmp.stopMidi.bind(fmp);
+  skipToButton.onclick = fmp.skipTo.bind(fmp);
   //pauseButton.onclick = fmp.pauseMidi.bind(fmp);
   changePiece(0);
 });

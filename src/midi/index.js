@@ -30,6 +30,8 @@ export class FancyMidiPlayer {
     this.keySig = null;
     this.timeSig = null;
     this.currentlyPlaying = false;
+    this.playButton = document.querySelector("#play-piece");
+
     //JS.extend(this.safeAudioContext);
 
     // 2) Load the impulse response; upon load, connect it to the audio output.
@@ -84,6 +86,17 @@ export class FancyMidiPlayer {
           console.log("time sig set: " + this.timeSig);
         }
       }
+    });
+
+    this.player.on("endOfFile", function () {
+      // Do something when end of the file has been reached.
+      console.log("end of file reached");
+    });
+
+    this.player.on("playing", function (currentTick) {
+      console.log("current tick: " + currentTick);
+      // Do something while player is playing
+      // (this is repeatedly triggered within the play loop)
     });
   }
 
@@ -205,21 +218,25 @@ export class FancyMidiPlayer {
 
     // this.playMidi();
 
-    const playButton = document.querySelector("#play-piece");
-
     // return;
     if (this.currentlyPlaying) {
-      console.log("playing");
+      //console.log("playing");
       this.pauseMidi();
       this.currentlyPlaying = false;
-      playButton.classList.remove("paused");
+      this.playButton.classList.remove("paused");
     } else {
-      console.log("paused");
+      //console.log("paused");
       this.currentlyPlaying = true;
       this.playMidi();
 
-      playButton.classList.add("paused");
+      this.playButton.classList.add("paused");
     }
+  }
+
+  skipTo() {
+    console.log("skip to 20%");
+    this.player.skipToPercent(10);
+    this.player.play();
   }
 
   playMidi() {
@@ -233,6 +250,9 @@ export class FancyMidiPlayer {
   stopMidi() {
     //console.log("stop midi");
     this.player.stop();
+    this.currentlyPlaying = false;
+    this.playButton.classList.remove("paused");
+
     this.piano.repaintKeys();
   }
 }
