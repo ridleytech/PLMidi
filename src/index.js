@@ -89,6 +89,12 @@ document.querySelector("#tempo").addEventListener("change", function (e) {
   fmp.setTempo(e.target.value);
 });
 
+document.querySelector("#ds").addEventListener("change", function (e) {
+  console.log("e: " + e.target.value);
+
+  //fmp.setTempo(e.target.value);
+});
+
 document.querySelector("#musical-piece").addEventListener(
   "change",
   function (e) {

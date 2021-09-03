@@ -3,6 +3,8 @@
   <head>
     <title>MIDI Player</title>
     <meta charset="UTF-8" />
+
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
   </head>
 
   <style>
@@ -31,21 +33,47 @@
     }
 
     #play-piece:hover {
-      background-image: url(./assets/images/play.png); width: 82px; height: 35px; opacity: 0.9;
+       opacity: 0.9;
     }
     #play-piece {
       background-image: url(./assets/images/play.png); width: 82px; height: 35px; border: none;
+      background-color: transparent;
+      background-size: 100%;
+                background-repeat: no-repeat;
     }
+    #loop-piece {
+
+      background-image: url(./assets/images/loop-btn.png);
+                width: 35px;
+                height: 35px;
+                margin-left: 5px;
+                border: none;
+                cursor: pointer;
+                background-color: transparent;
+                background-size: 100%;
+                background-repeat: no-repeat;
+    }
+
+    #loop-piece:hover {
+       opacity: 0.9;
+    }
+
 
     .paused {
       background-image: url(./assets/images/pause.png) !important;
+      background-color: transparent;
+      background-size: 100%;
+                background-repeat: no-repeat;
     }
 
     #stop-piece:hover {
-      background-image: url(./assets/images/stop.png); width: 82px; height: 35px; opacity: 0.9;
+      opacity: 0.9;
     }
     #stop-piece {
       background-image: url(./assets/images/stop.png); width: 82px; height: 35px; border: none;
+      background-color: transparent;
+      background-size: 100%;
+                background-repeat: no-repeat;
     }
 
     .foo {
@@ -85,6 +113,28 @@
     .pressed2 {
                 background-color: gold !important;
               }
+
+              .slider-wrapper {
+                width: 100%;
+                margin-left: 10px;
+                
+              }
+
+              .slider .complete {
+                height: 46px;
+    background-color: rgba(255,255,255,0.5);
+              }
+
+              .marker {
+                background-color: #fcff02 !important;
+                height: 45px !important;
+              }
+
+              .marker-max {
+                margin-left: -15px !important;
+              }
+
+              .backside {opacity: 0;}
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -355,31 +405,47 @@
         <div
           id="midi-container"
           style="
-            height: 45px;
             margin-top: 10px;
             width: 100%;
             background-color: #101010;
             border: 3px solid #d1d1d1;
           "
         >
-          <div id="loop">
-            <img
+          <div id="loop" style="display: flex; height: 45px; align-items: center;
+          ">
+            <button id="loop-piece"></button>
+
+            <!-- <img
               src="./assets/images/loop-btn@3x.png"
               style="
                 width: 35px;
                 height: 35px;
-                margin-top: 5px;
                 margin-left: 5px;
                 cursor: pointer;
               "
-            />
+            /> -->
+            <!-- <div id="loop-area" style="
+            width: 20%; 
+            height: 45px;
+            background-color: rgba(255,255,255,0.5);
+            margin-left: 10px;
+           "></div> -->
+           <input data-role="doubleslider"
+           data-min="0" data-max="100" id="ds"
+           >
+       
+       <!-- <input type="text" id="slider-return-value"> -->
+           
           </div>
+          
         </div>
       </div>
     </div>
 
     <script src="/src/index.js"></script>
     <script src="/src/chord-display/index.js"></script>
+    <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+
     <!-- <script src="/src/tonalTest.js"></script> -->
   </body>
 </html>
