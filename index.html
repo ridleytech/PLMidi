@@ -25,18 +25,25 @@
       cursor: pointer; /* Add a pointer on hover */
     }
 
-    @media screen and (max-width: 645px) {
+    #inner {
+      margin-top: 17px; margin-left: 15px; position: absolute; color: white;
+    }
 
+    /* @media screen and (max-width: 645px) { */
+      @media screen and (max-width: 900px) {
       #header-logo {
         left: 45% !important;
       }
 
       #inner {
-        width: 100% !important;
+        /* width: 100% !important; */
+        margin-left: auto !important;
+        margin-right: auto !important;
+        position:relative !important;
       }
 
       #file-info {
-        margin-top: 50px;
+        /* margin-top: 10px; */
       }
 
       #info-container {
@@ -274,7 +281,7 @@
         src="./assets/images/header-logo@3x.png"
         style="
           position: absolute;
-          z-index: 20;
+          z-index: 3;
           top: 75px;
           left: 70px;
           margin-top: -50px;
@@ -295,9 +302,9 @@
       ></div>
 
       <div id="info-container" style="background-color: black; height: 65px; display: flex;">
-        <div id="inner" style="margin-top: 17px; margin-left: 15px; position: absolute; color: white">
-          <div style="display: flex;
-          align-items: center;"><span style="margin-right: 10px;"></span>
+        <div id="inner">
+          <div style="display: flex; align-items: center;">
+            <span  id="file-name" style="font-size: 12px;"></span>
           <input id="musical-piece" type="file" class="foo" /></div>
         </div>
         <div

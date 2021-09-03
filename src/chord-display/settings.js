@@ -4,11 +4,11 @@ import qs from "qs";
 
 const DEFAULT_SETTINGS = {
   midiIn: null,
-  noteStart: "C1",
-  noteEnd: "C5",
+  noteStart: "A0",
+  noteEnd: "C8",
   latinNotationEnabled: false,
-  pitchWheelEnabled: true,
-  modWheelEnabled: true,
+  pitchWheelEnabled: false,
+  modWheelEnabled: false,
   colorNote: "#bf3a2b",
   colorPitchWheelDown: "#bf3a2b",
   colorPitchWheelUp: "#44ffaa",
@@ -18,7 +18,7 @@ const DEFAULT_SETTINGS = {
   hideChord: false,
   hideBassNote: false,
   hideKeyName: false,
-  hideTonic: false,
+  hideTonic: true,
 };
 
 let customSettings = {};

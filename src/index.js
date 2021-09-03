@@ -4,13 +4,13 @@ const createMusicalPiece = (id, name, path) => ({ id, name, path });
 
 var url = "https://pianolessonwithwarren.com/dev_site";
 
-//url = "http://localhost:8888/pianolesson";
+url = "http://localhost:8888/pianolesson";
 
 const pieces = [
   createMusicalPiece(
     0,
     "Pass Me Not - Advanced",
-    "../assets/Pass Me Not - Advanced.mid"
+    "../assets/midi/Pass Me Not - Advanced.mid"
   ),
 ];
 
@@ -103,10 +103,17 @@ document.querySelector("#ds").addEventListener("change", function (e) {
   fmp.setLoopRange(e.target.value);
 });
 
+const fn = document.querySelector("#file-name");
+
 document.querySelector("#musical-piece").addEventListener(
   "change",
   function (e) {
     var file = this.files[0];
+
+    //margin-right: 10px;
+
+    fn.style.marginRight = "10px";
+    fn.innerHTML = file.name;
 
     console.log("the file: ", file);
 
@@ -118,7 +125,7 @@ document.querySelector("#musical-piece").addEventListener(
     //fd.append("username", "Groucho");
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", url + "/MIDI/upload.php", true);
+    xhr.open("POST", url + "/PLMidi/upload.php", true);
 
     xhr.upload.onprogress = function (e) {
       if (e.lengthComputable) {
@@ -153,7 +160,7 @@ document.querySelector("#musical-piece").addEventListener(
 const downloadFile = (path) => {
   console.log("path b4: " + path);
 
-  var newpath = url + "/MIDI/uploads/" + path;
+  var newpath = url + "/PLMidi/uploads/" + path;
 
   console.log("download path: " + newpath);
 

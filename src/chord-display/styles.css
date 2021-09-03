@@ -24,6 +24,7 @@ body {
   visibility: hidden;
   display: flex;
   flex-direction: row-reverse;
+  z-index: 4;
 }
 
 #app:hover #settings {
@@ -153,6 +154,7 @@ a {
 .piano-key-name {
   font-size: 14px;
   fill: rgba(0, 0, 0, 0.2);
+  display: none;
 }
 
 .note.white .piano-key {
@@ -196,7 +198,8 @@ a {
 }
 
 .note.tonic .piano-tonic {
-  opacity: 1;
+  /* opacity: 1; */
+  opacity: 0;
 }
 
 /*

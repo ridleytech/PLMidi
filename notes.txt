@@ -1,6 +1,5 @@
 //to do
 
-
 updated browse button margin on load
 add midi notes div
 show bar/beats progress

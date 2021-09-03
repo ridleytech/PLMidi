@@ -40,6 +40,13 @@ export class FancyMidiPlayer {
       this.sliderWrapper = document.querySelector(".slider-wrapper");
       //console.log("sl: " + this.sliderWrapper);
       this.sliderWrapper.style.display = "none";
+
+      // this.pianoKeyNames = document.querySelector(".piano-key-name");
+      // var hideKeys = true;
+
+      // if (hideKeys) {
+      //   this.pianoKeyNames.style.display = "none";
+      // }
     }, 50);
 
     //console.log("loopButton: " + this.loopButton);
