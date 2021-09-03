@@ -31,7 +31,17 @@ export class FancyMidiPlayer {
     this.timeSig = null;
     this.currentlyPlaying = false;
     this.playButton = document.querySelector("#play-piece");
-    this.isLooping = true;
+    this.loopButton = document.querySelector("#loop-piece");
+
+    setTimeout(() => {
+      this.sliderWrapper = document.querySelector(".slider-wrapper");
+      console.log("sl: " + this.sliderWrapper);
+      this.sliderWrapper.style.display = "none";
+    }, 50);
+
+    console.log("loopButton: " + this.loopButton);
+
+    this.isLooping = false;
     this.loopTimer = null;
     //JS.extend(this.safeAudioContext);
 
@@ -227,6 +237,23 @@ export class FancyMidiPlayer {
     //console.log("tempo: " + this.tempo);
 
     this.player.setTempo(tempo);
+  }
+
+  //https://metroui.org.ua/double-slider.html
+
+  manageLoop() {
+    console.log("manage loop");
+
+    if (this.isLooping) {
+      this.loopButton.classList.remove("loopEnabled");
+      this.isLooping = false;
+      this.sliderWrapper.style.display = "none";
+    } else {
+      this.loopButton.classList.add("loopEnabled");
+      this.sliderWrapper.style.display = "block";
+
+      this.isLooping = true;
+    }
   }
 
   async setMidi(midiUrl) {

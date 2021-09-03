@@ -43,7 +43,7 @@
     }
     #loop-piece {
 
-      background-image: url(./assets/images/loop-btn.png);
+      background-image: url(./assets/images/loop-disabled.png);
                 width: 35px;
                 height: 35px;
                 margin-left: 5px;
@@ -117,7 +117,8 @@
               .slider-wrapper {
                 width: 100%;
                 margin-left: 10px;
-                
+                /* display: none; */
+
               }
 
               .slider .complete {
@@ -135,6 +136,13 @@
               }
 
               .backside {opacity: 0;}
+
+              .loopEnabled {
+                background-image: url(./assets/images/loop-enabled.png) !important;
+
+              }
+
+              
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -416,7 +424,7 @@
             <button id="loop-piece"></button>
 
             <!-- <img
-              src="./assets/images/loop-btn@3x.png"
+              src="./assets/images/loop-enabled@3x.png"
               style="
                 width: 35px;
                 height: 35px;
