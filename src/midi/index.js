@@ -32,6 +32,9 @@ export class FancyMidiPlayer {
     this.currentlyPlaying = false;
     this.playButton = document.querySelector("#play-piece");
     this.loopButton = document.querySelector("#loop-piece");
+    this.loopStart = 0;
+    this.loopEnd = 100;
+    this.currentProgress = 0;
 
     setTimeout(() => {
       this.sliderWrapper = document.querySelector(".slider-wrapper");
@@ -116,19 +119,40 @@ export class FancyMidiPlayer {
   checkPer() {
     //console.log("checkPer");
 
-    if (this.isLooping) {
-      var per = this.player.getSongPercentRemaining();
-      console.log("per: " + per);
+    var per = this.player.getSongPercentRemaining();
+    console.log("\nper: " + per + "\n");
 
+    this.currentProgress = 100 - per;
+
+    if (this.isLooping) {
       //debug loop
 
-      if (per <= 97) {
+      if (per <= this.loopEnd) {
         console.log("rewind");
-        this.player.skipToPercent(0);
+        this.player.skipToPercent(this.loopStart);
         this.player.play();
         return;
       }
     }
+  }
+
+  setLoopRange(val) {
+    //console.log("type: " + typeof val);
+
+    //console.log("slr: " + val);
+
+    var vals = val.split(",");
+
+    //console.log("vals: " + vals);
+
+    //console.log("type: " + typeof vals);
+
+    this.loopStart = parseInt(vals[0].trim());
+    this.loopEnd = 100 - parseInt(vals[1].trim());
+
+    console.log("loopStart: " + this.loopStart);
+
+    console.log("loopEnd: " + this.loopEnd);
   }
 
   onControllerChange(event) {
@@ -294,6 +318,12 @@ export class FancyMidiPlayer {
     this.loopTimer = setInterval(() => {
       this.checkPer();
     }, 1000);
+
+    if (this.isLooping) {
+      this.player.skipToPercent(this.loopStart);
+    } else {
+      this.player.skipToPercent(this.currentProgress);
+    }
 
     this.player.play();
   }
