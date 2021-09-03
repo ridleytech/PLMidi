@@ -30,6 +30,18 @@
       #header-logo {
         left: 45% !important;
       }
+
+      #inner {
+        width: 100% !important;
+      }
+
+      #file-info {
+        margin-top: 50px;
+      }
+
+      #info-container {
+        height: 100% !important;
+      }
     }
 
     #play-piece:hover {
@@ -140,6 +152,10 @@
               .loopEnabled {
                 background-image: url(./assets/images/loop-enabled.png) !important;
 
+              }
+
+              #info-container {
+                flex-direction: column !important;
               }
 
               
@@ -278,8 +294,8 @@
         id="header"
       ></div>
 
-      <div id="info-container" style="background-color: black; height: 65px">
-        <div style="margin-top: 17px; margin-left: 15px; position: absolute; color: white">
+      <div id="info-container" style="background-color: black; height: 65px; display: flex;">
+        <div id="inner" style="margin-top: 17px; margin-left: 15px; position: absolute; color: white">
           <div style="display: flex;
           align-items: center;"><span style="margin-right: 10px;"></span>
           <input id="musical-piece" type="file" class="foo" /></div>
@@ -318,7 +334,7 @@
               id="tempo"
               style="
                 padding: 5px;
-                width: 25px;
+                width: 35px;
                 text-align: center;
                 margin-top: 5px;
                 background-color: #1f971700;
@@ -378,7 +394,7 @@
             <button id="play-piece"  disabled=""></button>
             <!-- <button id="pause-piece"  disabled="">Pause</button> -->
             <button id="stop-piece"  disabled=""></button>
-            <button id="skip-to"  disabled="">Skip To 30</button>
+            <!-- <button id="skip-to"  disabled="">Skip To 30</button> -->
           </div>
         </div>
       </div>

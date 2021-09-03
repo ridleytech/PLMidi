@@ -38,11 +38,11 @@ export class FancyMidiPlayer {
 
     setTimeout(() => {
       this.sliderWrapper = document.querySelector(".slider-wrapper");
-      console.log("sl: " + this.sliderWrapper);
+      //console.log("sl: " + this.sliderWrapper);
       this.sliderWrapper.style.display = "none";
     }, 50);
 
-    console.log("loopButton: " + this.loopButton);
+    //console.log("loopButton: " + this.loopButton);
 
     this.isLooping = false;
     this.loopTimer = null;
@@ -266,7 +266,7 @@ export class FancyMidiPlayer {
   //https://metroui.org.ua/double-slider.html
 
   manageLoop() {
-    console.log("manage loop");
+    //console.log("manage loop");
 
     if (this.isLooping) {
       this.loopButton.classList.remove("loopEnabled");
@@ -322,6 +322,7 @@ export class FancyMidiPlayer {
     if (this.isLooping) {
       this.player.skipToPercent(this.loopStart);
     } else {
+      //resume play from current position if/when loop turned off
       this.player.skipToPercent(this.currentProgress);
     }
 

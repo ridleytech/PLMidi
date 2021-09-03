@@ -23,20 +23,20 @@ const setAppBusy = (isBusy) => {
   const loopButton = document.querySelector("#loop-piece");
 
   //const pauseButton = document.querySelector("#pause-piece");
-  const skipToButton = document.querySelector("#skip-to");
+  //const skipToButton = document.querySelector("#skip-to");
   const musicalPiecesSelect = document.querySelector("#musical-pieces");
 
   if (isBusy) {
     playButton.setAttribute("disabled", true);
     stopButton.setAttribute("disabled", true);
-    skipToButton.setAttribute("disabled", true);
+    //skipToButton.setAttribute("disabled", true);
     loopButton.setAttribute("disabled", true);
 
     //musicalPiecesSelect.setAttribute("disabled", true);
   } else {
     playButton.removeAttribute("disabled");
     stopButton.removeAttribute("disabled");
-    skipToButton.removeAttribute("disabled");
+    //skipToButton.removeAttribute("disabled");
     loopButton.removeAttribute("disabled");
 
     //musicalPiecesSelect.removeAttribute("disabled");
@@ -62,13 +62,13 @@ setAppBusy(true);
 fmp.setInstrument(instrumentUrl).then(() => {
   const playButton = document.querySelector("#play-piece");
   const stopButton = document.querySelector("#stop-piece");
-  const skipToButton = document.querySelector("#skip-to");
+  //const skipToButton = document.querySelector("#skip-to");
   const loopButton = document.querySelector("#loop-piece");
 
   //const pauseButton = document.querySelector("#pause-piece");
   playButton.onclick = fmp.manageMidi.bind(fmp);
   stopButton.onclick = fmp.stopMidi.bind(fmp);
-  skipToButton.onclick = fmp.skipTo.bind(fmp);
+  //skipToButton.onclick = fmp.skipTo.bind(fmp);
   loopButton.onclick = fmp.manageLoop.bind(fmp);
 
   //pauseButton.onclick = fmp.pauseMidi.bind(fmp);
