@@ -34,9 +34,17 @@ export class FancyMidiPlayer {
     this.loopButton = document.querySelector("#loop-piece");
     this.songLength = document.querySelector("#songLength");
 
+    this.barField = document.querySelector("#bar");
+
+    this.beatField = document.querySelector("#beat");
+
     this.loopStart = 0;
     this.loopEnd = 100;
     this.currentProgress = 0;
+
+    this.bars = 1;
+    this.beats = 1;
+    this.displayBeat = 1;
 
     setTimeout(() => {
       this.sliderWrapper = document.querySelector(".slider-wrapper");
@@ -120,35 +128,62 @@ export class FancyMidiPlayer {
     });
 
     this.player.on("playing", function (currentTick) {
-      //console.log("current tick: " + currentTick);
+      //console.log("current tick: " + JSON.stringify(currentTick));
       // Do something while player is playing
       // (this is repeatedly triggered within the play loop)
     });
   }
 
-  showTime() {
-    // var time = this.player.getSongTime();
-    // console.log("\ntime: " + time + "\n");
-    // songLength.innerHTML = new Date(time * 1000).toISOString().substr(11, 8);
-  }
-
   checkSongProgress() {
     var time = this.player.getSongTime();
-    console.log("time: " + time);
+    //console.log("time: " + time);
 
     var remaining = this.player.getSongTimeRemaining();
-    console.log("remaining: " + remaining);
+    //console.log("remaining: " + remaining);
 
     var t = time - remaining;
 
     songLength.innerHTML = new Date(t * 1000).toISOString().substr(11, 8);
+
+    //console.log("time: " + t);
+
+    //bpm = 120
+    //bps = 2
+
+    var bps = this.tempo / 60;
+
+    var currentBeat = bps + t;
+    console.log("time: " + t + " currentBeat: " + currentBeat);
+
+    if (currentBeat % 4 == 0) {
+      if (this.lastBeat == currentBeat) {
+        return;
+      }
+
+      this.bars++;
+      this.lastBeat = currentBeat;
+
+      this.currentBeat = 1;
+      this.displayBeat = 1;
+    } else {
+      //this.displayBeat++;
+      if (this.lastCurrentBeat == currentBeat) {
+        return;
+      }
+
+      this.lastCurrentBeat = currentBeat;
+      this.displayBeat++;
+    }
+
+    this.barField.innerHTML = this.bars.toString();
+    this.beatField.innerHTML = ": " + this.displayBeat.toString();
   }
 
   checkPer() {
     //console.log("checkPer");
 
     var per = this.player.getSongPercentRemaining();
-    console.log("\nper: " + per + "\n");
+    //console.log("\nper: " + per + "\n");
 
     this.currentProgress = 100 - per;
 
@@ -178,9 +213,8 @@ export class FancyMidiPlayer {
     this.loopStart = parseInt(vals[0].trim());
     this.loopEnd = 100 - parseInt(vals[1].trim());
 
-    console.log("loopStart: " + this.loopStart);
-
-    console.log("loopEnd: " + this.loopEnd);
+    // console.log("loopStart: " + this.loopStart);
+    // console.log("loopEnd: " + this.loopEnd);
   }
 
   onControllerChange(event) {
@@ -313,8 +347,6 @@ export class FancyMidiPlayer {
     // "../assets/chopin_etude_rev.mid"
     this.midi = await fetch(midiUrl).then((response) => response.arrayBuffer());
     this.player.loadArrayBuffer(this.midi);
-
-    //this.showTime();
   }
 
   manageMidi() {
@@ -352,7 +384,7 @@ export class FancyMidiPlayer {
     clearInterval(this.songTimer);
     this.songTimer = setInterval(() => {
       this.checkSongProgress();
-    }, 100);
+    }, 50);
 
     if (this.isLooping) {
       this.player.skipToPercent(this.loopStart);
@@ -366,17 +398,29 @@ export class FancyMidiPlayer {
 
   pauseMidi() {
     clearInterval(this.loopTimer);
+    clearInterval(this.songTimer);
 
     this.player.pause();
   }
 
   stopMidi() {
     clearInterval(this.loopTimer);
+    clearInterval(this.songTimer);
     //console.log("stop midi");
     this.player.stop();
     this.currentlyPlaying = false;
     this.playButton.classList.remove("paused");
     this.currentProgress = 0;
     this.piano.repaintKeys();
+    this.bars = 1;
+    this.lastBeat = 1;
+    this.lastCurrentBeat = 1;
+    this.displayBeat = 1;
+    // var tt = this.player.getTotalTicks();
+    // console.log("ticks: " + tt);
+
+    this.barField.innerHTML = this.bars.toString();
+    this.beatField.innerHTML = ": " + this.displayBeat.toString();
+    songLength.innerHTML = new Date(0 * 1000).toISOString().substr(11, 8);
   }
 }
