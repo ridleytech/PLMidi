@@ -1,6 +1,7 @@
 import { FancyMidiPlayer } from "./midi";
 import "babel-polyfill";
 const createMusicalPiece = (id, name, path) => ({ id, name, path });
+import "html-midi-player";
 
 var url = "https://pianolessonwithwarren.com/dev_site";
 

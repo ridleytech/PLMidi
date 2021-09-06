@@ -1,5 +1,5 @@
 import { chord as detectChord } from "tonal/detect";
-import { chordToHtml, keyToHtml } from "./chord-display/chords";
+import { chordToHtml, keyToHtml } from "../chord-display/chords";
 //import { highlightTonic, fadeTonics, setChordHtml, setNotesHtml } from "./ui";
 
 var currentNotes = ["C", "E", "G", "B", "D"];

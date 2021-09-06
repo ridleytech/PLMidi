@@ -32,6 +32,8 @@ export class FancyMidiPlayer {
     this.currentlyPlaying = false;
     this.playButton = document.querySelector("#play-piece");
     this.loopButton = document.querySelector("#loop-piece");
+    this.songLength = document.querySelector("#songLength");
+
     this.loopStart = 0;
     this.loopEnd = 100;
     this.currentProgress = 0;
@@ -53,6 +55,7 @@ export class FancyMidiPlayer {
 
     this.isLooping = false;
     this.loopTimer = null;
+    this.songTimer = null;
     //JS.extend(this.safeAudioContext);
 
     // 2) Load the impulse response; upon load, connect it to the audio output.
@@ -117,10 +120,28 @@ export class FancyMidiPlayer {
     });
 
     this.player.on("playing", function (currentTick) {
-      console.log("current tick: " + currentTick);
+      //console.log("current tick: " + currentTick);
       // Do something while player is playing
       // (this is repeatedly triggered within the play loop)
     });
+  }
+
+  showTime() {
+    // var time = this.player.getSongTime();
+    // console.log("\ntime: " + time + "\n");
+    // songLength.innerHTML = new Date(time * 1000).toISOString().substr(11, 8);
+  }
+
+  checkSongProgress() {
+    var time = this.player.getSongTime();
+    console.log("time: " + time);
+
+    var remaining = this.player.getSongTimeRemaining();
+    console.log("remaining: " + remaining);
+
+    var t = time - remaining;
+
+    songLength.innerHTML = new Date(t * 1000).toISOString().substr(11, 8);
   }
 
   checkPer() {
@@ -230,11 +251,11 @@ export class FancyMidiPlayer {
 
     const notes = this.currentNotes;
 
-    console.log("notes: " + JSON.stringify(notes));
+    //console.log("notes: " + JSON.stringify(notes));
 
     const chords = notes.length > 2 ? detectChord(notes) : [];
 
-    console.log("chords: " + JSON.stringify(chords));
+    //console.log("chords: " + JSON.stringify(chords));
 
     this.setNotesHtml(notes.map(keyToHtml).join(" "));
     if (chords && chords.length) {
@@ -292,6 +313,8 @@ export class FancyMidiPlayer {
     // "../assets/chopin_etude_rev.mid"
     this.midi = await fetch(midiUrl).then((response) => response.arrayBuffer());
     this.player.loadArrayBuffer(this.midi);
+
+    //this.showTime();
   }
 
   manageMidi() {
@@ -326,6 +349,11 @@ export class FancyMidiPlayer {
       this.checkPer();
     }, 1000);
 
+    clearInterval(this.songTimer);
+    this.songTimer = setInterval(() => {
+      this.checkSongProgress();
+    }, 100);
+
     if (this.isLooping) {
       this.player.skipToPercent(this.loopStart);
     } else {
@@ -348,7 +376,7 @@ export class FancyMidiPlayer {
     this.player.stop();
     this.currentlyPlaying = false;
     this.playButton.classList.remove("paused");
-
+    this.currentProgress = 0;
     this.piano.repaintKeys();
   }
 }

@@ -8,6 +8,14 @@
   </head>
 
   <style>
+
+    .note {
+      height: 3px
+    }
+    .piano-roll-visualizer {
+      width: 100%;
+      overflow: auto;
+    }
     body {
       margin: 0;
       font-family: Roboto;
@@ -164,6 +172,66 @@
               #info-container {
                 flex-direction: column !important;
               }
+
+
+              #section3 midi-player {
+  display: block;
+  width: inherit;
+  margin: 4px;
+  margin-bottom: 0;
+}
+#section3 midi-player::part(control-panel) {
+  background: #ff5;
+  border: 2px solid #000;
+  border-radius: 10px 10px 0 0;
+}
+#section3 midi-player::part(play-button) {
+  color: #353;
+  border: 2px solid currentColor;
+  background-color: #4d4;
+  border-radius: 20px;
+  transition: all 0.2s;
+  content: 'hello';
+}
+#section3 midi-player::part(play-button):hover {
+  color: #0a0;
+  background-color: #5f5;
+  border-radius: 10px;
+}
+#section3 midi-player::part(time) {
+  font-family: monospace;
+}
+
+/* Custom visualizer style */
+#section3 midi-visualizer .piano-roll-visualizer {
+  background: #ffd;
+  border: 2px solid black;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  margin: 4px;
+  margin-top: 0;
+  overflow: auto;
+}
+#section3 midi-visualizer svg rect.note {
+  opacity: 0.6;
+  stroke-width: 2;
+}
+#section3 midi-visualizer svg rect.note[data-instrument="0"]{
+  fill: #e22;
+  stroke: #500;
+}
+#section3 midi-visualizer svg rect.note[data-instrument="2"]{
+  fill: #2ee;
+  stroke: #055;
+}
+#section3 midi-visualizer svg rect.note[data-is-drum="true"]{
+  fill: #888;
+  stroke: #888;
+}
+#section3 midi-visualizer svg rect.note.active {
+  opacity: 0.9;
+  stroke: #000;
+}
 
               
   </style>
@@ -364,6 +432,10 @@
             <div><strong>Signature</strong></div>
             <div id="timeSig" style="padding-top: 10px">4/4</div>
           </div>
+          <div style="padding-top: 15px; height: 75px; text-align: center">
+            <div><strong>Time</strong></div>
+            <div id="songLength" style="padding-top: 10px">0:00</div>
+          </div>
         </div>
       </div>
         <div id="middle-content" style="margin-top: 30px;
@@ -423,6 +495,17 @@
         "
       ></div>
 
+      <!-- <section id="section3">
+        <h2>Custom player and visualizer style</h2>
+        <midi-player
+          src="../assets/midi/Pass Me Not - Advanced.mid"
+          sound-font visualizer="#section3 midi-visualizer">
+        </midi-player>
+        <midi-visualizer
+          src="../assets/midi/Pass Me Not - Advanced.mid">
+        </midi-visualizer>
+        </section> -->
+
       <div id="piano-pedal" style="display: flex; flex-direction: column; background-color: #232323;">
         <div id="keyboard" style="filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4)); z-index: 1;"></div>
         <div style="width: 25px;
@@ -477,6 +560,15 @@
     <script src="/src/chord-display/index.js"></script>
     <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
 
+    <!-- <midi-visualizer type="staff" id="myStaffVisualizer" 
+  src="../assets/midi/Pass Me Not - Advanced.mid">
+</midi-visualizer> -->
+
+    <!-- <midi-player src="../assets/midi/Pass Me Not - Advanced.mid"></midi-player> -->
+    <!-- <midi-visualizer
+    type="piano-roll"
+    src="../assets/midi/Pass Me Not - Advanced.mid">
+  </midi-visualizer> -->
     <!-- <script src="/src/tonalTest.js"></script> -->
   </body>
 </html>
