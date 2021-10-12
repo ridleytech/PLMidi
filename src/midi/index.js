@@ -33,10 +33,12 @@ export class FancyMidiPlayer {
     this.playButton = document.querySelector("#play-piece");
     this.loopButton = document.querySelector("#loop-piece");
     this.songLength = document.querySelector("#songLength");
+    this.tempoSlider = document.querySelector("#input-k");
+    this.tempoInput = document.querySelector("#tempo");
 
     this.barField = document.querySelector("#bar");
-
     this.beatField = document.querySelector("#beat");
+    this.progressSlider = document.querySelector("#progressSlider");
 
     this.loopStart = 0;
     this.loopEnd = 100;
@@ -45,6 +47,7 @@ export class FancyMidiPlayer {
     this.bars = 1;
     this.beats = 1;
     this.displayBeat = 1;
+    this.tempoOffset = 70;
 
     setTimeout(() => {
       this.sliderWrapper = document.querySelector(".slider-wrapper");
@@ -96,17 +99,17 @@ export class FancyMidiPlayer {
         //console.log("note off event: " + JSON.stringify(event));
         this.onNoteOffEvent(event);
       } else {
-        //console.log("other event: " + JSON.stringify(event));
+        console.log("other event: " + JSON.stringify(event));
 
         if (event.name === "Set Tempo") {
           this.intialTempoSet = true;
           this.tempo = event.data;
           //console.log("tempo set");
         } else if (event.name === "Key Signature") {
-          this.keySig = event.keySignature;
+          //Randall to do. This returns undefined
+          //this.keySig = event.keySignature;
           //console.log("key sig set: " + this.keySig);
-
-          keySig.innerHTML = this.keySig;
+          //keySig.innerHTML = this.keySig;
         } else if (event.name === "Time Signature") {
           this.timeSig = event.timeSignature;
 
@@ -197,6 +200,8 @@ export class FancyMidiPlayer {
         return;
       }
     }
+
+    this.progressSlider.value = this.currentProgress;
   }
 
   setLoopRange(val) {
@@ -308,6 +313,30 @@ export class FancyMidiPlayer {
     }
   }
 
+  setSliderTempo(val) {
+    //console.log("val: " + val);
+
+    var newVal = parseInt(val) + parseInt(this.tempoOffset);
+    console.log("new set tempo: " + newVal);
+
+    //this.tempoInput.value = newVal;
+
+    this.setTempo(newVal);
+  }
+
+  updateTempoInput(val) {
+    //console.log("set tempo: " + val);
+
+    var newVal = parseInt(val) + parseInt(this.tempoOffset);
+    console.log("turn tempo: " + newVal);
+
+    this.tempoInput.value = newVal;
+
+    return;
+
+    this.setTempo(val);
+  }
+
   setNotesHtml(html) {
     //console.log("notes html: " + html);
     notesDisplay.innerHTML = html;
@@ -319,10 +348,31 @@ export class FancyMidiPlayer {
   }
 
   setTempo(tempo) {
+    console.log("setTempo change tempo: " + tempo);
+
     this.tempo = tempo;
-    //console.log("tempo: " + this.tempo);
+    console.log("new tempo: " + this.tempo);
 
     this.player.setTempo(tempo);
+
+    var newVal = parseInt(tempo) - parseInt(this.tempoOffset);
+    console.log("new tempo val for slider: " + newVal);
+
+    this.tempoSlider.value = newVal;
+  }
+
+  setTempoInput(tempo) {
+    console.log("change tempo input: " + tempo);
+
+    this.tempo = tempo;
+    console.log("new tempo from input: " + this.tempo);
+
+    this.player.setTempo(tempo);
+
+    var newVal = parseInt(tempo) - parseInt(this.tempoOffset);
+    console.log("new tempo val for slider: " + newVal);
+
+    this.tempoSlider.value = newVal;
   }
 
   //https://metroui.org.ua/double-slider.html
@@ -422,5 +472,6 @@ export class FancyMidiPlayer {
     this.barField.innerHTML = this.bars.toString();
     this.beatField.innerHTML = ": " + this.displayBeat.toString();
     songLength.innerHTML = new Date(0 * 1000).toISOString().substr(11, 8);
+    this.progressSlider.value = this.currentProgress;
   }
 }

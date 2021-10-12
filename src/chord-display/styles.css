@@ -127,6 +127,27 @@ a {
   fill: #222;
 }
 
+#keyboard-bg2 {
+  fill: #2220;
+}
+
+#keyboardNotes {
+  background: rgb(111, 111, 111);
+  background: linear-gradient(
+    180deg,
+    rgba(111, 111, 111, 1) 0%,
+    rgba(20, 19, 19, 1) 69%
+  );
+  color: white;
+  padding-top: 5px;
+  border: 3px solid black;
+  text-align: center;
+}
+
+#notesDisplay {
+  display: none;
+}
+
 #wheels {
 }
 
@@ -152,8 +173,9 @@ a {
 }
 
 .piano-key-name {
-  font-size: 14px;
-  fill: rgba(0, 0, 0, 0.2);
+  font-size: 20px;
+  /* fill: rgba(0, 0, 0, 0.2); */
+  fill: rgba(0, 0, 0, 1);
   display: none;
 }
 
@@ -183,6 +205,25 @@ a {
   /* fill: currentColor; */
   fill: hsl(116, 73.6%, 34.1%);
   filter: url(#insetKey);
+}
+
+.piano-key-name-played-notes {
+  font-size: 30px;
+  color: white !important;
+  fill: white;
+  /* display: none; */
+}
+
+/* .piano-key-name-played-notes.active {
+  display: block;
+} */
+
+.note.display {
+  display: none;
+}
+
+.note.display.active {
+  display: block;
 }
 
 .note.white .piano-tonic {

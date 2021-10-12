@@ -18,7 +18,7 @@ const DEFAULT_SETTINGS = {
   hideChord: false,
   hideBassNote: false,
   hideKeyName: false,
-  hideTonic: true,
+  hideTonic: false,
 };
 
 let customSettings = {};

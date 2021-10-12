@@ -24,16 +24,25 @@ export { setPitchWheel, setModWheel };
 
 export function highlightNote(noteNumber, className = "active") {
   const keyElement = document.getElementById(`note-${noteNumber}`);
+  const keyElementDisplayNote = document.getElementById(
+    `note-${noteNumber}-display`
+  );
+
   if (!keyElement) return;
 
   keyElement.classList.add(className);
+  keyElementDisplayNote.classList.add(className);
 }
 
 export function fadeNote(noteNumber) {
   const keyElement = document.getElementById(`note-${noteNumber}`);
+  const keyElementDisplayNote = document.getElementById(
+    `note-${noteNumber}-display`
+  );
   if (!keyElement) return;
 
   keyElement.classList.remove("active");
+  keyElementDisplayNote.classList.remove("active");
 }
 
 export function highlightTonic(tonic) {

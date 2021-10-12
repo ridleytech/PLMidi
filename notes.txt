@@ -1,7 +1,7 @@
 //to do
 
-updated browse button margin on load
-add midi notes div
-show bar/beats progress
+update display notes svg/div
+transpose notes
 update sustain pedal art
 add forward/rewind buttons
+add please use google chrome popup for safari
