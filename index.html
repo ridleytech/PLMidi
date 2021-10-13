@@ -39,21 +39,32 @@ body {
 
 /* @media screen and (max-width: 645px) { */
 @media screen and (max-width: 900px) {
-#header-logo {
-    left: 45% !important;
-}
-#inner {
-    /* width: 100% !important; */
+  #header-logo {
+      left: 45% !important;
+  }
+  #inner {
+      /* width: 100% !important; */
+      margin-left: auto !important;
+      margin-right: auto !important;
+      position: relative !important;
+  }
+  #file-info {
+  /* margin-top: 10px; */
+  }
+  #info-container {
+      height: 100% !important;
+  }
+
+  #speedInputContainer {
+    position: relative !important;
+    right: 0px !important;
+    margin-top: 0px !important;
     margin-left: auto !important;
     margin-right: auto !important;
-    position: relative !important;
-}
-#file-info {
-/* margin-top: 10px; */
-}
-#info-container {
-    height: 100% !important;
-}
+    margin-bottom: 20px !important;
+  }
+
+  
 }
 #play-piece:hover {
     opacity: 0.9;
@@ -339,12 +350,21 @@ input[type=range]:focus::-ms-fill-upper {
   background: #1F9717;
 }
 
-.input-knob {
+#speedInputContainer {
+  width: 100px;
+  /* background-color: purple; */
   position: absolute;
   right: 15px;
-  width: 45px !important;
-  height: 45px !important;
-  margin-top: 17px;
+  /* margin-top: 17px; */
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+}
+
+.input-knob {
+margin-bottom: 5px !important;
+  width: 40px !important;
+  height: 40px !important;
 
 }
 
@@ -408,7 +428,6 @@ input[type=range]:focus::-ms-fill-upper {
     href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
     rel="stylesheet"
   />
-
   <script src="/src/input-knobs-master/input-knobs.js"></script>
 <body>
 <div id="app">
@@ -565,7 +584,7 @@ input[type=range]:focus::-ms-fill-upper {
         id="header"
       ></div>
 
-  <div id="info-container" style="background-color: black; height: 70px; display: flex;">
+  <div id="info-container" style="background-color: black; height: 80px; display: flex;">
     <div id="inner">
       <div style="display: flex; align-items: center;"> <span  id="file-name" style="font-size: 12px;"></span>
         <input id="musical-piece" type="file" class="foo" />
@@ -631,9 +650,21 @@ input[type=range]:focus::-ms-fill-upper {
         <div><strong>Time</strong></div>
         <div id="songLength" style="padding-top: 10px">00:00:00</div>
       </div>
+      <div style="padding-top: 15px; height: 75px; text-align: center">
+        <div><strong>Pitch</strong></div>
+        <div id="pitch" style="padding-top: 10px">0 st</div>
+      </div>
     </div>
-    
-    <input type="range" class="input-knob" id="input-k"/>
+    <div id="speedInputContainer">
+      <div>
+      <input type="range" class="input-knob" id="input-k"/>
+      <div class="speed-lbl" style="color: white; font-size: 12px;text-align: center;">Speed</div>
+    </div>
+    <div>
+      <input type="range" class="input-knob" id="input-pitch-k"/>
+      <div class="pitch-lbl2" style="color: white; font-size: 12px;text-align: center;">Pitch</div>
+    </div>
+   </div>
 
   </div>
 
