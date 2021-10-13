@@ -378,7 +378,7 @@ export function generateKeyboard2(
 
   const keyboardNotes = range(start, end).reduce(
     (keyboard, noteNumber) => {
-      console.log("keyboard.height: " + keyboard.height);
+      //console.log("keyboard.height: " + keyboard.height);
 
       const { width, isWhite, markup } = getNoteMarkup(
         noteNumber,

@@ -1,7 +1,8 @@
 //to do
 
-update display notes svg/div
 transpose notes
-update sustain pedal art
-add forward/rewind buttons
 add please use google chrome popup for safari
+
+//extra
+
+add forward/rewind buttons

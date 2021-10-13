@@ -133,7 +133,12 @@ body {
     border-radius: 5px;
 }
 .pressed2 {
-    background-color: gold !important;
+    /* background-color: gold !important; */
+    background-image: url(./assets/images/pedal-pressed.png) !important;
+  background-repeat-x: no-repeat;
+          background-size: 100%;
+          background-repeat-y: no-repeat;
+          background-position-y: center;
 }
 .slider-wrapper {
     width: 100%;
@@ -157,6 +162,23 @@ body {
 .loopEnabled {
     background-image: url(./assets/images/loop-enabled.png) !important;
 }
+
+#sustain-pedal2{
+  background-image: url(./assets/images/pedal.png) !important;
+  background-repeat-x: no-repeat;
+          background-size: 100%;
+          background-repeat-y: no-repeat;
+          background-position-y: center;
+}
+
+#sustain-pedal2.pressed2{
+  background-image: url(./assets/images/pedal-pressed.png) !important;
+  background-repeat-x: no-repeat;
+          background-size: 100%;
+          background-repeat-y: no-repeat;
+          background-position-y: center;
+}
+
 #info-container {
     flex-direction: column !important;
 }
@@ -706,17 +728,30 @@ input[type=range]:focus::-ms-fill-upper {
   <div id="keyboardNotes" style="filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4)); z-index: 1;"></div>
 
   <div id="keyboard" style="filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4)); z-index: 1;"></div>
-  <div style="width: 25px;
+  <!-- <div style="width: 25px;
         height: 40px;
         background-color: white;
         margin-left: auto;
         margin-right: auto; border: 1px solid black; 
         border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px; filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4));" id="sustain-pedal2"></div>
+        border-bottom-right-radius: 5px; 
+        filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4));" 
+        id="sustain-pedal2"></div> -->
+    <div
+    style="
+      width: 45px;
+      height: 45px;
+      margin-left: auto;
+        margin-right: auto;
+
+        filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4));"
+        id="sustain-pedal2"
+    "
+  ></div>
   <div
           id="midi-container"
           style="
-            margin-top: 10px;
+            margin-top: 15px;
             width: 100%;
             background-color: #101010;
             border: 3px solid #d1d1d1;

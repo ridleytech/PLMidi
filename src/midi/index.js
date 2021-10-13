@@ -99,7 +99,7 @@ export class FancyMidiPlayer {
         //console.log("note off event: " + JSON.stringify(event));
         this.onNoteOffEvent(event);
       } else {
-        console.log("other event: " + JSON.stringify(event));
+        //console.log("other event: " + JSON.stringify(event));
 
         if (event.name === "Set Tempo") {
           this.intialTempoSet = true;
@@ -156,7 +156,7 @@ export class FancyMidiPlayer {
     var bps = this.tempo / 60;
 
     var currentBeat = bps + t;
-    console.log("time: " + t + " currentBeat: " + currentBeat);
+    // /console.log("time: " + t + " currentBeat: " + currentBeat);
 
     if (currentBeat % 4 == 0) {
       if (this.lastBeat == currentBeat) {
@@ -400,7 +400,7 @@ export class FancyMidiPlayer {
   }
 
   manageMidi() {
-    console.log("manage midi");
+    //console.log("manage midi");
 
     // this.playMidi();
 
