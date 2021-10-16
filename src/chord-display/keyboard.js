@@ -53,7 +53,7 @@ const NOTE_NAME_TEMPLATE = (props, posX, color) => `\
 }-display" class="note display" transform="translate(${posX},0)" style="color: white;">
 <text class="piano-key-name-played-notes" x="${NOTE_WHITE_WIDTH / 2}" y="${
   NOTE_WHITE_HEIGHT - NOTE_NAME_BOTTOM_OFFSET - 140
-}" text-anchor="middle">${props.name}</text>
+}" text-anchor="middle">${props.name.replace(/[0-9]/g, "")}</text>
 </g>
 `;
 

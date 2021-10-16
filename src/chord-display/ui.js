@@ -24,6 +24,7 @@ export { setPitchWheel, setModWheel };
 
 export function highlightNote(noteNumber, className = "active") {
   const keyElement = document.getElementById(`note-${noteNumber}`);
+
   const keyElementDisplayNote = document.getElementById(
     `note-${noteNumber}-display`
   );

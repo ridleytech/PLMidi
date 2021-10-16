@@ -15,7 +15,7 @@ import { noteOn, noteOff, fadeAllNotes } from "../chord-display/events";
 
 export class FancyMidiPlayer {
   constructor(document) {
-    //console.log("FanceyMidiPlayer");
+    console.log("FanceyMidiPlayer");
     this.audioContext =
       window.AudioContext || window.webkitAudioContext || false;
     this.safeAudioContext = new this.audioContext();
@@ -51,7 +51,7 @@ export class FancyMidiPlayer {
     this.beats = 1;
     this.displayBeat = 1;
     this.tempoOffset = 70;
-    this.transposeVal = -3;
+    this.transposeVal = 0;
     this.transposeStr = "M";
 
     setTimeout(() => {
@@ -65,7 +65,7 @@ export class FancyMidiPlayer {
       // if (hideKeys) {
       //   this.pianoKeyNames.style.display = "none";
       // }
-    }, 50);
+    }, 200);
 
     //console.log("loopButton: " + this.loopButton);
 
@@ -136,10 +136,16 @@ export class FancyMidiPlayer {
         //console.log("other event: " + JSON.stringify(event));
 
         if (event.name === "Set Tempo") {
+          if (this.intialTempoSet == false) {
+            //this.tempo = event.data;
+            console.log("set initial tempo");
+          }
           this.intialTempoSet = true;
-          this.tempo = event.data;
-          //console.log("tempo set");
+          console.log("tempo set event");
+          this.player.setTempo(this.tempo);
         } else if (event.name === "Key Signature") {
+          console.log("key sig event: " + JSON.stringify(event));
+
           //Randall to do. This returns undefined
           //this.keySig = event.keySignature;
           //console.log("key sig set: " + this.keySig);
@@ -380,7 +386,7 @@ export class FancyMidiPlayer {
     //console.log("val: " + val);
 
     var newVal = parseInt(val) + parseInt(this.tempoOffset);
-    console.log("new set tempo: " + newVal);
+    //console.log("new set tempo: " + newVal);
 
     //this.tempoInput.value = newVal;
 
@@ -391,7 +397,7 @@ export class FancyMidiPlayer {
     //console.log("val: " + val);
 
     var newVal = parseInt(val);
-    console.log("new set pitch: " + newVal);
+    //console.log("new set pitch: " + newVal);
 
     //this.tempoInput.value = newVal;
 
@@ -404,17 +410,17 @@ export class FancyMidiPlayer {
     //console.log("set tempo: " + val);
 
     var newVal = parseInt(val) + parseInt(this.tempoOffset);
-    console.log("turn tempo: " + newVal);
+    //console.log("turn tempo: " + newVal);
 
     this.tempoInput.value = newVal;
-
-    return;
-
-    this.setTempo(val);
   }
 
-  updatePitchInput(val) {
+  updatePitchSlider(val) {
     //console.log("set tempo: " + val);
+
+    fadeAllNotes();
+    //this.pauseMidi();
+    this.playMidi();
 
     var newVal = parseInt(val);
     //console.log("pitch: " + newVal);
@@ -422,6 +428,15 @@ export class FancyMidiPlayer {
     this.pitchInput.innerHTML = newVal.toString() + " st";
 
     this.keySig.innerHTML = this.scales[this.transposeVal + 12] + " Major";
+  }
+
+  movePlayhead(val) {
+    //console.log("set progress: " + val);
+
+    this.currentProgress = val;
+    fadeAllNotes();
+    this.playMidi();
+    //this.pauseMidi();
   }
 
   setNotesHtml(html) {
@@ -437,27 +452,32 @@ export class FancyMidiPlayer {
   setTempo(tempo) {
     console.log("setTempo change tempo: " + tempo);
 
-    this.tempo = tempo;
-    console.log("new tempo: " + this.tempo);
+    this.intialTempoSet = true;
 
-    this.player.setTempo(tempo);
+    this.pauseMidi();
+
+    this.tempo = tempo;
+    //console.log("new tempo: " + this.tempo);
+
+    this.player.setTempo(this.tempo);
 
     var newVal = parseInt(tempo) - parseInt(this.tempoOffset);
-    console.log("new tempo val for slider: " + newVal);
+    //console.log("new tempo val for slider: " + newVal);
 
     this.tempoSlider.value = newVal;
   }
 
   setTempoInput(tempo) {
     console.log("change tempo input: " + tempo);
+    this.pauseMidi();
 
     this.tempo = tempo;
-    console.log("new tempo from input: " + this.tempo);
+    //console.log("new tempo from input: " + this.tempo);
 
-    this.player.setTempo(tempo);
+    this.setTempo(tempo);
 
     var newVal = parseInt(tempo) - parseInt(this.tempoOffset);
-    console.log("new tempo val for slider: " + newVal);
+    //console.log("new tempo val for slider: " + newVal);
 
     this.tempoSlider.value = newVal;
   }
@@ -484,35 +504,48 @@ export class FancyMidiPlayer {
     // "../assets/chopin_etude_rev.mid"
     this.midi = await fetch(midiUrl).then((response) => response.arrayBuffer());
     this.player.loadArrayBuffer(this.midi);
+
+    console.log("set midi");
+
+    if (this.intialTempoSet == true) {
+      this.tempo = 120;
+      this.setTempo(this.tempo);
+      this.tempoInput.value = this.tempo;
+
+      this.transposeVal = 0;
+      this.pitchInput.innerHTML = this.transposeVal.toString() + " st";
+      this.keySig.innerHTML = this.scales[this.transposeVal + 12] + " Major";
+
+      this.currentNotes = [];
+      this.refresh();
+    }
   }
 
   manageMidi() {
     //console.log("manage midi");
-
-    // this.playMidi();
 
     // return;
     if (this.currentlyPlaying) {
       //console.log("playing");
       this.pauseMidi();
       this.currentlyPlaying = false;
-      this.playButton.classList.remove("paused");
     } else {
       //console.log("paused");
       this.currentlyPlaying = true;
       this.playMidi();
-
-      this.playButton.classList.add("paused");
     }
   }
 
-  skipTo() {
-    console.log("skip to 20%");
-    this.player.skipToPercent(10);
-    this.player.play();
-  }
+  // skipTo() {
+  //   console.log("skip to 20%");
+  //   this.player.skipToPercent(10);
+  //   this.player.play();
+  // }
 
   playMidi() {
+    //console.log("play midi tempo:" + this.tempo);
+    this.playButton.classList.add("paused");
+
     clearInterval(this.loopTimer);
     this.loopTimer = setInterval(() => {
       this.checkPer();
@@ -534,6 +567,8 @@ export class FancyMidiPlayer {
   }
 
   pauseMidi() {
+    this.playButton.classList.remove("paused");
+    this.currentlyPlaying = false;
     clearInterval(this.loopTimer);
     clearInterval(this.songTimer);
 

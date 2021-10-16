@@ -5,24 +5,13 @@ import "html-midi-player";
 
 var url = "https://pianolessonwithwarren.com/dev_site";
 
-//url = "http://localhost:8888/pianolesson";
-
-// var dial = JogDial(document.getElementById('jog_dial_example'),{
-//   debug : false,
-//   touchMode : 'knob',  // knob | wheel
-//   knobSize : '30%',
-//   wheelSize : '100%',
-//   zIndex : 9999,
-//   degreeStartAt : 0,
-//   minDegree : null,  // (null) infinity
-//   maxDegree : null   // (null) infinity
-// }
+url = "http://localhost:8888/pianolesson";
 
 const pieces = [
   createMusicalPiece(
     0,
     "Pass Me Not - Advanced",
-    "../assets/midi/Pass Me Not - Advanced.mid"
+    "../assets/midi/chopin_etude_rev.mid"
   ),
 ];
 
@@ -120,9 +109,16 @@ document
   .addEventListener("input", function (e) {
     //console.log("e: " + e.target.value);
 
-    fmp.updatePitchInput(e.target.value);
+    fmp.updatePitchSlider(e.target.value);
   });
 
+document
+  .querySelector("#progressSlider")
+  .addEventListener("input", function (e) {
+    //console.log("progress: " + e.target.value);
+
+    fmp.movePlayhead(e.target.value);
+  });
 // document
 //   .querySelector("#input-pitch-k")
 //   .addEventListener("change", function (e) {
@@ -178,10 +174,10 @@ document.querySelector("#musical-piece").addEventListener(
       if (this.status == 200) {
         var resp = JSON.parse(this.response);
 
-        console.log("Server got:", resp);
+        //console.log("Server got:", resp);
 
         if (resp.data.uploadData.status == "media upload") {
-          console.log("we good: " + resp.data.uploadData.filename);
+          //console.log("we good: " + resp.data.uploadData.filename);
 
           downloadFile(resp.data.uploadData.filename);
         }

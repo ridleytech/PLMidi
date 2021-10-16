@@ -1,12 +1,25 @@
 //to do
 
-transpose notes - update displayed key when pitch is changed
+read key of song on load
 choose sharps or flats
 add please use google chrome popup for safari
 
 //extra
 
 add forward/rewind buttons
+
+
+
+index.html dist changes on build
+
+url(/
+url(./
+
+src="/
+src="./
+
+href="/
+href="./
 
 
 
@@ -20,3 +33,16 @@ https://g200kg.github.io/input-knobs/
     type="piano-roll"
     src="../assets/midi/Pass Me Not - Advanced.mid">
   </midi-visualizer> --> 
+
+
+
+// var dial = JogDial(document.getElementById('jog_dial_example'),{
+//   debug : false,
+//   touchMode : 'knob',  // knob | wheel
+//   knobSize : '30%',
+//   wheelSize : '100%',
+//   zIndex : 9999,
+//   degreeStartAt : 0,
+//   minDegree : null,  // (null) infinity
+//   maxDegree : null   // (null) infinity
+// }
