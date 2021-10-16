@@ -28,7 +28,7 @@ export class FancyMidiPlayer {
     this.previousChord = null;
     this.tempo = 120;
     this.intialTempoSet = false;
-    this.keySig = null;
+    this.keySig = document.querySelector("#keySig");
     this.timeSig = null;
     this.currentlyPlaying = false;
     this.playButton = document.querySelector("#play-piece");
@@ -72,6 +72,35 @@ export class FancyMidiPlayer {
     this.isLooping = false;
     this.loopTimer = null;
     this.songTimer = null;
+    this.scales = [
+      "C",
+      "Db",
+      "D",
+      "Eb",
+      "E",
+      "F",
+      "Gb",
+      "G",
+      "Ab",
+      "A",
+      "Bb",
+      "B",
+      "C",
+      "Db",
+      "D",
+      "Eb",
+      "E",
+      "F",
+      "Gb",
+      "G",
+      "Ab",
+      "A",
+      "Bb",
+      "B",
+      "C",
+    ];
+
+    this.scaleIndex = 12;
     //JS.extend(this.safeAudioContext);
 
     // 2) Load the impulse response; upon load, connect it to the audio output.
@@ -268,11 +297,14 @@ export class FancyMidiPlayer {
         this.safeAudioContext.currentTime,
         {
           gain: (event.velocity / 100) * this.volume,
-          duration: this.piano.isSustainPedalPressed
-            ? SUSTAINED_NOTE_DURATION
-            : NON_SUSTAINED_NOTE_DURATION,
+          duration: NON_SUSTAINED_NOTE_DURATION,
         }
       );
+
+      // duration: this.piano.isSustainPedalPressed
+      //       ? SUSTAINED_NOTE_DURATION
+      //       : NON_SUSTAINED_NOTE_DURATION,
+
       //this.piano.setKey(event.noteNumber, keyEvent);
 
       //noteOn(event.noteNumber);
@@ -321,11 +353,11 @@ export class FancyMidiPlayer {
 
     const notes = this.currentNotes;
 
-    console.log("\nnotes: " + JSON.stringify(notes));
+    //console.log("\nnotes: " + JSON.stringify(notes));
 
     const chords = notes.length > 2 ? detectChord(notes) : [];
 
-    console.log("chords: " + JSON.stringify(chords));
+    //console.log("chords: " + JSON.stringify(chords));
 
     this.setNotesHtml(notes.map(keyToHtml).join(" "));
     if (chords && chords.length) {
@@ -385,9 +417,11 @@ export class FancyMidiPlayer {
     //console.log("set tempo: " + val);
 
     var newVal = parseInt(val);
-    //console.log("turn pitch: " + newVal);
+    //console.log("pitch: " + newVal);
     this.transposeVal = newVal;
     this.pitchInput.innerHTML = newVal.toString() + " st";
+
+    this.keySig.innerHTML = this.scales[this.transposeVal + 12] + " Major";
   }
 
   setNotesHtml(html) {

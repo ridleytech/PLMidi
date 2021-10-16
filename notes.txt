@@ -1,6 +1,7 @@
 //to do
 
-transpose notes
+transpose notes - update displayed key when pitch is changed
+choose sharps or flats
 add please use google chrome popup for safari
 
 //extra
