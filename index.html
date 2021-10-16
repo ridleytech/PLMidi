@@ -39,32 +39,29 @@ body {
 
 /* @media screen and (max-width: 645px) { */
 @media screen and (max-width: 900px) {
-  #header-logo {
-      left: 45% !important;
-  }
-  #inner {
-      /* width: 100% !important; */
-      margin-left: auto !important;
-      margin-right: auto !important;
-      position: relative !important;
-  }
-  #file-info {
-  /* margin-top: 10px; */
-  }
-  #info-container {
-      height: 100% !important;
-  }
-
-  #speedInputContainer {
+#header-logo {
+    left: 45% !important;
+}
+#inner {
+    /* width: 100% !important; */
+    margin-left: auto !important;
+    margin-right: auto !important;
+    position: relative !important;
+}
+#file-info {
+/* margin-top: 10px; */
+}
+#info-container {
+    height: 100% !important;
+}
+#speedInputContainer {
     position: relative !important;
     right: 0px !important;
     margin-top: 0px !important;
     margin-left: auto !important;
     margin-right: auto !important;
     margin-bottom: 20px !important;
-  }
-
-  
+}
 }
 #play-piece:hover {
     opacity: 0.9;
@@ -146,15 +143,14 @@ body {
 .pressed2 {
     /* background-color: gold !important; */
     background-image: url(./assets/images/pedal-pressed.png) !important;
-  background-repeat-x: no-repeat;
-          background-size: 100%;
-          background-repeat-y: no-repeat;
-          background-position-y: center;
+    background-repeat-x: no-repeat;
+    background-size: 100%;
+    background-repeat-y: no-repeat;
+    background-position-y: center;
 }
 .slider-wrapper {
     width: 100%;
     margin-left: 10px;/* display: none; */
-
 }
 .slider .complete {
     height: 46px;
@@ -163,6 +159,8 @@ body {
 .marker {
     background-color: #fcff02 !important;
     height: 45px !important;
+    /* width: 0px !important;
+    padding: 3px !important; */
 }
 .marker-max {
     margin-left: -15px !important;
@@ -173,23 +171,20 @@ body {
 .loopEnabled {
     background-image: url(./assets/images/loop-enabled.png) !important;
 }
-
-#sustain-pedal2{
-  background-image: url(./assets/images/pedal.png) !important;
-  background-repeat-x: no-repeat;
-          background-size: 100%;
-          background-repeat-y: no-repeat;
-          background-position-y: center;
+#sustain-pedal2 {
+    background-image: url(./assets/images/pedal.png) !important;
+    background-repeat-x: no-repeat;
+    background-size: 100%;
+    background-repeat-y: no-repeat;
+    background-position-y: center;
 }
-
-#sustain-pedal2.pressed2{
-  background-image: url(./assets/images/pedal-pressed.png) !important;
-  background-repeat-x: no-repeat;
-          background-size: 100%;
-          background-repeat-y: no-repeat;
-          background-position-y: center;
+#sustain-pedal2.pressed2 {
+    background-image: url(./assets/images/pedal-pressed.png) !important;
+    background-repeat-x: no-repeat;
+    background-size: 100%;
+    background-repeat-y: no-repeat;
+    background-position-y: center;
 }
-
 #info-container {
     flex-direction: column !important;
 }
@@ -251,121 +246,116 @@ font-family: monospace;
     stroke: #000;
 }
 #progressSlider {
-    width: 93%;
-    margin-left: 10px;
+    width: 89%;
+    margin-left: 25px;
     position: absolute;
     left: 40px;
     z-index: 5;
     background: transparent;
 }
-
-
 input[type=range] {
-  height: 38px;
-  -webkit-appearance: none;
-  margin: 10px 0;
-  width: 100%;
+    height: 38px;
+    -webkit-appearance: none;
+    margin: 10px 0;
+    width: 100%;
 }
 input[type=range]:focus {
-  outline: none;
+    outline: none;
 }
 input[type=range]::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 0px;
-  cursor: pointer;
-  animate: 0.2s;
-  box-shadow: 0px 0px 0px #1F9717;
-  background: #1F9717;
-  border-radius: 0px;
-  border: 0px solid #1F9717;
+width: 100%;
+height: 0px;
+cursor: pointer;
+animate: 0.2s;
+box-shadow: 0px 0px 0px #1F9717;
+background: #1F9717;
+border-radius: 0px;
+border: 0px solid #1F9717;
 }
 input[type=range]::-webkit-slider-thumb {
-  box-shadow: 1px 1px 1px #1F9717;
-  border: 1px solid #1F9717;
-  height: 30px;
-  width: 5px;
-  border-radius: 5px;
-  background: #FFFFFF;
-  cursor: pointer;
-  -webkit-appearance: none;
-  margin-top: -15px;
+box-shadow: 1px 1px 1px #1F9717;
+border: 1px solid #1F9717;
+height: 30px;
+width: 5px;
+border-radius: 5px;
+background: #FFFFFF;
+cursor: pointer;
+-webkit-appearance: none;
+margin-top: -15px;
 }
 input[type=range]:focus::-webkit-slider-runnable-track {
-  background: #1F9717;
+background: #1F9717;
 }
 input[type=range]::-moz-range-track {
-  width: 100%;
-  height: 1px;
-  cursor: pointer;
-  animate: 0.2s;
-  box-shadow: 0px 0px 0px #1F9717;
-  background: #1F9717;
-  border-radius: 0px;
-  border: 0px solid #1F9717;
+width: 100%;
+height: 1px;
+cursor: pointer;
+animate: 0.2s;
+box-shadow: 0px 0px 0px #1F9717;
+background: #1F9717;
+border-radius: 0px;
+border: 0px solid #1F9717;
 }
 input[type=range]::-moz-range-thumb {
-  box-shadow: 0px 0px 0px #1F9717;
-  border: 1px solid #1F97170;
-  height: 30px;
-  width: 5px;
-  border-radius: 5px;
-  background: #FFFFFF;
-  cursor: pointer;
+box-shadow: 0px 0px 0px #1F9717;
+border: 1px solid #1F97170;
+height: 30px;
+width: 5px;
+border-radius: 5px;
+background: #FFFFFF;
+cursor: pointer;
 }
 input[type=range]::-ms-track {
-  width: 100%;
-  height: 1px;
-  cursor: pointer;
-  animate: 0.2s;
-  background: transparent;
-  border-color: transparent;
-  color: transparent;
+width: 100%;
+height: 1px;
+cursor: pointer;
+animate: 0.2s;
+background: transparent;
+border-color: transparent;
+color: transparent;
 }
 input[type=range]::-ms-fill-lower {
-  background: #1F9717;
-  border: 0px solid #1F9717;
-  border-radius: 0px;
-  box-shadow: 0px 0px 0px #1F9717;
+background: #1F9717;
+border: 0px solid #1F9717;
+border-radius: 0px;
+box-shadow: 0px 0px 0px #1F9717;
 }
 input[type=range]::-ms-fill-upper {
-  background: #1F9717;
-  border: 0px solid #1F9717;
-  border-radius: 0px;
-  box-shadow: 0px 0px 0px #1F9717;
+background: #1F9717;
+border: 0px solid #1F9717;
+border-radius: 0px;
+box-shadow: 0px 0px 0px #1F9717;
 }
 input[type=range]::-ms-thumb {
-  margin-top: 1px;
-  box-shadow: 0px 0px 0px #1F9717;
-  border: 1px solid #1F97170;
-  height: 30px;
-  width: 5px;
-  border-radius: 5px;
-  background: #FFFFFF;
-  cursor: pointer;
+margin-top: 1px;
+box-shadow: 0px 0px 0px #1F9717;
+border: 1px solid #1F97170;
+height: 30px;
+width: 5px;
+border-radius: 5px;
+background: #FFFFFF;
+cursor: pointer;
 }
 input[type=range]:focus::-ms-fill-lower {
-  background: #1F9717;
+background: #1F9717;
 }
 input[type=range]:focus::-ms-fill-upper {
-  background: #1F9717;
+background: #1F9717;
 }
-
 #speedInputContainer {
-  width: 100px;
-  /* background-color: purple; */
-  position: absolute;
-  right: 15px;
-  /* margin-top: 17px; */
+    width: 100px;
+    /* background-color: purple; */
+    position: absolute;
+    right: 15px;
+    /* margin-top: 17px; */
     align-items: center;
     display: flex;
     justify-content: space-around;
 }
-
 .input-knob {
-margin-bottom: 5px !important;
-  width: 40px !important;
-  height: 40px !important;
-
+    margin-bottom: 5px !important;
+    width: 40px !important;
+    height: 40px !important;
 }
 
 
@@ -416,11 +406,6 @@ margin-bottom: 5px !important;
   box-shadow: 0px 0px 10px #349beb,
     inset 0px 0px 10px #349beb;
 } */
-
-
-
-
-
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -428,7 +413,7 @@ margin-bottom: 5px !important;
     href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
     rel="stylesheet"
   />
-  <script src="/src/input-knobs-master/input-knobs.js"></script>
+<script src="/src/input-knobs-master/input-knobs.js"></script>
 <body>
 <div id="app">
   <div id="settings">
@@ -583,7 +568,6 @@ margin-bottom: 5px !important;
         "
         id="header"
       ></div>
-
   <div id="info-container" style="background-color: black; height: 80px; display: flex;">
     <div id="inner">
       <div style="display: flex; align-items: center;"> <span  id="file-name" style="font-size: 12px;"></span>
@@ -657,17 +641,18 @@ margin-bottom: 5px !important;
     </div>
     <div id="speedInputContainer">
       <div>
-      <input type="range" class="input-knob" id="input-k"/>
-      <div class="speed-lbl" style="color: white; font-size: 12px;text-align: center;">Speed</div>
-    </div>
-    <div>
-      <input type="range" class="input-knob" id="input-pitch-k"/>
-      <div class="pitch-lbl2" style="color: white; font-size: 12px;text-align: center;">Pitch</div>
-    </div>
-   </div>
+        <input type="range" class="input-knob" id="input-k"  data-fgcolor="#1F9717" data-bgcolor="#141313"/>
+        <div class="speed-lbl" style="color: white; font-size: 12px;text-align: center;">Speed</div>
+      </div>
+      <div>
+        <!-- <input type="range" class="input-knob" data-diameter="96" data-src="./assets/images/knobman96.png"/> -->
 
+        <input type="range" class="input-knob" id="input-pitch-k"  data-fgcolor="#1F9717" data-bgcolor="#141313"/>
+        <div class="pitch-lbl2" style="color: white; font-size: 12px;text-align: center;">Pitch</div>
+      </div>
+    </div>
   </div>
-
+  
   <!-- <div class="slider slider1">
     <div class="knob"></div>
   </div> -->
@@ -722,11 +707,9 @@ margin-bottom: 5px !important;
           color: white;
           padding-top: 5px;
           border: 3px solid black; text-align: center;
-        ">
-     
-    </div>
+        "> </div>
 
-      <!-- <div
+<!-- <div
         id="notesDisplay"
         style="
           width: 100%;
@@ -742,33 +725,13 @@ margin-bottom: 5px !important;
           padding-top: 5px;
           border: 3px solid black;
         "
-      ></div> -->
-
-<!-- <section id="section3">
-        <h2>Custom player and visualizer style</h2>
-        <midi-player
-          src="../assets/midi/Pass Me Not - Advanced.mid"
-          sound-font visualizer="#section3 midi-visualizer">
-        </midi-player>
-        <midi-visualizer
-          src="../assets/midi/Pass Me Not - Advanced.mid">
-        </midi-visualizer>
-        </section> -->
+      ></div> --> 
 
 <div id="piano-pedal" style="display: flex; flex-direction: column; background-color: #232323;">
   <div id="keyboardNotes" style="filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4)); z-index: 1;"></div>
-
   <div id="keyboard" style="filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4)); z-index: 1;"></div>
-  <!-- <div style="width: 25px;
-        height: 40px;
-        background-color: white;
-        margin-left: auto;
-        margin-right: auto; border: 1px solid black; 
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px; 
-        filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4));" 
-        id="sustain-pedal2"></div> -->
-    <div
+
+  <div
     style="
       width: 45px;
       height: 45px;
@@ -780,38 +743,19 @@ margin-bottom: 5px !important;
     "
   ></div>
   <div
-          id="midi-container"
-          style="
-            margin-top: 15px;
-            width: 100%;
-            background-color: #101010;
-            border: 3px solid #d1d1d1;
-          "
-        >
+      id="midi-container"
+      style="
+        margin-top: 15px;
+        width: 100%;
+        background-color: #101010;
+        border: 3px solid #d1d1d1;
+      "
+    >
     <div id="loop" style="display: flex; height: 45px; align-items: center;
           ">
       <button id="loop-piece"></button>
       <input type="range" id="progressSlider" min="0" max="100" value="0"/>
-      
-      <!-- <img
-              src="./assets/images/loop-enabled@3x.png"
-              style="
-                width: 35px;
-                height: 35px;
-                margin-left: 5px;
-                cursor: pointer;
-              "
-            /> --> 
-      <!-- <div id="loop-area" style="
-            width: 20%; 
-            height: 45px;
-            background-color: rgba(255,255,255,0.5);
-            margin-left: 10px;
-           "></div> -->
-      
-      <input data-role="doubleslider"
-           data-min="0" data-max="100" id="ds"
-           >
+      <input data-role="doubleslider" data-min="0" data-max="100" id="ds">
       
       <!-- <input type="text" id="slider-return-value"> --> 
       
@@ -819,24 +763,10 @@ margin-bottom: 5px !important;
   </div>
 </div>
 </div>
-
-
-
 <script src="/src/index.js"></script> 
 <script src="/src/chord-display/index.js"></script> 
 <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script> 
-<!-- <script src="/src/main.js"></script> -->
-
-
-<!-- <midi-visualizer type="staff" id="myStaffVisualizer" 
-  src="../assets/midi/Pass Me Not - Advanced.mid">
-</midi-visualizer> --> 
-
-<!-- <midi-player src="../assets/midi/Pass Me Not - Advanced.mid"></midi-player> --> 
-<!-- <midi-visualizer
-    type="piano-roll"
-    src="../assets/midi/Pass Me Not - Advanced.mid">
-  </midi-visualizer> --> 
+<!-- <script src="/src/main.js"></script> --> 
 <!-- <script src="/src/tonalTest.js"></script> -->
 </body>
 </html>

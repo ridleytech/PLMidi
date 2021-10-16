@@ -8,9 +8,10 @@ import {
 } from "../utils/constants";
 import ReverbJS from "reverb.js";
 import { chord as detectChord } from "tonal/detect";
+import { Note } from "@tonaljs/tonal";
 
 import { chordToHtml, keyToHtml } from "../chord-display/chords";
-import { noteOn, noteOff } from "../chord-display/events";
+import { noteOn, noteOff, fadeAllNotes } from "../chord-display/events";
 
 export class FancyMidiPlayer {
   constructor(document) {
@@ -48,6 +49,8 @@ export class FancyMidiPlayer {
     this.beats = 1;
     this.displayBeat = 1;
     this.tempoOffset = 70;
+    this.transposeVal = 0;
+    this.transposeStr = "M";
 
     setTimeout(() => {
       this.sliderWrapper = document.querySelector(".slider-wrapper");
@@ -242,11 +245,24 @@ export class FancyMidiPlayer {
   }
 
   onNoteOnEvent(event) {
+    // console.log("\nevent.noteNumber: " + event.noteNumber);
+    //console.log("\nevent.noteName: " + event.noteName);
+    var newNote = event.noteNumber + this.transposeVal;
+    //console.log("newNote: " + newNote);
+
+    var newNoteName = event.noteName;
+
+    if (this.transposeVal > 0) {
+      var distStr = this.transposeVal.toString() + this.transposeStr;
+      newNoteName = Note.transpose(event.noteName, distStr);
+      console.log("add newNoteName: " + newNoteName + " distStr: " + distStr);
+    }
+
     if (event.velocity === 0) {
       this.onNoteOffEvent(event);
     } else {
       let keyEvent = this.instrument.play(
-        event.noteName,
+        newNote,
         this.safeAudioContext.currentTime,
         {
           gain: (event.velocity / 100) * this.volume,
@@ -256,12 +272,14 @@ export class FancyMidiPlayer {
         }
       );
       //this.piano.setKey(event.noteNumber, keyEvent);
-      noteOn(event.noteNumber);
+
+      //noteOn(event.noteNumber);
+      noteOn(newNote);
 
       //manage chord display
 
-      if (!this.currentNotes.includes(event.noteName)) {
-        this.currentNotes.push(event.noteName);
+      if (!this.currentNotes.includes(newNoteName)) {
+        this.currentNotes.push(newNoteName);
         //highlightNote(noteNumber);
       }
       this.currentNotes.sort();
@@ -273,11 +291,22 @@ export class FancyMidiPlayer {
     // const keyToStop = this.piano.stopKey(event.noteNumber);
     // if (keyToStop) keyToStop.stop();
 
-    noteOff(event.noteNumber);
+    var newNote = event.noteNumber + this.transposeVal;
+
+    //noteOff(event.noteNumber);
+    noteOff(newNote);
 
     //manage chord display
 
-    const index = this.currentNotes.indexOf(event.noteName);
+    var newNoteName = event.noteName;
+
+    if (this.transposeVal > 0) {
+      var distStr = this.transposeVal.toString() + this.transposeStr;
+      newNoteName = Note.transpose(event.noteName, distStr);
+      //console.log("remove newNoteName: " + newNoteName + " distStr: " + distStr);
+    }
+
+    const index = this.currentNotes.indexOf(newNoteName);
     if (index > -1) {
       this.currentNotes.splice(index, 1);
       //fadeNote(noteNumber);
@@ -461,7 +490,7 @@ export class FancyMidiPlayer {
     this.currentlyPlaying = false;
     this.playButton.classList.remove("paused");
     this.currentProgress = 0;
-    this.piano.repaintKeys();
+    fadeAllNotes();
     this.bars = 1;
     this.lastBeat = 1;
     this.lastCurrentBeat = 1;
@@ -473,5 +502,8 @@ export class FancyMidiPlayer {
     this.beatField.innerHTML = ": " + this.displayBeat.toString();
     songLength.innerHTML = new Date(0 * 1000).toISOString().substr(11, 8);
     this.progressSlider.value = this.currentProgress;
+
+    this.currentNotes = [];
+    this.refresh();
   }
 }

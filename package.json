@@ -8,6 +8,7 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
+    "@tonaljs/tonal": "^4.6.5",
     "babel-polyfill": "^6.26.0",
     "html-midi-player": "^1.4.0-1",
     "midi-player-js": "2.0.13",

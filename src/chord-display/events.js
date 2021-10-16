@@ -1,5 +1,5 @@
-import Note from 'tonal/note';
-import { chord as detectChord } from 'tonal/detect';
+import Note from "tonal/note";
+import { chord as detectChord } from "tonal/detect";
 import {
   highlightNote,
   fadeNote,
@@ -9,8 +9,8 @@ import {
   setNotesHtml,
   setPitchWheel,
   setModWheel,
-} from './ui';
-import { chordToHtml, keyToHtml } from './chords';
+} from "./ui";
+import { chordToHtml, keyToHtml } from "./chords";
 
 const currentNotes = [];
 let currentPitch = 0;
@@ -19,6 +19,7 @@ let currentModulation = 0;
 let previousChord = null;
 
 export function noteOn(noteNumber) {
+  //console.log("noteNumber: " + noteNumber);
   if (!currentNotes.includes(noteNumber)) {
     currentNotes.push(noteNumber);
     highlightNote(noteNumber);
@@ -34,6 +35,12 @@ export function noteOff(noteNumber) {
     fadeNote(noteNumber);
   }
   refresh();
+}
+
+export function fadeAllNotes() {
+  for (let i = 21; i < 88; i++) {
+    fadeNote(i);
+  }
 }
 
 export function pitchWheel(pitch) {
@@ -53,13 +60,11 @@ function onEvent(...args) {
 function refresh() {
   const notes = currentNotes.map(Note.fromMidi).map(Note.pc);
   const chords = notes.length > 2 ? detectChord(notes) : [];
-  
-  
-  setNotesHtml(notes.map(keyToHtml).join(' '));
+
+  setNotesHtml(notes.map(keyToHtml).join(" "));
   if (chords && chords.length) {
     const chord = chords[0];
     setChordHtml(chordToHtml(chord));
-
 
     if (previousChord) {
       fadeTonics();
@@ -68,10 +73,10 @@ function refresh() {
     highlightTonic(chord.tonic);
     previousChord = chord;
   } else {
-    setChordHtml('');
+    setChordHtml("");
     fadeTonics();
   }
 }
 
-export const controller = onEvent.bind(this, 'controller');
-export const polyPressure = onEvent.bind(this, 'polyPressure');
+export const controller = onEvent.bind(this, "controller");
+export const polyPressure = onEvent.bind(this, "polyPressure");

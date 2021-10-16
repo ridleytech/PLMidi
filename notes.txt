@@ -6,3 +6,16 @@ add please use google chrome popup for safari
 //extra
 
 add forward/rewind buttons
+
+
+
+https://g200kg.github.io/input-knobs/
+
+<!-- <midi-visualizer type="staff" id="myStaffVisualizer" 
+  src="../assets/midi/Pass Me Not - Advanced.mid">
+</midi-visualizer> --> 
+<!-- <midi-player src="../assets/midi/Pass Me Not - Advanced.mid"></midi-player> --> 
+<!-- <midi-visualizer
+    type="piano-roll"
+    src="../assets/midi/Pass Me Not - Advanced.mid">
+  </midi-visualizer> --> 

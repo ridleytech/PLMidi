@@ -19,12 +19,12 @@ export class FancyPiano {
   }
 
   repaintKeys() {
-    // console.log(
-    //   "FIRST_KEY_NOTE_NUMBER: " +
-    //     FIRST_KEY_NOTE_NUMBER +
-    //     " PIANO_KEYS_COUNT: " +
-    //     PIANO_KEYS_COUNT
-    // );
+    console.log(
+      "FIRST_KEY_NOTE_NUMBER: " +
+        FIRST_KEY_NOTE_NUMBER +
+        " PIANO_KEYS_COUNT: " +
+        PIANO_KEYS_COUNT
+    );
     for (let i = 21; i < FIRST_KEY_NOTE_NUMBER + PIANO_KEYS_COUNT; i++) {
       //this.paintReleasedKey(i);
     }
