@@ -115,6 +115,22 @@ document.querySelector("#input-k").addEventListener("change", function (e) {
   fmp.setSliderTempo(e.target.value);
 });
 
+document
+  .querySelector("#input-pitch-k")
+  .addEventListener("input", function (e) {
+    //console.log("e: " + e.target.value);
+
+    fmp.updatePitchInput(e.target.value);
+  });
+
+// document
+//   .querySelector("#input-pitch-k")
+//   .addEventListener("change", function (e) {
+//     //console.log("e: " + e.target.value);
+
+//     fmp.updatePitchInput(e.target.value);
+//   });
+
 document.querySelector("#tempo").addEventListener("change", function (e) {
   //console.log("e: " + e.target.value);
 

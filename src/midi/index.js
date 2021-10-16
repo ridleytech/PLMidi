@@ -37,6 +37,8 @@ export class FancyMidiPlayer {
     this.tempoSlider = document.querySelector("#input-k");
     this.tempoInput = document.querySelector("#tempo");
 
+    this.pitchInput = document.querySelector("#pitch");
+
     this.barField = document.querySelector("#bar");
     this.beatField = document.querySelector("#beat");
     this.progressSlider = document.querySelector("#progressSlider");
@@ -49,7 +51,7 @@ export class FancyMidiPlayer {
     this.beats = 1;
     this.displayBeat = 1;
     this.tempoOffset = 70;
-    this.transposeVal = 0;
+    this.transposeVal = -3;
     this.transposeStr = "M";
 
     setTimeout(() => {
@@ -319,16 +321,16 @@ export class FancyMidiPlayer {
 
     const notes = this.currentNotes;
 
-    //console.log("notes: " + JSON.stringify(notes));
+    console.log("\nnotes: " + JSON.stringify(notes));
 
     const chords = notes.length > 2 ? detectChord(notes) : [];
 
-    //console.log("chords: " + JSON.stringify(chords));
+    console.log("chords: " + JSON.stringify(chords));
 
     this.setNotesHtml(notes.map(keyToHtml).join(" "));
     if (chords && chords.length) {
       const chord = chords[0];
-      this.setChordHtml(chordToHtml(chord));
+      // this.setChordHtml(chordToHtml(chord));
 
       // if (previousChord) {
       //   fadeTonics();
@@ -337,7 +339,7 @@ export class FancyMidiPlayer {
       //highlightTonic(chord.tonic);
       this.previousChord = chord;
     } else {
-      this.setChordHtml("");
+      //this.setChordHtml("");
       //fadeTonics();
     }
   }
@@ -353,6 +355,19 @@ export class FancyMidiPlayer {
     this.setTempo(newVal);
   }
 
+  setSliderPitch(val) {
+    //console.log("val: " + val);
+
+    var newVal = parseInt(val);
+    console.log("new set pitch: " + newVal);
+
+    //this.tempoInput.value = newVal;
+
+    this.setPitch(newVal);
+  }
+
+  setPitch(val) {}
+
   updateTempoInput(val) {
     //console.log("set tempo: " + val);
 
@@ -366,15 +381,24 @@ export class FancyMidiPlayer {
     this.setTempo(val);
   }
 
+  updatePitchInput(val) {
+    //console.log("set tempo: " + val);
+
+    var newVal = parseInt(val);
+    //console.log("turn pitch: " + newVal);
+    this.transposeVal = newVal;
+    this.pitchInput.innerHTML = newVal.toString() + " st";
+  }
+
   setNotesHtml(html) {
     //console.log("notes html: " + html);
     notesDisplay.innerHTML = html;
   }
 
-  setChordHtml(html) {
-    //console.log("chord html: " + html);
-    chordDisplay1.innerHTML = html;
-  }
+  // setChordHtml(html) {
+  //   //console.log("chord html: " + html);
+  //   chordDisplay1.innerHTML = html;
+  // }
 
   setTempo(tempo) {
     console.log("setTempo change tempo: " + tempo);
