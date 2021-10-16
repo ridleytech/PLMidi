@@ -1,12 +1,7 @@
 //to do
 
 read key of song on load
-choose sharps or flats
 add please use google chrome popup for safari
-
-//extra
-
-add forward/rewind buttons
 
 
 

@@ -8,14 +8,15 @@ import {
 } from "../utils/constants";
 import ReverbJS from "reverb.js";
 import { chord as detectChord } from "tonal/detect";
-import { Note } from "@tonaljs/tonal";
+import { Note, Midi } from "@tonaljs/tonal";
 
 import { chordToHtml, keyToHtml } from "../chord-display/chords";
 import { noteOn, noteOff, fadeAllNotes } from "../chord-display/events";
+import { setAccidentalKeyboard } from "../chord-display/keyboard";
 
 export class FancyMidiPlayer {
   constructor(document) {
-    console.log("FanceyMidiPlayer");
+    //console.log("FanceyMidiPlayer");
     this.audioContext =
       window.AudioContext || window.webkitAudioContext || false;
     this.safeAudioContext = new this.audioContext();
@@ -43,6 +44,8 @@ export class FancyMidiPlayer {
     this.beatField = document.querySelector("#beat");
     this.progressSlider = document.querySelector("#progressSlider");
 
+    this.accidentalSwitch = document.querySelector("#accidentalSwitch");
+
     this.loopStart = 0;
     this.loopEnd = 100;
     this.currentProgress = 0;
@@ -53,6 +56,7 @@ export class FancyMidiPlayer {
     this.tempoOffset = 70;
     this.transposeVal = 0;
     this.transposeStr = "M";
+    this.showSharp = true;
 
     setTimeout(() => {
       this.sliderWrapper = document.querySelector(".slider-wrapper");
@@ -138,14 +142,13 @@ export class FancyMidiPlayer {
         if (event.name === "Set Tempo") {
           if (this.intialTempoSet == false) {
             //this.tempo = event.data;
-            console.log("set initial tempo");
+            //console.log("set initial tempo");
           }
           this.intialTempoSet = true;
-          console.log("tempo set event");
+          //console.log("tempo set event");
           this.player.setTempo(this.tempo);
         } else if (event.name === "Key Signature") {
-          console.log("key sig event: " + JSON.stringify(event));
-
+          //console.log("key sig event: " + JSON.stringify(event));
           //Randall to do. This returns undefined
           //this.keySig = event.keySignature;
           //console.log("key sig set: " + this.keySig);
@@ -318,6 +321,13 @@ export class FancyMidiPlayer {
 
       //manage chord display
 
+      var accidentalName = Midi.midiToNoteName(newNote, {
+        pitchClass: true,
+        sharps: this.showSharp,
+      });
+
+      newNoteName = accidentalName;
+
       if (!this.currentNotes.includes(newNoteName)) {
         this.currentNotes.push(newNoteName);
         //highlightNote(noteNumber);
@@ -346,12 +356,34 @@ export class FancyMidiPlayer {
       //console.log("remove newNoteName: " + newNoteName + " distStr: " + distStr);
     }
 
+    var accidentalName = Midi.midiToNoteName(newNote, {
+      pitchClass: true,
+      sharps: this.showSharp,
+    });
+
+    newNoteName = accidentalName;
+
     const index = this.currentNotes.indexOf(newNoteName);
     if (index > -1) {
       this.currentNotes.splice(index, 1);
       //fadeNote(noteNumber);
     }
     this.refresh();
+  }
+
+  setAccidental() {
+    //console.log("setAccidental midi: " + this.accidentalSwitch.checked);
+
+    var sharps = true;
+
+    if (this.accidentalSwitch.checked) {
+      sharps = false;
+    }
+
+    //console.log("midi sharps: " + sharps);
+
+    this.showSharp = sharps;
+    setAccidentalKeyboard(sharps);
   }
 
   refresh() {
@@ -450,7 +482,7 @@ export class FancyMidiPlayer {
   // }
 
   setTempo(tempo) {
-    console.log("setTempo change tempo: " + tempo);
+    //console.log("setTempo change tempo: " + tempo);
 
     this.intialTempoSet = true;
 
@@ -505,7 +537,7 @@ export class FancyMidiPlayer {
     this.midi = await fetch(midiUrl).then((response) => response.arrayBuffer());
     this.player.loadArrayBuffer(this.midi);
 
-    console.log("set midi");
+    //console.log("set midi");
 
     if (this.intialTempoSet == true) {
       this.tempo = 120;

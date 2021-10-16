@@ -5,7 +5,7 @@ import "html-midi-player";
 
 var url = "https://pianolessonwithwarren.com/dev_site";
 
-url = "http://localhost:8888/pianolesson";
+//url = "http://localhost:8888/pianolesson";
 
 const pieces = [
   createMusicalPiece(
@@ -132,6 +132,14 @@ document.querySelector("#tempo").addEventListener("change", function (e) {
 
   fmp.setTempoInput(e.target.value);
 });
+
+document
+  .querySelector("#accidentalSwitch")
+  .addEventListener("change", function (e) {
+    //console.log("e: " + JSON.stringify(e.checked));
+
+    fmp.setAccidental(e.target.value);
+  });
 
 document.querySelector("#ds").addEventListener("change", function (e) {
   //console.log("e: " + e.target.value);

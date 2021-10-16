@@ -1,6 +1,7 @@
 import Note from "tonal/note";
 import { range, mixRGB } from "./utils";
 import { getSetting } from "./settings";
+import { Midi } from "@tonaljs/tonal";
 
 const keyboardContainer = document.getElementById("keyboard");
 const keyboardContainer2 = document.getElementById("keyboardNotes");
@@ -26,6 +27,7 @@ const WHEEL_WIDTH = NOTE_WHITE_WIDTH;
 const WHEEL_HEIGHT = NOTE_WHITE_HEIGHT;
 const WHEEL_AMPLITUDE = 2 * WHEEL_HEIGHT - 80;
 const WHEEL_SOCKET_BASE_COLOR = "#222222";
+var showSharp = true;
 
 const NOTE_WHITE_TEMPLATE = (props, posX, color) => `\
 
@@ -46,16 +48,21 @@ const NOTE_WHITE_TEMPLATE = (props, posX, color) => `\
 
 `;
 
-const NOTE_NAME_TEMPLATE = (props, posX, color) => `\
+var NOTE_NAME_TEMPLATE = (props, posX, color) => `\
 
 <g id="note-${
   props.midi
 }-display" class="note display" transform="translate(${posX},0)" style="color: white;">
 <text class="piano-key-name-played-notes" x="${NOTE_WHITE_WIDTH / 2}" y="${
   NOTE_WHITE_HEIGHT - NOTE_NAME_BOTTOM_OFFSET - 140
-}" text-anchor="middle">${props.name.replace(/[0-9]/g, "")}</text>
+}" text-anchor="middle">${Midi.midiToNoteName(props.midi, {
+  pitchClass: true,
+  sharps: showSharp,
+})}</text>
 </g>
 `;
+
+//}" text-anchor="middle">${props.name.replace(/[0-9]/g, "")}</text>
 
 const NOTE_BLACK_TEMPLATE_NOTES = (props, posX, color) => `\
 <g id="note-${props.midi}" class="note black" transform="translate(${
@@ -248,6 +255,30 @@ stroke-width="0px">
   </g>
 </svg>
 `;
+
+export function setAccidentalKeyboard(val) {
+  //console.log("setAccidental keyboard sharps: " + val);
+
+  showSharp = val;
+
+  //console.log("showSharp: " + showSharp);
+
+  NOTE_NAME_TEMPLATE = (props, posX, color) => `\
+
+<g id="note-${
+    props.midi
+  }-display" class="note display" transform="translate(${posX},0)" style="color: white;">
+<text class="piano-key-name-played-notes" x="${NOTE_WHITE_WIDTH / 2}" y="${
+    NOTE_WHITE_HEIGHT - NOTE_NAME_BOTTOM_OFFSET - 140
+  }" text-anchor="middle">${Midi.midiToNoteName(props.midi, {
+    pitchClass: true,
+    sharps: showSharp,
+  })}</text>
+</g>
+`;
+
+  renderAccidental();
+}
 
 function getWheelsMarkup(ids) {
   return ids.reduce(
@@ -492,4 +523,28 @@ export function render(reset) {
     setPitchWheel(currentPitch);
     setModWheel(currentMod);
   }
+}
+
+export function renderAccidental() {
+  const noteStart = getSetting("noteStart");
+  const noteEnd = getSetting("noteEnd");
+  const pitchWheelEnabled = getSetting("pitchWheelEnabled");
+  const modWheelEnabled = getSetting("modWheelEnabled");
+  const colorNote = getSetting("colorNote");
+  const colorNoteWhite = mixRGB(colorNote, "#ffffff", 0.4);
+  const colorNoteBlack = colorNote;
+
+  const wheels = [];
+
+  if (pitchWheelEnabled) wheels.push("pitchWheel");
+  if (modWheelEnabled) wheels.push("modWheel");
+
+  keyboardContainer2.innerHTML = generateKeyboard2(
+    noteStart,
+    noteEnd,
+    wheels,
+    colorNoteWhite,
+    colorNoteBlack,
+    1
+  );
 }

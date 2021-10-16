@@ -343,10 +343,10 @@ input[type=range]:focus::-ms-fill-upper {
 background: #1F9717;
 }
 #speedInputContainer {
-    width: 100px;
+    width: 160px;
     /* background-color: purple; */
     position: absolute;
-    right: 15px;
+    right: 35px;
     /* margin-top: 17px; */
     align-items: center;
     display: flex;
@@ -406,6 +406,70 @@ background: #1F9717;
   box-shadow: 0px 0px 10px #349beb,
     inset 0px 0px 10px #349beb;
 } */
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #1F9717;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #1F9717;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #1F9717;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+  margin-top: 10px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -579,7 +643,6 @@ background: #1F9717;
           id="file-info"
           style="
             display: flex;
-
             height: 85px;
             align-items: center;
             color: white;
@@ -651,6 +714,15 @@ background: #1F9717;
         <input type="range" class="input-knob" id="input-pitch-k"  data-fgcolor="#FCFF00" data-bgcolor="#1F9717" data-min="-12" data-max="12" min="-12" max="12"/>
         <div class="pitch-lbl2" style="color: white; font-size: 12px;text-align: center;">Pitch</div>
       </div>
+      <div style="display: flex;
+      flex-direction: column;">
+        <label class="switch">
+          <input type="checkbox" id="accidentalSwitch">
+          <span class="slider round"></span>
+        </label>
+        <div style="color:white; display: flex;
+        justify-content: space-around; font-size:12px;margin-top: 17px;"><div>&sharp;</div><div>&flat;</div></div>
+      </div>
     </div>
   </div>
   
@@ -685,7 +757,7 @@ background: #1F9717;
               justify-content: center;
               font-size: 40px;
             "
-          > C maj </div>
+          > </div>
     <div id="buttons-container" style="text-align: center">
       <button id="play-piece"  disabled=""></button>
       <!-- <button id="pause-piece"  disabled="">Pause</button> -->
