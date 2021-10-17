@@ -17,6 +17,7 @@ import {
   fadeAllNotes,
   noteOnPress,
   noteOnRelease,
+  noteOnRelease2,
 } from "../chord-display/events";
 import { setAccidentalKeyboard } from "../chord-display/keyboard";
 
@@ -87,8 +88,6 @@ export class FancyMidiPlayer {
       // }
 
       for (let i = 21; i < 21 + 88; i++) {
-        //this.paintReleasedKey(i);
-
         const keyElement = document.getElementById(`note-${i}`);
         keyElement.onmousedown = () => {
           this.playKey(keyElement.id);
@@ -96,6 +95,10 @@ export class FancyMidiPlayer {
 
         keyElement.onmouseup = () => {
           this.releaseKey(keyElement.id);
+        };
+
+        keyElement.onmouseout = () => {
+          this.releaseKey2(keyElement.id);
         };
       }
     }, 200);
@@ -156,6 +159,18 @@ export class FancyMidiPlayer {
     // console.log("noteName: " + noteName);
 
     noteOnRelease(noteNumber);
+  };
+
+  releaseKey2 = (key) => {
+    //console.log("release key: " + key);
+
+    let noteNumber = parseInt(key.replace("note-", ""));
+    let noteName = Note.fromMidi(noteNumber);
+
+    // console.log("noteNumber: " + noteNumber);
+    // console.log("noteName: " + noteName);
+
+    noteOnRelease2(noteNumber);
   };
 
   playKey = (key) => {
@@ -477,19 +492,6 @@ export class FancyMidiPlayer {
     this.setTempo(newVal);
   }
 
-  setSliderPitch(val) {
-    //console.log("val: " + val);
-
-    var newVal = parseInt(val);
-    //console.log("new set pitch: " + newVal);
-
-    //this.tempoInput.value = newVal;
-
-    this.setPitch(newVal);
-  }
-
-  setPitch(val) {}
-
   updateTempoInput(val) {
     //console.log("set tempo: " + val);
 
@@ -638,24 +640,6 @@ export class FancyMidiPlayer {
     }
   }
 
-  setLoopRange(val) {
-    //console.log("type: " + typeof val);
-
-    //console.log("slr: " + val);
-
-    var vals = val.split(",");
-
-    //console.log("vals: " + vals);
-
-    //console.log("type: " + typeof vals);
-
-    this.loopStart = parseInt(vals[0].trim());
-    this.loopEnd = 100 - parseInt(vals[1].trim());
-
-    // console.log("loopStart: " + this.loopStart);
-    // console.log("loopEnd: " + this.loopEnd);
-  }
-
   async setMidi(midiUrl) {
     //console.log("midiUrl: " + midiUrl);
     // "../assets/chopin_etude_rev.mid"
@@ -692,12 +676,6 @@ export class FancyMidiPlayer {
       this.playMidi();
     }
   }
-
-  // skipTo() {
-  //   console.log("skip to 20%");
-  //   this.player.skipToPercent(10);
-  //   this.player.play();
-  // }
 
   movePlayheadFwd() {
     if (this.currentProgress < 100) {

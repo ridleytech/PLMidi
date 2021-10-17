@@ -3,6 +3,9 @@ import { chord as detectChord } from "tonal/detect";
 import {
   highlightNote,
   fadeNote,
+  highlightNote2,
+  fadeNote2,
+  fadeNote3,
   highlightTonic,
   fadeTonics,
   setChordHtml,
@@ -29,11 +32,14 @@ export function noteOn(noteNumber) {
 }
 
 export function noteOnPress(noteNumber) {
-  highlightNote(noteNumber);
+  highlightNote2(noteNumber);
 }
 
 export function noteOnRelease(noteNumber) {
-  fadeNote(noteNumber);
+  fadeNote2(noteNumber);
+}
+export function noteOnRelease2(noteNumber) {
+  fadeNote3(noteNumber);
 }
 
 export function noteOff(noteNumber) {

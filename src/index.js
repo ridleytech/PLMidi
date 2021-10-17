@@ -7,7 +7,7 @@ import "nouislider/dist/nouislider.css";
 
 var url = "https://pianolessonwithwarren.com/dev_site";
 
-url = "http://localhost:8888/pianolesson";
+//url = "http://localhost:8888/pianolesson";
 
 const pieces = [
   createMusicalPiece(
@@ -158,12 +158,6 @@ document
 
     fmp.setAccidental(e.target.value);
   });
-
-// document.querySelector("#ds").addEventListener("change", function (e) {
-//   //console.log("e: " + e.target.value);
-
-//   fmp.setLoopRange(e.target.value);
-// });
 
 //control playback with keyboard
 

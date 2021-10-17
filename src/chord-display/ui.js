@@ -37,13 +37,79 @@ export function highlightNote(noteNumber, className = "active") {
     return;
   }
 
+  keyElement.classList.add("autoSelect");
   keyElement.classList.add(className);
   keyElementDisplayNote.classList.add(className);
 }
 
 export function fadeNote(noteNumber) {
   //console.log("fadeNote: " + noteNumber);
+
+  //console.log("fadeNote");
+
   const keyElement = document.getElementById(`note-${noteNumber}`);
+
+  const keyElementDisplayNote = document.getElementById(
+    `note-${noteNumber}-display`
+  );
+  if (!keyElement) return;
+
+  keyElement.classList.remove("autoSelect");
+  keyElement.classList.remove("active");
+  keyElementDisplayNote.classList.remove("active");
+}
+
+export function highlightNote2(noteNumber, className = "active") {
+  // console.log("highlightNote: " + noteNumber);
+  // console.log("key el str: " + `note-${noteNumber}`);
+  const keyElement = document.getElementById(`note-${noteNumber}`);
+  //console.log("keyElement: " + JSON.stringify(keyElement));
+
+  const keyElementDisplayNote = document.getElementById(
+    `note-${noteNumber}-display`
+  );
+
+  if (!keyElement) {
+    //console.log("not key element");
+    return;
+  }
+
+  keyElement.classList.add(className);
+  keyElementDisplayNote.classList.add(className);
+}
+
+export function fadeNote2(noteNumber) {
+  //console.log("fadeNote: " + noteNumber);
+
+  //console.log("fadeNote2");
+
+  const keyElement = document.getElementById(`note-${noteNumber}`);
+
+  // if (keyElement.classList.contains("autoSelect")) {
+  //   console.log("dont fade");
+  //   return;
+  // }
+  const keyElementDisplayNote = document.getElementById(
+    `note-${noteNumber}-display`
+  );
+  if (!keyElement) return;
+
+  keyElement.classList.remove("autoSelect");
+  keyElement.classList.remove("active");
+  keyElementDisplayNote.classList.remove("active");
+}
+
+export function fadeNote3(noteNumber) {
+  //console.log("fadeNote: " + noteNumber);
+
+  //console.log("fadeNote2");
+
+  const keyElement = document.getElementById(`note-${noteNumber}`);
+
+  if (keyElement.classList.contains("autoSelect")) {
+    //console.log("dont fade");
+    return;
+  }
   const keyElementDisplayNote = document.getElementById(
     `note-${noteNumber}-display`
   );
