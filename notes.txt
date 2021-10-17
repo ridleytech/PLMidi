@@ -1,6 +1,6 @@
 //to do
 
-- Fix loop issue
+- fix beat timer
 - Fix chords sync
 - Work on sustain
 
@@ -10,8 +10,9 @@
 - Change Browse button hover color
 - Increase font size
 - Add sounds to keyboard key press
-- add please use google chrome popup for safari
+- Add "please use google chrome" popup for other browsers
 - Add keyboard control for playback (space bar, arrows fast fwd)
+- Fix loop issue
 
 //later
 

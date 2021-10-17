@@ -252,6 +252,7 @@ font-family: monospace;
     position: absolute;
     z-index: 5;
     background: transparent;
+    margin-top: 0px !important;
 }
 input[type=range] {
     height: 38px;
@@ -442,7 +443,7 @@ background: #1F9717;
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
+  background-color: #fcff02;
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -482,8 +483,8 @@ input:checked + .slider1:before {
 }
 
 #loop-settings {
-  margin-top: 5px;
-  padding: 10px 0 10px 5px;}
+  padding: 10px 0 10px 5px;
+}
 
   .loopBtn {
     margin-right: 10px; border-radius: 5px;
@@ -500,13 +501,6 @@ font-size: 14px;
     background: #1f9713;
 }
 
-/* .noUi-horizontal .noUi-handle {
-	width: 10px !important;
-	height: 28px !important;
-	right: -8px !important;
-	top: -6px !important;
-} */
-
 .noUi-handle {
 	width: 10px !important;
   right: -8px !important;
@@ -518,25 +512,27 @@ font-size: 14px;
 .noUi-handle:after {
   left: 5px  !important;
   background: unset !important;
-
 }
 
 .noUi-handle:before {
   left: 3px  !important;
   background: unset !important;
-
 }
 
-/* .noUi-handle:before, .noUi-handle:after {
-	content: "" !important;
-	display: block !important;
-	position: absolute !important;
-	height: 14px !important;
-	width: 1px !important;
-	background: #E8E7E6 !important; 
-	 left: 3px;
-	top: 6px;
-} */
+.noUi-target {
+    background: #2a2929;
+    border-radius: unset  !important;
+    border: unset  !important;
+    box-shadow: unset  !important;
+}
+
+#start-loop:hover {
+    opacity: 0.9;
+}
+
+#end-loop:hover {
+    opacity: 0.9;
+}
 
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -911,7 +907,7 @@ font-size: 14px;
     </div> -->
 
 
-    <div id="loop" style="display: flex; height: 45px; align-items: center;
+    <div id="loop" style="display: flex; height: 38px;
           ">
       <input type="range" id="progressSlider" min="0" max="100" value="0"/>
       <!-- <input data-role="doubleslider" data-min="0" data-max="100" id="ds">    -->
@@ -929,9 +925,6 @@ font-size: 14px;
 </div>
 <script src="/src/index.js"></script> 
 <script src="/src/chord-display/index.js"></script> 
-<script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script> 
-
-<!-- <script src="/src/main.js"></script> --> 
-<!-- <script src="/src/tonalTest.js"></script> -->
+<script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
 </body>
 </html>

@@ -7,13 +7,13 @@ import "nouislider/dist/nouislider.css";
 
 var url = "https://pianolessonwithwarren.com/dev_site";
 
-//url = "http://localhost:8888/pianolesson";
+url = "http://localhost:8888/pianolesson";
 
 const pieces = [
   createMusicalPiece(
     0,
     "Pass Me Not - Advanced",
-    "../assets/midi/chopin_etude_rev.mid"
+    "../assets/midi/Pass Me Not - Advanced.mid"
   ),
 ];
 
@@ -56,7 +56,6 @@ const setAppBusy = (isBusy) => {
   if (isBusy) {
     playButton.setAttribute("disabled", true);
     stopButton.setAttribute("disabled", true);
-    //skipToButton.setAttribute("disabled", true);
     loopButton.setAttribute("disabled", true);
     startLoopButton.setAttribute("disabled", true);
     endLoopButton.setAttribute("disabled", true);
@@ -65,7 +64,6 @@ const setAppBusy = (isBusy) => {
   } else {
     playButton.removeAttribute("disabled");
     stopButton.removeAttribute("disabled");
-    //skipToButton.removeAttribute("disabled");
     loopButton.removeAttribute("disabled");
     startLoopButton.removeAttribute("disabled");
     endLoopButton.removeAttribute("disabled");
@@ -85,39 +83,21 @@ noUiSlider.create(slider, {
   },
 });
 
-// var slider = document.getElementById("myRange");
-// var output = document.getElementById("tempo-display");
-//output.innerHTML = slider.value; // Display the default slider value
-
-// Update the current slider value (each time you drag the slider handle)
-
-//output.innerHTML = "Tempo: " + this.value;
-//output.innerHTML = "Tempo: 120 bpm";
-
-// slider.oninput = function () {
-//   output.innerHTML = "Tempo: " + this.value + " bpm";
-//   fmp.setTempo(this.value);
-// };
-
 const fmp = new FancyMidiPlayer(document);
 setAppBusy(true);
 fmp.setInstrument(instrumentUrl).then(() => {
   const playButton = document.querySelector("#play-piece");
   const stopButton = document.querySelector("#stop-piece");
-  //const skipToButton = document.querySelector("#skip-to");
   const loopButton = document.querySelector("#loop-piece");
   const startLoopButton = document.querySelector("#start-loop");
   const endLoopButton = document.querySelector("#end-loop");
 
-  //const pauseButton = document.querySelector("#pause-piece");
   playButton.onclick = fmp.manageMidi.bind(fmp);
   stopButton.onclick = fmp.stopMidi.bind(fmp);
-  //skipToButton.onclick = fmp.skipTo.bind(fmp);
   loopButton.onclick = fmp.manageLoop.bind(fmp);
   startLoopButton.onclick = fmp.setStartLoop.bind(fmp);
   endLoopButton.onclick = fmp.setEndLoop.bind(fmp);
 
-  //pauseButton.onclick = fmp.pauseMidi.bind(fmp);
   changePiece(0);
 });
 
@@ -164,13 +144,6 @@ document
 
     fmp.movePlayhead(e.target.value);
   });
-// document
-//   .querySelector("#input-pitch-k")
-//   .addEventListener("change", function (e) {
-//     //console.log("e: " + e.target.value);
-
-//     fmp.updatePitchInput(e.target.value);
-//   });
 
 document.querySelector("#tempo").addEventListener("change", function (e) {
   //console.log("e: " + e.target.value);
@@ -191,6 +164,8 @@ document
 
 //   fmp.setLoopRange(e.target.value);
 // });
+
+//control playback with keyboard
 
 document.body.onkeyup = function (e) {
   if (e.keyCode == 32) {
