@@ -1,12 +1,22 @@
 //to do
 
-- Add keyboard control for playback (space bar, arrows fast fwd)
 - Fix loop issue
 - Fix chords sync
 - Work on sustain
 
+//done
+
+- Add speed and pitch labels near knobs
+- Change Browse button hover color
+- Increase font size
+- Add sounds to keyboard key press
+- add please use google chrome popup for safari
+- Add keyboard control for playback (space bar, arrows fast fwd)
+
+//later
+
 read key of song on load
-add please use google chrome popup for safari
+
 
 index.html dist changes on build
 
@@ -19,8 +29,8 @@ src="./
 href="/
 href="./
 
-
-
+https://refreshless.com/nouislider/slider-read-write/
+https://metroui.org.ua/double-slider.html
 https://g200kg.github.io/input-knobs/
 
 <!-- <midi-visualizer type="staff" id="myStaffVisualizer" 

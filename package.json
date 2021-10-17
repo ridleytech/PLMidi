@@ -12,6 +12,7 @@
     "babel-polyfill": "^6.26.0",
     "html-midi-player": "^1.4.0-1",
     "midi-player-js": "2.0.13",
+    "nouislider": "^15.5.0",
     "qs": "^6.9.1",
     "regenerator-runtime": "^0.13.9",
     "reverb.js": "1.0.2",

@@ -47,6 +47,7 @@ body {
     margin-left: auto !important;
     margin-right: auto !important;
     position: relative !important;
+    margin-top: 20px !important;
 }
 #file-info {
 /* margin-top: 10px; */
@@ -246,10 +247,9 @@ font-family: monospace;
     stroke: #000;
 }
 #progressSlider {
-    width: 89%;
-    margin-left: 25px;
+    width: 98%;
+    margin-left: 10px;
     position: absolute;
-    left: 40px;
     z-index: 5;
     background: transparent;
 }
@@ -423,7 +423,7 @@ background: #1F9717;
 }
 
 /* The slider */
-.slider {
+.slider1 {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -435,7 +435,7 @@ background: #1F9717;
   transition: .4s;
 }
 
-.slider:before {
+.slider1:before {
   position: absolute;
   content: "";
   height: 26px;
@@ -447,27 +447,28 @@ background: #1F9717;
   transition: .4s;
 }
 
-input:checked + .slider {
+input:checked + .slider1 {
   background-color: #1F9717;
 }
 
-input:focus + .slider {
+input:focus + .slider1 {
   box-shadow: 0 0 1px #1F9717;
 }
 
-input:checked + .slider:before {
+input:checked + .slider1:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
 
 /* Rounded sliders */
-.slider.round {
+.slider1.round {
   border-radius: 34px;
   margin-top: 10px;
+  height: 2.125rem;
 }
 
-.slider.round:before {
+.slider1.round:before {
   border-radius: 50%;
 }
 
@@ -479,6 +480,64 @@ input:checked + .slider:before {
   /* margin-bottom: 0px; */
   height: 0px;
 }
+
+#loop-settings {
+  margin-top: 5px;
+  padding: 10px 0 10px 5px;}
+
+  .loopBtn {
+    margin-right: 10px; border-radius: 5px;
+      border-width: 1px; border-color: gray;
+      border-style: solid;
+      padding: 8px; background: linear-gradient( 
+180deg, rgba(62, 62, 62, 1) 0%, rgba(20, 19, 19, 1) 69% ); 
+/* color: #fcff02; */
+color:gray;
+font-size: 14px;
+  }
+
+  .noUi-connect {
+    background: #1f9713;
+}
+
+/* .noUi-horizontal .noUi-handle {
+	width: 10px !important;
+	height: 28px !important;
+	right: -8px !important;
+	top: -6px !important;
+} */
+
+.noUi-handle {
+	width: 10px !important;
+  right: -8px !important;
+  background: #fcff02 !important;
+  border: 0px !important;
+  box-shadow: unset !important;
+}
+
+.noUi-handle:after {
+  left: 5px  !important;
+  background: unset !important;
+
+}
+
+.noUi-handle:before {
+  left: 3px  !important;
+  background: unset !important;
+
+}
+
+/* .noUi-handle:before, .noUi-handle:after {
+	content: "" !important;
+	display: block !important;
+	position: absolute !important;
+	height: 14px !important;
+	width: 1px !important;
+	background: #E8E7E6 !important; 
+	 left: 3px;
+	top: 6px;
+} */
+
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -731,7 +790,7 @@ input:checked + .slider:before {
       flex-direction: column;">
         <label class="switch">
           <input type="checkbox" id="accidentalSwitch">
-          <span class="slider round"></span>
+          <span class="slider1 round"></span>
         </label>
         <div style="color:white; display: flex;
         justify-content: space-around; font-size:14px; margin-top: 17px;">
@@ -841,15 +900,30 @@ input:checked + .slider:before {
         border: 3px solid #d1d1d1;
       "
     >
-    <div id="loop" style="display: flex; height: 45px; align-items: center;
+    <!-- <div id="loop" style="display: flex; height: 45px; align-items: center;
           ">
       <button id="loop-piece"></button>
       <input type="range" id="progressSlider" min="0" max="100" value="0"/>
       <input data-role="doubleslider" data-min="0" data-max="100" id="ds">
       
-      <!-- <input type="text" id="slider-return-value"> --> 
+      <input type="text" id="slider-return-value"> 
       
+    </div> -->
+
+
+    <div id="loop" style="display: flex; height: 45px; align-items: center;
+          ">
+      <input type="range" id="progressSlider" min="0" max="100" value="0"/>
+      <!-- <input data-role="doubleslider" data-min="0" data-max="100" id="ds">    -->
+      <div style="padding: 10px 15px; width: 100%; display: none;" id="noSliderWrapper"><div id="noslider"></div></div>
+   
     </div>
+    <div id="loop-settings" style="display: flex;">
+      <button id="loop-piece" style="margin-right: 10px;"></button>
+      <button id="start-loop" class="loopBtn">Set Loop Start</button>
+      <button id="end-loop" class="loopBtn">Set Loop End</button>
+    </div>
+    
   </div>
 </div>
 </div>

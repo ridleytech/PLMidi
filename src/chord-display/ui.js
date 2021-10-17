@@ -33,7 +33,7 @@ export function highlightNote(noteNumber, className = "active") {
   );
 
   if (!keyElement) {
-    console.log("not key element");
+    //console.log("not key element");
     return;
   }
 
@@ -42,6 +42,7 @@ export function highlightNote(noteNumber, className = "active") {
 }
 
 export function fadeNote(noteNumber) {
+  //console.log("fadeNote: " + noteNumber);
   const keyElement = document.getElementById(`note-${noteNumber}`);
   const keyElementDisplayNote = document.getElementById(
     `note-${noteNumber}-display`

@@ -40,10 +40,12 @@ export class FancyMidiPlayer {
     this.currentlyPlaying = false;
     this.playButton = document.querySelector("#play-piece");
     this.loopButton = document.querySelector("#loop-piece");
+    this.startLoopButton = document.querySelector("#start-loop");
+    this.endLoopButton = document.querySelector("#end-loop");
+
     this.songLength = document.querySelector("#songLength");
     this.tempoSlider = document.querySelector("#input-k");
     this.tempoInput = document.querySelector("#tempo");
-
     this.pitchInput = document.querySelector("#pitch");
 
     this.barField = document.querySelector("#bar");
@@ -52,6 +54,9 @@ export class FancyMidiPlayer {
 
     this.accidentalSwitch = document.querySelector("#accidentalSwitch");
     this.speedLbl = document.querySelector("#speed");
+
+    this.loopSlider = document.querySelector("#ds");
+    this.loopSlider2 = document.getElementById("noslider");
 
     this.loopStart = 0;
     this.loopEnd = 100;
@@ -65,10 +70,14 @@ export class FancyMidiPlayer {
     this.transposeStr = "M";
     this.showSharp = true;
 
+    //this.noSliderWrapper = document.getElementById("noSliderWrapper");
+
     setTimeout(() => {
-      this.sliderWrapper = document.querySelector(".slider-wrapper");
+      // this.sliderWrapper = document.querySelector(".slider-wrapper");
+      // this.sliderWrapper.style.display = "none";
+      this.noSliderWrapper = document.getElementById("noSliderWrapper");
+      this.noSliderWrapper.style.display = "none";
       //console.log("sl: " + this.sliderWrapper);
-      this.sliderWrapper.style.display = "none";
 
       // this.pianoKeyNames = document.querySelector(".piano-key-name");
       // var hideKeys = true;
@@ -282,14 +291,15 @@ export class FancyMidiPlayer {
     //console.log("checkPer");
 
     var per = this.player.getSongPercentRemaining();
-    //console.log("\nper: " + per + "\n");
+    //console.log("\nper remaining: " + per + "\n");
 
     this.currentProgress = 100 - per;
+    //console.log("this.currentProgress: " + this.currentProgress);
 
     if (this.isLooping) {
       //debug loop
 
-      if (per <= this.loopEnd) {
+      if (this.currentProgress >= this.loopEnd) {
         console.log("rewind");
         this.player.skipToPercent(this.loopStart);
         this.player.play();
@@ -298,24 +308,6 @@ export class FancyMidiPlayer {
     }
 
     this.progressSlider.value = this.currentProgress;
-  }
-
-  setLoopRange(val) {
-    //console.log("type: " + typeof val);
-
-    //console.log("slr: " + val);
-
-    var vals = val.split(",");
-
-    //console.log("vals: " + vals);
-
-    //console.log("type: " + typeof vals);
-
-    this.loopStart = parseInt(vals[0].trim());
-    this.loopEnd = 100 - parseInt(vals[1].trim());
-
-    // console.log("loopStart: " + this.loopStart);
-    // console.log("loopEnd: " + this.loopEnd);
   }
 
   onControllerChange(event) {
@@ -534,8 +526,12 @@ export class FancyMidiPlayer {
     //console.log("set progress: " + val);
 
     this.currentProgress = val;
-    fadeAllNotes();
-    this.playMidi();
+
+    if (this.currentlyPlaying) {
+      fadeAllNotes();
+      this.playMidi();
+    }
+
     //this.pauseMidi();
   }
 
@@ -590,19 +586,74 @@ export class FancyMidiPlayer {
 
   //https://metroui.org.ua/double-slider.html
 
+  setStartLoop() {
+    if (!this.isLooping) {
+      return;
+    }
+    //console.log("setStartLoop");
+
+    this.loopStart = this.currentProgress;
+
+    //this.loopSlider.val[0] = this.loopStart;
+
+    this.loopSlider2.noUiSlider.set([this.loopStart, this.loopEnd]);
+
+    //console.log("this.loopSlider: " + this.loopSlider.value[0]);
+  }
+
+  setEndLoop() {
+    if (!this.isLooping) {
+      return;
+    }
+
+    //console.log("setEndLoop");
+
+    this.loopEnd = this.currentProgress;
+
+    this.loopSlider2.noUiSlider.set([this.loopStart, this.loopEnd]);
+
+    //this.loopSlider[1].value = this.loopEnd;
+  }
+
   manageLoop() {
     //console.log("manage loop");
 
     if (this.isLooping) {
       this.loopButton.classList.remove("loopEnabled");
       this.isLooping = false;
-      this.sliderWrapper.style.display = "none";
+      //this.sliderWrapper.style.display = "none";
+      this.noSliderWrapper.style.display = "none";
+
+      this.startLoopButton.style.color = "gray";
+      this.endLoopButton.style.color = "gray";
     } else {
       this.loopButton.classList.add("loopEnabled");
-      this.sliderWrapper.style.display = "block";
+      //this.sliderWrapper.style.display = "block";
+      this.noSliderWrapper.style.display = "block";
 
       this.isLooping = true;
+
+      this.startLoopButton.style.color = "#fcff02";
+      this.endLoopButton.style.color = "#fcff02";
     }
+  }
+
+  setLoopRange(val) {
+    //console.log("type: " + typeof val);
+
+    //console.log("slr: " + val);
+
+    var vals = val.split(",");
+
+    //console.log("vals: " + vals);
+
+    //console.log("type: " + typeof vals);
+
+    this.loopStart = parseInt(vals[0].trim());
+    this.loopEnd = 100 - parseInt(vals[1].trim());
+
+    // console.log("loopStart: " + this.loopStart);
+    // console.log("loopEnd: " + this.loopEnd);
   }
 
   async setMidi(midiUrl) {
@@ -648,8 +699,42 @@ export class FancyMidiPlayer {
   //   this.player.play();
   // }
 
+  movePlayheadFwd() {
+    if (this.currentProgress < 100) {
+      this.currentProgress += 1;
+      this.player.skipToPercent(parseInt(this.currentProgress));
+
+      this.progressSlider.value = this.currentProgress;
+      if (this.currentlyPlaying) {
+        fadeAllNotes();
+        this.currentNotes = [];
+        this.refresh();
+        this.player.play();
+      }
+    }
+  }
+
+  movePlayheadBwd() {
+    if (this.currentProgress > 0) {
+      this.currentProgress -= 1;
+      this.player.skipToPercent(parseInt(this.currentProgress));
+
+      this.progressSlider.value = this.currentProgress;
+      if (this.currentlyPlaying) {
+        fadeAllNotes();
+        this.currentNotes = [];
+        this.refresh();
+        this.player.play();
+      }
+    }
+  }
+
   playMidi() {
     //console.log("play midi tempo:" + this.tempo);
+    fadeAllNotes();
+    this.currentNotes = [];
+    this.refresh();
+
     this.playButton.classList.add("paused");
 
     clearInterval(this.loopTimer);
@@ -662,12 +747,14 @@ export class FancyMidiPlayer {
       this.checkSongProgress();
     }, 50);
 
-    if (this.isLooping) {
-      this.player.skipToPercent(this.loopStart);
-    } else {
-      //resume play from current position if/when loop turned off
-      this.player.skipToPercent(this.currentProgress);
-    }
+    // if (this.isLooping) {
+    //   this.player.skipToPercent(this.loopStart);
+    // } else {
+    //   //resume play from current position if/when loop turned off
+    //   this.player.skipToPercent(this.currentProgress);
+    // }
+
+    this.player.skipToPercent(this.currentProgress);
 
     this.player.play();
   }
@@ -688,7 +775,13 @@ export class FancyMidiPlayer {
     this.player.stop();
     this.currentlyPlaying = false;
     this.playButton.classList.remove("paused");
-    this.currentProgress = 0;
+
+    if (this.isLooping) {
+      this.currentProgress = this.loopStart;
+    } else {
+      this.currentProgress = 0;
+    }
+
     fadeAllNotes();
     this.bars = 1;
     this.lastBeat = 1;

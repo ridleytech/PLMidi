@@ -2,6 +2,8 @@ import { FancyMidiPlayer } from "./midi";
 import "babel-polyfill";
 const createMusicalPiece = (id, name, path) => ({ id, name, path });
 import "html-midi-player";
+import noUiSlider from "nouislider";
+import "nouislider/dist/nouislider.css";
 
 var url = "https://pianolessonwithwarren.com/dev_site";
 
@@ -15,6 +17,28 @@ const pieces = [
   ),
 ];
 
+var isChromium = window.chrome;
+var winNav = window.navigator;
+var vendorName = winNav.vendor;
+var isOpera = typeof window.opr !== "undefined";
+var isIEedge = winNav.userAgent.indexOf("Edg") > -1;
+var isIOSChrome = winNav.userAgent.match("CriOS");
+
+if (isIOSChrome) {
+  // is Google Chrome on IOS
+} else if (
+  isChromium !== null &&
+  typeof isChromium !== "undefined" &&
+  vendorName === "Google Inc." &&
+  isOpera === false &&
+  isIEedge === false
+) {
+  // is Google Chrome
+} else {
+  alert("Please use Google Chrome for the best experience.");
+  // not Google Chrome
+}
+
 const instrumentUrl =
   "https://raw.githubusercontent.com/gleitz/midi-js-soundfonts/gh-pages/FatBoy/bright_acoustic_piano-mp3.js";
 
@@ -22,6 +46,8 @@ const setAppBusy = (isBusy) => {
   const playButton = document.querySelector("#play-piece");
   const stopButton = document.querySelector("#stop-piece");
   const loopButton = document.querySelector("#loop-piece");
+  const startLoopButton = document.querySelector("#start-loop");
+  const endLoopButton = document.querySelector("#end-loop");
 
   //const pauseButton = document.querySelector("#pause-piece");
   //const skipToButton = document.querySelector("#skip-to");
@@ -32,6 +58,8 @@ const setAppBusy = (isBusy) => {
     stopButton.setAttribute("disabled", true);
     //skipToButton.setAttribute("disabled", true);
     loopButton.setAttribute("disabled", true);
+    startLoopButton.setAttribute("disabled", true);
+    endLoopButton.setAttribute("disabled", true);
 
     //musicalPiecesSelect.setAttribute("disabled", true);
   } else {
@@ -39,10 +67,23 @@ const setAppBusy = (isBusy) => {
     stopButton.removeAttribute("disabled");
     //skipToButton.removeAttribute("disabled");
     loopButton.removeAttribute("disabled");
+    startLoopButton.removeAttribute("disabled");
+    endLoopButton.removeAttribute("disabled");
 
     //musicalPiecesSelect.removeAttribute("disabled");
   }
 };
+
+var slider = document.getElementById("noslider");
+
+noUiSlider.create(slider, {
+  start: [0, 100],
+  connect: true,
+  range: {
+    min: 0,
+    max: 100,
+  },
+});
 
 // var slider = document.getElementById("myRange");
 // var output = document.getElementById("tempo-display");
@@ -65,12 +106,16 @@ fmp.setInstrument(instrumentUrl).then(() => {
   const stopButton = document.querySelector("#stop-piece");
   //const skipToButton = document.querySelector("#skip-to");
   const loopButton = document.querySelector("#loop-piece");
+  const startLoopButton = document.querySelector("#start-loop");
+  const endLoopButton = document.querySelector("#end-loop");
 
   //const pauseButton = document.querySelector("#pause-piece");
   playButton.onclick = fmp.manageMidi.bind(fmp);
   stopButton.onclick = fmp.stopMidi.bind(fmp);
   //skipToButton.onclick = fmp.skipTo.bind(fmp);
   loopButton.onclick = fmp.manageLoop.bind(fmp);
+  startLoopButton.onclick = fmp.setStartLoop.bind(fmp);
+  endLoopButton.onclick = fmp.setEndLoop.bind(fmp);
 
   //pauseButton.onclick = fmp.pauseMidi.bind(fmp);
   changePiece(0);
@@ -141,11 +186,24 @@ document
     fmp.setAccidental(e.target.value);
   });
 
-document.querySelector("#ds").addEventListener("change", function (e) {
-  //console.log("e: " + e.target.value);
+// document.querySelector("#ds").addEventListener("change", function (e) {
+//   //console.log("e: " + e.target.value);
 
-  fmp.setLoopRange(e.target.value);
-});
+//   fmp.setLoopRange(e.target.value);
+// });
+
+document.body.onkeyup = function (e) {
+  if (e.keyCode == 32) {
+    //spacebar
+    fmp.manageMidi();
+  } else if (e.keyCode == 37) {
+    //left
+    fmp.movePlayheadBwd();
+  } else if (e.keyCode == 39) {
+    //right
+    fmp.movePlayheadFwd();
+  }
+};
 
 const fn = document.querySelector("#file-name");
 

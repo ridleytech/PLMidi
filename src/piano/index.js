@@ -28,19 +28,21 @@ export class FancyPiano {
   }
 
   paintPressedKey(noteNumber) {
-    console.log("paintPressedKey");
+    //console.log("paintPressedKey");
 
     this.svg.getElementById(noteNumber).classList.add("pressed");
   }
 
   paintPressedKey2() {
-    console.log("paintPressedKey2");
+    //console.log("paintPressedKey2");
+
+    //enable sustain pedal
 
     this.svg3.classList.add("pressed2");
   }
 
   paintReleasedKey(noteNumber) {
-    console.log("paintReleasedKey");
+    //console.log("paintReleasedKey");
 
     try {
       this.svg.getElementById(noteNumber).removeAttribute("style");
@@ -51,6 +53,8 @@ export class FancyPiano {
   }
 
   paintReleasedKey2(noteNumber) {
+    //disable sustain pedal
+
     try {
       this.svg3.classList.remove("pressed2");
     } catch {
