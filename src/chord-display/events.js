@@ -28,6 +28,14 @@ export function noteOn(noteNumber) {
   refresh();
 }
 
+export function noteOnPress(noteNumber) {
+  highlightNote(noteNumber);
+}
+
+export function noteOnRelease(noteNumber) {
+  fadeNote(noteNumber);
+}
+
 export function noteOff(noteNumber) {
   const index = currentNotes.indexOf(noteNumber);
   if (index > -1) {

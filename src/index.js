@@ -154,9 +154,9 @@ document.querySelector("#musical-piece").addEventListener(
   function (e) {
     var file = this.files[0];
 
-    //margin-right: 10px;
-
-    fn.style.marginRight = "10px";
+    //fn.style.marginRight = "10px";
+    fn.style.marginBottom = "8px";
+    fn.style.height = "15px";
     fn.innerHTML = file.name;
 
     console.log("the file: ", file);

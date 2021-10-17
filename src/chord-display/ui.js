@@ -23,13 +23,19 @@ const notesDisplay = document.getElementById("notesDisplay");
 export { setPitchWheel, setModWheel };
 
 export function highlightNote(noteNumber, className = "active") {
+  // console.log("highlightNote: " + noteNumber);
+  // console.log("key el str: " + `note-${noteNumber}`);
   const keyElement = document.getElementById(`note-${noteNumber}`);
+  //console.log("keyElement: " + JSON.stringify(keyElement));
 
   const keyElementDisplayNote = document.getElementById(
     `note-${noteNumber}-display`
   );
 
-  if (!keyElement) return;
+  if (!keyElement) {
+    console.log("not key element");
+    return;
+  }
 
   keyElement.classList.add(className);
   keyElementDisplayNote.classList.add(className);

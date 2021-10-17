@@ -1,9 +1,12 @@
 //to do
 
+- Add keyboard control for playback (space bar, arrows fast fwd)
+- Fix loop issue
+- Fix chords sync
+- Work on sustain
+
 read key of song on load
 add please use google chrome popup for safari
-
-
 
 index.html dist changes on build
 

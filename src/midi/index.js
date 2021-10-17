@@ -11,7 +11,13 @@ import { chord as detectChord } from "tonal/detect";
 import { Note, Midi } from "@tonaljs/tonal";
 
 import { chordToHtml, keyToHtml } from "../chord-display/chords";
-import { noteOn, noteOff, fadeAllNotes } from "../chord-display/events";
+import {
+  noteOn,
+  noteOff,
+  fadeAllNotes,
+  noteOnPress,
+  noteOnRelease,
+} from "../chord-display/events";
 import { setAccidentalKeyboard } from "../chord-display/keyboard";
 
 export class FancyMidiPlayer {
@@ -45,6 +51,7 @@ export class FancyMidiPlayer {
     this.progressSlider = document.querySelector("#progressSlider");
 
     this.accidentalSwitch = document.querySelector("#accidentalSwitch");
+    this.speedLbl = document.querySelector("#speed");
 
     this.loopStart = 0;
     this.loopEnd = 100;
@@ -69,6 +76,19 @@ export class FancyMidiPlayer {
       // if (hideKeys) {
       //   this.pianoKeyNames.style.display = "none";
       // }
+
+      for (let i = 21; i < 21 + 88; i++) {
+        //this.paintReleasedKey(i);
+
+        const keyElement = document.getElementById(`note-${i}`);
+        keyElement.onmousedown = () => {
+          this.playKey(keyElement.id);
+        };
+
+        keyElement.onmouseup = () => {
+          this.releaseKey(keyElement.id);
+        };
+      }
     }, 200);
 
     //console.log("loopButton: " + this.loopButton);
@@ -116,6 +136,39 @@ export class FancyMidiPlayer {
     //   }.bind(this)
     // );
   }
+
+  releaseKey = (key) => {
+    //console.log("release key: " + key);
+
+    let noteNumber = parseInt(key.replace("note-", ""));
+    let noteName = Note.fromMidi(noteNumber);
+
+    // console.log("noteNumber: " + noteNumber);
+    // console.log("noteName: " + noteName);
+
+    noteOnRelease(noteNumber);
+  };
+
+  playKey = (key) => {
+    //console.log("key: " + key);
+    //return;
+    let noteNumber = parseInt(key.replace("note-", ""));
+    let noteName = Note.fromMidi(noteNumber);
+
+    // console.log("noteNumber: " + noteNumber);
+    // console.log("noteName: " + noteName);
+
+    let keyEvent = this.instrument.play(
+      noteNumber,
+      this.safeAudioContext.currentTime,
+      {
+        gain: (76 / 100) * this.volume,
+        duration: NON_SUSTAINED_NOTE_DURATION,
+      }
+    );
+
+    noteOnPress(noteNumber);
+  };
 
   async setInstrument(instrumentUrl) {
     this.instrument = await SoundFont.instrument(
@@ -301,6 +354,7 @@ export class FancyMidiPlayer {
     if (event.velocity === 0) {
       this.onNoteOffEvent(event);
     } else {
+      //console.log("velocity: " + event.velocity);
       let keyEvent = this.instrument.play(
         newNote,
         this.safeAudioContext.currentTime,
@@ -422,6 +476,12 @@ export class FancyMidiPlayer {
 
     //this.tempoInput.value = newVal;
 
+    var speedPercentage = (newVal / 120) * 100;
+
+    //console.log("speedPercentage: " + speedPercentage.toFixed(0));
+
+    this.speedLbl.innerHTML = speedPercentage.toFixed(0).toString() + "%";
+
     this.setTempo(newVal);
   }
 
@@ -444,6 +504,12 @@ export class FancyMidiPlayer {
     var newVal = parseInt(val) + parseInt(this.tempoOffset);
     //console.log("turn tempo: " + newVal);
 
+    var speedPercentage = (newVal / 120) * 100;
+
+    //console.log("speedPercentage: " + speedPercentage.toFixed(0));
+
+    this.speedLbl.innerHTML = speedPercentage.toFixed(0).toString() + "%";
+
     this.tempoInput.value = newVal;
   }
 
@@ -452,7 +518,9 @@ export class FancyMidiPlayer {
 
     fadeAllNotes();
     //this.pauseMidi();
-    this.playMidi();
+    if (this.currentlyPlaying) {
+      this.playMidi();
+    }
 
     var newVal = parseInt(val);
     //console.log("pitch: " + newVal);
@@ -500,7 +568,7 @@ export class FancyMidiPlayer {
   }
 
   setTempoInput(tempo) {
-    console.log("change tempo input: " + tempo);
+    //console.log("change tempo input: " + tempo);
     this.pauseMidi();
 
     this.tempo = tempo;
@@ -510,6 +578,12 @@ export class FancyMidiPlayer {
 
     var newVal = parseInt(tempo) - parseInt(this.tempoOffset);
     //console.log("new tempo val for slider: " + newVal);
+
+    var speedPercentage = (tempo / 120) * 100;
+
+    //console.log("speedPercentage input: " + speedPercentage.toFixed(0));
+
+    this.speedLbl.innerHTML = speedPercentage.toFixed(0).toString() + "%";
 
     this.tempoSlider.value = newVal;
   }

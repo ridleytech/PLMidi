@@ -33,7 +33,8 @@ const NOTE_WHITE_TEMPLATE = (props, posX, color) => `\
 
 <g id="note-${
   props.midi
-}" class="note white" transform="translate(${posX},0)" style="color: ${color};">
+}" class="note white" transform="translate(${posX},0)" style="color: ${color};" 
+    >
   <rect class="piano-key" width="${NOTE_WHITE_WIDTH}" height="${
   NOTE_WHITE_HEIGHT + NOTE_RADIUS
 }" x="0" y="${-NOTE_RADIUS}" rx="${NOTE_RADIUS}" ry="${NOTE_RADIUS}"></rect>
@@ -48,34 +49,6 @@ const NOTE_WHITE_TEMPLATE = (props, posX, color) => `\
 
 `;
 
-var NOTE_NAME_TEMPLATE = (props, posX, color) => `\
-
-<g id="note-${
-  props.midi
-}-display" class="note display" transform="translate(${posX},0)" style="color: white;">
-<text class="piano-key-name-played-notes" x="${NOTE_WHITE_WIDTH / 2}" y="${
-  NOTE_WHITE_HEIGHT - NOTE_NAME_BOTTOM_OFFSET - 140
-}" text-anchor="middle">${Midi.midiToNoteName(props.midi, {
-  pitchClass: true,
-  sharps: showSharp,
-})}</text>
-</g>
-`;
-
-//}" text-anchor="middle">${props.name.replace(/[0-9]/g, "")}</text>
-
-const NOTE_BLACK_TEMPLATE_NOTES = (props, posX, color) => `\
-<g id="note-${props.midi}" class="note black" transform="translate(${
-  posX - NOTE_BLACK_WIDTH / 2
-},0)" style="color: ${color};">
-  
-<text class="piano-key-name" style="color:red !important" x="${
-  NOTE_BLACK_WIDTH / 2
-}" y="${
-  NOTE_BLACK_HEIGHT - NOTE_NAME_BOTTOM_OFFSET - 100
-}" text-anchor="middle">${props.name}</text>
-</g>`;
-
 const NOTE_BLACK_TEMPLATE = (props, posX, color) => `\
 <g id="note-${props.midi}" class="note black" transform="translate(${
   posX - NOTE_BLACK_WIDTH / 2
@@ -87,6 +60,23 @@ const NOTE_BLACK_TEMPLATE = (props, posX, color) => `\
   NOTE_BLACK_HEIGHT - NOTE_TONIC_BOTTOM_OFFSET
 }" r="${NOTE_TONIC_RADIUS}"></circle>
 </g>`;
+
+var NOTE_NAME_TEMPLATE = (props, posX, color) => `\
+
+<g id="note-${
+  props.midi
+}-display" class="note display" transform="translate(${posX},0)" style="color: white;" 
+>
+<text class="piano-key-name-played-notes" x="${NOTE_WHITE_WIDTH / 2}" y="${
+  NOTE_WHITE_HEIGHT - NOTE_NAME_BOTTOM_OFFSET - 140
+}" text-anchor="middle">${Midi.midiToNoteName(props.midi, {
+  pitchClass: true,
+  sharps: showSharp,
+})}</text>
+</g>
+`;
+
+//}" text-anchor="middle">${props.name.replace(/[0-9]/g, "")}</text>
 
 const WHEEL_TEMPLATE = (id, offsetX) => `\
 <g id="${id}" transform="translate(${offsetX},0)">
