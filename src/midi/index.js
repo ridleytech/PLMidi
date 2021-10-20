@@ -70,6 +70,7 @@ export class FancyMidiPlayer {
     this.transposeVal = 0;
     this.transposeStr = "M";
     this.showSharp = true;
+    this.songTimer = null;
 
     //this.noSliderWrapper = document.getElementById("noSliderWrapper");
 
@@ -233,36 +234,72 @@ export class FancyMidiPlayer {
         } else if (event.name === "Time Signature") {
           this.timeSig = event.timeSignature;
 
-          timeSig.innerHTML = this.timeSig;
+          //timeSig.innerHTML = this.timeSig;
 
           //console.log("time sig set: " + this.timeSig);
         }
       }
-    });
 
-    this.player.on("endOfFile", function () {
-      // Do something when end of the file has been reached.
-      console.log("end of file reached");
-    });
+      this.player.on("endOfFile", function () {
+        // Do something when end of the file has been reached.
+        console.log("end of file reached");
 
-    this.player.on("fileLoaded", function () {
-      // Do something when file is loaded
-      //console.log("loaded: " + JSON.stringify(this.player));
-    });
+        //this.clearStuff();
+      });
 
-    this.player.on("playing", function (currentTick) {
-      //console.log("current tick: " + JSON.stringify(currentTick));
-      // Do something while player is playing
-      // (this is repeatedly triggered within the play loop)
+      this.player.on("fileLoaded", function () {
+        // Do something when file is loaded
+        //console.log("loaded: " + JSON.stringify(this.player));
+      });
+
+      this.player.on("playing", function (currentTick) {
+        //console.log("current tick: " + JSON.stringify(currentTick));
+        // Do something while player is playing
+        // (this is repeatedly triggered within the play loop)
+      });
     });
   }
 
+  clearStuff() {
+    console.log("clearStuff");
+    clearInterval(this.songTimer);
+  }
+
+  getSongTime2() {
+    return (this.player.totalTicks / this.player.division / 120) * 60;
+  }
+
+  getSongTimeRemaining2() {
+    return Math.round(
+      ((this.player.totalTicks - this.player.getCurrentTick()) /
+        this.player.division /
+        120) *
+        60
+    );
+  }
+
   checkSongProgress() {
-    var time = this.player.getSongTime();
+    //var time = this.player.getSongTime();
+    var time = this.getSongTime2();
+
+    //console.log("currentTick: " + this.player.getCurrentTick());
+
+    // if ((this.player.getCurrentTick() / 4) % 4 == 0) {
+    //   console.log("add one");
+    // }
+
     //console.log("time: " + time);
 
-    var remaining = this.player.getSongTimeRemaining();
+    //var remaining = this.player.getSongTimeRemaining();
+    var remaining = this.getSongTimeRemaining2();
+
+    if (remaining == 0) {
+      this.stopMidi();
+      return;
+    }
+
     //console.log("remaining: " + remaining);
+    //console.log("currentBar: " + currentBar);
 
     var t = time - remaining;
 
@@ -278,12 +315,29 @@ export class FancyMidiPlayer {
     var currentBeat = bps + t;
     // /console.log("time: " + t + " currentBeat: " + currentBeat);
 
+    var currentBar = currentBeat % 4;
+
+    // console.log(
+    //   "t: " +
+    //     t +
+    //     " currentBeat: " +
+    //     currentBeat +
+    //     " remaining: " +
+    //     remaining +
+    //     " time: " +
+    //     time +
+    //     " currentBar: " +
+    //     currentBar +
+    //     " bps: " +
+    //     bps
+    // );
+
     if (currentBeat % 4 == 0) {
       if (this.lastBeat == currentBeat) {
         return;
       }
 
-      this.bars++;
+      //this.bars++;
       this.lastBeat = currentBeat;
 
       this.currentBeat = 1;
@@ -295,8 +349,15 @@ export class FancyMidiPlayer {
       }
 
       this.lastCurrentBeat = currentBeat;
+
       this.displayBeat++;
+
+      if (this.displayBeat > 4) {
+        this.displayBeat = 1;
+      }
     }
+
+    this.bars = Math.floor(currentBeat / 4) + 1;
 
     this.barField.innerHTML = this.bars.toString();
     this.beatField.innerHTML = ": " + this.displayBeat.toString();
@@ -660,6 +721,9 @@ export class FancyMidiPlayer {
       this.currentNotes = [];
       this.refresh();
     }
+
+    // var tt = this.player.getTotalTicks();
+    // console.log("ticks: " + tt);
   }
 
   manageMidi() {
@@ -708,7 +772,18 @@ export class FancyMidiPlayer {
   }
 
   playMidi() {
+    // var time = this.player.getSongTime();
+    // console.log("time: " + time);
+    //console.log("this.player.totalTicks: " + this.player.totalTicks);
+
+    // var remaining = this.player.getSongTimeRemaining();
+    // console.log("remaining: " + remaining);
+
     //console.log("play midi tempo:" + this.tempo);
+
+    // var tt = this.player.getTotalTicks();
+    // console.log("ticks: " + tt);
+
     fadeAllNotes();
     this.currentNotes = [];
     this.refresh();
@@ -765,8 +840,6 @@ export class FancyMidiPlayer {
     this.lastBeat = 1;
     this.lastCurrentBeat = 1;
     this.displayBeat = 1;
-    // var tt = this.player.getTotalTicks();
-    // console.log("ticks: " + tt);
 
     this.barField.innerHTML = this.bars.toString();
     this.beatField.innerHTML = ": " + this.displayBeat.toString();

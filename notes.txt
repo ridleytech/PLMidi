@@ -1,6 +1,5 @@
 //to do
 
-- fix beat timer
 - Fix chords sync
 - Work on sustain
 
@@ -13,6 +12,7 @@
 - Add "please use google chrome" popup for other browsers
 - Add keyboard control for playback (space bar, arrows fast fwd)
 - Fix loop issue
+- fix beat timer
 
 //later
 
