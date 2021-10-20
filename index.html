@@ -578,13 +578,13 @@ font-size: 14px;
         <label
               ><span>Note Start: </span
               >
-          <input id="noteStart" type="text" size="2" maxlength="2"
+          <input id="noteStart" type="text" size="2" maxlength="2" tabindex="-1"
             />
         </label>
         <label
               ><span>Note End: </span
               >
-          <input id="noteEnd" type="text" size="2" maxlength="2"
+          <input id="noteEnd" type="text" size="2" maxlength="2" tabindex="-1"
             />
         </label>
         <fieldset>
@@ -592,19 +592,19 @@ font-size: 14px;
           <label
                 ><span>Latin Notation: </span
                 >
-            <input id="latinNotationEnabled" type="checkbox"
+            <input id="latinNotationEnabled" type="checkbox" tabindex="-1"
               />
           </label>
           <label
                 ><span>Pitch Wheel: </span
                 >
-            <input id="pitchWheelEnabled" type="checkbox"
+            <input id="pitchWheelEnabled" type="checkbox" tabindex="-1"
               />
           </label>
           <label
                 ><span>Mod Wheel: </span
                 >
-            <input id="modWheelEnabled" type="checkbox"
+            <input id="modWheelEnabled" type="checkbox" tabindex="-1"
               />
           </label>
         </fieldset>
@@ -612,24 +612,24 @@ font-size: 14px;
           <legend>Colors:</legend>
           <label
                 ><span>Note: </span>
-            <input id="colorNote" type="color"
+            <input id="colorNote" type="color" tabindex="-1"
               />
           </label>
           <label
                 ><span>Pitch Up: </span
                 >
-            <input id="colorPitchWheelUp" type="color"
+            <input id="colorPitchWheelUp" type="color" tabindex="-1"
               />
           </label>
           <label
                 ><span>Pitch Down: </span
                 >
-            <input id="colorPitchWheelDown" type="color"
+            <input id="colorPitchWheelDown" type="color" tabindex="-1"
               />
           </label>
           <label
                 ><span>Mod Wheel: </span>
-            <input id="colorModWheel" type="color"
+            <input id="colorModWheel" type="color" tabindex="-1"
               />
           </label>
         </fieldset>
@@ -638,34 +638,34 @@ font-size: 14px;
           <label
                 ><span>Keyboard: </span
                 >
-            <input id="hideKeyboard" type="checkbox"
+            <input id="hideKeyboard" type="checkbox" tabindex="-1"
               />
           </label>
           <label
                 ><span>Chord Name: </span>
-            <input id="hideChord" type="checkbox"
+            <input id="hideChord" type="checkbox" tabindex="-1"
               />
           </label>
           <label
                 ><span>Bass Note: </span
                 >
-            <input id="hideBassNote" type="checkbox"
+            <input id="hideBassNote" type="checkbox" tabindex="-1"
               />
           </label>
           <label
                 ><span>Notes: </span>
-            <input id="hideNotes" type="checkbox"
+            <input id="hideNotes" type="checkbox" tabindex="-1"
               />
           </label>
           <label
                 ><span>Key Names: </span
                 >
-            <input id="hideKeyName" type="checkbox"
+            <input id="hideKeyName" type="checkbox" tabindex="-1"
               />
           </label>
           <label
                 ><span>Tonic: </span>
-            <input id="hideTonic" type="checkbox"
+            <input id="hideTonic" type="checkbox" tabindex="-1"
               />
           </label>
         </fieldset>
@@ -701,7 +701,7 @@ font-size: 14px;
     <div id="inner">
       <div style="display: flex; flex-direction: column; align-items: center;"> 
         <span  id="file-name" style=""></span>
-        <input id="musical-piece" type="file" class="foo" />
+        <input id="musical-piece" type="file" class="foo" tabindex="-1" />
       </div>
     </div>
     <div
@@ -744,7 +744,7 @@ font-size: 14px;
                 border: 1px solid gray;
                 color: white;
               "
-              value="120"
+              value="120" tabindex="-1"
             />
         bpm </div>
       <div style="padding-top: 15px; height: 75px; text-align: center">
@@ -770,7 +770,7 @@ font-size: 14px;
     </div>
     <div id="speedInputContainer">
       <div>
-        <input type="range" class="input-knob" id="input-k"  data-fgcolor="#FCFF00" data-bgcolor="#1F9717"/>
+        <input type="range" class="input-knob" id="input-k"  data-fgcolor="#FCFF00" data-bgcolor="#1F9717" tabindex="-1"/>
         <div class="speed-lbl" style="color: white; font-size: 14px;text-align: center;">Speed</div>
         <div id="speed" style="padding-top: 7px; color: white; font-size: 14px; text-align: center;">100%</div>
 
@@ -778,14 +778,14 @@ font-size: 14px;
       <div>
         <!-- <input type="range" class="input-knob" data-diameter="96" data-src="./assets/images/knobman96.png"/> -->
 
-        <input type="range" class="input-knob" id="input-pitch-k"  data-fgcolor="#FCFF00" data-bgcolor="#1F9717" data-min="-12" data-max="12" min="-12" max="12"/>
+        <input type="range" class="input-knob" id="input-pitch-k"  data-fgcolor="#FCFF00" data-bgcolor="#1F9717" data-min="-12" data-max="12" min="-12" max="12" tabindex="-1"/>
         <div class="pitch-lbl2" style="color: white; font-size: 14px;text-align: center;">Pitch</div>
         <div id="pitch" style="padding-top: 7px; color: white; font-size: 14px; text-align: center;">0 st</div>
       </div>
       <div style="display: flex;
       flex-direction: column;">
         <label class="switch">
-          <input type="checkbox" id="accidentalSwitch">
+          <input type="checkbox" id="accidentalSwitch" tabindex="-1">
           <span class="slider1 round"></span>
         </label>
         <div style="color:white; display: flex;
@@ -831,9 +831,9 @@ font-size: 14px;
             "
           > </div>
     <div id="buttons-container" style="text-align: center">
-      <button id="play-piece"  disabled=""></button>
+      <button id="play-piece"  disabled="" style="user-select:none" tabindex="-1"></button>
       <!-- <button id="pause-piece"  disabled="">Pause</button> -->
-      <button id="stop-piece"  disabled=""></button>
+      <button id="stop-piece"  disabled="" style="user-select:none" tabindex="-1"></button>
       <!-- <button id="skip-to"  disabled="">Skip To 30</button> --> 
     </div>
   </div>
@@ -909,15 +909,15 @@ font-size: 14px;
 
     <div id="loop" style="display: flex; height: 38px;
           ">
-      <input type="range" id="progressSlider" min="0" max="100" value="0"/>
+      <input type="range" id="progressSlider" min="0" max="100" value="0" tabindex="-1"/>
       <!-- <input data-role="doubleslider" data-min="0" data-max="100" id="ds">    -->
       <div style="padding: 10px 15px; width: 100%; display: none;" id="noSliderWrapper"><div id="noslider"></div></div>
    
     </div>
     <div id="loop-settings" style="display: flex;">
-      <button id="loop-piece" style="margin-right: 10px;"></button>
-      <button id="start-loop" class="loopBtn">Set Loop Start</button>
-      <button id="end-loop" class="loopBtn">Set Loop End</button>
+      <button id="loop-piece" style="margin-right: 10px;" tabindex="-1"></button>
+      <button id="start-loop" class="loopBtn" tabindex="-1">Set Loop Start</button>
+      <button id="end-loop" class="loopBtn" tabindex="-1">Set Loop End</button>
     </div>
     
   </div>

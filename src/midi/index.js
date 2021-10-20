@@ -58,6 +58,7 @@ export class FancyMidiPlayer {
 
     this.loopSlider = document.querySelector("#ds");
     this.loopSlider2 = document.getElementById("noslider");
+    this.app = document.getElementById("#app");
 
     this.loopStart = 0;
     this.loopEnd = 100;
@@ -71,6 +72,29 @@ export class FancyMidiPlayer {
     this.transposeStr = "M";
     this.showSharp = true;
     this.songTimer = null;
+    this.manageMidiEnabled = true;
+    this.buttonHovered = false;
+
+    this.playButton.onmouseout = () => {
+      //this.releaseKey2(keyElement.id);
+
+      this.buttonHovered = false;
+      //console.log("hovered: " + this.buttonHovered);
+    };
+
+    this.playButton.onmouseover = () => {
+      //this.releaseKey2(keyElement.id);
+
+      this.buttonHovered = true;
+      //console.log("hovered: " + this.buttonHovered);
+    };
+
+    this.playButton.onmouseover = () => {
+      //this.releaseKey2(keyElement.id);
+
+      this.buttonHovered = false;
+      //console.log("hovered: " + this.buttonHovered);
+    };
 
     //this.noSliderWrapper = document.getElementById("noSliderWrapper");
 
@@ -242,9 +266,8 @@ export class FancyMidiPlayer {
 
       this.player.on("endOfFile", function () {
         // Do something when end of the file has been reached.
-        console.log("end of file reached");
-
-        //this.clearStuff();
+        //console.log("end of file reached");
+        //this.stopMidi()
       });
 
       this.player.on("fileLoaded", function () {
@@ -260,10 +283,21 @@ export class FancyMidiPlayer {
     });
   }
 
-  clearStuff() {
-    console.log("clearStuff");
-    clearInterval(this.songTimer);
-  }
+  playBtnClicked = () => {
+    //console.log("playBtnClicked");
+
+    this.manageMidi();
+  };
+
+  keyboardSpaceClicked = () => {
+    //console.log("keyboardSpaceClicked");
+
+    if (this.buttonHovered) {
+      return;
+    }
+
+    this.manageMidi();
+  };
 
   getSongTime2() {
     return (this.player.totalTicks / this.player.division / 120) * 60;
@@ -428,13 +462,11 @@ export class FancyMidiPlayer {
         this.safeAudioContext.currentTime,
         {
           gain: (event.velocity / 100) * this.volume,
-          duration: NON_SUSTAINED_NOTE_DURATION,
+          duration: this.piano.isSustainPedalPressed
+            ? SUSTAINED_NOTE_DURATION
+            : NON_SUSTAINED_NOTE_DURATION,
         }
       );
-
-      // duration: this.piano.isSustainPedalPressed
-      //       ? SUSTAINED_NOTE_DURATION
-      //       : NON_SUSTAINED_NOTE_DURATION,
 
       //this.piano.setKey(event.noteNumber, keyEvent);
 
@@ -729,7 +761,6 @@ export class FancyMidiPlayer {
   manageMidi() {
     //console.log("manage midi");
 
-    // return;
     if (this.currentlyPlaying) {
       //console.log("playing");
       this.pauseMidi();
@@ -772,6 +803,7 @@ export class FancyMidiPlayer {
   }
 
   playMidi() {
+    //console.log("playMidi");
     // var time = this.player.getSongTime();
     // console.log("time: " + time);
     //console.log("this.player.totalTicks: " + this.player.totalTicks);
@@ -836,6 +868,8 @@ export class FancyMidiPlayer {
     }
 
     fadeAllNotes();
+    this.piano.paintReleasedKey2(1081);
+
     this.bars = 1;
     this.lastBeat = 1;
     this.lastCurrentBeat = 1;

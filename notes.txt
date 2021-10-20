@@ -1,7 +1,7 @@
 //to do
 
-- Fix chords sync
 - Work on sustain
+- Fix chords sync
 
 //done
 

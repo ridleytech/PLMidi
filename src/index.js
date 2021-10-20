@@ -92,7 +92,22 @@ fmp.setInstrument(instrumentUrl).then(() => {
   const startLoopButton = document.querySelector("#start-loop");
   const endLoopButton = document.querySelector("#end-loop");
 
-  playButton.onclick = fmp.manageMidi.bind(fmp);
+  //playButton.onclick = playBtnClicked;
+
+  playButton.addEventListener("click", handleCheckboxEvent, true);
+  playButton.addEventListener("keyup", handleCheckboxEvent, true);
+
+  function handleCheckboxEvent(e) {
+    e.preventDefault();
+
+    if (e.keyCode === 32) {
+      // console.log("space bar. no");
+    } else {
+      //console.log("click");
+      fmp.playBtnClicked();
+    }
+  }
+
   stopButton.onclick = fmp.stopMidi.bind(fmp);
   loopButton.onclick = fmp.manageLoop.bind(fmp);
   startLoopButton.onclick = fmp.setStartLoop.bind(fmp);
@@ -100,6 +115,10 @@ fmp.setInstrument(instrumentUrl).then(() => {
 
   changePiece(0);
 });
+
+const playBtnClicked = () => {
+  fmp.playBtnClicked();
+};
 
 const changePiece = (pieceId) => {
   //console.log("pieceid: " + pieceId);
@@ -164,7 +183,7 @@ document
 document.body.onkeyup = function (e) {
   if (e.keyCode == 32) {
     //spacebar
-    fmp.manageMidi();
+    fmp.keyboardSpaceClicked();
   } else if (e.keyCode == 37) {
     //left
     fmp.movePlayheadBwd();
