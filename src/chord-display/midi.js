@@ -1,4 +1,10 @@
 /* source: https://github.com/cwilso/midi-synth/blob/master/js/midi.js */
+import { FancyPiano } from "../piano";
+import SoundFont from "soundfont-player";
+import {
+  SUSTAINED_NOTE_DURATION,
+  NON_SUSTAINED_NOTE_DURATION,
+} from "../utils/constants";
 
 import {
   noteOff,
@@ -19,12 +25,67 @@ const CMD_AFTERTOUCH = 10;
 const CMD_CC = 11;
 const CMD_PITCHBEND = 14;
 const NOTE_CC_MODWHEEL = 1;
+const SUS_ON = 11;
+
+var piano = new FancyPiano(document);
+var instrument = null;
+var audioContext = window.AudioContext || window.webkitAudioContext || false;
+var safeAudioContext = new audioContext();
+var volume = 3;
+
+var enableKeyboard = true;
+
+const instrumentUrl =
+  "https://raw.githubusercontent.com/gleitz/midi-js-soundfonts/gh-pages/FatBoy/bright_acoustic_piano-mp3.js";
+
+function playInstrumentMidiNote(note, velocity) {
+  // console.log("note: " + note + " vel: " + velocity);
+  // console.log("safeAudioContext.currentTime: " + safeAudioContext.currentTime);
+  //console.log("piano.isSustainPedalPressed: " + piano.isSustainPedalPressed);
+
+  if (instrument) {
+    instrument.play(note, safeAudioContext.currentTime, {
+      gain: velocity * volume,
+      duration: piano.isSustainPedalPressed
+        ? SUSTAINED_NOTE_DURATION
+        : NON_SUSTAINED_NOTE_DURATION,
+    });
+  }
+}
+
+async function setInstrument() {
+  // console.log("setInstrument: " + instrumentUrl);
+  // console.log("safeAudioContext: " + safeAudioContext);
+
+  instrument = await SoundFont.instrument(safeAudioContext, instrumentUrl);
+
+  //console.log("instrument: " + instrument);
+}
+
+if (enableKeyboard) {
+  setInstrument().then(() => {
+    //console.log("instrument set");
+  });
+}
 
 function midiMessageReceived(ev) {
   let cmd = ev.data[0] >> 4;
   let channel = ev.data[0] & 0xf;
   let noteNumber = ev.data[1];
   let velocity = ev.data[2];
+
+  // if (cmd != 15) {
+  //   console.log("cmd: " + cmd);
+  // }
+
+  if (cmd == SUS_ON) {
+    //console.log("sustain");
+
+    //console.log("" + ev.data[0] + " " + ev.data[1] + " " + ev.data[2]);
+
+    // if(ev.data[2] == 127) == pressed
+    piano.setSustainPedal(ev.data[2]);
+  }
 
   if (channel === 9) return;
   if (cmd === CMD_NOTE_OFF || (cmd === CMD_NOTE_ON && velocity === 0)) {
@@ -33,7 +94,12 @@ function midiMessageReceived(ev) {
     noteOff(noteNumber);
   } else if (cmd === CMD_NOTE_ON) {
     // note on
-    noteOn(noteNumber, velocity / 127.0);
+    //console.log("keyboard controller noteon");
+
+    if (enableKeyboard) {
+      noteOn(noteNumber, velocity / 127.0);
+      playInstrumentMidiNote(noteNumber, velocity / 127.0);
+    }
   } else if (cmd === CMD_CC) {
     if (noteNumber === NOTE_CC_MODWHEEL) {
       modWheel(velocity / 127.0);

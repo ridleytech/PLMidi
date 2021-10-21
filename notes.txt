@@ -1,6 +1,5 @@
 //to do
 
-- Work on sustain
 - Fix chords sync
 
 //done
@@ -13,6 +12,7 @@
 - Add keyboard control for playback (space bar, arrows fast fwd)
 - Fix loop issue
 - fix beat timer
+- Work on sustain
 
 //later
 

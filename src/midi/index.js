@@ -423,6 +423,8 @@ export class FancyMidiPlayer {
   onControllerChange(event) {
     if (event.number === 64) {
       // Sustain Pedal Change
+
+      //console.log("sus event val: " + event.value);
       this.piano.setSustainPedal(event.value);
 
       //console.log(this.piano.isSustainPedalPressed ? "Pressed" : "Released");
@@ -457,16 +459,7 @@ export class FancyMidiPlayer {
       this.onNoteOffEvent(event);
     } else {
       //console.log("velocity: " + event.velocity);
-      let keyEvent = this.instrument.play(
-        newNote,
-        this.safeAudioContext.currentTime,
-        {
-          gain: (event.velocity / 100) * this.volume,
-          duration: this.piano.isSustainPedalPressed
-            ? SUSTAINED_NOTE_DURATION
-            : NON_SUSTAINED_NOTE_DURATION,
-        }
-      );
+      this.playInstrumentMidiNote(event.velocity, newNote);
 
       //this.piano.setKey(event.noteNumber, keyEvent);
 
@@ -489,6 +482,19 @@ export class FancyMidiPlayer {
       this.currentNotes.sort();
       this.refresh();
     }
+  }
+
+  playInstrumentMidiNote(velocity, note) {
+    let keyEvent = this.instrument.play(
+      note,
+      this.safeAudioContext.currentTime,
+      {
+        gain: (velocity / 100) * this.volume,
+        duration: this.piano.isSustainPedalPressed
+          ? SUSTAINED_NOTE_DURATION
+          : NON_SUSTAINED_NOTE_DURATION,
+      }
+    );
   }
 
   onNoteOffEvent(event) {
@@ -831,13 +837,6 @@ export class FancyMidiPlayer {
     this.songTimer = setInterval(() => {
       this.checkSongProgress();
     }, 50);
-
-    // if (this.isLooping) {
-    //   this.player.skipToPercent(this.loopStart);
-    // } else {
-    //   //resume play from current position if/when loop turned off
-    //   this.player.skipToPercent(this.currentProgress);
-    // }
 
     this.player.skipToPercent(this.currentProgress);
 

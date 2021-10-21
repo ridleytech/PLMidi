@@ -68,7 +68,7 @@ export function modWheel(mod) {
 }
 
 function onEvent(...args) {
-  console.log(...args);
+  //console.log(...args);
 }
 
 function refresh() {
