@@ -21,6 +21,9 @@ let currentModulation = 0;
 
 let previousChord = null;
 
+let lastNoteTimer = null;
+var lastNoteSeconds = 0;
+
 export function noteOn(noteNumber) {
   //console.log("noteNumber: " + noteNumber);
   if (!currentNotes.includes(noteNumber)) {
@@ -71,6 +74,24 @@ function onEvent(...args) {
   //console.log(...args);
 }
 
+function startTimer() {
+  lastNoteTimer = setInterval(() => {
+    lastNoteSeconds++;
+
+    //console.log("lastNoteSeconds: " + lastNoteSeconds);
+
+    if (lastNoteSeconds == 3) {
+      //console.log("timer done");
+      setChordHtml("");
+      clearTimer();
+    }
+  }, 1000);
+}
+
+function clearTimer() {
+  clearInterval(lastNoteTimer);
+}
+
 function refresh() {
   const notes = currentNotes.map(Note.fromMidi).map(Note.pc);
   const chords = notes.length > 2 ? detectChord(notes) : [];
@@ -84,11 +105,23 @@ function refresh() {
       fadeTonics();
     }
 
+    //show displayed chords longer
+
+    clearTimer();
+    lastNoteTimer = null;
+    startTimer();
+    lastNoteSeconds = 0;
+
     highlightTonic(chord.tonic);
     previousChord = chord;
   } else {
-    setChordHtml("");
+    if (previousChord) {
+      setChordHtml(chordToHtml(previousChord));
+    }
+
     fadeTonics();
+
+    //setChordHtml(""); //orig setting
   }
 }
 
