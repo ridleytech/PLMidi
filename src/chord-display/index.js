@@ -1,16 +1,16 @@
-import './styles.css';
-import { initializeMidi } from './midi';
-import { initSettings } from './settings';
-import { render } from './ui';
+import "./styles.css";
+//import { initializeMidi } from './midi';
+import { initSettings } from "./settings";
+import { render } from "./ui";
 
-let initialized = false;
+//let initialized = false;
 
 initSettings();
 
 //init: start up MIDI
-if (!initialized) {
-  initializeMidi();
-  initialized = true;
-}
+// if (!initialized) {
+//   initializeMidi();
+//   initialized = true;
+// }
 
 render();

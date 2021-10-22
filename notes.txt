@@ -1,6 +1,5 @@
 //to do
 
-- Fix chords sync
 
 //done
 
@@ -13,6 +12,7 @@
 - Fix loop issue
 - fix beat timer
 - Work on sustain
+- Fix chords sync
 
 //later
 

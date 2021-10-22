@@ -80,7 +80,7 @@ function startTimer() {
 
     //console.log("lastNoteSeconds: " + lastNoteSeconds);
 
-    if (lastNoteSeconds == 3) {
+    if (lastNoteSeconds == 2) {
       //console.log("timer done");
       setChordHtml("");
       clearTimer();
@@ -94,7 +94,13 @@ function clearTimer() {
 
 function refresh() {
   const notes = currentNotes.map(Note.fromMidi).map(Note.pc);
-  const chords = notes.length > 2 ? detectChord(notes) : [];
+  var chords;
+  if (notes.length > 2) {
+    chords = detectChord(notes);
+  } else {
+    chords = [];
+    previousChord = null;
+  }
 
   setNotesHtml(notes.map(keyToHtml).join(" "));
   if (chords && chords.length) {

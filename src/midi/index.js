@@ -21,6 +21,15 @@ import {
 } from "../chord-display/events";
 import { setAccidentalKeyboard } from "../chord-display/keyboard";
 
+import {
+  controller,
+  pitchWheel,
+  modWheel,
+  polyPressure,
+} from "../chord-display/events";
+import { setAppError, setAppLoaded } from "../chord-display/ui";
+import { getSetting, setSetting } from "../chord-display/settings";
+
 export class FancyMidiPlayer {
   constructor(document) {
     //console.log("FanceyMidiPlayer");
@@ -74,6 +83,29 @@ export class FancyMidiPlayer {
     this.songTimer = null;
     this.manageMidiEnabled = true;
     this.buttonHovered = false;
+
+    const PREFERRED_MIDI = ["mpk", "key", "piano"];
+
+    const CMD_NOTE_OFF = 8;
+    const CMD_NOTE_ON = 9;
+    const CMD_AFTERTOUCH = 10;
+    const CMD_CC = 11;
+    const CMD_PITCHBEND = 14;
+    const NOTE_CC_MODWHEEL = 1;
+    const SUS_ON = 11;
+
+    this.enableKeyboard = true;
+
+    this.initialized = false;
+
+    this.selectMIDI = null;
+    this.midiAccess = null;
+    this.midiIn = null;
+
+    // if (!this.initialized) {
+    //   this.initializeMidi();
+    //   this.initialized = true;
+    // }
 
     this.playButton.onmouseout = () => {
       //this.releaseKey2(keyElement.id);
@@ -421,6 +453,13 @@ export class FancyMidiPlayer {
   }
 
   onControllerChange(event) {
+    this.handleSustain(event);
+  }
+
+  handleSustain(event) {
+    // console.log("event: " + JSON.stringify(event));
+    // console.log("number: " + event.number + " val: " + event.value);
+
     if (event.number === 64) {
       // Sustain Pedal Change
 
@@ -490,6 +529,19 @@ export class FancyMidiPlayer {
       this.safeAudioContext.currentTime,
       {
         gain: (velocity / 100) * this.volume,
+        duration: this.piano.isSustainPedalPressed
+          ? SUSTAINED_NOTE_DURATION
+          : NON_SUSTAINED_NOTE_DURATION,
+      }
+    );
+  }
+
+  playKeyboardInstrumentMidiNote(velocity, note) {
+    let keyEvent = this.instrument.play(
+      note,
+      this.safeAudioContext.currentTime,
+      {
+        gain: velocity * this.volume,
         duration: this.piano.isSustainPedalPressed
           ? SUSTAINED_NOTE_DURATION
           : NON_SUSTAINED_NOTE_DURATION,
