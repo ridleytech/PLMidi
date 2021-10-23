@@ -24,7 +24,7 @@ export { setPitchWheel, setModWheel };
 
 export function highlightNote(noteNumber, className = "active") {
   // console.log("highlightNote: " + noteNumber);
-  // console.log("key el str: " + `note-${noteNumber}`);
+  // console.log("key elem str: " + `note-${noteNumber}`);
   const keyElement = document.getElementById(`note-${noteNumber}`);
   //console.log("keyElement: " + JSON.stringify(keyElement));
 
@@ -42,7 +42,7 @@ export function highlightNote(noteNumber, className = "active") {
   keyElementDisplayNote.classList.add(className);
 }
 
-export function highlightNote2(noteNumber, className = "active") {
+export function highlightNoteUser(noteNumber, className = "activeUser") {
   // console.log("highlightNote: " + noteNumber);
   // console.log("key el str: " + `note-${noteNumber}`);
   const keyElement = document.getElementById(`note-${noteNumber}`);
@@ -58,7 +58,7 @@ export function highlightNote2(noteNumber, className = "active") {
   }
 
   keyElement.classList.add(className);
-  keyElementDisplayNote.classList.add(className);
+  keyElementDisplayNote.classList.add("active2");
 }
 
 export function fadeNote(noteNumber) {
@@ -75,39 +75,41 @@ export function fadeNote(noteNumber) {
 
   keyElement.classList.remove("autoSelect");
   keyElement.classList.remove("active");
+  //keyElement.classList.remove("activeUser");
   keyElementDisplayNote.classList.remove("active");
 }
 
-export function fadeNote2(noteNumber) {
+export function fadeNoteUser(noteNumber) {
   //console.log("fadeNote: " + noteNumber);
 
-  //console.log("fadeNote2");
+  //console.log("fadeNoteUser");
 
   const keyElement = document.getElementById(`note-${noteNumber}`);
 
   //check this
 
-  if (keyElement.classList.contains("autoSelect")) {
-    //console.log("dont fade");
-    return;
-  }
   const keyElementDisplayNote = document.getElementById(
     `note-${noteNumber}-display`
   );
   if (!keyElement) return;
+  keyElement.classList.remove("activeUser");
 
-  keyElement.classList.remove("autoSelect");
-  keyElement.classList.remove("active");
-  keyElementDisplayNote.classList.remove("active");
+  // if (keyElement.classList.contains("autoSelect")) {
+  //   //console.log("dont fade");
+  //   return;
+  // }
+  //keyElement.classList.remove("autoSelect");
+
+  keyElementDisplayNote.classList.remove("active2");
 }
 
-export function fadeNote3(noteNumber) {
+export function fadeNoteHvrOut(noteNumber) {
   //console.log("fadeNote: " + noteNumber);
 
-  //console.log("fadeNote3");
+  //console.log("fadeNoteHvrOut");
 
   const keyElement = document.getElementById(`note-${noteNumber}`);
-
+  //console.log("keyElement:" + JSON.stringify(keyElement));
   if (keyElement.classList.contains("autoSelect")) {
     //console.log("dont fade");
     return;
@@ -115,10 +117,12 @@ export function fadeNote3(noteNumber) {
   const keyElementDisplayNote = document.getElementById(
     `note-${noteNumber}-display`
   );
+  keyElement.classList.remove("autoSelect");
+
   if (!keyElement) return;
 
-  keyElement.classList.remove("active");
-  keyElementDisplayNote.classList.remove("active");
+  keyElement.classList.remove("activeUser");
+  keyElementDisplayNote.classList.remove("active2");
 }
 
 export function highlightTonic(tonic) {

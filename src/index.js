@@ -302,7 +302,7 @@ const downloadFile = (path) => {
 
 var initialized = false;
 
-if (!initialized) {
+if (!initialized && enableKeyboard) {
   initializeMidi();
   initialized = true;
 }
@@ -330,6 +330,7 @@ function midiMessageReceived(ev) {
     // with MIDI, note on with velocity zero is the same as note off
     // note off
     noteOff(noteNumber);
+    stopInstrumentMidiNote(noteNumber);
   } else if (cmd === CMD_NOTE_ON) {
     // note on
     //console.log("keyboard controller noteon");
@@ -355,9 +356,17 @@ function midiMessageReceived(ev) {
   }
 }
 
+function stopInstrumentMidiNote(noteNumber) {
+  if (fmp.instrument) {
+    fmp.stopInstrumentMidiNote(noteNumber);
+  }
+}
+
 function playInstrumentMidiNote(noteNumber, velocity) {
   //console.log("playInstrumentMidiNote top");
-  fmp.playKeyboardInstrumentMidiNote(velocity, noteNumber);
+  if (fmp.instrument) {
+    fmp.playKeyboardInstrumentMidiNote(velocity, noteNumber);
+  }
 }
 
 let selectMIDI = null;

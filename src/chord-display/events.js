@@ -3,9 +3,9 @@ import { chord as detectChord } from "tonal/detect";
 import {
   highlightNote,
   fadeNote,
-  highlightNote2,
-  fadeNote2,
-  fadeNote3,
+  highlightNoteUser,
+  fadeNoteUser,
+  fadeNoteHvrOut,
   highlightTonic,
   fadeTonics,
   setChordHtml,
@@ -34,15 +34,15 @@ export function noteOn(noteNumber) {
   refresh();
 }
 
-export function noteOnPress(noteNumber) {
-  highlightNote2(noteNumber);
+export function noteOnPressUser(noteNumber) {
+  highlightNoteUser(noteNumber);
 }
 
-export function noteOnRelease(noteNumber) {
-  fadeNote2(noteNumber);
+export function noteOnReleaseUser(noteNumber) {
+  fadeNoteUser(noteNumber);
 }
-export function noteOnRelease2(noteNumber) {
-  fadeNote3(noteNumber);
+export function noteOnReleaseUserHvrOut(noteNumber) {
+  fadeNoteHvrOut(noteNumber);
 }
 
 export function noteOff(noteNumber) {
@@ -55,7 +55,7 @@ export function noteOff(noteNumber) {
 }
 
 export function fadeAllNotes() {
-  for (let i = 21; i < 88; i++) {
+  for (let i = 21; i < 108; i++) {
     fadeNote(i);
   }
 }
@@ -101,6 +101,11 @@ function refresh() {
     chords = [];
     previousChord = null;
   }
+
+  // if (notes.length == 0) {
+  //   //console.log("no notes");
+  //   fadeAllNotes2();
+  // }
 
   setNotesHtml(notes.map(keyToHtml).join(" "));
   if (chords && chords.length) {

@@ -15,20 +15,11 @@ import {
   noteOn,
   noteOff,
   fadeAllNotes,
-  noteOnPress,
-  noteOnRelease,
-  noteOnRelease2,
+  noteOnPressUser,
+  noteOnReleaseUser,
+  noteOnReleaseUserHvrOut,
 } from "../chord-display/events";
 import { setAccidentalKeyboard } from "../chord-display/keyboard";
-
-import {
-  controller,
-  pitchWheel,
-  modWheel,
-  polyPressure,
-} from "../chord-display/events";
-import { setAppError, setAppLoaded } from "../chord-display/ui";
-import { getSetting, setSetting } from "../chord-display/settings";
 
 export class FancyMidiPlayer {
   constructor(document) {
@@ -83,47 +74,21 @@ export class FancyMidiPlayer {
     this.songTimer = null;
     this.manageMidiEnabled = true;
     this.buttonHovered = false;
+    this.currentSounds = [];
 
-    const PREFERRED_MIDI = ["mpk", "key", "piano"];
-
-    const CMD_NOTE_OFF = 8;
-    const CMD_NOTE_ON = 9;
-    const CMD_AFTERTOUCH = 10;
-    const CMD_CC = 11;
-    const CMD_PITCHBEND = 14;
-    const NOTE_CC_MODWHEEL = 1;
-    const SUS_ON = 11;
-
-    this.enableKeyboard = true;
-
-    this.initialized = false;
-
-    this.selectMIDI = null;
-    this.midiAccess = null;
-    this.midiIn = null;
-
-    // if (!this.initialized) {
-    //   this.initializeMidi();
-    //   this.initialized = true;
-    // }
+    this.ke = null;
 
     this.playButton.onmouseout = () => {
-      //this.releaseKey2(keyElement.id);
-
       this.buttonHovered = false;
       //console.log("hovered: " + this.buttonHovered);
     };
 
     this.playButton.onmouseover = () => {
-      //this.releaseKey2(keyElement.id);
-
       this.buttonHovered = true;
       //console.log("hovered: " + this.buttonHovered);
     };
 
     this.playButton.onmouseover = () => {
-      //this.releaseKey2(keyElement.id);
-
       this.buttonHovered = false;
       //console.log("hovered: " + this.buttonHovered);
     };
@@ -147,15 +112,15 @@ export class FancyMidiPlayer {
       for (let i = 21; i < 21 + 88; i++) {
         const keyElement = document.getElementById(`note-${i}`);
         keyElement.onmousedown = () => {
-          this.playKey(keyElement.id);
+          this.playKeyTouch(keyElement.id);
         };
 
         keyElement.onmouseup = () => {
-          this.releaseKey(keyElement.id);
+          this.releaseKeyTouch(keyElement.id);
         };
 
         keyElement.onmouseout = () => {
-          this.releaseKey2(keyElement.id);
+          this.releaseKeyHvrOut(keyElement.id);
         };
       }
     }, 200);
@@ -206,49 +171,73 @@ export class FancyMidiPlayer {
     // );
   }
 
-  releaseKey = (key) => {
+  releaseKeyTouch = (key) => {
     //console.log("release key: " + key);
 
     let noteNumber = parseInt(key.replace("note-", ""));
-    let noteName = Note.fromMidi(noteNumber);
+    //let noteName = Note.fromMidi(noteNumber);
 
     // console.log("noteNumber: " + noteNumber);
     // console.log("noteName: " + noteName);
 
-    noteOnRelease(noteNumber);
+    // if (!this.piano.isSustainPedalPressed) {
+    //   this.instrument.stop();
+    // }
+
+    const theSound = this.currentSounds.find((x) => x.noteID === noteNumber);
+    //console.log("theSound: " + JSON.stringify(theSound));
+
+    if (!this.piano.isSustainPedalPressed && theSound) {
+      theSound.stop();
+    }
+
+    this.currentSounds = this.currentSounds.filter(
+      (x) => x.noteID != noteNumber
+    );
+
+    //console.log("stop playing");
+
+    noteOnReleaseUser(noteNumber);
   };
 
-  releaseKey2 = (key) => {
+  releaseKeyHvrOut = (key) => {
     //console.log("release key: " + key);
 
     let noteNumber = parseInt(key.replace("note-", ""));
-    let noteName = Note.fromMidi(noteNumber);
+    //let noteName = Note.fromMidi(noteNumber);
 
     // console.log("noteNumber: " + noteNumber);
     // console.log("noteName: " + noteName);
 
-    noteOnRelease2(noteNumber);
+    noteOnReleaseUserHvrOut(noteNumber);
   };
 
-  playKey = (key) => {
+  playKeyTouch = (key) => {
     //console.log("key: " + key);
     //return;
     let noteNumber = parseInt(key.replace("note-", ""));
-    let noteName = Note.fromMidi(noteNumber);
+    //let noteName = Note.fromMidi(noteNumber);
 
     // console.log("noteNumber: " + noteNumber);
     // console.log("noteName: " + noteName);
 
-    let keyEvent = this.instrument.play(
-      noteNumber,
-      this.safeAudioContext.currentTime,
-      {
-        gain: (76 / 100) * this.volume,
-        duration: NON_SUSTAINED_NOTE_DURATION,
-      }
-    );
+    if (this.instrument) {
+      let keyEvent = this.instrument.play(
+        noteNumber,
+        this.safeAudioContext.currentTime,
+        {
+          gain: (76 / 100) * this.volume,
+          duration: NON_SUSTAINED_NOTE_DURATION,
+        }
+      );
 
-    noteOnPress(noteNumber);
+      keyEvent.noteID = noteNumber;
+      //console.log("keyEvent: " + JSON.stringify(keyEvent));
+
+      this.currentSounds.push(keyEvent);
+    }
+
+    noteOnPressUser(noteNumber);
   };
 
   async setInstrument(instrumentUrl) {
@@ -457,6 +446,9 @@ export class FancyMidiPlayer {
   }
 
   handleSustain(event) {
+    //to do
+    //stop notes currently playing
+
     // console.log("event: " + JSON.stringify(event));
     // console.log("number: " + event.number + " val: " + event.value);
 
@@ -470,6 +462,15 @@ export class FancyMidiPlayer {
 
       if (!this.piano.isSustainPedalPressed) {
         this.piano.paintReleasedKey2(1081);
+
+        //console.log("stop sustain");
+        //this.instrument.stop();
+
+        // this.currentSounds.forEach((sound) => {
+        //   sound.stop();
+        // });
+
+        //this.currentSounds = [];
 
         this.piano
           .getSustainedKeys()
@@ -524,6 +525,7 @@ export class FancyMidiPlayer {
   }
 
   playInstrumentMidiNote(velocity, note) {
+    //console.log("play file note");
     let keyEvent = this.instrument.play(
       note,
       this.safeAudioContext.currentTime,
@@ -534,9 +536,29 @@ export class FancyMidiPlayer {
           : NON_SUSTAINED_NOTE_DURATION,
       }
     );
+
+    keyEvent.noteID = note;
+    //console.log("keyEvent: " + JSON.stringify(keyEvent));
+
+    this.currentSounds.push(keyEvent);
+  }
+
+  stopInstrumentMidiNote(note) {
+    //console.log("stop note: " + note);
+
+    const theSound = this.currentSounds.find((x) => x.noteID === note);
+    //console.log("theSound: " + JSON.stringify(theSound));
+
+    if (!this.piano.isSustainPedalPressed) {
+      theSound.stop();
+    }
+
+    this.currentSounds = this.currentSounds.filter((x) => x.noteID != note);
+    //console.log("cs len: " + this.currentSounds.length);
   }
 
   playKeyboardInstrumentMidiNote(velocity, note) {
+    //console.log("play note: " + note);
     let keyEvent = this.instrument.play(
       note,
       this.safeAudioContext.currentTime,
@@ -547,6 +569,11 @@ export class FancyMidiPlayer {
           : NON_SUSTAINED_NOTE_DURATION,
       }
     );
+
+    keyEvent.noteID = note;
+    //console.log("keyEvent: " + JSON.stringify(keyEvent));
+
+    this.currentSounds.push(keyEvent);
   }
 
   onNoteOffEvent(event) {
@@ -567,6 +594,19 @@ export class FancyMidiPlayer {
       newNoteName = Note.transpose(event.noteName, distStr);
       //console.log("remove newNoteName: " + newNoteName + " distStr: " + distStr);
     }
+
+    const theSound = this.currentSounds.find((x) => x.noteID === newNote);
+    //console.log("theSound: " + JSON.stringify(theSound));
+
+    if (!this.piano.isSustainPedalPressed && theSound) {
+      theSound.stop();
+    }
+
+    this.currentSounds = this.currentSounds.filter((x) => x.noteID != newNote);
+
+    // if (!this.piano.isSustainPedalPressed) {
+    //   this.instrument.stop(newNote);
+    // }
 
     var accidentalName = Midi.midiToNoteName(newNote, {
       pitchClass: true,
@@ -736,8 +776,6 @@ export class FancyMidiPlayer {
 
     this.tempoSlider.value = newVal;
   }
-
-  //https://metroui.org.ua/double-slider.html
 
   setStartLoop() {
     if (!this.isLooping) {
