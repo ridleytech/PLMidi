@@ -25,7 +25,7 @@ let lastNoteTimer = null;
 var lastNoteSeconds = 0;
 
 export function noteOn(noteNumber) {
-  //console.log("noteNumber: " + noteNumber);
+  //console.log("noteOn events: " + noteNumber);
   if (!currentNotes.includes(noteNumber)) {
     currentNotes.push(noteNumber);
     highlightNote(noteNumber);
@@ -41,11 +41,13 @@ export function noteOnPressUser(noteNumber) {
 export function noteOnReleaseUser(noteNumber) {
   fadeNoteUser(noteNumber);
 }
+
 export function noteOnReleaseUserHvrOut(noteNumber) {
   fadeNoteHvrOut(noteNumber);
 }
 
 export function noteOff(noteNumber) {
+  //console.log("noteOff events: " + noteNumber);
   const index = currentNotes.indexOf(noteNumber);
   if (index > -1) {
     currentNotes.splice(index, 1);
@@ -108,6 +110,7 @@ function refresh() {
   // }
 
   setNotesHtml(notes.map(keyToHtml).join(" "));
+
   if (chords && chords.length) {
     const chord = chords[0];
     setChordHtml(chordToHtml(chord));
@@ -123,7 +126,7 @@ function refresh() {
     startTimer();
     lastNoteSeconds = 0;
 
-    highlightTonic(chord.tonic);
+    //highlightTonic(chord.tonic);
     previousChord = chord;
   } else {
     if (previousChord) {

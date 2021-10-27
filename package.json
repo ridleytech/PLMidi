@@ -11,6 +11,7 @@
     "@tonaljs/tonal": "^4.6.5",
     "babel-polyfill": "^6.26.0",
     "html-midi-player": "^1.4.0-1",
+    "js-synthesizer": "^1.8.3",
     "midi-player-js": "2.0.13",
     "nouislider": "^15.5.0",
     "qs": "^6.9.1",

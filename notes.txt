@@ -34,6 +34,8 @@ href="./
 https://refreshless.com/nouislider/slider-read-write/
 https://metroui.org.ua/double-slider.html
 https://g200kg.github.io/input-knobs/
+https://github.com/gleitz/MIDI.js/blob/master/generator/ruby/soundfont_builder.rb
+https://thetimetube.herokuapp.com/soundfont/
 
 <!-- <midi-visualizer type="staff" id="myStaffVisualizer" 
   src="../assets/midi/Pass Me Not - Advanced.mid">

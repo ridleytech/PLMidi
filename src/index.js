@@ -31,7 +31,7 @@ const CMD_PITCHBEND = 14;
 const NOTE_CC_MODWHEEL = 1;
 const SUS_ON = 11;
 
-const enableKeyboard = true;
+const enableKeyboard = false;
 
 var url = "https://pianolessonwithwarren.com/dev_site";
 
@@ -67,8 +67,10 @@ if (isIOSChrome) {
   // not Google Chrome
 }
 
-const instrumentUrl =
+var instrumentUrl =
   "https://raw.githubusercontent.com/gleitz/midi-js-soundfonts/gh-pages/FatBoy/bright_acoustic_piano-mp3.js";
+
+//instrumentUrl = "https://pianolessonwithwarren.com/dev_site/PLMidi/soundfont/acoustic_grand_piano-mp3.js";
 
 const setAppBusy = (isBusy) => {
   const playButton = document.querySelector("#play-piece");
@@ -120,8 +122,6 @@ fmp.setInstrument(instrumentUrl).then(() => {
   const startLoopButton = document.querySelector("#start-loop");
   const endLoopButton = document.querySelector("#end-loop");
 
-  //playButton.onclick = playBtnClicked;
-
   playButton.addEventListener("click", handleCheckboxEvent, true);
   playButton.addEventListener("keyup", handleCheckboxEvent, true);
 
@@ -143,10 +143,6 @@ fmp.setInstrument(instrumentUrl).then(() => {
 
   changePiece(0);
 });
-
-const playBtnClicked = () => {
-  fmp.playBtnClicked();
-};
 
 const changePiece = (pieceId) => {
   //console.log("pieceid: " + pieceId);

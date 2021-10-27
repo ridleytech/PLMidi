@@ -20,6 +20,11 @@ import {
   noteOnReleaseUserHvrOut,
 } from "../chord-display/events";
 import { setAccidentalKeyboard } from "../chord-display/keyboard";
+// import * as piano1 from "../sf2/piano1";
+
+// console.log("piano1: " + JSON.stringify(piano1));
+
+const tools = require("../soundfont/acoustic_grand_piano-mp3.js");
 
 export class FancyMidiPlayer {
   constructor(document) {
@@ -241,6 +246,7 @@ export class FancyMidiPlayer {
   };
 
   async setInstrument(instrumentUrl) {
+    console.log(instrumentUrl);
     this.instrument = await SoundFont.instrument(
       this.safeAudioContext,
       instrumentUrl
@@ -248,6 +254,15 @@ export class FancyMidiPlayer {
       //   destination: this.reverbNode,
       // }
     );
+
+    //    this.instrument = Soundfont.instrument(this.safeAudioContext, '/soundfonts/clavinet-mp3.js').then(()=>{console.log("sf loaded")})
+
+    // this.instrument = await Soundfont.instrument(
+    //   this.safeAudioContext,
+    //   instrumentUrl
+    // ).then(() => {
+    //   console.log("sf loaded");
+    // });
 
     this.player = new MidiPlayer.Player((event) => {
       if (event.name === "Controller Change") {
@@ -441,6 +456,95 @@ export class FancyMidiPlayer {
     this.progressSlider.value = this.currentProgress;
   }
 
+  onNoteOnEvent(event) {
+    // console.log("\nevent.noteNumber: " + event.noteNumber);
+    //console.log("\nevent.noteName: " + event.noteName);
+    var newNote = event.noteNumber + this.transposeVal;
+    //console.log("newNote: " + newNote);
+
+    var newNoteName = event.noteName;
+
+    if (this.transposeVal > 0) {
+      var distStr = this.transposeVal.toString() + this.transposeStr;
+      newNoteName = Note.transpose(event.noteName, distStr);
+      console.log("add newNoteName: " + newNoteName + " distStr: " + distStr);
+    }
+
+    if (event.velocity === 0) {
+      this.onNoteOffEvent(event);
+    } else {
+      //console.log("velocity: " + event.velocity);
+      this.playInstrumentMidiNote(event.velocity, newNote);
+
+      //this.piano.setKey(event.noteNumber, keyEvent);
+
+      noteOn(newNote);
+
+      //manage chord display
+
+      var accidentalName = Midi.midiToNoteName(newNote, {
+        pitchClass: true,
+        sharps: this.showSharp,
+      });
+
+      newNoteName = accidentalName;
+
+      if (!this.currentNotes.includes(newNoteName)) {
+        this.currentNotes.push(newNoteName);
+        //highlightNote(noteNumber);
+      }
+      this.currentNotes.sort();
+      this.refresh();
+    }
+  }
+
+  onNoteOffEvent(event) {
+    // const keyToStop = this.piano.stopKey(event.noteNumber);
+    // if (keyToStop) keyToStop.stop();
+
+    var newNote = event.noteNumber + this.transposeVal;
+
+    //console.log("note off index: " + newNote);
+    noteOff(newNote);
+
+    //manage chord display
+
+    var newNoteName = event.noteName;
+
+    if (this.transposeVal > 0) {
+      var distStr = this.transposeVal.toString() + this.transposeStr;
+      newNoteName = Note.transpose(event.noteName, distStr);
+      //console.log("remove newNoteName: " + newNoteName + " distStr: " + distStr);
+    }
+
+    const theSound = this.currentSounds.find((x) => x.noteID === newNote);
+    //console.log("theSound: " + JSON.stringify(theSound));
+
+    if (!this.piano.isSustainPedalPressed && theSound) {
+      theSound.stop();
+    }
+
+    this.currentSounds = this.currentSounds.filter((x) => x.noteID != newNote);
+
+    // if (!this.piano.isSustainPedalPressed) {
+    //   this.instrument.stop(newNote);
+    // }
+
+    var accidentalName = Midi.midiToNoteName(newNote, {
+      pitchClass: true,
+      sharps: this.showSharp,
+    });
+
+    newNoteName = accidentalName;
+
+    const index = this.currentNotes.indexOf(newNoteName);
+    if (index > -1) {
+      this.currentNotes.splice(index, 1);
+      //fadeNote(noteNumber);
+    }
+    this.refresh();
+  }
+
   onControllerChange(event) {
     this.handleSustain(event);
   }
@@ -478,49 +582,6 @@ export class FancyMidiPlayer {
       } else {
         this.piano.paintPressedKey2(1081);
       }
-    }
-  }
-
-  onNoteOnEvent(event) {
-    // console.log("\nevent.noteNumber: " + event.noteNumber);
-    //console.log("\nevent.noteName: " + event.noteName);
-    var newNote = event.noteNumber + this.transposeVal;
-    //console.log("newNote: " + newNote);
-
-    var newNoteName = event.noteName;
-
-    if (this.transposeVal > 0) {
-      var distStr = this.transposeVal.toString() + this.transposeStr;
-      newNoteName = Note.transpose(event.noteName, distStr);
-      console.log("add newNoteName: " + newNoteName + " distStr: " + distStr);
-    }
-
-    if (event.velocity === 0) {
-      this.onNoteOffEvent(event);
-    } else {
-      //console.log("velocity: " + event.velocity);
-      this.playInstrumentMidiNote(event.velocity, newNote);
-
-      //this.piano.setKey(event.noteNumber, keyEvent);
-
-      //noteOn(event.noteNumber);
-      noteOn(newNote);
-
-      //manage chord display
-
-      var accidentalName = Midi.midiToNoteName(newNote, {
-        pitchClass: true,
-        sharps: this.showSharp,
-      });
-
-      newNoteName = accidentalName;
-
-      if (!this.currentNotes.includes(newNoteName)) {
-        this.currentNotes.push(newNoteName);
-        //highlightNote(noteNumber);
-      }
-      this.currentNotes.sort();
-      this.refresh();
     }
   }
 
@@ -574,53 +635,6 @@ export class FancyMidiPlayer {
     //console.log("keyEvent: " + JSON.stringify(keyEvent));
 
     this.currentSounds.push(keyEvent);
-  }
-
-  onNoteOffEvent(event) {
-    // const keyToStop = this.piano.stopKey(event.noteNumber);
-    // if (keyToStop) keyToStop.stop();
-
-    var newNote = event.noteNumber + this.transposeVal;
-
-    //noteOff(event.noteNumber);
-    noteOff(newNote);
-
-    //manage chord display
-
-    var newNoteName = event.noteName;
-
-    if (this.transposeVal > 0) {
-      var distStr = this.transposeVal.toString() + this.transposeStr;
-      newNoteName = Note.transpose(event.noteName, distStr);
-      //console.log("remove newNoteName: " + newNoteName + " distStr: " + distStr);
-    }
-
-    const theSound = this.currentSounds.find((x) => x.noteID === newNote);
-    //console.log("theSound: " + JSON.stringify(theSound));
-
-    if (!this.piano.isSustainPedalPressed && theSound) {
-      theSound.stop();
-    }
-
-    this.currentSounds = this.currentSounds.filter((x) => x.noteID != newNote);
-
-    // if (!this.piano.isSustainPedalPressed) {
-    //   this.instrument.stop(newNote);
-    // }
-
-    var accidentalName = Midi.midiToNoteName(newNote, {
-      pitchClass: true,
-      sharps: this.showSharp,
-    });
-
-    newNoteName = accidentalName;
-
-    const index = this.currentNotes.indexOf(newNoteName);
-    if (index > -1) {
-      this.currentNotes.splice(index, 1);
-      //fadeNote(noteNumber);
-    }
-    this.refresh();
   }
 
   setAccidental() {

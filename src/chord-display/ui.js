@@ -23,7 +23,7 @@ const notesDisplay = document.getElementById("notesDisplay");
 export { setPitchWheel, setModWheel };
 
 export function highlightNote(noteNumber, className = "active") {
-  // console.log("highlightNote: " + noteNumber);
+  //console.log("highlightNote UI: " + noteNumber);
   // console.log("key elem str: " + `note-${noteNumber}`);
   const keyElement = document.getElementById(`note-${noteNumber}`);
   //console.log("keyElement: " + JSON.stringify(keyElement));
@@ -62,8 +62,7 @@ export function highlightNoteUser(noteNumber, className = "activeUser") {
 }
 
 export function fadeNote(noteNumber) {
-  //console.log("fadeNote: " + noteNumber);
-
+  //console.log("fadeNote UI: " + noteNumber);
   //console.log("fadeNote");
 
   const keyElement = document.getElementById(`note-${noteNumber}`);
@@ -75,12 +74,15 @@ export function fadeNote(noteNumber) {
 
   keyElement.classList.remove("autoSelect");
   keyElement.classList.remove("active");
+  keyElement.classList.remove("activeUser");
+
   //keyElement.classList.remove("activeUser");
   keyElementDisplayNote.classList.remove("active");
+  keyElementDisplayNote.classList.remove("active2");
 }
 
 export function fadeNoteUser(noteNumber) {
-  //console.log("fadeNote: " + noteNumber);
+  //console.log("fadeNoteUser: " + noteNumber);
 
   //console.log("fadeNoteUser");
 
@@ -104,8 +106,7 @@ export function fadeNoteUser(noteNumber) {
 }
 
 export function fadeNoteHvrOut(noteNumber) {
-  //console.log("fadeNote: " + noteNumber);
-
+  //console.log("fadeNoteHvrOut: " + noteNumber);
   //console.log("fadeNoteHvrOut");
 
   const keyElement = document.getElementById(`note-${noteNumber}`);
@@ -117,9 +118,9 @@ export function fadeNoteHvrOut(noteNumber) {
   const keyElementDisplayNote = document.getElementById(
     `note-${noteNumber}-display`
   );
-  keyElement.classList.remove("autoSelect");
+  //keyElement.classList.remove("autoSelect");
 
-  if (!keyElement) return;
+  //if (!keyElement) return;
 
   keyElement.classList.remove("activeUser");
   keyElementDisplayNote.classList.remove("active2");

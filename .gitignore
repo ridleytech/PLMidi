@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+src/soundfont/acoustic_grand_piano-mp3
+*.sf2

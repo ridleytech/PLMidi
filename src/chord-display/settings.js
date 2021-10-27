@@ -1,4 +1,4 @@
-import { selectMIDIIn } from "./midi";
+//import { selectMIDIIn } from "./midi";
 import { render } from "./ui";
 import qs from "qs";
 
