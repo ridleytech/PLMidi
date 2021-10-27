@@ -21,10 +21,8 @@ import {
 } from "../chord-display/events";
 import { setAccidentalKeyboard } from "../chord-display/keyboard";
 // import * as piano1 from "../sf2/piano1";
-
 // console.log("piano1: " + JSON.stringify(piano1));
-
-const tools = require("../soundfont/acoustic_grand_piano-mp3.js");
+//const tools = require("../soundfont/acoustic_grand_piano-mp3.js");
 
 export class FancyMidiPlayer {
   constructor(document) {
