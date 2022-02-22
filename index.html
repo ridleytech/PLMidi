@@ -4,9 +4,22 @@
 <title>MIDI Player</title>
 <meta charset="UTF-8" />
 <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <style>
+#app {
+    background-color: white !important;
+}
+.metro-touch-device {
+    width: 100% !important;
+    background-color: black;
+    overflow: hidden !important;
+}
+.metro-no-touch-device {
+    width: 100% !important;
+    background-color: black;
+}
 .note {
     height: 3px
 }
@@ -111,13 +124,14 @@ body {
 .foo {
     display: block;
     position: relative;
-    width: 85px;
+    width: 100px;
     margin: auto;
     cursor: pointer;
     border: 0;
     height: 30px;
     border-radius: 5px;
     outline: 0;
+    
 }
 .foo:hover:after {
     background: #1F9717;
@@ -137,7 +151,7 @@ body {
     width: 100%;
     height: 100%;
     display: block;
-    content: 'BROWSE';
+    content: 'Add MIDI File';
     line-height: 32px;
     border-radius: 5px;
 }
@@ -159,8 +173,7 @@ body {
 }
 .marker {
     background-color: #fcff02 !important;
-    height: 45px !important;
-    /* width: 0px !important;
+    height: 45px !important;/* width: 0px !important;
     padding: 3px !important; */
 }
 .marker-max {
@@ -188,6 +201,7 @@ body {
 }
 #info-container {
     flex-direction: column !important;
+    display: flex;
 }
 #section3 midi-player {
     display: block;
@@ -358,8 +372,6 @@ background: #1F9717;
     width: 40px !important;
     height: 40px !important;
 }
-
-
 /* .slider::before {
   background: linear-gradient(
     0deg, #525252 0%, #373737 100%
@@ -410,130 +422,278 @@ background: #1F9717;
 
 
 .switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
 }
-
 /* Hide default HTML checkbox */
 .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
-
 /* The slider */
 .slider1 {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #1F9717;
-  -webkit-transition: .4s;
-  transition: .4s;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #1F9717;
+    -webkit-transition: .4s;
+    transition: .4s;
 }
-
 .slider1:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: #fcff02;
-  -webkit-transition: .4s;
-  transition: .4s;
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: #fcff02;
+    -webkit-transition: .4s;
+    transition: .4s;
 }
-
 input:checked + .slider1 {
-  background-color: #1F9717;
+    background-color: #1F9717;
 }
-
 input:focus + .slider1 {
-  box-shadow: 0 0 1px #1F9717;
+    box-shadow: 0 0 1px #1F9717;
 }
-
 input:checked + .slider1:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
 }
-
 /* Rounded sliders */
 .slider1.round {
-  border-radius: 34px;
-  margin-top: 10px;
-  height: 2.125rem;
+    border-radius: 34px;
+    margin-top: 10px;
+    height: 2.125rem;
 }
-
 .slider1.round:before {
-  border-radius: 50%;
+    border-radius: 50%;
 }
-
 #file-name {
-  /* font-size: 14px; 
+    /* font-size: 14px; 
   margin-bottom: 8px */
 
-  font-size: 14px; 
-  /* margin-bottom: 0px; */
-  height: 0px;
+    font-size: 14px;
+    /* margin-bottom: 0px; */
+    height: 0px;
 }
-
 #loop-settings {
-  padding: 10px 0 10px 5px;
+    padding: 10px 0 10px 5px;
+}
+.loopBtn {
+    margin-right: 10px;
+    border-radius: 5px;
+    border-width: 1px;
+    border-color: gray;
+    border-style: solid;
+    padding: 8px;
+    background: linear-gradient( 180deg, rgba(62, 62, 62, 1) 0%, rgba(20, 19, 19, 1) 69% );
+    /* color: #fcff02; */
+    color: gray;
+    font-size: 14px;
 }
 
-  .loopBtn {
-    margin-right: 10px; border-radius: 5px;
-      border-width: 1px; border-color: gray;
-      border-style: solid;
-      padding: 8px; background: linear-gradient( 
-180deg, rgba(62, 62, 62, 1) 0%, rgba(20, 19, 19, 1) 69% ); 
-/* color: #fcff02; */
-color:gray;
-font-size: 14px;
-  }
 
-  .noUi-connect {
+#noSliderWrapper2 {
+
+  width: 98% !important;
+    margin-left: 10px; 
+     position: absolute;
+    z-index: 10;
+    background: transparent;
+}
+
+#noSliderWrapper2 .noUi-connects {
+
+background: transparent!important;
+
+} 
+
+#noSliderWrapper2 .noUi-target{
+  background-color: transparent!important;
+}
+
+.c-1-color { background: #fcff02 !important; }
+.c-2-color { background: transparent !important; }
+.c-3-color { background: green !important; }
+.c-4-color { background: blue !important; }
+.c-5-color { background: purple !important; }
+
+ /* #noslider2 .noUi-connect {
+    background: #c0392b;
+} */
+
+#noslider2 .noUi-handle-lower {
+    display: none;
+}
+
+#noslider2 .noUi-handle-upper {
+    display: none;
+}
+
+#noslider2 .noUi-handle {
+
+  background: #ffffff !important;
+  width: 5px !important;
+} 
+
+
+
+
+
+.noUi-connect {
     background: #1f9713;
 }
 
+
 .noUi-handle {
-	width: 10px !important;
-  right: -8px !important;
-  background: #fcff02 !important;
-  border: 0px !important;
-  box-shadow: unset !important;
+    width: 10px !important;
+    right: -8px !important;
+    background: #fcff02 !important;
+    border: 0px !important;
+    box-shadow: unset !important;
 }
-
 .noUi-handle:after {
-  left: 5px  !important;
-  background: unset !important;
+    left: 5px !important;
+    background: unset !important;
 }
-
 .noUi-handle:before {
-  left: 3px  !important;
-  background: unset !important;
+    left: 3px !important;
+    background: unset !important;
 }
-
 .noUi-target {
     background: #2a2929;
-    border-radius: unset  !important;
-    border: unset  !important;
-    box-shadow: unset  !important;
+    border-radius: unset !important;
+    border: unset !important;
+    box-shadow: unset !important;
 }
-
 #start-loop:hover {
     opacity: 0.9;
 }
-
 #end-loop:hover {
     opacity: 0.9;
 }
 
+@media (min-device-width:320px) and (max-device-width:375px) {
+#file-info {
+    display: none;
+}
+}
+@supports (-webkit-touch-callout: none) {
+/* CSS specific to iOS devices */ 
+  /* #file-info {
+display: none;
+    } */
+}
+@supports not (-webkit-touch-callout: none) {
+/* CSS for other than iOS devices */ 
+  /* #file-info {
+display: none;
+    } */
+}
+
+@media only screen and (max-width: 415px) {
+#file-info {
+    width: 100% !important;
+    min-width: 100% !important;
+}
+}
+
+@media only screen and (orientation: landscape) and (max-height: 415px) {
+#overlay {
+    height: 70px !important;
+}
+#header {
+    height: 70px !important;
+}
+#info-container {
+    height: 80px;
+    /* flex-direction: row !important; */
+    position: absolute !important;
+    z-index: 20000 !important;
+    width: 100% !important;
+    display: none;
+    top: 70px;
+}
+#header-logo {
+    width: 85px !important;
+    margin-left: 0px !important;
+    margin-top: -65px !important;
+}
+#middle-content {
+    height: 50px !important;
+    margin-top: 15px !important;
+}
+#chordDisplay1 {
+    height: 65px !important;
+    margin-bottom: 8px !important;
+}
+#piano-pedal {
+    position: absolute !important;
+    width: 100% !important;
+    bottom: 0px !important;
+}
+#midi-container {
+    position: absolute !important;
+    z-index: 200 !important;
+    bottom: 0px !important;
+    visibility: hidden;
+}
+.metro-touch-device {
+    overflow: hidden !important;
+}
+body {
+    overflow: hidden !important;
+}
+#nav-icon {
+    height: 30px;
+    width: 30px;
+    z-index: 20000;
+    position: absolute;
+    left: 15px;
+    top: 20px;
+    cursor: pointer;
+    display: block !important;
+}
+#loop-icon {
+    height: 30px;
+    width: 30px;
+    z-index: 20000;
+    position: absolute;
+    right: 15px;
+    top: 20px;
+    cursor: pointer;
+    display: block !important;
+}
+#infoClose {
+    display: block !important;
+    cursor: pointer;
+}
+#info2 {
+    justify-content: unset !important;
+    flex-direction: row !important;
+}
+
+#sustain-pedal2 {
+  margin-bottom: 5px;
+}
+
+}
+
+#drop_zone {
+  border: 1px solid blue;
+    /* width: 200px; */
+    height: 50px;
+    color: white;
+    padding: 10px;
+}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -541,7 +701,7 @@ font-size: 14px;
     href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
     rel="stylesheet"
   />
-<script src="/src/input-knobs-master/input-knobs.js"></script>
+<script src="/src/input-knobs-master/input-knobs.js"></script> 
 <!-- <script src="libfluidsynth-2.1.9.js"></script>
 <script src="js-synthesizer.js"></script> -->
 <body>
@@ -697,111 +857,118 @@ font-size: 14px;
           background-position-y: center;
         "
         id="header"
-      ></div>
-  <div id="info-container" style="background-color: black; height: 100px; display: flex; justify-content: center;">
-    <div id="inner">
-      <div style="display: flex; flex-direction: column; align-items: center;"> 
-        <span  id="file-name" style=""></span>
-        <input id="musical-piece" type="file" class="foo" tabindex="-1" />
+      ><img
+      src="./assets/images/tempo-menu.png" id="nav-icon" style="display: none;" />
+
+      <img
+      src="./assets/images/loop-menu.png" id="loop-icon" style="display: none;" />
+ 
+
+
+</div>
+  <div id="info-container" style="background-color: black; height: 100px;"> 
+    <!-- <div id="infoClose" style="color: white; display: none; padding: 10px 0 0 10px;">X</div> -->
+    
+    <div style="display: flex; justify-content: center;
+    flex-direction: column" id="info2">
+      <div id="inner">
+        <div style="display: flex; flex-direction: column; align-items: center;" id="fileDiv"> <span  id="file-name" style=""></span>
+          <input id="musical-piece" type="file" class="foo" tabindex="-1"  accept=".midi,.mid" />
+        </div>
       </div>
-    </div>
-    <div
-          id="file-info"
-          style="
-            display: flex;
-            height: 85px;
-            align-items: center;
-            color: white;
-            font-size: 14px;
-            min-width: 420px;
-            width: 420px;
-            justify-content: space-evenly;
-            margin-left: auto;
-            margin-right: auto;
-          "
-        >
-      <div style="padding-top: 15px; height: 75px; text-align: center">
-        <div><strong>Key</strong></div>
-        <div id="keySig" style="padding-top: 10px">C major</div>
-      </div>
+      <!-- <div id="drop_zone">
+        <p>Drag one or more files to this Drop Zone ...</p>
+      </div> -->
+
       <div
+            id="file-info"
             style="
-              padding-top: 15px;
-              padding-right: 0px;
-              height: 75px;
-              text-align: center;
-              padding-left: 0px;
+              display: flex;
+              height: 85px;
+              align-items: center;
+              color: white;
+              font-size: 14px;
+              min-width: 420px;
+              width: 420px;
+              justify-content: space-evenly;
+              margin-left: auto;
+              margin-right: auto;
             "
           >
-        <div><strong>Tempo</strong></div>
-        <input
-              id="tempo"
+        <div style="padding-top: 15px; height: 75px; text-align: center">
+          <div><strong>Key</strong></div>
+          <div id="keySig" style="padding-top: 10px">C major</div>
+        </div>
+        <div
               style="
-                padding: 5px;
-                width: 35px;
+                padding-top: 15px;
+                padding-right: 0px;
+                height: 75px;
                 text-align: center;
-                margin-top: 5px;
-                background-color: #1f971700;
-                border: 1px solid gray;
-                color: white;
+                padding-left: 0px;
               "
-              value="120" tabindex="-1"
-            />
-        bpm </div>
-      <div style="padding-top: 15px; height: 75px; text-align: center">
-        <div><strong>Bar</strong></div>
-        <div id="bar" style="padding-top: 10px">1</div>
+            >
+          <div><strong>Tempo</strong></div>
+          <input
+                id="tempo"
+                style="
+                  padding: 5px;
+                  width: 35px;
+                  text-align: center;
+                  margin-top: 5px;
+                  background-color: #1f971700;
+                  border: 1px solid gray;
+                  color: white;
+                "
+                value="120" tabindex="-1"
+              />
+          bpm </div>
+        <div style="padding-top: 15px; height: 75px; text-align: center">
+          <div><strong>Bar</strong></div>
+          <div id="bar" style="padding-top: 10px">1</div>
+        </div>
+        <div style="padding-top: 15px; height: 75px; text-align: center">
+          <div><strong>Beat</strong></div>
+          <div id="beat" style="padding-top: 10px; text-align: left">: 1</div>
+        </div>
+        <div style="padding-top: 15px; height: 75px; text-align: center">
+          <div><strong>Signature</strong></div>
+          <div id="timeSig" style="padding-top: 10px">4/4</div>
+        </div>
+        <div style="padding-top: 15px; height: 75px; text-align: center">
+          <div><strong>Time</strong></div>
+          <div id="songLength" style="padding-top: 10px">00:00:00</div>
+        </div>
       </div>
-      <div style="padding-top: 15px; height: 75px; text-align: center">
-        <div><strong>Beat</strong></div>
-        <div id="beat" style="padding-top: 10px; text-align: left">: 1</div>
-      </div>
-      <div style="padding-top: 15px; height: 75px; text-align: center">
-        <div><strong>Signature</strong></div>
-        <div id="timeSig" style="padding-top: 10px">4/4</div>
-      </div>
-      <div style="padding-top: 15px; height: 75px; text-align: center">
-        <div><strong>Time</strong></div>
-        <div id="songLength" style="padding-top: 10px">00:00:00</div>
-      </div>
-      <!-- <div style="padding-top: 15px; height: 75px; text-align: center">
-        <div><strong>Pitch</strong></div>
-        <div id="pitch" style="padding-top: 10px">0 st</div>
-      </div> -->
-    </div>
-    <div id="speedInputContainer">
-      <div>
-        <input type="range" class="input-knob" id="input-k"  data-fgcolor="#FCFF00" data-bgcolor="#1F9717" tabindex="-1"/>
-        <div class="speed-lbl" style="color: white; font-size: 14px;text-align: center;">Speed</div>
-        <div id="speed" style="padding-top: 7px; color: white; font-size: 14px; text-align: center;">100%</div>
+      <div id="speedInputContainer">
+        <div>
+          <div id="noslider3" style="margin-bottom: 10px;"></div>
+          <!-- <input type="range" class="input-knob" id="input-k" min="-45"   data-fgcolor="#FCFF00" data-bgcolor="#1F9717" tabindex="-1"/> -->
+          <div class="speed-lbl" style="color: white; font-size: 14px;text-align: center;">Speed</div>
+          <div id="speed" style="padding-top: 7px; color: white; font-size: 14px; text-align: center;">100%</div>
 
-      </div>
-      <div>
-        <!-- <input type="range" class="input-knob" data-diameter="96" data-src="./assets/images/knobman96.png"/> -->
-
-        <input type="range" class="input-knob" id="input-pitch-k"  data-fgcolor="#FCFF00" data-bgcolor="#1F9717" data-min="-12" data-max="12" min="-12" max="12" tabindex="-1"/>
-        <div class="pitch-lbl2" style="color: white; font-size: 14px;text-align: center;">Pitch</div>
-        <div id="pitch" style="padding-top: 7px; color: white; font-size: 14px; text-align: center;">0 st</div>
-      </div>
-      <div style="display: flex;
-      flex-direction: column;">
-        <label class="switch">
-          <input type="checkbox" id="accidentalSwitch" tabindex="-1">
-          <span class="slider1 round"></span>
-        </label>
-        <div style="color:white; display: flex;
-        justify-content: space-around; font-size:14px; margin-top: 17px;">
-        <div>&sharp;</div><div>&flat;</div>
-  
-      </div><div style="padding-top: 7px; color: white; font-size: 14px; text-align: center;height: 25px;"></div>
-
+        </div>
+        <div style="text-align: center;">
+          <div id="noslider4" style="margin-bottom: 10px;"></div>
+          <!-- <input type="range" class="input-knob" id="input-pitch-k"  data-fgcolor="#FCFF00" data-bgcolor="#1F9717" data-min="-12" data-max="12" min="-12" max="12" tabindex="-1"/> -->
+          <div class="pitch-lbl2" style="color: white; font-size: 14px;text-align: center;">Transpose</div>
+          <div id="pitch" style="padding-top: 7px; color: white; font-size: 14px; text-align: center;">0 st</div>
+        </div>
+        <div style="display: flex;
+        flex-direction: column;">
+          <label class="switch">
+            <input type="checkbox" id="accidentalSwitch" tabindex="-1">
+            <span class="slider1 round"></span> </label>
+          <div style="color:white; display: flex;
+          justify-content: space-around; font-size:14px; margin-top: 17px;">
+            <div>&sharp;</div>
+            <div>&flat;</div>
+          </div>
+          <div style="padding-top: 7px; color: white; font-size: 14px; text-align: center;height: 25px;"></div>
+        </div>
       </div>
     </div>
   </div>
-  
-  <!-- <div class="slider slider1">
-    <div class="knob"></div>
-  </div> -->
   <div id="middle-content" style="margin-top: 30px;
         margin-left: auto;
         margin-right: auto;
@@ -819,7 +986,7 @@ font-size: 14px;
                 rgba(31, 151, 20, 1) 46%,
                 rgba(31, 151, 20, 1) 75%
               );
-              width: 270px;
+              width: 280px;
               height: 85px;
               align-items: center;
               color: white;
@@ -829,13 +996,12 @@ font-size: 14px;
               padding-right: 15px;
               justify-content: center;
               font-size: 40px;
+              letter-spacing: 2px;
             "
           > </div>
     <div id="buttons-container" style="text-align: center">
       <button id="play-piece"  disabled="" style="user-select:none" tabindex="-1"></button>
-      <!-- <button id="pause-piece"  disabled="">Pause</button> -->
       <button id="stop-piece"  disabled="" style="user-select:none" tabindex="-1"></button>
-      <!-- <button id="skip-to"  disabled="">Skip To 30</button> --> 
     </div>
   </div>
 </div>
@@ -854,29 +1020,9 @@ font-size: 14px;
           padding-top: 5px;
           border: 3px solid black; text-align: center;
         "> </div>
-
-<!-- <div
-        id="notesDisplay"
-        style="
-          width: 100%;
-          height: 30px;
-          background: rgb(111, 111, 111);
-          background: linear-gradient(
-            180deg,
-            rgba(111, 111, 111, 1) 0%,
-            rgba(20, 19, 19, 1) 69%
-          );
-          color: white;
-          text-align: center;
-          padding-top: 5px;
-          border: 3px solid black;
-        "
-      ></div> --> 
-
 <div id="piano-pedal" style="display: flex; flex-direction: column; background-color: #232323;">
   <div id="keyboardNotes" style="filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4)); z-index: 1;"></div>
   <div id="keyboard" style="filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4)); z-index: 1;"></div>
-
   <div
     style="
       width: 45px;
@@ -888,6 +1034,8 @@ font-size: 14px;
         id="sustain-pedal2"
     "
   ></div>
+
+
   <div
       id="midi-container"
       style="
@@ -897,30 +1045,22 @@ font-size: 14px;
         border: 3px solid #d1d1d1;
       "
     >
-    <!-- <div id="loop" style="display: flex; height: 45px; align-items: center;
-          ">
-      <button id="loop-piece"></button>
-      <input type="range" id="progressSlider" min="0" max="100" value="0"/>
-      <input data-role="doubleslider" data-min="0" data-max="100" id="ds">
-      
-      <input type="text" id="slider-return-value"> 
-      
-    </div> -->
-
-
+    
     <div id="loop" style="display: flex; height: 38px;
           ">
-      <input type="range" id="progressSlider" min="0" max="100" value="0" tabindex="-1"/>
-      <!-- <input data-role="doubleslider" data-min="0" data-max="100" id="ds">    -->
-      <div style="padding: 10px 15px; width: 100%; display: none;" id="noSliderWrapper"><div id="noslider"></div></div>
-   
+      <input type="range" style="display: none;" id="progressSlider" min="0" max="100" value="0" tabindex="-1"/>
+       <div style="padding: 10px 15px; width: 100%; display: block;" id="noSliderWrapper2">
+        <div id="noslider2"></div>
+      </div>
+      <div style="padding: 10px 15px; width: 100%; display: none;" id="noSliderWrapper">
+        <div id="noslider"></div>
+      </div>
     </div>
     <div id="loop-settings" style="display: flex;">
       <button id="loop-piece" style="margin-right: 10px;" tabindex="-1"></button>
       <button id="start-loop" class="loopBtn" tabindex="-1">Set Loop Start</button>
       <button id="end-loop" class="loopBtn" tabindex="-1">Set Loop End</button>
     </div>
-    
   </div>
 </div>
 </div>

@@ -48,7 +48,7 @@ export class FancyMidiPlayer {
     this.endLoopButton = document.querySelector("#end-loop");
 
     this.songLength = document.querySelector("#songLength");
-    this.tempoSlider = document.querySelector("#input-k");
+    //this.tempoSlider = document.querySelector("#input-k");
     this.tempoInput = document.querySelector("#tempo");
     this.pitchInput = document.querySelector("#pitch");
 
@@ -61,6 +61,9 @@ export class FancyMidiPlayer {
 
     this.loopSlider = document.querySelector("#ds");
     this.loopSlider2 = document.getElementById("noslider");
+    this.loopSlider3 = document.getElementById("noslider2");
+    this.speedslider = document.getElementById("noslider3");
+
     this.app = document.getElementById("#app");
 
     this.loopStart = 0;
@@ -95,8 +98,6 @@ export class FancyMidiPlayer {
       this.buttonHovered = false;
       //console.log("hovered: " + this.buttonHovered);
     };
-
-    //this.noSliderWrapper = document.getElementById("noSliderWrapper");
 
     setTimeout(() => {
       // this.sliderWrapper = document.querySelector(".slider-wrapper");
@@ -191,7 +192,7 @@ export class FancyMidiPlayer {
     //console.log("theSound: " + JSON.stringify(theSound));
 
     if (!this.piano.isSustainPedalPressed && theSound) {
-      theSound.stop();
+      //theSound.stop(); // changed 2/21/02
     }
 
     this.currentSounds = this.currentSounds.filter(
@@ -230,7 +231,7 @@ export class FancyMidiPlayer {
         this.safeAudioContext.currentTime,
         {
           gain: (76 / 100) * this.volume,
-          duration: NON_SUSTAINED_NOTE_DURATION,
+          duration: SUSTAINED_NOTE_DURATION,
         }
       );
 
@@ -452,6 +453,7 @@ export class FancyMidiPlayer {
     }
 
     this.progressSlider.value = this.currentProgress;
+    this.loopSlider3.noUiSlider.set([null, this.currentProgress]);
   }
 
   onNoteOnEvent(event) {
@@ -755,7 +757,12 @@ export class FancyMidiPlayer {
 
     this.intialTempoSet = true;
 
-    this.pauseMidi();
+    //this.pauseMidi();
+
+    console.log("pause playback prevent play speed glitch");
+    if (this.currentlyPlaying) {
+      this.player.pause();
+    }
 
     this.tempo = tempo;
     //console.log("new tempo: " + this.tempo);
@@ -765,7 +772,15 @@ export class FancyMidiPlayer {
     var newVal = parseInt(tempo) - parseInt(this.tempoOffset);
     //console.log("new tempo val for slider: " + newVal);
 
-    this.tempoSlider.value = newVal;
+    //this.tempoSlider.value = newVal;
+    this.speedslider.noUiSlider.set(newVal);
+
+    if (this.currentlyPlaying) {
+      //console.log("resume play after speed change");
+      setTimeout(() => {
+        this.player.play();
+      }, 500);
+    }
   }
 
   setTempoInput(tempo) {
@@ -786,20 +801,27 @@ export class FancyMidiPlayer {
 
     this.speedLbl.innerHTML = speedPercentage.toFixed(0).toString() + "%";
 
-    this.tempoSlider.value = newVal;
+    //this.tempoSlider.value = newVal;
+    this.speedslider.noUiSlider.set(newVal);
   }
 
   setStartLoop() {
     if (!this.isLooping) {
       return;
     }
-    //console.log("setStartLoop");
+
+    //console.log("setStartLoop: " + this.currentProgress);
 
     this.loopStart = this.currentProgress;
 
     //this.loopSlider.val[0] = this.loopStart;
 
     this.loopSlider2.noUiSlider.set([this.loopStart, this.loopEnd]);
+    this.loopSlider3.noUiSlider.set([
+      this.loopStart,
+      this.currentProgress,
+      this.loopEnd,
+    ]);
 
     //console.log("this.loopSlider: " + this.loopSlider.value[0]);
   }
@@ -809,12 +831,16 @@ export class FancyMidiPlayer {
       return;
     }
 
-    //console.log("setEndLoop");
+    //console.log("setEndLoop: " + this.currentProgress);
 
     this.loopEnd = this.currentProgress;
 
     this.loopSlider2.noUiSlider.set([this.loopStart, this.loopEnd]);
-
+    this.loopSlider3.noUiSlider.set([
+      this.loopStart,
+      this.currentProgress,
+      this.loopEnd,
+    ]);
     //this.loopSlider[1].value = this.loopEnd;
   }
 
@@ -829,6 +855,16 @@ export class FancyMidiPlayer {
 
       this.startLoopButton.style.color = "gray";
       this.endLoopButton.style.color = "gray";
+
+      this.loopStart = 0;
+      this.loopEnd = 100;
+
+      this.loopSlider2.noUiSlider.set([this.loopStart, this.loopEnd]);
+      this.loopSlider3.noUiSlider.set([
+        this.loopStart,
+        this.currentProgress,
+        this.loopEnd,
+      ]);
     } else {
       this.loopButton.classList.add("loopEnabled");
       //this.sliderWrapper.style.display = "block";
@@ -886,6 +922,7 @@ export class FancyMidiPlayer {
       this.player.skipToPercent(parseInt(this.currentProgress));
 
       this.progressSlider.value = this.currentProgress;
+      this.loopSlider3.noUiSlider.set([null, this.currentProgress]);
       if (this.currentlyPlaying) {
         fadeAllNotes();
         this.currentNotes = [];
@@ -901,6 +938,8 @@ export class FancyMidiPlayer {
       this.player.skipToPercent(parseInt(this.currentProgress));
 
       this.progressSlider.value = this.currentProgress;
+      this.loopSlider3.noUiSlider.set([null, this.currentProgress]);
+
       if (this.currentlyPlaying) {
         fadeAllNotes();
         this.currentNotes = [];
@@ -980,6 +1019,7 @@ export class FancyMidiPlayer {
     this.beatField.innerHTML = ": " + this.displayBeat.toString();
     songLength.innerHTML = new Date(0 * 1000).toISOString().substr(11, 8);
     this.progressSlider.value = this.currentProgress;
+    this.loopSlider3.noUiSlider.set([null, this.currentProgress]);
 
     this.currentNotes = [];
     this.refresh();

@@ -84,7 +84,7 @@ function startTimer() {
 
     if (lastNoteSeconds == 2) {
       //console.log("timer done");
-      setChordHtml("");
+      //setChordHtml("");
       clearTimer();
     }
   }, 1000);
@@ -129,9 +129,11 @@ function refresh() {
     //highlightTonic(chord.tonic);
     previousChord = chord;
   } else {
-    if (previousChord) {
-      setChordHtml(chordToHtml(previousChord));
-    }
+    // if (previousChord) {
+    //   setChordHtml(chordToHtml(previousChord));
+    // }
+    setChordHtml(notes.join(" "));
+    //console.log("show single notes: " + JSON.stringify(notes));
 
     fadeTonics();
 

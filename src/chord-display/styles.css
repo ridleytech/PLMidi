@@ -207,6 +207,12 @@ a {
   filter: url(#insetKey);
 }
 
+.note.white.activeRight .piano-key {
+  /* fill: currentColor; */
+  fill: rgb(246, 250, 67);
+  filter: url(#insetKey);
+}
+
 .note.black.activeUser .piano-key {
   /* fill: currentColor; */
   fill: rgb(43, 206, 31);
@@ -215,7 +221,13 @@ a {
 
 .note.black.active .piano-key {
   /* fill: currentColor; */
-  fill: hsl(116, 73.6%, 34.1%);
+  fill: rgb(40, 192, 29);
+  filter: url(#insetKey);
+}
+
+.note.black.activeRight .piano-key {
+  /* fill: currentColor; */
+  fill: rgb(234, 236, 65);
   filter: url(#insetKey);
 }
 

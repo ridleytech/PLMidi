@@ -5,6 +5,8 @@ import "html-midi-player";
 import noUiSlider from "nouislider";
 import "nouislider/dist/nouislider.css";
 
+//import * as JSSynth from "js-synthesizer";
+
 import {
   noteOff,
   noteOn,
@@ -14,8 +16,8 @@ import {
   polyPressure,
 } from "./chord-display/events";
 import {
-  setChordHtml,
-  setNotesHtml,
+  // setChordHtml,
+  // setNotesHtml,
   setAppError,
   setAppLoaded,
 } from "./chord-display/ui";
@@ -31,17 +33,25 @@ const CMD_PITCHBEND = 14;
 const NOTE_CC_MODWHEEL = 1;
 const SUS_ON = 11;
 
-const enableKeyboard = false;
+const enableKeyboard = true;
 
 var url = "https://pianolessonwithwarren.com/dev_site";
 
-//url = "http://localhost:8888/pianolesson";
+url = "http://localhost:8888/pianolesson";
+var env = "dev";
+
+//JSSynth.waitForReady().then(loadSynthesizer);
+
+function loadSynthesizer() {
+  console.log("load synth");
+  // process with JSSynth...
+}
 
 const pieces = [
   createMusicalPiece(
     0,
     "Pass Me Not - Advanced",
-    "../assets/midi/Pass Me Not - Advanced.mid"
+    "../assets/midi/Lord You're Holy - Test.mid"
   ),
 ];
 
@@ -82,6 +92,7 @@ const setAppBusy = (isBusy) => {
   //const pauseButton = document.querySelector("#pause-piece");
   //const skipToButton = document.querySelector("#skip-to");
   const musicalPiecesSelect = document.querySelector("#musical-pieces");
+  //const tempoSlider = document.querySelector("#input-k");
 
   if (isBusy) {
     playButton.setAttribute("disabled", true);
@@ -98,6 +109,8 @@ const setAppBusy = (isBusy) => {
     startLoopButton.removeAttribute("disabled");
     endLoopButton.removeAttribute("disabled");
 
+    //tempoSlider.value = 50;
+
     //musicalPiecesSelect.removeAttribute("disabled");
   }
 };
@@ -113,6 +126,94 @@ noUiSlider.create(slider, {
   },
 });
 
+var slider2 = document.getElementById("noslider2");
+
+// noUiSlider.create(slider2, {
+//   start: [0, 10],
+//   connect: true,
+//   range: {
+//     min: 0,
+//     max: 100,
+//   },
+// });
+
+noUiSlider.create(slider2, {
+  start: [0, 10, 90],
+  connect: true,
+  range: {
+    min: 0,
+    max: 100,
+  },
+});
+
+//slider2.setAttribute("disabled", true);
+
+var origins = slider2.getElementsByClassName("noUi-origin");
+
+origins[0].setAttribute("disabled", true);
+
+var connect = slider2.querySelectorAll(".noUi-connect");
+
+//console.log("connect: " + connect);
+var classes = ["c-1-color", "c-2-color", "c-3-color"];
+
+for (var i = 0; i < connect.length; i++) {
+  connect[i].classList.add(classes[i]);
+}
+
+slider2.noUiSlider.on("change", doSomething);
+// slider2.noUiSlider.on("change.one", function () {
+//   console.log("go");
+// });
+
+function doSomething(values, handle, unencoded, tap, positions, noUiSlider) {
+  //console.log("go2: " + parseInt(values[1]));
+
+  fmp.movePlayhead(values[1]);
+
+  // values: Current slider values (array);
+  // handle: Handle that caused the event (number);
+  // unencoded: Slider values without formatting (array);
+  // tap: Event was caused by the user tapping the slider (boolean);
+  // positions: Left offset of the handles (array);
+  // noUiSlider: slider public Api (noUiSlider);
+}
+
+slider2.noUiSlider.on("change", doSomething);
+// slider2.noUiSlider.on("change.one", function () {
+//   console.log("go");
+// });
+
+//speed slider
+
+var speedslider = document.getElementById("noslider3");
+
+noUiSlider.create(speedslider, {
+  start: 50,
+
+  // Disable animation on value-setting,
+  // so the sliders respond immediately.
+  animate: false,
+  range: {
+    min: -45,
+    max: 100,
+  },
+});
+
+//pitch slider
+
+var pitchSlider = document.getElementById("noslider4");
+
+noUiSlider.create(pitchSlider, {
+  start: 0,
+
+  animate: false,
+  range: {
+    min: -12,
+    max: 12,
+  },
+});
+
 const fmp = new FancyMidiPlayer(document);
 setAppBusy(true);
 fmp.setInstrument(instrumentUrl).then(() => {
@@ -125,7 +226,108 @@ fmp.setInstrument(instrumentUrl).then(() => {
   playButton.addEventListener("click", handleCheckboxEvent, true);
   playButton.addEventListener("keyup", handleCheckboxEvent, true);
 
+  const navIconBtn = document.querySelector("#nav-icon");
+  const loopNavBtn = document.querySelector("#loop-icon");
+
+  //const navCloseBtn = document.querySelector("#infoClose");
+
+  const navPanel = document.querySelector("#info-container");
+  const loopPanel = document.querySelector("#midi-container");
+
+  navIconBtn.addEventListener("click", handleNav, true);
+  loopNavBtn.addEventListener("click", handleLoopNav, true);
+
+  //navCloseBtn.addEventListener("click", closeNav, true);
+
+  speedslider.noUiSlider.on("update", changeTempo);
+
+  function changeTempo(values, handle, unencoded, tap, positions, noUiSlider) {
+    //console.log("go3: " + parseInt(values));
+
+    fmp.updateTempoInput(parseInt(values));
+  }
+
+  speedslider.noUiSlider.on("change", setSliderTempo);
+
+  function setSliderTempo(
+    values,
+    handle,
+    unencoded,
+    tap,
+    positions,
+    noUiSlider
+  ) {
+    //console.log("go2: " + parseInt(values));
+
+    fmp.setSliderTempo(parseInt(values));
+
+    // values: Current slider values (array);
+    // handle: Handle that caused the event (number);
+    // unencoded: Slider values without formatting (array);
+    // tap: Event was caused by the user tapping the slider (boolean);
+    // positions: Left offset of the handles (array);
+    // noUiSlider: slider public Api (noUiSlider);
+  }
+
+  pitchSlider.noUiSlider.on("update", changePitch);
+
+  function changePitch(values, handle, unencoded, tap, positions, noUiSlider) {
+    //console.log("go3: " + parseInt(values));
+
+    fmp.updatePitchSlider(parseInt(values));
+  }
+
+  pitchSlider.noUiSlider.on("change", setSliderPitch);
+
+  function setSliderPitch(
+    values,
+    handle,
+    unencoded,
+    tap,
+    positions,
+    noUiSlider
+  ) {
+    //console.log("go2: " + parseInt(values));
+
+    fmp.updatePitchSlider(parseInt(values));
+
+    // values: Current slider values (array);
+    // handle: Handle that caused the event (number);
+    // unencoded: Slider values without formatting (array);
+    // tap: Event was caused by the user tapping the slider (boolean);
+    // positions: Left offset of the handles (array);
+    // noUiSlider: slider public Api (noUiSlider);
+  }
+
+  function closeNav(e) {
+    e.preventDefault();
+    navPanel.style.display = "none";
+  }
+
+  function handleNav(e) {
+    e.preventDefault();
+
+    if (navPanel.style.display == "flex") {
+      navPanel.style.display = "none";
+    } else {
+      navPanel.style.display = "flex";
+    }
+    //navPanel.style.display = "flex";
+  }
+
+  function handleLoopNav(e) {
+    e.preventDefault();
+
+    if (loopPanel.style.visibility == "visible") {
+      loopPanel.style.visibility = "hidden";
+    } else {
+      loopPanel.style.visibility = "visible";
+    }
+  }
+
   function handleCheckboxEvent(e) {
+    //console.log("handleCheckboxEvent");
+
     e.preventDefault();
 
     if (e.keyCode === 32) {
@@ -141,8 +343,83 @@ fmp.setInstrument(instrumentUrl).then(() => {
   startLoopButton.onclick = fmp.setStartLoop.bind(fmp);
   endLoopButton.onclick = fmp.setEndLoop.bind(fmp);
 
+  //const drop = document.querySelector("#drop_zone");
+  const drop = document.querySelector("#fileDiv");
+
+  if (drop) {
+    drop.ondrop = dropHandler;
+    drop.ondragover = dragOverHandler;
+  }
+
   changePiece(0);
 });
+
+//var inner = document.getElementById("inner");
+
+function dragOverHandler(ev) {
+  //console.log("File(s) in drop zone");
+
+  // var c = document.querySelector(".foo:after");
+
+  // c.style.backgroundColor = "red";
+  //document.getElementById("musical-piece").mouseover();
+
+  // Prevent default behavior (Prevent file from being opened)
+  ev.preventDefault();
+}
+
+function dropHandler(ev) {
+  //console.log("File(s) dropped");
+
+  // Prevent default behavior (Prevent file from being opened)
+  ev.preventDefault();
+
+  if (ev.dataTransfer.items) {
+    //console.log("first");
+
+    // Use DataTransferItemList interface to access the file(s)
+    for (var i = 0; i < ev.dataTransfer.items.length; i++) {
+      // If dropped items aren't files, reject them
+      //console.log("item: " + ev.dataTransfer.items[i].path);
+
+      if (ev.dataTransfer.items[i].kind === "file") {
+        var file = ev.dataTransfer.items[i].getAsFile();
+
+        var filename = file.name;
+
+        if (
+          filename.toLowerCase().includes(".mid") ||
+          filename.toLowerCase().includes(".midi")
+        ) {
+          //console.log("... file[" + i + "].name = " + file.name);
+          //console.log("path = " + JSON.stringify(file));
+
+          //fmp.setMidi(file).then(() => setAppBusy(false));
+
+          fn.style.marginBottom = "8px";
+          fn.style.height = "15px";
+          fn.innerHTML = filename;
+
+          uploadFile(file);
+        } else {
+          //console.log("invalid file type");
+          fn.style.marginBottom = "8px";
+          fn.style.height = "15px";
+          fn.innerHTML = "Invalid file type";
+        }
+      }
+    }
+  } else {
+    //console.log("second");
+
+    // Use DataTransfer interface to access the file(s)
+    for (var i = 0; i < ev.dataTransfer.files.length; i++) {
+      // console.log(
+      //   "... file[" + i + "].name = " + ev.dataTransfer.files[i].name
+      // );
+    }
+  }
+}
 
 const changePiece = (pieceId) => {
   //console.log("pieceid: " + pieceId);
@@ -160,25 +437,27 @@ const changePiece = (pieceId) => {
 // const musicalPiecesSelectForm = document.querySelector("#musical-piece");
 // musicalPiecesSelectForm.onchange = (evt) => changePiece2(evt.target.value);
 
-document.querySelector("#input-k").addEventListener("input", function (e) {
-  //console.log("e: " + e.target.value);
+// document.querySelector("#input-k").addEventListener("input", function (e) {
+//   //console.log("input e: " + e.target.value);
 
-  fmp.updateTempoInput(e.target.value);
-});
+//   fmp.updateTempoInput(e.target.value);
+// });
 
-document.querySelector("#input-k").addEventListener("change", function (e) {
-  //console.log("e: " + e.target.value);
+//tempoSlider.value = 50;
 
-  fmp.setSliderTempo(e.target.value);
-});
+// document.querySelector("#input-k").addEventListener("change", function (e) {
+//   //console.log("e: " + e.target.value);
 
-document
-  .querySelector("#input-pitch-k")
-  .addEventListener("input", function (e) {
-    //console.log("e: " + e.target.value);
+//   fmp.setSliderTempo(e.target.value);
+// });
 
-    fmp.updatePitchSlider(e.target.value);
-  });
+// document
+//   .querySelector("#input-pitch-k")
+//   .addEventListener("input", function (e) {
+//     //console.log("e: " + e.target.value);
+
+//     fmp.updatePitchSlider(e.target.value);
+//   });
 
 document
   .querySelector("#progressSlider")
@@ -233,43 +512,47 @@ document.querySelector("#musical-piece").addEventListener(
 
     if (!file) return;
 
-    var fd = new FormData();
-    fd.append("afile", file);
-    // These extra params aren't necessary but show that you can include other data.
-    //fd.append("username", "Groucho");
-
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", url + "/PLMidi/upload.php", true);
-
-    xhr.upload.onprogress = function (e) {
-      if (e.lengthComputable) {
-        var percentComplete = (e.loaded / e.total) * 100;
-        console.log(percentComplete + "% uploaded");
-      }
-    };
-
-    xhr.onload = function () {
-      if (this.status == 200) {
-        var resp = JSON.parse(this.response);
-
-        //console.log("Server got:", resp);
-
-        if (resp.data.uploadData.status == "media upload") {
-          //console.log("we good: " + resp.data.uploadData.filename);
-
-          downloadFile(resp.data.uploadData.filename);
-        }
-
-        // var image = document.createElement("img");
-        // image.src = resp.dataUrl;
-        // document.body.appendChild(image);
-      }
-    };
-
-    xhr.send(fd);
+    uploadFile(file);
   },
   false
 );
+
+const uploadFile = (file) => {
+  var fd = new FormData();
+  fd.append("afile", file);
+  // These extra params aren't necessary but show that you can include other data.
+  //fd.append("username", "Groucho");
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", url + "/PLMidi/upload.php", true);
+
+  xhr.upload.onprogress = function (e) {
+    if (e.lengthComputable) {
+      var percentComplete = (e.loaded / e.total) * 100;
+      console.log(percentComplete + "% uploaded");
+    }
+  };
+
+  xhr.onload = function () {
+    if (this.status == 200) {
+      var resp = JSON.parse(this.response);
+
+      //console.log("Server got:", resp);
+
+      if (resp.data.uploadData.status == "media upload") {
+        //console.log("we good: " + resp.data.uploadData.filename);
+
+        downloadFile(resp.data.uploadData.filename);
+      }
+
+      // var image = document.createElement("img");
+      // image.src = resp.dataUrl;
+      // document.body.appendChild(image);
+    }
+  };
+
+  xhr.send(fd);
+};
 
 const downloadFile = (path) => {
   console.log("path b4: " + path);

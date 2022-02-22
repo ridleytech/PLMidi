@@ -38,7 +38,16 @@ export function highlightNote(noteNumber, className = "active") {
   }
 
   keyElement.classList.add("autoSelect");
-  keyElement.classList.add(className);
+
+  if (noteNumber > 64) {
+    keyElement.classList.add("activeRight");
+    //keyElementDisplayNote.classList.add("activeRight");
+  } else {
+    keyElement.classList.add("active");
+    //keyElementDisplayNote.classList.add("active");
+  }
+
+  //keyElement.classList.add(className);
   keyElementDisplayNote.classList.add(className);
 }
 
@@ -73,8 +82,16 @@ export function fadeNote(noteNumber) {
   if (!keyElement) return;
 
   keyElement.classList.remove("autoSelect");
-  keyElement.classList.remove("active");
+  //keyElement.classList.remove("active");
   keyElement.classList.remove("activeUser");
+
+  if (noteNumber > 64) {
+    keyElement.classList.remove("activeRight");
+    //keyElementDisplayNote.classList.add("activeRight");
+  } else {
+    keyElement.classList.remove("active");
+    //keyElementDisplayNote.classList.add("active");
+  }
 
   //keyElement.classList.remove("activeUser");
   keyElementDisplayNote.classList.remove("active");

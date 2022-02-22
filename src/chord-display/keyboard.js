@@ -61,13 +61,15 @@ const NOTE_BLACK_TEMPLATE = (props, posX, color) => `\
 }" r="${NOTE_TONIC_RADIUS}"></circle>
 </g>`;
 
+var blackKeyXPos = NOTE_WHITE_WIDTH / 2 - 10;
+
 var NOTE_NAME_TEMPLATE = (props, posX, color) => `\
 
 <g id="note-${
   props.midi
 }-display" class="note display" transform="translate(${posX},0)" style="color: white;" 
 >
-<text class="piano-key-name-played-notes" x="${NOTE_WHITE_WIDTH / 2}" y="${
+<text class="piano-key-name-played-notes" x="${blackKeyXPos}" y="${
   NOTE_WHITE_HEIGHT - NOTE_NAME_BOTTOM_OFFSET - 140
 }" text-anchor="middle">${Midi.midiToNoteName(props.midi, {
   pitchClass: true,

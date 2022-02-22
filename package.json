@@ -13,6 +13,7 @@
     "html-midi-player": "^1.4.0-1",
     "js-synthesizer": "^1.8.3",
     "midi-player-js": "2.0.13",
+    "midifile": "^2.0.0",
     "nouislider": "^15.5.0",
     "qs": "^6.9.1",
     "regenerator-runtime": "^0.13.9",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.2.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "parcel-bundler": "^1.6.1"
   },
   "keywords": [

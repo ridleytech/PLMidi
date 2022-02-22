@@ -1,6 +1,40 @@
-//to do
+//to do 2/12/22
 
-- make tapped keys highlight color brighter
+• Maybe a mild sustain to smooth out the transition between chords.
+• Add orientation video explain how to use the player
+
+//done 2/12/22
+
+• Rename the “pitch” knob to “Transpose.”
+• Make the “Browse” button larger, and rename it to “Add MIDI File.”
+• I would suggest adjusting the speed button to at least “turtle” speed. The
+lowest I could adjust it was 58% which was not much different than the
+100%.
+• The file loader allows loading of non-midi files. Doesn’t do anything with
+them which is correct, but it should filter them out.
+• Display left hand and right hand colors.
+• Have the loop function reset when it’s turned off.
+• Clicking on the speed dial stops playback. The UI does not indicate that
+this is an intended result.
+• The centered green tab showing the chords is great. However Could the
+spacing between the notes and symbols be increased? It looks
+mashed together at times.
+• If one stops the playback to check on the chords, the last chord is cleared
+• Note display doesn’t show single tones, and is a bit slow to response
+• The bar with the key, tempo etc I wouldn’t mind being larger.
+• key names overlay each other on minor seconds where lower note is a
+black key
+• Show Yellow color as play head cursor moves.
+• The circle adjustments for speed and pitch are hard to use. A left/right bar
+or drop down may be a bit easier and clearer.
+• When connected to the keyboard, note sustain dies very quickly
+• Add the option to drag and drop files in instead of having to search.
+
+
+updates for later
+
+• Selection of different voices whether mellow or crisp for the piano sound
+• Have a database that atomically saves all uploaded MIDI file.
 
 //done
 
@@ -14,11 +48,11 @@
 - fix beat timer
 - Work on sustain pedal sound
 - Fix timing of displayed chords timing
+- make tapped keys highlight color brighter
 
 //later
 
 read key of song on load
-
 
 index.html dist changes on build
 
@@ -31,11 +65,16 @@ src="./
 href="/
 href="./
 
+addModule error
+https://github.com/WebAudio/web-audio-api-v2/issues/109
+https://hackernoon.com/implementing-audioworklets-with-react-8a80a470474
+
 https://refreshless.com/nouislider/slider-read-write/
 https://metroui.org.ua/double-slider.html
 https://g200kg.github.io/input-knobs/
 https://github.com/gleitz/MIDI.js/blob/master/generator/ruby/soundfont_builder.rb
 https://thetimetube.herokuapp.com/soundfont/
+https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API/File_drag_and_drop
 
 <!-- <midi-visualizer type="staff" id="myStaffVisualizer" 
   src="../assets/midi/Pass Me Not - Advanced.mid">
