@@ -34,11 +34,11 @@ const NOTE_CC_MODWHEEL = 1;
 const SUS_ON = 11;
 
 const enableKeyboard = true;
+var env = "dev";
 
 var url = "https://pianolessonwithwarren.com/dev_site";
 
-url = "http://localhost:8888/pianolesson";
-var env = "dev";
+//url = "http://localhost:8888/pianolesson";
 
 //JSSynth.waitForReady().then(loadSynthesizer);
 
@@ -81,6 +81,8 @@ var instrumentUrl =
   "https://raw.githubusercontent.com/gleitz/midi-js-soundfonts/gh-pages/FatBoy/bright_acoustic_piano-mp3.js";
 
 //instrumentUrl = "https://pianolessonwithwarren.com/dev_site/PLMidi/soundfont/acoustic_grand_piano-mp3.js";
+
+const drop = document.querySelector("#fileDiv");
 
 const setAppBusy = (isBusy) => {
   const playButton = document.querySelector("#play-piece");
@@ -344,11 +346,11 @@ fmp.setInstrument(instrumentUrl).then(() => {
   endLoopButton.onclick = fmp.setEndLoop.bind(fmp);
 
   //const drop = document.querySelector("#drop_zone");
-  const drop = document.querySelector("#fileDiv");
 
   if (drop) {
     drop.ondrop = dropHandler;
     drop.ondragover = dragOverHandler;
+    drop.ondragleave = dragLeaveHandler;
   }
 
   changePiece(0);
@@ -356,8 +358,14 @@ fmp.setInstrument(instrumentUrl).then(() => {
 
 //var inner = document.getElementById("inner");
 
+function dragLeaveHandler(ev) {
+  drop.classList.remove("drophover");
+}
+
 function dragOverHandler(ev) {
   //console.log("File(s) in drop zone");
+
+  drop.classList.add("drophover");
 
   // var c = document.querySelector(".foo:after");
 
@@ -370,6 +378,8 @@ function dragOverHandler(ev) {
 
 function dropHandler(ev) {
   //console.log("File(s) dropped");
+
+  drop.classList.remove("drophover");
 
   // Prevent default behavior (Prevent file from being opened)
   ev.preventDefault();

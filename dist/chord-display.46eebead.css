@@ -1,0 +1,297 @@
+html,
+body {
+  font-family: sans-serif;
+  height: 100%;
+  margin: 0;
+  line-height: 1;
+  /* overflow: hidden; */
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* height: 100%; */
+}
+
+#settings {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 16px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  visibility: hidden;
+  display: flex;
+  flex-direction: row-reverse;
+  z-index: 4;
+}
+
+#app:hover #settings {
+  /* visibility: visible; */
+}
+
+#settings fieldset {
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+#settings label {
+  display: flex;
+}
+
+#settings label span {
+  width: 150px;
+}
+
+#credits {
+  text-align: right;
+  margin: 0 0 auto auto;
+}
+
+.badge {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+h1 {
+  font-size: 1.3em;
+  margin: 0;
+}
+
+h1 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+p {
+  font-size: 0.8em;
+  margin: 0 0 0.1em;
+}
+
+a {
+  color: hsl(6, 63%, 46%);
+}
+
+#chordContainer {
+  height: 50vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+#chord {
+  font-size: 20vh;
+  text-align: center;
+}
+
+#notes {
+  height: 10vh;
+  font-size: 8vh;
+  margin: auto;
+  flex-grow: 0;
+  white-space: nowrap;
+}
+
+.flat,
+.sharp {
+  margin: 0 -0.2em;
+}
+
+.key {
+  font-weight: bolder;
+  white-space: nowrap;
+}
+
+.chordname {
+  font-style: italic;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+.bassnote {
+  font-size: 0.6em;
+  opacity: 0.5;
+}
+
+#keyboard {
+  margin-top: auto;
+  background: #222;
+  padding: 8px;
+}
+
+#keyboard-bg {
+  fill: #222;
+}
+
+#keyboard-bg2 {
+  fill: #2220;
+}
+
+#keyboardNotes {
+  background: rgb(111, 111, 111);
+  background: linear-gradient(
+    180deg,
+    rgba(111, 111, 111, 1) 0%,
+    rgba(20, 19, 19, 1) 69%
+  );
+  color: white;
+  padding-top: 5px;
+  border: 3px solid black;
+  text-align: center;
+}
+
+#notesDisplay {
+  display: none;
+}
+
+#wheels {
+}
+
+#pitchWheel {
+}
+
+.wheel {
+  fill: url(#wheelGradient);
+}
+
+.wheelSocket {
+  fill: #222;
+  filter: url(#insetWheel);
+}
+
+#board-border {
+  fill: none;
+  stroke: #000;
+}
+
+.piano-key {
+  stroke: #666;
+}
+
+.piano-key-name {
+  font-size: 20px;
+  /* fill: rgba(0, 0, 0, 0.2); */
+  fill: rgba(0, 0, 0, 1);
+  display: none;
+}
+
+.note.white .piano-key {
+  fill: url(#whiteKey);
+}
+
+.note.black .piano-key {
+  fill: url(#blackKey);
+}
+
+.note.black {
+  color: hsl(6, 63%, 46%);
+}
+
+.note.white {
+  color: hsl(6, 63%, 80%);
+}
+
+.note.white.activeUser .piano-key {
+  /* fill: currentColor; */
+  fill: rgb(59, 233, 46);
+  filter: url(#insetKey);
+}
+
+.note.white.active .piano-key {
+  /* fill: currentColor; */
+  fill: rgb(43, 206, 31);
+  filter: url(#insetKey);
+}
+
+.note.white.activeRight .piano-key {
+  /* fill: currentColor; */
+  fill: rgb(246, 250, 67);
+  filter: url(#insetKey);
+}
+
+.note.black.activeUser .piano-key {
+  /* fill: currentColor; */
+  fill: rgb(43, 206, 31);
+  filter: url(#insetKey);
+}
+
+.note.black.active .piano-key {
+  /* fill: currentColor; */
+  fill: rgb(40, 192, 29);
+  filter: url(#insetKey);
+}
+
+.note.black.activeRight .piano-key {
+  /* fill: currentColor; */
+  fill: rgb(234, 236, 65);
+  filter: url(#insetKey);
+}
+
+.piano-key-name-played-notes {
+  font-size: 30px;
+  color: white !important;
+  fill: white;
+  /* display: none; */
+}
+
+/* .piano-key-name-played-notes.active {
+  display: block;
+} */
+
+.note.display {
+  display: none;
+}
+
+.note.display.active {
+  display: block;
+}
+
+.note.display.active2 {
+  display: block;
+}
+
+.note.white .piano-tonic {
+  fill: black;
+}
+
+.note.black .piano-tonic {
+  fill: white;
+}
+
+.piano-tonic {
+  opacity: 0;
+}
+
+.note.tonic .piano-tonic {
+  /* opacity: 1; */
+  opacity: 0;
+}
+
+/*
+  Settings
+*/
+#app.hideChord #chord {
+  display: none;
+}
+#app.hideBassNote .bassnote {
+  display: none;
+}
+#app.hideNotes #notes {
+  display: none;
+}
+#app.hideKeyboard #keyboard {
+  display: none;
+}
+#app.hideKeyName .piano-key-name {
+  display: none;
+}
+#app.hideTonic .piano-tonic {
+  display: none;
+}
+
+
+/*# sourceMappingURL=/chord-display.46eebead.css.map */
