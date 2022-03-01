@@ -110,8 +110,12 @@ src/soundfont/acoustic_grand_piano-mp3
 *.sf2
 
 uploads/
+uploads2/
 *.mid
 *.midi
 prod/
 dev/
 stage/
+clearFiles.php
+path.php
+files.php

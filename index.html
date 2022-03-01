@@ -131,7 +131,6 @@ body {
     height: 30px;
     border-radius: 5px;
     outline: 0;
-    
 }
 .foo:hover:after {
     background: #1F9717;
@@ -499,60 +498,51 @@ input:checked + .slider1:before {
     color: gray;
     font-size: 14px;
 }
-
-
 #noSliderWrapper2 {
-
-  width: 98% !important;
-    margin-left: 10px; 
-     position: absolute;
+    width: 98% !important;
+    margin-left: 10px;
+    position: absolute;
     z-index: 10;
     background: transparent;
 }
-
 #noSliderWrapper2 .noUi-connects {
-
-background: transparent!important;
-
-} 
-
-#noSliderWrapper2 .noUi-target{
-  background-color: transparent!important;
+    background: transparent!important;
 }
-
-.c-1-color { background: #fcff02 !important; }
-.c-2-color { background: transparent !important; }
-.c-3-color { background: green !important; }
-.c-4-color { background: blue !important; }
-.c-5-color { background: purple !important; }
-
- /* #noslider2 .noUi-connect {
+#noSliderWrapper2 .noUi-target {
+    background-color: transparent!important;
+}
+.c-1-color {
+    background: #fcff02 !important;
+}
+.c-2-color {
+    background: transparent !important;
+}
+.c-3-color {
+    background: green !important;
+}
+.c-4-color {
+    background: blue !important;
+}
+.c-5-color {
+    background: purple !important;
+}
+/* #noslider2 .noUi-connect {
     background: #c0392b;
 } */
 
 #noslider2 .noUi-handle-lower {
     display: none;
 }
-
 #noslider2 .noUi-handle-upper {
     display: none;
 }
-
 #noslider2 .noUi-handle {
-
-  background: #ffffff !important;
-  width: 5px !important;
-} 
-
-
-
-
-
+    background: #ffffff !important;
+    width: 5px !important;
+}
 .noUi-connect {
     background: #1f9713;
 }
-
-
 .noUi-handle {
     width: 10px !important;
     right: -8px !important;
@@ -680,27 +670,31 @@ body {
     justify-content: unset !important;
     flex-direction: row !important;
 }
-
 #sustain-pedal2 {
-  margin-bottom: 5px;
+    margin-bottom: 5px;
 }
-
 }
-
 #drop_zone {
-  border: 1px solid blue;
+    border: 1px solid blue;
     /* width: 200px; */
     height: 50px;
     color: white;
     padding: 10px;
 }
-
 .drophover {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 10px;
     background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23FFFFFF' stroke-width='4' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+}
+.lblTxt {
+    color: white;
+    font-size: 14px;
+    text-align: center;
+}
+.headerLbl {
+    font-size: 16px;
 }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -866,29 +860,22 @@ body {
         "
         id="header"
       ><img
-      src="./assets/images/tempo-menu.png" id="nav-icon" style="display: none;" />
-
-      <img
-      src="./assets/images/loop-menu.png" id="loop-icon" style="display: none;" />
- 
-
-
-</div>
+      src="./assets/images/tempo-menu.png" id="nav-icon" style="display: none;" /> <img
+      src="./assets/images/loop-menu.png" id="loop-icon" style="display: none;" /> </div>
   <div id="info-container" style="background-color: black; height: 100px;"> 
     <!-- <div id="infoClose" style="color: white; display: none; padding: 10px 0 0 10px;">X</div> -->
     
     <div style="display: flex; justify-content: center;
     flex-direction: column" id="info2">
       <div id="inner">
-        <div style="display: flex; flex-direction: column; align-items: center; padding: 10px;" id="fileDiv"> 
-          <span  id="file-name" style=""></span>
+        <div style="display: flex; flex-direction: column; align-items: center; padding: 10px;" id="fileDiv"> <span  id="file-name" style=""></span>
           <input id="musical-piece" type="file" class="foo" tabindex="-1"  accept=".midi,.mid" />
         </div>
       </div>
       <!-- <div id="drop_zone">
         <p>Drag one or more files to this Drop Zone ...</p>
       </div> -->
-
+      
       <div
             id="file-info"
             style="
@@ -905,8 +892,8 @@ body {
             "
           >
         <div style="padding-top: 15px; height: 75px; text-align: center">
-          <div><strong>Key</strong></div>
-          <div id="keySig" style="padding-top: 10px">C major</div>
+          <div class="headerLbl"><strong>Key</strong></div>
+          <div id="keySig"  class="headerLbl" style="padding-top: 10px">C major</div>
         </div>
         <div
               style="
@@ -917,7 +904,7 @@ body {
                 padding-left: 0px;
               "
             >
-          <div><strong>Tempo</strong></div>
+          <div class="headerLbl"><strong>Tempo</strong></div>
           <input
                 id="tempo"
                 style="
@@ -933,20 +920,20 @@ body {
               />
           bpm </div>
         <div style="padding-top: 15px; height: 75px; text-align: center">
-          <div><strong>Bar</strong></div>
-          <div id="bar" style="padding-top: 10px">1</div>
+          <div class="headerLbl"><strong>Bar</strong></div>
+          <div id="bar" class="headerLbl" style="padding-top: 10px">1</div>
         </div>
         <div style="padding-top: 15px; height: 75px; text-align: center">
-          <div><strong>Beat</strong></div>
-          <div id="beat" style="padding-top: 10px; text-align: left">: 1</div>
+          <div class="headerLbl"><strong>Beat</strong></div>
+          <div id="beat"  class="headerLbl" style="padding-top: 10px; text-align: left">: 1</div>
         </div>
         <div style="padding-top: 15px; height: 75px; text-align: center">
-          <div><strong>Signature</strong></div>
-          <div id="timeSig" style="padding-top: 10px">4/4</div>
+          <div class="headerLbl"><strong>Signature</strong></div>
+          <div id="timeSig"  class="headerLbl" style="padding-top: 10px">4/4</div>
         </div>
         <div style="padding-top: 15px; height: 75px; text-align: center">
-          <div><strong>Time</strong></div>
-          <div id="songLength" style="padding-top: 10px">00:00:00</div>
+          <div class="headerLbl"><strong>Time</strong></div>
+          <div id="songLength" class="headerLbl" style="padding-top: 10px">00:00:00</div>
         </div>
       </div>
       <div id="speedInputContainer">
@@ -955,7 +942,6 @@ body {
           <!-- <input type="range" class="input-knob" id="input-k" min="-45"   data-fgcolor="#FCFF00" data-bgcolor="#1F9717" tabindex="-1"/> -->
           <div class="speed-lbl" style="color: white; font-size: 14px;text-align: center;">Speed</div>
           <div id="speed" style="padding-top: 7px; color: white; font-size: 14px; text-align: center;">100%</div>
-
         </div>
         <div style="text-align: center;">
           <div id="noslider4" style="margin-bottom: 10px;"></div>
@@ -1043,8 +1029,6 @@ body {
         id="sustain-pedal2"
     "
   ></div>
-
-
   <div
       id="midi-container"
       style="
@@ -1054,11 +1038,10 @@ body {
         border: 3px solid #d1d1d1;
       "
     >
-    
     <div id="loop" style="display: flex; height: 38px;
           ">
       <input type="range" style="display: none;" id="progressSlider" min="0" max="100" value="0" tabindex="-1"/>
-       <div style="padding: 10px 15px; width: 100%; display: block;" id="noSliderWrapper2">
+      <div style="padding: 10px 15px; width: 100%; display: block;" id="noSliderWrapper2">
         <div id="noslider2"></div>
       </div>
       <div style="padding: 10px 15px; width: 100%; display: none;" id="noSliderWrapper">
