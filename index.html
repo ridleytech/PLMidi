@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>MIDI Player</title>
+<title>Piano Lesson with Warren - MIDI Player</title>
 <meta charset="UTF-8" />
 <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,7 +41,6 @@ body {
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
     z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-    cursor: pointer; /* Add a pointer on hover */
 }
 #inner {
     /* margin-top: 17px; */
@@ -51,7 +50,26 @@ body {
 }
 
 /* @media screen and (max-width: 645px) { */
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 950px) {
+
+  .dropIndicator
+{
+  
+min-height: 615px !important;
+
+}
+
+.nav2 {
+
+    display: flex !important;
+}
+
+.nav {
+
+    display: none !important;
+}
+
+
 #header-logo {
     left: 45% !important;
 }
@@ -124,7 +142,7 @@ body {
 .foo {
     display: block;
     position: relative;
-    width: 100px;
+    width: 150px;
     margin: auto;
     cursor: pointer;
     border: 0;
@@ -357,7 +375,7 @@ input[type=range]:focus::-ms-fill-upper {
 background: #1F9717;
 }
 #speedInputContainer {
-    width: 180px;
+    width: 225px;
     /* background-color: purple; */
     position: absolute;
     right: 35px;
@@ -673,6 +691,9 @@ body {
 #sustain-pedal2 {
     margin-bottom: 5px;
 }
+
+
+
 }
 #drop_zone {
     border: 1px solid blue;
@@ -696,6 +717,68 @@ body {
 .headerLbl {
     font-size: 16px;
 }
+
+.settingsSlider {
+  margin-bottom: 10px;
+  width: 100px;
+  margin-right: 10px;
+}
+
+.nav {
+    position: absolute;
+    z-index: 13;
+    top: 20px;
+    right: 20px;
+    display: flex;
+}
+
+.nav2 {
+  display: flex;
+    margin-top: 20px;
+    justify-content: center;
+    display: none;
+}
+
+.navBtn {
+    height: 30px;
+    align-items: center;
+    background: yellow;
+    display: flex;
+    border-radius: 25px;
+    font-size: 14px;
+    padding: 10px;
+  cursor: pointer;
+}
+
+.video {position: absolute;
+z-index: 20;
+background-color: #fffffff7;
+width: 100%;
+min-height: 100%;
+height: auto;
+top: 0px;
+padding: 20px;
+overflow: auto;
+}
+
+.dropIndicator
+{position: absolute;
+z-index: 20;
+background-color: #fffffff7;
+width: 100%;
+min-height: 450px;
+height: auto;
+top: 0px;
+padding: 20px;
+overflow: auto;
+display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+/* body {
+   overflow-y: hidden;
+} */
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -707,7 +790,21 @@ body {
 <!-- <script src="libfluidsynth-2.1.9.js"></script>
 <script src="js-synthesizer.js"></script> -->
 <body>
-<div id="app">
+  <!-- <div class="video"> 
+    <div style="text-align: right;
+    cursor: pointer;">Close</div>
+  <div style="text-align: center; margin-bottom: 10px;">Video</div>  
+  <div style="background-color: lightgray; height: 400px;"></div>  
+
+</div> -->
+
+<!-- <div class="dropIndicator"> <div style="background-color: red;"><div style="background-color: yellow;">drop img</div>
+  <div style="background-color: #2ee;">Drop here to upload</div>  </div>
+
+
+</div>  -->
+<div id="app">  
+
   <div id="settings">
     <div id="credits">
       <h1><a href="{{HOMEPAGE}}" target="_blank">{{TITLE}}</a></h1>
@@ -862,9 +959,15 @@ body {
       ><img
       src="./assets/images/tempo-menu.png" id="nav-icon" style="display: none;" /> <img
       src="./assets/images/loop-menu.png" id="loop-icon" style="display: none;" /> </div>
+    <div class="nav"><div style="margin-right: 30px;" class="navBtn"><a href="http://pianolessonwithwarren.com" style="text-decoration: none;
+      color: black;">BACK TO MAIN WEBSITE</a></div>
+      <div class="navBtn">HOW TO USE PLAYER</div></div>  
+
   <div id="info-container" style="background-color: black; height: 100px;"> 
     <!-- <div id="infoClose" style="color: white; display: none; padding: 10px 0 0 10px;">X</div> -->
-    
+    <div class="nav2"><div style="margin-right: 30px;" class="navBtn"><a href="http://pianolessonwithwarren.com" style="text-decoration: none;
+      color: black;">BACK TO MAIN WEBSITE</a></div>
+      <div class="navBtn">HOW TO USE PLAYER</div></div>  
     <div style="display: flex; justify-content: center;
     flex-direction: column" id="info2">
       <div id="inner">
@@ -938,13 +1041,13 @@ body {
       </div>
       <div id="speedInputContainer">
         <div>
-          <div id="noslider3" style="margin-bottom: 10px;"></div>
+          <div id="noslider3" class="settingsSlider"></div>
           <!-- <input type="range" class="input-knob" id="input-k" min="-45"   data-fgcolor="#FCFF00" data-bgcolor="#1F9717" tabindex="-1"/> -->
           <div class="speed-lbl" style="color: white; font-size: 14px;text-align: center;">Speed</div>
           <div id="speed" style="padding-top: 7px; color: white; font-size: 14px; text-align: center;">100%</div>
         </div>
         <div style="text-align: center;">
-          <div id="noslider4" style="margin-bottom: 10px;"></div>
+          <div id="noslider4" class="settingsSlider"></div>
           <!-- <input type="range" class="input-knob" id="input-pitch-k"  data-fgcolor="#FCFF00" data-bgcolor="#1F9717" data-min="-12" data-max="12" min="-12" max="12" tabindex="-1"/> -->
           <div class="pitch-lbl2" style="color: white; font-size: 14px;text-align: center;">Transpose</div>
           <div id="pitch" style="padding-top: 7px; color: white; font-size: 14px; text-align: center;">0 st</div>

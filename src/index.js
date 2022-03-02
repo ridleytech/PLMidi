@@ -83,6 +83,10 @@ var instrumentUrl =
 //instrumentUrl = "https://pianolessonwithwarren.com/dev_site/PLMidi/soundfont/acoustic_grand_piano-mp3.js";
 
 const drop = document.querySelector("#fileDiv");
+const body = document.querySelector("#info-container");
+const keyboardContainer = document.querySelector("#piano-pedal");
+
+const dropIndicator = document.querySelector(".dropIndicator");
 
 const setAppBusy = (isBusy) => {
   const playButton = document.querySelector("#play-piece");
@@ -347,11 +351,17 @@ fmp.setInstrument(instrumentUrl).then(() => {
 
   //const drop = document.querySelector("#drop_zone");
 
-  if (drop) {
-    drop.ondrop = dropHandler;
-    drop.ondragover = dragOverHandler;
-    drop.ondragleave = dragLeaveHandler;
+  if (body) {
+    body.ondrop = dropHandler;
+    body.ondragover = dragOverHandler;
+    body.ondragleave = dragLeaveHandler;
   }
+
+  // if (dropIndicator) {
+  //   console.log("add events to dropindicator");
+  //   dropIndicator.ondrop = dropHandler2;
+  //   dropIndicator.ondragleave = dragLeaveHandler2;
+  // }
 
   changePiece(0);
 });
@@ -359,13 +369,29 @@ fmp.setInstrument(instrumentUrl).then(() => {
 //var inner = document.getElementById("inner");
 
 function dragLeaveHandler(ev) {
-  drop.classList.remove("drophover");
+  //drop.classList.remove("drophover");
+
+  body.style.border = "none";
+  body.style.opacity = 1;
 }
 
-function dragOverHandler(ev) {
-  //console.log("File(s) in drop zone");
+// function dragLeaveHandler2(ev) {
+//   dropIndicator.style.display = "none";
+// }
 
-  drop.classList.add("drophover");
+function dragOverHandler(ev) {
+  console.log("File(s) in drop zone");
+
+  //drop.classList.add("drophover");
+
+  body.style.border = "4px dashed #1f9716";
+  body.style.opacity = 0.85;
+
+  // keyboardContainer.style.borderLeft = "4px dashed #1f9716";
+  // keyboardContainer.style.borderRight = "4px dashed #1f9716";
+  // keyboardContainer.style.borderBottom = "4px dashed #1f9716";
+
+  //dropIndicator.style.display = "flex";
 
   // var c = document.querySelector(".foo:after");
 
@@ -376,10 +402,25 @@ function dragOverHandler(ev) {
   ev.preventDefault();
 }
 
-function dropHandler(ev) {
-  //console.log("File(s) dropped");
+// function dropHandler2(ev) {
+//   console.log("File(s) dropped 2");
 
-  drop.classList.remove("drophover");
+//   drop.classList.remove("drophover");
+
+//   dropIndicator.style.display = "none";
+
+//   ev.preventDefault();
+// }
+
+function dropHandler(ev) {
+  console.log("File(s) dropped");
+
+  //drop.classList.remove("drophover");
+
+  //dropIndicator.style.display = "none";
+
+  body.style.border = "none";
+  body.style.opacity = 1;
 
   // Prevent default behavior (Prevent file from being opened)
   ev.preventDefault();

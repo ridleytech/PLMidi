@@ -61,22 +61,26 @@ const NOTE_BLACK_TEMPLATE = (props, posX, color) => `\
 }" r="${NOTE_TONIC_RADIUS}"></circle>
 </g>`;
 
-var blackKeyXPos = NOTE_WHITE_WIDTH / 2 - 10;
+var NOTE_NAME_TEMPLATE = (props, posX, color) => {
+  //console.log("color: " + color);
 
-var NOTE_NAME_TEMPLATE = (props, posX, color) => `\
+  return `\
 
 <g id="note-${
-  props.midi
-}-display" class="note display" transform="translate(${posX},0)" style="color: white;" 
+    props.midi
+  }-display" class="note display" transform="translate(${posX},0)" style="color: white;" 
 >
-<text class="piano-key-name-played-notes" x="${blackKeyXPos}" y="${
-  NOTE_WHITE_HEIGHT - NOTE_NAME_BOTTOM_OFFSET - 140
-}" text-anchor="middle">${Midi.midiToNoteName(props.midi, {
-  pitchClass: true,
-  sharps: showSharp,
-})}</text>
+<text class="piano-key-name-played-notes" x="${
+    color == "#bf3a2b" ? NOTE_WHITE_WIDTH / 2 - 14 : NOTE_WHITE_WIDTH / 2
+  }" y="${
+    NOTE_WHITE_HEIGHT - NOTE_NAME_BOTTOM_OFFSET - 140
+  }" text-anchor="middle">${Midi.midiToNoteName(props.midi, {
+    pitchClass: true,
+    sharps: showSharp,
+  })}</text>
 </g>
 `;
+};
 
 //}" text-anchor="middle">${props.name.replace(/[0-9]/g, "")}</text>
 
@@ -260,7 +264,9 @@ export function setAccidentalKeyboard(val) {
 <g id="note-${
     props.midi
   }-display" class="note display" transform="translate(${posX},0)" style="color: white;">
-<text class="piano-key-name-played-notes" x="${NOTE_WHITE_WIDTH / 2}" y="${
+  <text class="piano-key-name-played-notes" x="${
+    color == "#bf3a2b" ? NOTE_WHITE_WIDTH / 2 - 14 : NOTE_WHITE_WIDTH / 2
+  }" y="${
     NOTE_WHITE_HEIGHT - NOTE_NAME_BOTTOM_OFFSET - 140
   }" text-anchor="middle">${Midi.midiToNoteName(props.midi, {
     pitchClass: true,
@@ -299,13 +305,16 @@ function getNoteMarkup(
 
   //console.log(noteNumber + " alt: " + props.alt);
 
+  // console.log("colorNoteWhite: " + colorNoteWhite);
+  // console.log("colorNoteBlack: " + colorNoteBlack);
+
   if (props.alt) {
     return {
       width: 0,
       isWhite: false,
       markup: !isDisplay
         ? NOTE_BLACK_TEMPLATE(props, offsetX, colorNoteBlack)
-        : NOTE_NAME_TEMPLATE(props, offsetX, colorNoteWhite),
+        : NOTE_NAME_TEMPLATE(props, offsetX, colorNoteBlack),
     };
   }
 

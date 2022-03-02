@@ -1,3 +1,14 @@
+//to do 3/15/22
+
+• Update display type for accidentals above keyboard 
+
+//done 3/1/22
+
+• Increase width for speed and pitch sliders
+• Make add midi file button bigger
+• Add the navigation buttons for the video and website
+• Make drag and drop indicator full screen
+
 //to do 2/12/22
 
 • Maybe a mild sustain to smooth out the transition between chords.
