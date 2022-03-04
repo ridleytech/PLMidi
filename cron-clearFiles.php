@@ -1,6 +1,6 @@
 <?
 
-$dir = __DIR__ . "/uploads2/*";
+$dir = __DIR__ . "/uploads/*";
 
 $files = glob( $dir ); // get all file names
 
