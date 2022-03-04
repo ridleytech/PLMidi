@@ -375,7 +375,17 @@ closeBtn.addEventListener("click", closeVideo, true);
 
 function closeVideo(ev) {
   video.style.display = "none";
-  videoPlayer.pause();
+  //videoPlayer.pause();
+
+  var videos = document.querySelectorAll("iframe, video");
+  Array.prototype.forEach.call(videos, function (video) {
+    if (video.tagName.toLowerCase() === "video") {
+      video.pause();
+    } else {
+      var src = video.src;
+      video.src = src;
+    }
+  });
 }
 
 howToBtn.addEventListener("click", openVideo, true);
