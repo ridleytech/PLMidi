@@ -76,7 +76,7 @@ export class FancyMidiPlayer {
     this.tempoOffset = 70;
     this.transposeVal = 0;
     this.transposeStr = "M";
-    this.showSharp = true;
+    this.showSharp = false;
     this.songTimer = null;
     this.manageMidiEnabled = true;
     this.buttonHovered = false;
@@ -245,7 +245,7 @@ export class FancyMidiPlayer {
   };
 
   async setInstrument(instrumentUrl) {
-    console.log(instrumentUrl);
+    //console.log("instrumentUrl: " + instrumentUrl);
     this.instrument = await SoundFont.instrument(
       this.safeAudioContext,
       instrumentUrl

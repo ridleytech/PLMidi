@@ -15,6 +15,8 @@ import {
 } from "./ui";
 import { chordToHtml, keyToHtml } from "./chords";
 
+const resultDiv = document.getElementById("testResult");
+
 const currentNotes = [];
 let currentPitch = 0;
 let currentModulation = 0;
@@ -114,6 +116,18 @@ function refresh() {
   if (chords && chords.length) {
     const chord = chords[0];
     setChordHtml(chordToHtml(chord));
+
+    //to do: add midi keyboard testing
+
+    // console.log("chord: " + JSON.stringify(chord));
+
+    // var c = chord.tonic + chord.name;
+
+    // if (c == "Cmaj7") {
+    //   //console.log("yup");
+
+    //   resultDiv.innerHTML = "CORRECT";
+    // }
 
     if (previousChord) {
       fadeTonics();

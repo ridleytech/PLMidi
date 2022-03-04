@@ -73,7 +73,7 @@ if (isIOSChrome) {
 ) {
   // is Google Chrome
 } else {
-  alert("Please use Google Chrome for the best experience.");
+  //alert("Please use Google Chrome for the best experience.");
   // not Google Chrome
 }
 
@@ -82,11 +82,16 @@ var instrumentUrl =
 
 //instrumentUrl = "https://pianolessonwithwarren.com/dev_site/PLMidi/soundfont/acoustic_grand_piano-mp3.js";
 
-const drop = document.querySelector("#fileDiv");
+//const drop = document.querySelector("#fileDiv");
 const body = document.querySelector("#info-container");
-const keyboardContainer = document.querySelector("#piano-pedal");
+// const keyboardContainer = document.querySelector("#piano-pedal");
+// const dropIndicator = document.querySelector(".dropIndicator");
+const closeBtn = document.querySelector("#closeBtn");
+const video = document.querySelector(".video");
+const videoPlayer = document.querySelector("#videoPlayer");
 
-const dropIndicator = document.querySelector(".dropIndicator");
+const howToBtn = document.querySelector("#howToBtn");
+const howToBtn2 = document.querySelector("#howToBtn2");
 
 const setAppBusy = (isBusy) => {
   const playButton = document.querySelector("#play-piece");
@@ -366,6 +371,20 @@ fmp.setInstrument(instrumentUrl).then(() => {
   changePiece(0);
 });
 
+closeBtn.addEventListener("click", closeVideo, true);
+
+function closeVideo(ev) {
+  video.style.display = "none";
+  videoPlayer.pause();
+}
+
+howToBtn.addEventListener("click", openVideo, true);
+howToBtn2.addEventListener("click", openVideo, true);
+
+function openVideo(ev) {
+  video.style.display = "block";
+}
+
 //var inner = document.getElementById("inner");
 
 function dragLeaveHandler(ev) {
@@ -380,7 +399,7 @@ function dragLeaveHandler(ev) {
 // }
 
 function dragOverHandler(ev) {
-  console.log("File(s) in drop zone");
+  //onsole.log("File(s) in drop zone");
 
   //drop.classList.add("drophover");
 
@@ -413,7 +432,7 @@ function dragOverHandler(ev) {
 // }
 
 function dropHandler(ev) {
-  console.log("File(s) dropped");
+  //console.log("File(s) dropped");
 
   //drop.classList.remove("drophover");
 
@@ -580,7 +599,7 @@ const uploadFile = (file) => {
   xhr.upload.onprogress = function (e) {
     if (e.lengthComputable) {
       var percentComplete = (e.loaded / e.total) * 100;
-      console.log(percentComplete + "% uploaded");
+      //console.log(percentComplete + "% uploaded");
     }
   };
 
@@ -606,11 +625,11 @@ const uploadFile = (file) => {
 };
 
 const downloadFile = (path) => {
-  console.log("path b4: " + path);
+  //console.log("path b4: " + path);
 
   var newpath = url + "/PLMidi/uploads/" + path;
 
-  console.log("download path: " + newpath);
+  //console.log("download path: " + newpath);
 
   const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
@@ -622,7 +641,7 @@ const downloadFile = (path) => {
       setAppBusy(true);
       fmp.stopMidi();
 
-      console.log("current selected path: " + newPiece.path);
+      //console.log("current selected path: " + newPiece.path);
       fmp.setMidi(newPiece.path).then(() => setAppBusy(false));
     }
   };

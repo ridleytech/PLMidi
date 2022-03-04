@@ -51,27 +51,21 @@ body {
 
 /* @media screen and (max-width: 645px) { */
 @media screen and (max-width: 950px) {
-
-  .dropIndicator
-{
-  
-min-height: 615px !important;
-
+.dropIndicator {
+    min-height: 615px !important;
 }
-
 .nav2 {
-
     display: flex !important;
 }
-
 .nav {
-
     display: none !important;
 }
-
-
 #header-logo {
-    left: 45% !important;
+    /* left: 45% !important; */
+    left: 50% !important;
+    transform: translate(-50%, -50%);
+    margin-left: 0px !important;
+    top: 18% !important;
 }
 #inner {
     /* width: 100% !important; */
@@ -142,7 +136,7 @@ min-height: 615px !important;
 .foo {
     display: block;
     position: relative;
-    width: 150px;
+    width: 180px;
     margin: auto;
     cursor: pointer;
     border: 0;
@@ -631,9 +625,8 @@ display: none;
     top: 70px;
 }
 #header-logo {
-    width: 85px !important;
-    margin-left: 0px !important;
-    margin-top: -65px !important;
+    width: 85px !important;/* margin-left: 0px !important;
+    margin-top: -65px !important; */
 }
 #middle-content {
     height: 50px !important;
@@ -691,9 +684,6 @@ body {
 #sustain-pedal2 {
     margin-bottom: 5px;
 }
-
-
-
 }
 #drop_zone {
     border: 1px solid blue;
@@ -717,13 +707,11 @@ body {
 .headerLbl {
     font-size: 16px;
 }
-
 .settingsSlider {
-  margin-bottom: 10px;
-  width: 100px;
-  margin-right: 10px;
+    margin-bottom: 10px;
+    width: 100px;
+    margin-right: 10px;
 }
-
 .nav {
     position: absolute;
     z-index: 13;
@@ -731,49 +719,70 @@ body {
     right: 20px;
     display: flex;
 }
-
 .nav2 {
-  display: flex;
+    display: flex;
     margin-top: 20px;
     justify-content: center;
     display: none;
 }
-
 .navBtn {
     height: 30px;
     align-items: center;
     background: yellow;
     display: flex;
-    border-radius: 25px;
+    border-radius: 5px;
     font-size: 14px;
-    padding: 10px;
-  cursor: pointer;
+    padding: 10px 10px 7px 10px;
+    cursor: pointer;
+    border-bottom: 3px solid rgba(0,0,0,.2);
+    width: 180px;
+    justify-content: center;
+    text-align: center;
 }
-
-.video {position: absolute;
-z-index: 20;
-background-color: #fffffff7;
-width: 100%;
-min-height: 100%;
-height: auto;
-top: 0px;
-padding: 20px;
-overflow: auto;
+.closeBtn {
+    height: 30px;
+    align-items: center;
+    background: yellow;
+    display: flex;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 10px 10px 7px 10px;
+    cursor: pointer;
+    border-bottom: 3px solid rgba(0,0,0,.2);
+    width: 80px;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 10px;
+    float: right;
 }
-
-.dropIndicator
-{position: absolute;
-z-index: 20;
-background-color: #fffffff7;
-width: 100%;
-min-height: 450px;
-height: auto;
-top: 0px;
-padding: 20px;
-overflow: auto;
-display: none;
+.video {
+    position: absolute;
+    z-index: 20;
+    background-color: #fffffff7;
+    width: 100%;
+    min-height: 100%;
+    height: auto;
+    top: 0px;
+    padding: 20px;
+    overflow: auto;
+    display: none;
+}
+.dropIndicator {
+    position: absolute;
+    z-index: 20;
+    background-color: #fffffff7;
+    width: 100%;
+    min-height: 450px;
+    height: auto;
+    top: 0px;
+    padding: 20px;
+    overflow: auto;
+    display: none;
     justify-content: center;
     align-items: center;
+}
+#info-container {
+/* border: 4px dashed #1f9716;opacity: .85; */
 }
 
 /* body {
@@ -790,21 +799,18 @@ display: none;
 <!-- <script src="libfluidsynth-2.1.9.js"></script>
 <script src="js-synthesizer.js"></script> -->
 <body>
-  <!-- <div class="video"> 
-    <div style="text-align: right;
-    cursor: pointer;">Close</div>
-  <div style="text-align: center; margin-bottom: 10px;">Video</div>  
-  <div style="background-color: lightgray; height: 400px;"></div>  
-
-</div> -->
+<div class="video">
+  <div  class="closeBtn" id="closeBtn">Close</div>
+  <video id="videoPlayer" width="100%" height="400" controls controlsList="nodownload">
+    <source src="./assets/video/how-to-use.mp4" type="video/mp4">
+    <!-- <source src="movie.ogg" type="video/ogg"> --> 
+    Your browser does not support the video tag. </video>
+</div>
 
 <!-- <div class="dropIndicator"> <div style="background-color: red;"><div style="background-color: yellow;">drop img</div>
   <div style="background-color: #2ee;">Drop here to upload</div>  </div>
-
-
 </div>  -->
-<div id="app">  
-
+<div id="app">
   <div id="settings">
     <div id="credits">
       <h1><a href="{{HOMEPAGE}}" target="_blank">{{TITLE}}</a></h1>
@@ -959,15 +965,18 @@ display: none;
       ><img
       src="./assets/images/tempo-menu.png" id="nav-icon" style="display: none;" /> <img
       src="./assets/images/loop-menu.png" id="loop-icon" style="display: none;" /> </div>
-    <div class="nav"><div style="margin-right: 30px;" class="navBtn"><a href="http://pianolessonwithwarren.com" style="text-decoration: none;
-      color: black;">BACK TO MAIN WEBSITE</a></div>
-      <div class="navBtn">HOW TO USE PLAYER</div></div>  
-
+  <div class="nav">
+    <div style="margin-right: 30px;" class="navBtn"><a href="http://pianolessonwithwarren.com" style="text-decoration: none;
+      color: black;font-weight: bold;    text-align: center;">BACK TO MAIN WEBSITE</a></div>
+    <div class="navBtn" style="font-weight: bold; text-align: center;" id="howToBtn">HOW TO USE PLAYER</div>
+  </div>
   <div id="info-container" style="background-color: black; height: 100px;"> 
     <!-- <div id="infoClose" style="color: white; display: none; padding: 10px 0 0 10px;">X</div> -->
-    <div class="nav2"><div style="margin-right: 30px;" class="navBtn"><a href="http://pianolessonwithwarren.com" style="text-decoration: none;
-      color: black;">BACK TO MAIN WEBSITE</a></div>
-      <div class="navBtn">HOW TO USE PLAYER</div></div>  
+    <div class="nav2">
+      <div style="margin-right: 30px;" class="navBtn"><a href="http://pianolessonwithwarren.com" style="text-decoration: none;
+      color: black;font-weight: bold;text-align: center;">BACK TO MAIN WEBSITE</a></div>
+      <div class="navBtn" style="font-weight: bold;text-align: center;" id="howToBtn2">HOW TO USE PLAYER</div>
+    </div>
     <div style="display: flex; justify-content: center;
     flex-direction: column" id="info2">
       <div id="inner">
@@ -1055,7 +1064,7 @@ display: none;
         <div style="display: flex;
         flex-direction: column;">
           <label class="switch">
-            <input type="checkbox" id="accidentalSwitch" tabindex="-1">
+            <input type="checkbox" id="accidentalSwitch" tabindex="-1" checked="true">
             <span class="slider1 round"></span> </label>
           <div style="color:white; display: flex;
           justify-content: space-around; font-size:14px; margin-top: 17px;">
@@ -1101,6 +1110,16 @@ display: none;
       <button id="play-piece"  disabled="" style="user-select:none" tabindex="-1"></button>
       <button id="stop-piece"  disabled="" style="user-select:none" tabindex="-1"></button>
     </div>
+    
+    <!-- <div id="testDiv" style="text-align: center;
+    margin-top: 20px;">
+      <div style="font-size: 20px;">Play C maj7</div> 
+      <div style="font-size: 15px;"> <label class="switch">
+        <input type="checkbox" id="accidentalSwitch" tabindex="-1">
+        <span class="slider1 round"></span> </label><span style="margin-left: 10px;">Allow arpeggiation</span> </div> 
+      <div style="color: #1f9716; margin-top: 20px;
+      font-size: 30px; min-height: 30px" id="testResult"></div>
+    </div> --> 
   </div>
 </div>
 <div
@@ -1161,6 +1180,9 @@ display: none;
 </div>
 <script src="/src/index.js"></script> 
 <script src="/src/chord-display/index.js"></script> 
-<script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+<script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script> 
+<!-- <a title="Real Time Web Analytics" href="http://clicky.com/101356130"><img alt="Clicky" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a> --> 
+<script async src="//static.getclicky.com/101356130.js"></script>
+<!-- <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/101356130ns.gif" /></p></noscript>  -->
 </body>
 </html>

@@ -52,7 +52,7 @@ export function highlightNote(noteNumber, className = "active") {
 }
 
 export function highlightNoteUser(noteNumber, className = "activeUser") {
-  // console.log("highlightNote: " + noteNumber);
+  //console.log("highlightNote: " + noteNumber);
   // console.log("key el str: " + `note-${noteNumber}`);
   const keyElement = document.getElementById(`note-${noteNumber}`);
   //console.log("keyElement: " + JSON.stringify(keyElement));
@@ -66,7 +66,12 @@ export function highlightNoteUser(noteNumber, className = "activeUser") {
     return;
   }
 
-  keyElement.classList.add(className);
+  if (noteNumber > 64) {
+    keyElement.classList.add("activeUserRight");
+  } else {
+    keyElement.classList.add(className);
+  }
+
   keyElementDisplayNote.classList.add("active2");
 }
 
@@ -111,7 +116,13 @@ export function fadeNoteUser(noteNumber) {
     `note-${noteNumber}-display`
   );
   if (!keyElement) return;
-  keyElement.classList.remove("activeUser");
+  //keyElement.classList.remove("activeUser");
+
+  if (noteNumber > 64) {
+    keyElement.classList.remove("activeUserRight");
+  } else {
+    keyElement.classList.remove("activeUser");
+  }
 
   // if (keyElement.classList.contains("autoSelect")) {
   //   //console.log("dont fade");
@@ -139,7 +150,14 @@ export function fadeNoteHvrOut(noteNumber) {
 
   //if (!keyElement) return;
 
-  keyElement.classList.remove("activeUser");
+  //keyElement.classList.remove("activeUser");
+
+  if (noteNumber > 64) {
+    keyElement.classList.remove("activeUserRight");
+  } else {
+    keyElement.classList.remove("activeUser");
+  }
+
   keyElementDisplayNote.classList.remove("active2");
 }
 
@@ -187,7 +205,9 @@ export function setAppLoaded(message) {
 
 export function setAppError(message) {
   appContainer.classList.add("error");
-  setChordHtml("Error");
+  //setChordHtml("Error");
+  setChordHtml("");
+
   setNotesHtml(message);
 }
 

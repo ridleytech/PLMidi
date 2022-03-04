@@ -27,7 +27,7 @@ const WHEEL_WIDTH = NOTE_WHITE_WIDTH;
 const WHEEL_HEIGHT = NOTE_WHITE_HEIGHT;
 const WHEEL_AMPLITUDE = 2 * WHEEL_HEIGHT - 80;
 const WHEEL_SOCKET_BASE_COLOR = "#222222";
-var showSharp = true;
+var showSharp = false;
 
 const NOTE_WHITE_TEMPLATE = (props, posX, color) => `\
 
