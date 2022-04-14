@@ -17,6 +17,8 @@ $filename = generateRandomString(10) . $extension;
 	exit("Your file is too large."); 
 }*/
 
+if($extension != ".mid" && $extension != ".midi"){return;}
+
 $date = date("Y-m-d H:i:s");
 
 if (move_uploaded_file($_FILES['afile']['tmp_name'], "uploads/".$filename)) {

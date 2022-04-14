@@ -368,7 +368,7 @@ fmp.setInstrument(instrumentUrl).then(() => {
   //   dropIndicator.ondragleave = dragLeaveHandler2;
   // }
 
-  changePiece(0);
+  //changePiece(0);
 });
 
 closeBtn.addEventListener("click", closeVideo, true);

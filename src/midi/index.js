@@ -18,6 +18,7 @@ import {
   noteOnPressUser,
   noteOnReleaseUser,
   noteOnReleaseUserHvrOut,
+  setChordAccidental,
 } from "../chord-display/events";
 import { setAccidentalKeyboard } from "../chord-display/keyboard";
 // import * as piano1 from "../sf2/piano1";
@@ -650,6 +651,8 @@ export class FancyMidiPlayer {
 
     this.showSharp = sharps;
     setAccidentalKeyboard(sharps);
+    //set accidental for main chord display
+    setChordAccidental(sharps);
   }
 
   refresh() {

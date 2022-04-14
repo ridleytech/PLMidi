@@ -791,18 +791,35 @@ body {
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-    href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-    rel="stylesheet"
-  />
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
 <script src="/src/input-knobs-master/input-knobs.js"></script> 
+
+<!-- colorpicker -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/src/colorpicker/js/evol-colorpicker.min.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css">
+<link href="/src/colorpicker/css/evol-colorpicker.css" rel="stylesheet" type="text/css">
+
 <!-- <script src="libfluidsynth-2.1.9.js"></script>
 <script src="js-synthesizer.js"></script> -->
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      $("#mycolor").colorpicker();
+      $("#mycolor2").colorpicker();
+  });
+</script>
+
 <body>
+
+<!-- intro video -->
+
 <div class="video">
   <div  class="closeBtn" id="closeBtn">Close</div>
   <iframe id="videoPlayer" src="https://player.vimeo.com/video/684832240?h=fc1855ef4a" width="100%" height="400" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
 </div>
+
 <div id="app">
   <div id="settings">
     <div id="credits">
@@ -963,6 +980,7 @@ body {
       color: black;font-weight: bold;    text-align: center;">BACK TO MAIN WEBSITE</a></div>
     <div class="navBtn" style="font-weight: bold; text-align: center;" id="howToBtn">HOW TO USE PLAYER</div>
   </div>
+  
   <div id="info-container" style="background-color: black; height: 100px;"> 
     <!-- <div id="infoClose" style="color: white; display: none; padding: 10px 0 0 10px;">X</div> -->
     <div class="nav2">
@@ -1131,6 +1149,29 @@ body {
           border: 3px solid black; text-align: center;
         "> </div>
 <div id="piano-pedal" style="display: flex; flex-direction: column; background-color: #232323;">
+  
+  <div id="keyboardSettings" style="display: none;">
+  <div style="width:100%; z-index: 101; display: flex;
+  align-items: center;
+  background-color: white;
+  padding-left: 10px;">
+    <div style="font-size: 12px;
+    width: 100px;">Left hand color:</div>
+    <input style="width:100px;" id="mycolor" class="colorPicker evo-cp0" />
+    <!-- <div class="evo-colorind" style="background-color:#8db3e2"></div> -->
+ </div>
+ <div style="width:100%; z-index: 100;  display: flex;
+ align-items: center;
+ background-color: white;
+ padding-left: 10px;">
+  <div style="font-size: 12px;
+    width: 100px;">Reft hand color:</div>
+  <input style="width:100px;" id="mycolor2" class="colorPicker evo-cp0" />
+  <!-- <div class="evo-colorind" style="background-color:#8db3e2"></div> -->
+</div>
+</div>
+
+
   <div id="keyboardNotes" style="filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4)); z-index: 1;"></div>
   <div id="keyboard" style="filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4)); z-index: 1;"></div>
   <div
@@ -1142,7 +1183,6 @@ body {
 
         filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4));"
         id="sustain-pedal2"
-    "
   ></div>
   <div
       id="midi-container"
@@ -1174,10 +1214,10 @@ body {
 <script src="/src/index.js"></script> 
 <script src="/src/chord-display/index.js"></script> 
 <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script> 
-<!-- <a title="Real Time Web Analytics" href="http://clicky.com/101356130"><img alt="Clicky" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>  -->
-<script async src="https://pianolessonwithwarren.com/dev_site/PLMidi/prod/dist/static.getclicky.com/101356130.js"></script>
-<!-- <noscript>
-<p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/101356130ns.gif" /></p>
-</noscript> -->
+
+<a style="display: none;" title="Real Time Web Analytics" href="http://clicky.com/101356620"><img alt="Clicky" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script async src="https://pianolessonwithwarren.com/midiplayer/static.getclicky.com/101356620.js"></script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="https://pianolessonwithwarren.com/midiplayer/in.getclicky.com/101356620ns.gif" /></p></noscript>
+
 </body>
 </html>

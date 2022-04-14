@@ -1,4 +1,6 @@
 import Note from "tonal/note";
+//import Note from "tonal";
+import { Note as Note2, Interval } from "@tonaljs/tonal";
 import { chord as detectChord } from "tonal/detect";
 import {
   highlightNote,
@@ -14,6 +16,7 @@ import {
   setModWheel,
 } from "./ui";
 import { chordToHtml, keyToHtml } from "./chords";
+import { setAccidentalKeyboard } from "./keyboard";
 
 const resultDiv = document.getElementById("testResult");
 
@@ -25,6 +28,7 @@ let previousChord = null;
 
 let lastNoteTimer = null;
 var lastNoteSeconds = 0;
+var isSharps = false;
 
 export function noteOn(noteNumber) {
   //console.log("noteOn events: " + noteNumber);
@@ -34,6 +38,10 @@ export function noteOn(noteNumber) {
   }
   currentNotes.sort();
   refresh();
+}
+
+export function setChordAccidental(val) {
+  isSharps = val;
 }
 
 export function noteOnPressUser(noteNumber) {
@@ -96,12 +104,51 @@ function clearTimer() {
   clearInterval(lastNoteTimer);
 }
 
+function setAcc(note) {
+  return Note.fromMidi(note, true);
+}
+
 function refresh() {
-  const notes = currentNotes.map(Note.fromMidi).map(Note.pc);
+  //console.log("\ncurrentNotes: " + JSON.stringify(currentNotes));
+
+  var notes = []; // = currentNotes.map((n) => Note.fromMidi(n, true));
+
+  //.map(element => fn(element, params))
+
+  currentNotes.forEach((e) => {
+    var val = Note2.fromMidiSharps(e);
+    // var fl = Note.fromMidi(e);
+    // console.log("fl: " + fl);
+    // console.log("sh: " + sh);
+
+    if (!isSharps) {
+      val = Note2.fromMidi(e);
+    }
+
+    notes.push(val);
+
+    //console.log("no notes");
+  });
+  //  const notes = currentNotes.map(Note.fromMidi).map(Note.pc);
+
+  notes = notes.map(Note.pc);
+
   var chords;
+
+  console.log("\nnotes: " + JSON.stringify(notes));
+
+  //notes = ["D#", "G", "A#", "D"];
+
   if (notes.length > 2) {
     chords = detectChord(notes);
   } else {
+    if (notes.length == 2) {
+      const distance = Interval.distance(notes[0], notes[1]);
+      //console.log("str: " + notes.toString());
+
+      console.log("distance: " + distance);
+    }
+
     chords = [];
     previousChord = null;
   }
