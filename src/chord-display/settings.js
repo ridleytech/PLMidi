@@ -37,6 +37,8 @@ export function getSetting(name) {
 }
 
 export function setSetting(name, value) {
+  window.localStorage.setItem(name, value);
+
   customSettings[name] = value;
   saveQueryParams();
 
@@ -85,13 +87,47 @@ function qsValueDecoder(str, decoder, charset) {
 }
 
 function parseQueryParams() {
-  const newSettings = qs.parse(window.location.search, {
+  //console.log("window.location.search: " + window.location.search);
+
+  var search = window.location.search;
+
+  if (!search) {
+    //console.log("no url vals");
+
+    if (window.localStorage.getItem("colorNote")) {
+      //console.log("ls colorNote: " + window.localStorage.getItem("colorNote"));
+
+      search = "?colorNote=" + window.localStorage.getItem("colorNote");
+    }
+
+    if (window.localStorage.getItem("colorNote2")) {
+      // console.log(
+      //   "ls colorNote2: " + window.localStorage.getItem("colorNote2")
+      // );
+
+      if (!window.localStorage.getItem("colorNote")) {
+        search = "?colorNote2=" + window.localStorage.getItem("colorNote2");
+      } else {
+        search =
+          search + "&colorNote2=" + window.localStorage.getItem("colorNote2");
+      }
+    }
+  }
+
+  const newSettings = qs.parse(search, {
     depth: 0,
     parseArrays: false,
     ignoreQueryPrefix: true,
     decoder: qsValueDecoder,
   });
+
+  //console.log("newSettings: " + JSON.stringify(newSettings));
+
   Object.assign(customSettings, newSettings);
+
+  const queryParams = qs.stringify(newSettings, { addQueryPrefix: true });
+
+  window.history.pushState(newSettings, "settings update", queryParams);
 
   updateKeys();
 }
