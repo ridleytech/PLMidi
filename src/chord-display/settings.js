@@ -9,7 +9,8 @@ const DEFAULT_SETTINGS = {
   latinNotationEnabled: false,
   pitchWheelEnabled: false,
   modWheelEnabled: false,
-  colorNote: "#bf3a2b",
+  colorNote: "#2bce1f",
+  colorNote2: "#f6fa43",
   colorPitchWheelDown: "#bf3a2b",
   colorPitchWheelUp: "#44ffaa",
   colorModWheel: "#44bbff",
@@ -24,6 +25,12 @@ const DEFAULT_SETTINGS = {
 let customSettings = {};
 
 export function getSetting(name) {
+  // if (name == "colorNote") {
+  //   console.log("customSettings: " + name + " : " + customSettings[name]);
+  // } else if (name == "colorNote2") {
+  //   console.log("customSettings: " + name + " : " + customSettings[name]);
+  // }
+
   return customSettings[name] !== undefined
     ? customSettings[name]
     : DEFAULT_SETTINGS[name];
@@ -32,6 +39,30 @@ export function getSetting(name) {
 export function setSetting(name, value) {
   customSettings[name] = value;
   saveQueryParams();
+
+  updateKeys();
+}
+
+function updateKeys() {
+  var headTag = document.getElementsByTagName("head")[0];
+
+  let keysSheet = document.getElementById("keysSheet");
+  headTag.removeChild(keysSheet);
+
+  var style = document.createElement("style");
+  style.id = "keysSheet";
+  style.type = "text/css";
+  style.innerHTML =
+    ".note.white.active .piano-key { fill: " +
+    getSetting("colorNote") +
+    "; } .note.black.active .piano-key {fill: " +
+    getSetting("colorNote") +
+    ";}.note.white.activeRight .piano-key {fill: " +
+    getSetting("colorNote2") +
+    ";} .note.black.activeRight .piano-key { fill: " +
+    getSetting("colorNote2") +
+    "; }";
+  headTag.appendChild(style);
 }
 
 function qsValueDecoder(str, decoder, charset) {
@@ -61,6 +92,8 @@ function parseQueryParams() {
     decoder: qsValueDecoder,
   });
   Object.assign(customSettings, newSettings);
+
+  updateKeys();
 }
 
 function saveQueryParams() {
@@ -76,6 +109,10 @@ function onSettingChange(setting, evt) {
   }
 
   const { target } = evt;
+
+  // console.log(
+  //   "setting: " + setting + " type: " + target.type + " val: " + target.value
+  // );
 
   if (target.type === "checkbox") {
     setSetting(setting, !!target.checked);
@@ -100,6 +137,6 @@ export function initSettings() {
       element.value = getSetting(setting);
     }
 
-    //element.addEventListener("input", onSettingChange.bind(null, setting));
+    element.addEventListener("input", onSettingChange.bind(null, setting));
   }
 }

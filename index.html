@@ -785,6 +785,8 @@ body {
 /* border: 4px dashed #1f9716;opacity: .85; */
 }
 
+
+
 /* body {
    overflow-y: hidden;
 } */
@@ -793,23 +795,58 @@ body {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
 <script src="/src/input-knobs-master/input-knobs.js"></script> 
+<style id="keysSheet">
+  .note.white.active .piano-key {
+  /* fill: currentColor; */
+  fill: #2bce1f;
+  filter: url(#insetKey);
+}
 
-<!-- colorpicker -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="/src/colorpicker/js/evol-colorpicker.min.js" type="text/javascript" charset="utf-8"></script>
-<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css">
-<link href="/src/colorpicker/css/evol-colorpicker.css" rel="stylesheet" type="text/css">
+.note.white.activeRight .piano-key {
+  /* fill: currentColor; */
+  fill: #f6fa43;
+  filter: url(#insetKey);
+}
 
+.note.black.active .piano-key {
+  /* fill: currentColor; */
+  fill: rgb(40, 192, 29);
+  filter: url(#insetKey);
+}
+
+.note.black.activeRight .piano-key {
+  /* fill: currentColor; */
+  fill: rgb(234, 236, 65);
+  filter: url(#insetKey);
+}
+
+.note.white.activeUser .piano-key {
+  /* fill: currentColor; */
+  fill: rgb(59, 233, 46);
+  filter: url(#insetKey);
+}
+
+.note.black.activeUser .piano-key {
+  /* fill: currentColor; */
+  fill: rgb(43, 206, 31);
+  filter: url(#insetKey);
+}
+
+.note.white.activeUserRight .piano-key {
+  /* fill: currentColor; */
+  fill: rgb(246, 250, 67);
+  filter: url(#insetKey);
+}
+
+.note.black.activeUserRight .piano-key {
+  /* fill: currentColor; */
+  fill: rgb(234, 236, 65);
+  filter: url(#insetKey);
+}
+
+</style>
 <!-- <script src="libfluidsynth-2.1.9.js"></script>
 <script src="js-synthesizer.js"></script> -->
-
-<script type="text/javascript">
-  $(document).ready(function() {
-      $("#mycolor").colorpicker();
-      $("#mycolor2").colorpicker();
-  });
-</script>
 
 <body>
 
@@ -885,12 +922,17 @@ body {
           </label>
         </fieldset>
         <fieldset>
-          <legend>Colors:</legend>
+          <!-- <legend>Colors:</legend>
           <label
                 ><span>Note: </span>
             <input id="colorNote" type="color" tabindex="-1"
               />
           </label>
+          <label
+                ><span>Note2: </span>
+            <input id="colorNote2" type="color" tabindex="-1"
+              />
+          </label> -->
           <label
                 ><span>Pitch Up: </span
                 >
@@ -1149,25 +1191,25 @@ body {
           border: 3px solid black; text-align: center;
         "> </div>
 <div id="piano-pedal" style="display: flex; flex-direction: column; background-color: #232323;">
-  
-  <div id="keyboardSettings" style="display: none;">
+
+  <div id="keyboardSettings" style="padding-bottom: 5px;
+  background-color: white;">
   <div style="width:100%; z-index: 101; display: flex;
   align-items: center;
   background-color: white;
-  padding-left: 10px;">
+  padding-left: 10px; margin-bottom: 5px;">
     <div style="font-size: 12px;
-    width: 100px;">Left hand color:</div>
-    <input style="width:100px;" id="mycolor" class="colorPicker evo-cp0" />
-    <!-- <div class="evo-colorind" style="background-color:#8db3e2"></div> -->
- </div>
+    width: 90px;">Left hand color:</div>
+        <input id="colorNote" type="color" tabindex="-1"/>
+      </div>
  <div style="width:100%; z-index: 100;  display: flex;
  align-items: center;
  background-color: white;
  padding-left: 10px;">
   <div style="font-size: 12px;
-    width: 100px;">Reft hand color:</div>
-  <input style="width:100px;" id="mycolor2" class="colorPicker evo-cp0" />
-  <!-- <div class="evo-colorind" style="background-color:#8db3e2"></div> -->
+    width: 90px;">Reft hand color:</div>
+        <input id="colorNote2" type="color" tabindex="-1"/>
+
 </div>
 </div>
 

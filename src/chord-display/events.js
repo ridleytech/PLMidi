@@ -135,7 +135,7 @@ function refresh() {
 
   var chords;
 
-  console.log("\nnotes: " + JSON.stringify(notes));
+  //console.log("\nnotes: " + JSON.stringify(notes));
 
   //notes = ["D#", "G", "A#", "D"];
 
@@ -146,7 +146,7 @@ function refresh() {
       const distance = Interval.distance(notes[0], notes[1]);
       //console.log("str: " + notes.toString());
 
-      console.log("distance: " + distance);
+      //console.log("distance: " + distance);
     }
 
     chords = [];
