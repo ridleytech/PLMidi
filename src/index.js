@@ -87,11 +87,18 @@ const body = document.querySelector("#info-container");
 // const keyboardContainer = document.querySelector("#piano-pedal");
 // const dropIndicator = document.querySelector(".dropIndicator");
 const closeBtn = document.querySelector("#closeBtn");
+const closeBtn2 = document.querySelector("#closeBtn2");
+
 const video = document.querySelector(".video");
+const help = document.querySelector(".help");
+
 const videoPlayer = document.querySelector("#videoPlayer");
 
 const howToBtn = document.querySelector("#howToBtn");
 const howToBtn2 = document.querySelector("#howToBtn2");
+
+const helpBtn = document.querySelector("#helpBtn");
+const helpBtn2 = document.querySelector("#helpBtn2");
 
 const setAppBusy = (isBusy) => {
   const playButton = document.querySelector("#play-piece");
@@ -388,11 +395,23 @@ function closeVideo(ev) {
   });
 }
 
+closeBtn2.addEventListener("click", closeHelp, true);
+
+function closeHelp(ev) {
+  help.style.display = "none";
+}
+
 howToBtn.addEventListener("click", openVideo, true);
 howToBtn2.addEventListener("click", openVideo, true);
+helpBtn.addEventListener("click", openHelp, true);
+helpBtn2.addEventListener("click", openHelp, true);
 
 function openVideo(ev) {
   video.style.display = "block";
+}
+
+function openHelp(ev) {
+  help.style.display = "block";
 }
 
 //var inner = document.getElementById("inner");

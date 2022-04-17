@@ -494,8 +494,6 @@ export function render(reset) {
   const pitchWheelEnabled = getSetting("pitchWheelEnabled");
   const modWheelEnabled = getSetting("modWheelEnabled");
   const colorNote = getSetting("colorNote");
-  const colorNote2 = getSetting("colorNote2");
-
   const colorNoteWhite = mixRGB(colorNote, "#ffffff", 0.4);
   const colorNoteBlack = colorNote;
 

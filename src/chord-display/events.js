@@ -134,6 +134,7 @@ function refresh() {
   notes = notes.map(Note.pc);
 
   var chords;
+  var intervalString;
 
   //console.log("\nnotes: " + JSON.stringify(notes));
 
@@ -147,6 +148,48 @@ function refresh() {
       //console.log("str: " + notes.toString());
 
       //console.log("distance: " + distance);
+
+      var info = Interval.get(distance);
+
+      //console.log("info: " + JSON.stringify(info));
+
+      //var d = distance.charAt(1);
+      //console.log("d: " + d);
+
+      //var b = distance.charAt(0);
+      //console.log("b: " + b);
+
+      //var intervalOb = { M: "Major", P: "Perfect", m: "Minor", "1P": "Octave" };
+
+      var quality = getSemitones(info.semitones);
+
+      // if (distance == "1P") {
+      //   ss = "Octave";
+      // } else if (distance == "5d") {
+      //   ss = "Tritone";
+      // } else if (d == "M") {
+      //   ss = "Major";
+      // } else if (d == "P") {
+      //   ss = "Perfect";
+      // } else if (d == "m") {
+      //   ss = "Minor";
+      // }
+
+      // else if (d == "d") {
+      //   ss = "Diminished";
+      // }
+
+      // if (ss == "Tritone" || ss == "Octave") {
+      //   b = "";
+      // } else {
+      //   b = ordinal(b);
+      // }
+
+      // intervalString = notes[0] + " " + ss + " " + b;
+
+      intervalString = notes[0] + " " + quality;
+
+      //console.log("displayString: " + intervalString);
     }
 
     chords = [];
@@ -162,6 +205,7 @@ function refresh() {
 
   if (chords && chords.length) {
     const chord = chords[0];
+
     setChordHtml(chordToHtml(chord));
 
     //to do: add midi keyboard testing
@@ -193,13 +237,57 @@ function refresh() {
     // if (previousChord) {
     //   setChordHtml(chordToHtml(previousChord));
     // }
-    setChordHtml(notes.join(" "));
+    if (notes.length == 2) {
+      //console.log("show it");
+      setChordHtml(intervalString);
+    } else {
+      setChordHtml(notes.join(" "));
+    }
+
     //console.log("show single notes: " + JSON.stringify(notes));
 
     fadeTonics();
 
     //setChordHtml(""); //orig setting
   }
+}
+
+function getSemitones(s) {
+  var str;
+  if (s == 0) {
+    str = "Octave";
+  } else if (s == 1) {
+    str = "Minor 2nd";
+  } else if (s == 2) {
+    str = "Major 2nd";
+  } else if (s == 3) {
+    str = "Minor 3rd";
+  } else if (s == 4) {
+    str = "Major 3rd";
+  } else if (s == 5) {
+    str = "Perfect 4th";
+  } else if (s == 6) {
+    //str = "Diminished 5th";
+    str = "Tritone";
+  } else if (s == 7) {
+    str = "Perfect 5th";
+  } else if (s == 8) {
+    str = "Minor 6th";
+  } else if (s == 9) {
+    str = "Major 6th";
+  } else if (s == 10) {
+    str = "Minor 7th";
+  } else if (s == 11) {
+    str = "Major 7th";
+  }
+
+  return str;
+}
+
+function ordinal(n) {
+  var s = ["th", "st", "nd", "rd"];
+  var v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
 }
 
 export const controller = onEvent.bind(this, "controller");

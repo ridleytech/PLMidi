@@ -119,5 +119,5 @@ stage/
 clearFiles.php
 path.php
 files.php
-dist/*
+dist/
 
