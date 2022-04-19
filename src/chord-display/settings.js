@@ -1,6 +1,11 @@
 //import { selectMIDIIn } from "./midi";
 import { render } from "./ui";
 import qs from "qs";
+import { FancyMidiPlayer } from "../midi";
+
+// setTimeout(() => {
+//   const fmp = new FancyMidiPlayer(document);
+// }, 5000);
 
 const DEFAULT_SETTINGS = {
   midiIn: null,
@@ -49,21 +54,33 @@ function updateKeys() {
   var headTag = document.getElementsByTagName("head")[0];
 
   let keysSheet = document.getElementById("keysSheet");
-  headTag.removeChild(keysSheet);
+
+  if (keysSheet) {
+    headTag.removeChild(keysSheet);
+  }
 
   var style = document.createElement("style");
   style.id = "keysSheet";
   style.type = "text/css";
   style.innerHTML =
-    ".note.white.active .piano-key { fill: " +
+    ".note.white.active .piano-key {filter: url(#insetKey); fill: " +
     getSetting("colorNote") +
-    "; } .note.black.active .piano-key {fill: " +
+    "; } .note.black.active .piano-key {filter: url(#insetKey); fill: " +
     getSetting("colorNote") +
-    ";}.note.white.activeRight .piano-key {fill: " +
+    ";}.note.white.activeRight .piano-key {filter: url(#insetKey); fill: " +
     getSetting("colorNote2") +
-    ";} .note.black.activeRight .piano-key { fill: " +
+    ";} .note.black.activeRight .piano-key {filter: url(#insetKey); fill: " +
+    getSetting("colorNote2") +
+    ";} .note.white.activeUser .piano-key {filter: url(#insetKey); fill: " +
+    getSetting("colorNote") +
+    ";}  .note.black.activeUser .piano-key {filter: url(#insetKey); fill: " +
+    getSetting("colorNote") +
+    ";} .note.white.activeUserRight .piano-key {filter: url(#insetKey); fill: " +
+    getSetting("colorNote2") +
+    ";} .note.black.activeUserRight .piano-key {filter: url(#insetKey); fill: " +
     getSetting("colorNote2") +
     "; }";
+
   headTag.appendChild(style);
 }
 

@@ -114,20 +114,7 @@ export class FancyMidiPlayer {
       //   this.pianoKeyNames.style.display = "none";
       // }
 
-      for (let i = 21; i < 21 + 88; i++) {
-        const keyElement = document.getElementById(`note-${i}`);
-        keyElement.onmousedown = () => {
-          this.playKeyTouch(keyElement.id);
-        };
-
-        keyElement.onmouseup = () => {
-          this.releaseKeyTouch(keyElement.id);
-        };
-
-        keyElement.onmouseout = () => {
-          this.releaseKeyHvrOut(keyElement.id);
-        };
-      }
+      this.assignKeys();
     }, 200);
 
     //console.log("loopButton: " + this.loopButton);
@@ -174,6 +161,23 @@ export class FancyMidiPlayer {
     //     this.reverbNode.connect(this.safeAudioContext.destination);
     //   }.bind(this)
     // );
+  }
+
+  assignKeys() {
+    for (let i = 21; i < 21 + 88; i++) {
+      const keyElement = document.getElementById(`note-${i}`);
+      keyElement.onmousedown = () => {
+        this.playKeyTouch(keyElement.id);
+      };
+
+      keyElement.onmouseup = () => {
+        this.releaseKeyTouch(keyElement.id);
+      };
+
+      keyElement.onmouseout = () => {
+        this.releaseKeyHvrOut(keyElement.id);
+      };
+    }
   }
 
   releaseKeyTouch = (key) => {

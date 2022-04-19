@@ -45,6 +45,7 @@ export function setChordAccidental(val) {
 }
 
 export function noteOnPressUser(noteNumber) {
+  //console.log("noteOnPressUser");
   highlightNoteUser(noteNumber);
 }
 

@@ -789,7 +789,7 @@ body {
 }
 .help {
     position: absolute;
-    z-index: 20;
+    z-index: 250;
     background-color: #fffffff7;
     width: 100%;
     min-height: 100%;
@@ -864,37 +864,37 @@ a.leadbox__close {
 
 .note.black.active .piano-key {
   /* fill: currentColor; */
-  fill: rgb(40, 192, 29);
+  fill: #2bce1f;
   filter: url(#insetKey);
 }
 
 .note.black.activeRight .piano-key {
   /* fill: currentColor; */
-  fill: rgb(234, 236, 65);
+  fill: #f6fa43;
   filter: url(#insetKey);
 }
 
 .note.white.activeUser .piano-key {
   /* fill: currentColor; */
-  fill: rgb(59, 233, 46);
+  fill: #2bce1f;
   filter: url(#insetKey);
 }
 
 .note.black.activeUser .piano-key {
   /* fill: currentColor; */
-  fill: rgb(43, 206, 31);
+  fill: #2bce1f;
   filter: url(#insetKey);
 }
 
 .note.white.activeUserRight .piano-key {
   /* fill: currentColor; */
-  fill: rgb(246, 250, 67);
+  fill: #f6fa43;
   filter: url(#insetKey);
 }
 
 .note.black.activeUserRight .piano-key {
   /* fill: currentColor; */
-  fill: rgb(234, 236, 65);
+  fill: #f6fa43;
   filter: url(#insetKey);
 }
 
@@ -1376,9 +1376,9 @@ $( '#sendMailForm' ).submit(function ( e ) {
 
 
 
-    <div style="margin-right: 30px;" class="navBtn"><a href="http://pianolessonwithwarren.com" style="text-decoration: none;
+    <div style="margin-right: 10px;" class="navBtn"><a href="http://pianolessonwithwarren.com" style="text-decoration: none;
       color: black;font-weight: bold;    text-align: center;">BACK TO MAIN WEBSITE</a></div>
-    <div class="navBtn" style="font-weight: bold; text-align: center; margin-right: 30px;" id="howToBtn">HOW TO USE PLAYER</div>
+    <div class="navBtn" style="font-weight: bold; text-align: center; margin-right: 10px;" id="howToBtn">HOW TO USE PLAYER</div>
     <div class="helpBtn" style="font-weight: bold; text-align: center;" id="helpBtn">HELP</div>
   </div>
   <div id="info-container" style="background-color: black; height: 100px;"> 
@@ -1388,9 +1388,9 @@ $( '#sendMailForm' ).submit(function ( e ) {
       <!-- <script src="https://embed.lpcontent.net/leadboxes/current/embed.js" async defer></script> <button  id="leadBtn"  data-leadbox-popup="eiVFY5ZZHGHmQEzD4U6tGE" data-leadbox-domain="doubler582.lpages.co" class="navBtn">Click here to subscribe</button>  -->
 
 
-      <div style="margin-right: 30px;" class="navBtn"><a href="http://pianolessonwithwarren.com" style="text-decoration: none;
+      <div style="margin-right: 10px;" class="navBtn"><a href="http://pianolessonwithwarren.com" style="text-decoration: none;
       color: black;font-weight: bold;text-align: center;">BACK TO MAIN WEBSITE</a></div>
-      <div class="navBtn" style="font-weight: bold;text-align: center; margin-right: 30px;" id="howToBtn2">HOW TO USE PLAYER</div>
+      <div class="navBtn" style="font-weight: bold;text-align: center; margin-right: 10px;" id="howToBtn2">HOW TO USE PLAYER</div>
       <div class="helpBtn" style="font-weight: bold; text-align: center;" id="helpBtn2">HELP</div>
     </div>
     <div style="display: flex; justify-content: center;
@@ -1402,7 +1402,7 @@ $( '#sendMailForm' ).submit(function ( e ) {
           width: 180px;
           font-size: 12px;
           height: 25px;
-          border-radius: 5px"></select>
+          border-radius: 5px; display: none;"></select>
         </div>
       </div>
       <!-- <div id="drop_zone">
@@ -1604,7 +1604,7 @@ $( '#sendMailForm' ).submit(function ( e ) {
         "> </div>
 <div id="piano-pedal" style="display: flex; flex-direction: column; background-color: #232323;">
   <div id="keyboardSettings" style="padding-bottom: 5px;
-  background-color: white; display: none;">
+  background-color: white; ">
     <div style="width:100%; z-index: 101; display: flex;
   align-items: center;
   background-color: white;

@@ -105,7 +105,7 @@ const helpBtn2 = document.querySelector("#helpBtn2");
 const submitBtn = document.querySelector("#submitBtn");
 const email = document.querySelector("#email");
 const name = document.querySelector("#fullname");
-
+var myMidiFiles;
 // submitBtn.addEventListener("click", captureSubmit, true);
 
 // function captureSubmit() {
@@ -647,9 +647,29 @@ document.body.onkeyup = function (e) {
 document.querySelector("#midifiles").addEventListener(
   "change",
   function (e) {
-    console.log("download file: " + e.target.value);
+    //console.log("download file: " + e.target.value);
 
     downloadFile(e.target.value);
+  },
+  false
+);
+
+document.querySelector("#colorNote").addEventListener(
+  "change",
+  function (e) {
+    //console.log("color changed: " + e.target.value);
+
+    fmp.assignKeys();
+  },
+  false
+);
+
+document.querySelector("#colorNote2").addEventListener(
+  "change",
+  function (e) {
+    //console.log("color2 changed: " + e.target.value);
+
+    fmp.assignKeys();
   },
   false
 );
@@ -666,7 +686,7 @@ document.querySelector("#musical-piece").addEventListener(
     fn.style.height = "15px";
     fn.innerHTML = file.name;
 
-    console.log("the file: ", file);
+    //console.log("the file: ", file);
 
     if (!file) return;
 
@@ -676,50 +696,41 @@ document.querySelector("#musical-piece").addEventListener(
 );
 
 const getFiles = () => {
-  var data = {
-    data: {
-      uploadData: [
-        {
-          filename: "dave.mid",
-          url: "https://plmidifiles.s3.us-east-2.amazonaws.com/dgXrhGMELS.mid",
-        },
-        {
-          filename: "chopin_op27_1.mid",
-          url: "https://plmidifiles.s3.us-east-2.amazonaws.com/y22DPCbHj2.mid",
-        },
-        {
-          filename: "chopin_etude25_1.mid",
-          url: "https://plmidifiles.s3.us-east-2.amazonaws.com/pElNrO7WEw.mid",
-        },
-        {
-          filename: "chopin_ballade23_g_minor.mid",
-          url: "https://plmidifiles.s3.us-east-2.amazonaws.com/1VSpApTrsz.mid",
-        },
-        {
-          filename: "bach_inventions_774.mid",
-          url: "https://plmidifiles.s3.us-east-2.amazonaws.com/NRrGbr7IVZ.mid",
-        },
-      ],
-    },
-  };
+  // var data = {
+  //   data: {
+  //     uploadData: [
+  //       {
+  //         filename: "dave.mid",
+  //         url: "https://plmidifiles.s3.us-east-2.amazonaws.com/dgXrhGMELS.mid",
+  //       },
+  //       {
+  //         filename: "chopin_op27_1.mid",
+  //         url: "https://plmidifiles.s3.us-east-2.amazonaws.com/y22DPCbHj2.mid",
+  //       },
+  //       {
+  //         filename: "chopin_etude25_1.mid",
+  //         url: "https://plmidifiles.s3.us-east-2.amazonaws.com/pElNrO7WEw.mid",
+  //       },
+  //       {
+  //         filename: "chopin_ballade23_g_minor.mid",
+  //         url: "https://plmidifiles.s3.us-east-2.amazonaws.com/1VSpApTrsz.mid",
+  //       },
+  //       {
+  //         filename: "bach_inventions_774.mid",
+  //         url: "https://plmidifiles.s3.us-east-2.amazonaws.com/NRrGbr7IVZ.mid",
+  //       },
+  //     ],
+  //   },
+  // };
+
+  // myMidiFiles = data.data.uploadData;
 
   // <option value="volvo">Volvo</option>
   //           <option value="saab">Saab</option>
   //           <option value="mercedes">Mercedes</option>
   //           <option value="audi">Audi</option>
 
-  var str = "";
-
-  data.data.uploadData.forEach((element) => {
-    str +=
-      '<option value="' + element.url + '">' + element.filename + "</option>";
-  });
-
-  document.getElementById("midifiles").innerHTML = str;
-
-  console.log("getFiles");
-
-  return;
+  //return;
   // var fd = new FormData();
   // fd.append("afile", file);
   // These extra params aren't necessary but show that you can include other data.
@@ -739,17 +750,45 @@ const getFiles = () => {
     if (this.status == 200) {
       var resp = JSON.parse(this.response);
 
-      console.log("files info:", resp);
+      console.log("files info2:", resp);
+
+      myMidiFiles = resp.data.uploadData;
+
+      var str = "";
+
+      myMidiFiles.forEach((element) => {
+        str +=
+          '<option value="' +
+          element.url +
+          '">' +
+          element.filename +
+          "</option>";
+      });
+
+      document.getElementById("midifiles").innerHTML = str;
+
+      console.log("getFiles");
+
+      if (myMidiFiles.length > 1) {
+        //console.log("show midi files");
+        showMidiFiles();
+      }
     }
   };
 
   xhr.send();
 };
 
+const showMidiFiles = () => {
+  const $midifiles = $("#midifiles");
+  $midifiles.css("display", "block");
+};
+
 getFiles();
 
 const uploadFile = (file) => {
   console.log("uploadFile");
+
   var fd = new FormData();
   fd.append("afile", file);
   // These extra params aren't necessary but show that you can include other data.
@@ -774,6 +813,8 @@ const uploadFile = (file) => {
       if (resp.data.uploadData.status == "media upload") {
         //console.log("we good: " + resp.data.uploadData.filename);
 
+        showMidiFiles();
+
         downloadFile(resp.data.uploadData.filename);
       }
 
@@ -789,22 +830,20 @@ const uploadFile = (file) => {
 const downloadFile = (path) => {
   //console.log("path b4: " + path);
 
-  var newpath = url + "/PLMidi/uploads/" + path;
+  // var newpath = url + "/PLMidi/uploads/" + path;
 
-  if (path.includes("amazon")) {
-    newpath = path;
-  }
+  // if (path.includes("amazon")) {
+  //   newpath = path;
+  // }
 
-  console.log("path: " + newpath);
-
-  //console.log("download path: " + newpath);
+  //console.log("download path: " + path);
 
   const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       //document.getElementById("demo").innerHTML = this.responseURL;
 
-      var newPiece = createMusicalPiece(99, "New Track", newpath);
+      var newPiece = createMusicalPiece(99, "New Track", path);
 
       setAppBusy(true);
       fmp.stopMidi();
@@ -813,7 +852,7 @@ const downloadFile = (path) => {
       fmp.setMidi(newPiece.path).then(() => setAppBusy(false));
     }
   };
-  xhttp.open("GET", newpath);
+  xhttp.open("GET", path);
   xhttp.send();
 };
 
