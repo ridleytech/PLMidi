@@ -460,6 +460,22 @@ function closeHelp(ev) {
   $body.css("overflow", "auto");
 }
 
+const settingsBtn = document.querySelector("#settingsBtn");
+
+settingsBtn.addEventListener("click", manageSettings, true);
+
+function manageSettings(ev) {
+  const $keyboardSettings = $("#keyboardSettings");
+
+  //console.log("$keyboardSettings.display: " + $keyboardSettings.css("display"));
+
+  if ($keyboardSettings.css("display") == "none") {
+    $keyboardSettings.css("display", "block");
+  } else {
+    $keyboardSettings.css("display", "none");
+  }
+}
+
 howToBtn.addEventListener("click", openVideo, true);
 howToBtn2.addEventListener("click", openVideo, true);
 helpBtn.addEventListener("click", openHelp, true);
