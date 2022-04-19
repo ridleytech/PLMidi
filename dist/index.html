@@ -922,8 +922,7 @@ function hidePopup() {
 }
 
 $(document).ready(function () {
-  if (window.localStorage.getItem("email")) {//console.log("ls colorNote: " + window.localStorage.getItem("colorNote"));
-    //console.log("has saved email")
+  if (window.localStorage.getItem("email")) {//console.log("has saved email")
     // const $leadForm = $("#leadForm");
     // $leadForm.css("display", "none");
     // setTimeout(() => {
@@ -1087,7 +1086,6 @@ $(document).ready(function () {
   <iframe id="videoPlayer" src="https://player.vimeo.com/video/684832240?h=fc1855ef4a" width="100%" height="400" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen=""></iframe>
 </div>
 <div class="help">
-  <div class="closeBtn" id="closeBtn2">Close</div>
   <div width="100%" height="400" frameborder="0">
     <form name="sendMail" id="sendMailForm" style="position: relative;
     text-align: left;
@@ -1104,6 +1102,7 @@ $(document).ready(function () {
     -webkit-border-radius: 0px !important;
     border-radius: 0px !important;
     color: #000 !important;">
+  <div class="closeBtn" id="closeBtn2">Close</div>
 
         <div style="margin-bottom: 20px"><h4 style="color:green">Contact Us</h4></div>
 
@@ -1236,7 +1235,17 @@ background: rgba(1,1,1,0.5); display: none; ">
     <div class="_field-wrapper">
     <input type="text" id="email" name="email" value="registerrt1224@gmail.com" placeholder="Type your email" required="">
     <div>Already a member? Log in</div>
-    <input style="margin-top: 20px;" type="submit" value="Submit" id="submitBtn">
+    <input style="margin-top: 20px;height: 30px;
+    align-items: center;
+    background: yellow !important;
+    display: flex;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    border-bottom: 3px solid rgba(0,0,0,.2);
+    width: 180px;
+    justify-content: center;
+    text-align: center;" type="submit" value="Submit" id="submitBtn">
   </div></div></div></form>
 
 </div>
