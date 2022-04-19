@@ -455,6 +455,9 @@ closeBtn2.addEventListener("click", closeHelp, true);
 
 function closeHelp(ev) {
   help.style.display = "none";
+
+  const $body = $("body");
+  $body.css("overflow", "auto");
 }
 
 howToBtn.addEventListener("click", openVideo, true);
@@ -468,6 +471,9 @@ function openVideo(ev) {
 
 function openHelp(ev) {
   help.style.display = "block";
+
+  const $body = $("body");
+  $body.css("overflow", "hidden");
 }
 
 //var inner = document.getElementById("inner");

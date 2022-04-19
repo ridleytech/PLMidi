@@ -774,6 +774,7 @@ body {
     text-align: center;
     margin-bottom: 10px;
     float: right;
+    z-index: 30;
 }
 .video {
     position: absolute;
@@ -790,7 +791,7 @@ body {
 .help {
     position: absolute;
     z-index: 250;
-    background-color: #fffffff7;
+    background: rgba(1,1,1,0.5);
     width: 100%;
     min-height: 100%;
     height: auto;
@@ -961,54 +962,6 @@ $(document).ready(function () {
 
     }
 
-//     $( '#form_8' ).submit(function ( e ) {
-// console.log("submit form_8")
-
-//       try {
-//   var data = {
-//       'fullname': $('#fullname').val(),
-//       'email': $('#email').val(),
-//       'u' : "8",
-//       'f' : "8",
-//       's' : "8",
-//       'c' : "0",
-//       'm' : "0",
-//       'act' : "sub",
-//       'v' : "2",
-//       'or' : "449f657556987da0d079bfa1b1417399",
-//   };
-//   // POST data to the php file
-//   $.ajax({ 
-//       url: 'https://pianolessonwithwarren.activehosted.com/proc.php"', 
-//       data: data,
-//       type: 'POST',
-//       success: function (data) {
-
-//         //$(".help").css("display", "none");
-
-//         console.log("data: "+JSON.stringify(data))
-//     // For Notification
-//           document.getElementById("form_8").reset();
-//           // var $alertDiv = $(".mailResponse");
-//           // $alertDiv.show();
-//           // $alertDiv.find('.alert').removeClass('alert-danger alert-success');
-//           // $alertDiv.find('.mailResponseText').text("");
-//           // if(data.error){
-//           //     $alertDiv.find('.alert').addClass('alert-danger');
-//           //     $alertDiv.find('.mailResponseText').text(data.message);
-//           // }else{
-//           //     $alertDiv.find('.alert').addClass('alert-success');
-//           //     $alertDiv.find('.mailResponseText').text(data.message);
-//           // }
-//       }
-//   });
-//   e.preventDefault();
-
-// } catch (error) {
-//         console.log("err: "+err)
-//       }
-// });
-        
 // #sendMailForm takes the data from the form with given ID
 $( '#sendMailForm' ).submit(function ( e ) {
 
@@ -1180,23 +1133,71 @@ $( '#sendMailForm' ).submit(function ( e ) {
 <div class="help">
   <div class="closeBtn" id="closeBtn2">Close</div>
   <div width="100%" height="400" frameborder="0">
-    <div style="margin-top: 35px; margin-bottom: 20px"><h4 style="color:green">Contact Us</h4></div>
-    <form name="sendMail" id="sendMailForm">
+    <form name="sendMail" id="sendMailForm" style="position: relative;
+    text-align: left;
+    margin: 5px auto 0;
+    padding: 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    zoom: 1;
+    background: #fff !important;
+    border: 0px solid #b0b0b0 !important;
+    max-width: 500px;
+    -moz-border-radius: 0px !important;
+    -webkit-border-radius: 0px !important;
+    border-radius: 0px !important;
+    color: #000 !important;">
+
+        <div style="margin-bottom: 20px"><h4 style="color:green">Contact Us</h4></div>
+
       <div class="form-group user-name">
-        <label for="name" class="sr-only">Name</label>
+        <label for="name"  style="margin-bottom: 15px;">Name</label>
         <!-- "id" for taking name -->
-        <input type="text" class="form-control" required="" id="name" placeholder="First Name">
+        <div class="_form_element _x83770515 _full_width " style="margin-top: 10px;" >
+
+        <div class="_field-wrapper">
+
+        <input type="text" class="form-control" required="" id="name" placeholder="First Name" style="padding: 6px;
+        height: auto;
+        border: #979797 1px solid;
+        border-radius: 4px;
+        color: #000 !important;
+        font-size: 14px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box; width: 100%;">
+        </div></div>
       </div>
       <div class="form-group user-email">
-        <label for="email" class="sr-only">Email</label>
+        <label for="email" class="_form-label">Email</label>
         <!-- "id" for taking email -->
-        <input type="email" class="form-control" required="" id="email2" placeholder="Email Address">
+        <div class="_form_element _x83770515 _full_width " style="margin-top: 10px;" >
+
+        <div class="_field-wrapper">
+
+        <input type="email" class="form-control" required="" id="email2" placeholder="Email Address" style="padding: 6px;
+        height: auto;
+        border: #979797 1px solid;
+        border-radius: 4px;
+        color: #000 !important;
+        font-size: 14px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box; width: 100%;"></div></div>
       </div>
       <div class="form-group user-message"> 
         <!-- <label for="message" class="sr-only">Message</label> --> 
         <!-- "id" for taking message -->
-        <textarea style="width: 220px; height: 100px;
-        margin-bottom: 15px;" class="form-control" required="" id="message" placeholder="Write Message"></textarea>
+        <textarea style="padding: 6px;
+        height: 100px;
+        border: #979797 1px solid;
+        border-radius: 4px;
+        color: #000 !important;
+        font-size: 14px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box; width: 100%; margin-bottom: 15px;" class="form-control" required="" id="message" placeholder="Write Message"></textarea>
       </div>
       <!-- Notifications for 'error' Or 'successfully'-->
       <div class="col-md-12 mailResponse" style="display:none;">
@@ -1206,7 +1207,7 @@ $( '#sendMailForm' ).submit(function ( e ) {
         </div>
       </div>
       <!-- submit button -->
-      <button type="submit" class="btn btn-primary">Send Message <i class="fa fa-paper-plane"></i></button>
+      <button type="submit" class="navBtn" style="height: 35px;">Send Message <i class="fa fa-paper-plane"></i></button>
     </form>
   </div>
 </div>
