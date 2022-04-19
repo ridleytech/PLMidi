@@ -915,26 +915,56 @@ a.leadbox__close {
 
 <script>
 
-  
+  function showPopup(){
+
+    const $leadForm = $("#leadForm");
+    $leadForm.css("display", "block");
+
+    const $body = $("body");
+    $body.css("overflow", "hidden");
+
+    // setTimeout(() => {
+    //   hidePopup()
+    // }, 3000);
+  }
+
+  function hidePopup(){
+
+    const $leadForm = $("#leadForm");
+    $leadForm.css("display", "none");
+
+    const $body = $("body");
+    $body.css("overflow", "auto");
+}
 
 $(document).ready(function () {
 
   if (window.localStorage.getItem("email")) {
-      //console.log("ls colorNote: " + window.localStorage.getItem("colorNote"));
+    //console.log("ls colorNote: " + window.localStorage.getItem("colorNote"));
 
-//console.log("has saved email")
+    //console.log("has saved email")
+
+    // const $leadForm = $("#leadForm");
+
+    // $leadForm.css("display", "none");
+
+      // setTimeout(() => {
+      //   showPopup()
+      // }, 3000);
     }
+    else {
 
+      setTimeout(() => {
+        showPopup()
+        //after 5 minutes
+      }, 1000*60*5);
 
+    }
 
 //     $( '#form_8' ).submit(function ( e ) {
 // console.log("submit form_8")
 
 //       try {
-        
-      
-
-
 //   var data = {
 //       'fullname': $('#fullname').val(),
 //       'email': $('#email').val(),
@@ -978,8 +1008,6 @@ $(document).ready(function () {
 //         console.log("err: "+err)
 //       }
 // });
-
-
         
 // #sendMailForm takes the data from the form with given ID
 $( '#sendMailForm' ).submit(function ( e ) {
@@ -1212,6 +1240,49 @@ $( '#sendMailForm' ).submit(function ( e ) {
     </form>
   </div>
 </div> -->
+<div id="leadForm" style="position: absolute;
+width: 100%;
+height: 100%;
+z-index: 200;
+background: rgba(1,1,1,0.5); display: none; ">
+
+<form method="POST" target="_blank" action="https://pianolessonwithwarren.activehosted.com/proc.php" id="form_8" class="_form _form_8 _inline-form _dark" novalidate>
+
+  <!-- <form method="POST" id="form_8" class="_form _form_8 _inline-form _dark" novalidate> -->
+    <input type="hidden" name="u" value="8" />
+    <input type="hidden" name="f" value="8" />
+    <input type="hidden" name="s" />
+    <input type="hidden" name="c" value="0" />
+    <input type="hidden" name="m" value="0" />
+    <input type="hidden" name="act" value="sub" />
+    <input type="hidden" name="v" value="2" />
+    <input type="hidden" name="or" value="449f657556987da0d079bfa1b1417399" />
+    <div class="_form-content">
+    <div class="_form_element _x60581300 _full_width _clear" >
+    <div class="_form-title">
+    Enjoying the player? Complete the form below to continue!
+    </div>
+    </div>
+    <div class="_form_element _x83770515 _full_width " >
+    <label for="fullname" class="_form-label">
+    First Name
+    </label>
+    <div class="_field-wrapper">
+    <input type="text" id="fullname" name="fullname" placeholder="Type your name" value="randall test" required/>
+    </div>
+    <!-- This STARTS the Custom Objects section -->
+    </div>
+    <div class="_form_element _x52018988 _full_width " >
+    <label for="email" class="_form-label">
+    Email*
+    </label>
+    <div class="_field-wrapper">
+    <input type="text" id="email" name="email" value="registerrt1224@gmail.com" placeholder="Type your email" required/>
+    <div>Already a member? Log in</div>
+    <input style="margin-top: 20px;" type="submit" value="Submit" id="submitBtn">
+  </form>
+
+</div>
 <div id="app">
   <div id="settings">
     <div id="credits">
@@ -1351,7 +1422,7 @@ $( '#sendMailForm' ).submit(function ( e ) {
         style="
           position: absolute;
           z-index: 3;
-          top: 75px;
+          top: 65px;
           left: 70px;
           margin-top: -50px;
           margin-left: -50px;
@@ -1498,49 +1569,7 @@ $( '#sendMailForm' ).submit(function ( e ) {
     </div>
   </div>
 
-  <div style="position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 200;
-  background: rgba(1,1,1,0.5); display: none;">
-
-<form method="POST" target="_blank" action="https://pianolessonwithwarren.activehosted.com/proc.php" id="form_8" class="_form _form_8 _inline-form _dark" novalidate>
-
-    <!-- <form method="POST" id="form_8" class="_form _form_8 _inline-form _dark" novalidate> -->
-      <input type="hidden" name="u" value="8" />
-      <input type="hidden" name="f" value="8" />
-      <input type="hidden" name="s" />
-      <input type="hidden" name="c" value="0" />
-      <input type="hidden" name="m" value="0" />
-      <input type="hidden" name="act" value="sub" />
-      <input type="hidden" name="v" value="2" />
-      <input type="hidden" name="or" value="449f657556987da0d079bfa1b1417399" />
-      <div class="_form-content">
-      <div class="_form_element _x60581300 _full_width _clear" >
-      <div class="_form-title">
-      Enjoying the player? Complete the form below to continue!
-      </div>
-      </div>
-      <div class="_form_element _x83770515 _full_width " >
-      <label for="fullname" class="_form-label">
-      First Name
-      </label>
-      <div class="_field-wrapper">
-      <input type="text" id="fullname" name="fullname" placeholder="Type your name" value="randall test" required/>
-      </div>
-      <!-- This STARTS the Custom Objects section -->
-      </div>
-      <div class="_form_element _x52018988 _full_width " >
-      <label for="email" class="_form-label">
-      Email*
-      </label>
-      <div class="_field-wrapper">
-      <input type="text" id="email" name="email" value="registerrt1224@gmail.com" placeholder="Type your email" required/>
-      <div>Already a member? Log in</div>
-      <input style="margin-top: 20px;" type="submit" value="Submit">
-    </form>
-
-  </div>
+ 
   <div id="middle-content" style="margin-top: 30px;
         margin-left: auto;
         margin-right: auto;

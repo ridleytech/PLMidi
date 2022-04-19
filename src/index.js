@@ -105,24 +105,31 @@ const helpBtn2 = document.querySelector("#helpBtn2");
 const submitBtn = document.querySelector("#submitBtn");
 const email = document.querySelector("#email");
 const name = document.querySelector("#fullname");
+
 var myMidiFiles;
-// submitBtn.addEventListener("click", captureSubmit, true);
 
-// function captureSubmit() {
-//   if (validateEmail(email.value) && name.value.length) {
-//     //save data
+submitBtn.addEventListener("click", captureSubmit, true);
 
-//     console.log("save data");
+function captureSubmit() {
+  //return;
+  if (validateEmail(email.value) && name.value.length) {
+    //save data
 
-//     // console.log("email: " + validateEmail(email.value));
-//     // console.log("name: " + name.value);
+    //console.log("save data");
 
-//     window.localStorage.setItem("email", email.value);
-//     window.localStorage.setItem("name", name.value);
-//   }
+    // console.log("email: " + validateEmail(email.value));
+    // console.log("name: " + name.value);
 
-//   //console.log("submit");
-// }
+    window.localStorage.setItem("email", email.value);
+    window.localStorage.setItem("name", name.value);
+
+    const $leadForm = $("#leadForm");
+    $leadForm.css("display", "none");
+
+    const $body = $("body");
+    $body.css("overflow", "auto");
+  }
+}
 
 const validateEmail = (email) => {
   return email.match(
