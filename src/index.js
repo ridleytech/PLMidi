@@ -38,7 +38,9 @@ var env = "dev";
 
 var url = "https://pianolessonwithwarren.com/dev_site";
 
-//url = "http://localhost:8888/pianolesson";
+url = "http://localhost:8888/pianolesson";
+
+//var awsURL = "https://plmidifiles.s3.us-east-2.amazonaws.com/";
 
 //JSSynth.waitForReady().then(loadSynthesizer);
 
@@ -100,6 +102,49 @@ const howToBtn2 = document.querySelector("#howToBtn2");
 const helpBtn = document.querySelector("#helpBtn");
 const helpBtn2 = document.querySelector("#helpBtn2");
 
+const submitBtn = document.querySelector("#submitBtn");
+const email = document.querySelector("#email");
+const name = document.querySelector("#fullname");
+
+// submitBtn.addEventListener("click", captureSubmit, true);
+
+// function captureSubmit() {
+//   if (validateEmail(email.value) && name.value.length) {
+//     //save data
+
+//     console.log("save data");
+
+//     // console.log("email: " + validateEmail(email.value));
+//     // console.log("name: " + name.value);
+
+//     window.localStorage.setItem("email", email.value);
+//     window.localStorage.setItem("name", name.value);
+//   }
+
+//   //console.log("submit");
+// }
+
+const validateEmail = (email) => {
+  return email.match(
+    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  );
+};
+
+const validate = () => {
+  const $result = $("#result");
+  const email = $("#email").val();
+  $result.text("");
+
+  if (validateEmail(email)) {
+    $result.text(email + " is valid :)");
+    $result.css("color", "green");
+  } else {
+    $result.text(email + " is not valid :(");
+    $result.css("color", "red");
+  }
+  return false;
+};
+
 const setAppBusy = (isBusy) => {
   const playButton = document.querySelector("#play-piece");
   const stopButton = document.querySelector("#stop-piece");
@@ -111,6 +156,10 @@ const setAppBusy = (isBusy) => {
   //const skipToButton = document.querySelector("#skip-to");
   const musicalPiecesSelect = document.querySelector("#musical-pieces");
   //const tempoSlider = document.querySelector("#input-k");
+
+  // const leadBtn = document.querySelector("#leadBtn");
+
+  // leadBtn.removeEventListener("click", e, false);
 
   if (isBusy) {
     playButton.setAttribute("disabled", true);
@@ -595,6 +644,16 @@ document.body.onkeyup = function (e) {
   }
 };
 
+document.querySelector("#midifiles").addEventListener(
+  "change",
+  function (e) {
+    console.log("download file: " + e.target.value);
+
+    downloadFile(e.target.value);
+  },
+  false
+);
+
 const fn = document.querySelector("#file-name");
 
 document.querySelector("#musical-piece").addEventListener(
@@ -616,7 +675,81 @@ document.querySelector("#musical-piece").addEventListener(
   false
 );
 
+const getFiles = () => {
+  var data = {
+    data: {
+      uploadData: [
+        {
+          filename: "dave.mid",
+          url: "https://plmidifiles.s3.us-east-2.amazonaws.com/dgXrhGMELS.mid",
+        },
+        {
+          filename: "chopin_op27_1.mid",
+          url: "https://plmidifiles.s3.us-east-2.amazonaws.com/y22DPCbHj2.mid",
+        },
+        {
+          filename: "chopin_etude25_1.mid",
+          url: "https://plmidifiles.s3.us-east-2.amazonaws.com/pElNrO7WEw.mid",
+        },
+        {
+          filename: "chopin_ballade23_g_minor.mid",
+          url: "https://plmidifiles.s3.us-east-2.amazonaws.com/1VSpApTrsz.mid",
+        },
+        {
+          filename: "bach_inventions_774.mid",
+          url: "https://plmidifiles.s3.us-east-2.amazonaws.com/NRrGbr7IVZ.mid",
+        },
+      ],
+    },
+  };
+
+  // <option value="volvo">Volvo</option>
+  //           <option value="saab">Saab</option>
+  //           <option value="mercedes">Mercedes</option>
+  //           <option value="audi">Audi</option>
+
+  var str = "";
+
+  data.data.uploadData.forEach((element) => {
+    str +=
+      '<option value="' + element.url + '">' + element.filename + "</option>";
+  });
+
+  document.getElementById("midifiles").innerHTML = str;
+
+  console.log("getFiles");
+
+  return;
+  // var fd = new FormData();
+  // fd.append("afile", file);
+  // These extra params aren't necessary but show that you can include other data.
+  //fd.append("username", "Groucho");
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", url + "/PLMidi/getmidifiles.php", true);
+
+  // xhr.upload.onprogress = function (e) {
+  //   if (e.lengthComputable) {
+  //     var percentComplete = (e.loaded / e.total) * 100;
+  //     //console.log(percentComplete + "% uploaded");
+  //   }
+  // };
+
+  xhr.onload = function () {
+    if (this.status == 200) {
+      var resp = JSON.parse(this.response);
+
+      console.log("files info:", resp);
+    }
+  };
+
+  xhr.send();
+};
+
+getFiles();
+
 const uploadFile = (file) => {
+  console.log("uploadFile");
   var fd = new FormData();
   fd.append("afile", file);
   // These extra params aren't necessary but show that you can include other data.
@@ -636,7 +769,7 @@ const uploadFile = (file) => {
     if (this.status == 200) {
       var resp = JSON.parse(this.response);
 
-      //console.log("Server got:", resp);
+      console.log("Server got:", resp);
 
       if (resp.data.uploadData.status == "media upload") {
         //console.log("we good: " + resp.data.uploadData.filename);
@@ -657,6 +790,12 @@ const downloadFile = (path) => {
   //console.log("path b4: " + path);
 
   var newpath = url + "/PLMidi/uploads/" + path;
+
+  if (path.includes("amazon")) {
+    newpath = path;
+  }
+
+  console.log("path: " + newpath);
 
   //console.log("download path: " + newpath);
 
