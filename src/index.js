@@ -521,9 +521,9 @@ function closeHelp(ev) {
   $body.css("overflow", "auto");
 }
 
-const settingsBtn = document.querySelector("#settingsBtn");
+// const settingsBtn = document.querySelector("#settingsBtn");
 
-settingsBtn.addEventListener("click", manageSettings, true);
+// settingsBtn.addEventListener("click", manageSettings, true);
 
 function manageSettings(ev) {
   const $keyboardSettings = $("#keyboardSettings");
@@ -737,7 +737,7 @@ document.body.onkeyup = function (e) {
 document.querySelector("#midifiles").addEventListener(
   "change",
   function (e) {
-    console.log("download file: " + e.target.value);
+    //console.log("download file: " + e.target.value);
 
     if (e.target.value) {
       downloadFile(e.target.value);
@@ -844,7 +844,7 @@ const getFiles = (file) => {
         .getElementById("midifiles")
         .querySelectorAll('option[value="' + testurl + '"]');
       if (x.length === 1) {
-        console.log(x[0].index);
+        //console.log(x[0].index);
         document.getElementById("midifiles").selectedIndex = x[0].index;
       }
     }
@@ -872,7 +872,7 @@ const getFiles = (file) => {
     if (this.status == 200) {
       var resp = JSON.parse(this.response);
 
-      console.log("files info2:", resp);
+      //console.log("files info2:", resp);
 
       myMidiFiles = resp.data.uploadData.files;
 
@@ -896,7 +896,7 @@ const getFiles = (file) => {
           .getElementById("midifiles")
           .querySelectorAll('option[value="' + file + '"]');
         if (x.length === 1) {
-          console.log(x[0].index);
+          //console.log(x[0].index);
           document.getElementById("midifiles").selectedIndex = x[0].index;
         }
       }
@@ -934,13 +934,13 @@ if (!window.localStorage.getItem("userid2")) {
 
   //console.log("userid2: "+userid2);
 } else {
-  console.log("userid2: " + window.localStorage.getItem("userid2"));
+  //console.log("userid2: " + window.localStorage.getItem("userid2"));
 }
 
 getFiles();
 
 const uploadFile = (file) => {
-  console.log("uploadFile");
+  //console.log("uploadFile");
 
   var fd = new FormData();
   fd.append("afile", file);
@@ -962,7 +962,7 @@ const uploadFile = (file) => {
     if (this.status == 200) {
       var resp = JSON.parse(this.response);
 
-      console.log("Server got:", resp);
+      //console.log("Server got:", resp);
 
       if (resp.data.uploadData.status == "media upload") {
         //console.log("we good: " + resp.data.uploadData.filename);
@@ -985,13 +985,7 @@ const uploadFile = (file) => {
 const downloadFile = (path) => {
   //console.log("path b4: " + path);
 
-  // var newpath = url + "/PLMidi/uploads/" + path;
-
-  // if (path.includes("amazon")) {
-  //   newpath = path;
-  // }
-
-  console.log("download path: " + path);
+  //console.log("download path: " + path);
 
   const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {

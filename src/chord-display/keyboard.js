@@ -63,6 +63,7 @@ const NOTE_BLACK_TEMPLATE = (props, posX, color) => `\
 
 var NOTE_NAME_TEMPLATE = (props, posX, color) => {
   //console.log("color: " + color);
+  //console.log("props: " + JSON.stringify(props));
 
   return `\
 
@@ -71,8 +72,10 @@ var NOTE_NAME_TEMPLATE = (props, posX, color) => {
   }-display" class="note display" transform="translate(${posX},0)" style="color: white;" 
 >
 <text class="piano-key-name-played-notes" x="${
-    color == getSetting("colorNote2")
-      ? NOTE_WHITE_WIDTH / 2 - 14
+    props.acc == "#"
+      ? NOTE_WHITE_WIDTH / 2 - 18
+      : props.letter != "C"
+      ? NOTE_WHITE_WIDTH / 2 + 4
       : NOTE_WHITE_WIDTH / 2
   }" y="${
     NOTE_WHITE_HEIGHT - NOTE_NAME_BOTTOM_OFFSET - 140
@@ -267,8 +270,10 @@ export function setAccidentalKeyboard(val) {
     props.midi
   }-display" class="note display" transform="translate(${posX},0)" style="color: white;">
   <text class="piano-key-name-played-notes" x="${
-    color == getSetting("colorNote2")
-      ? NOTE_WHITE_WIDTH / 2 - 14
+    props.acc == "#"
+      ? NOTE_WHITE_WIDTH / 2 - 18
+      : props.letter != "C"
+      ? NOTE_WHITE_WIDTH / 2 + 4
       : NOTE_WHITE_WIDTH / 2
   }" y="${
     NOTE_WHITE_HEIGHT - NOTE_NAME_BOTTOM_OFFSET - 140

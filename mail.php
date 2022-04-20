@@ -5,7 +5,7 @@
    $name = $_POST['name'];
    $email = $_POST['email'];
    $postmessage = $_POST['message'];  
-   $to = "registerrt1224@gmail.com";
+   $to = "warren@pianolessonwithwarren.com";
    $subject = "Contact Us";
    // Email Template
    $message = "<b>Name : </b>". $name ."<br>";

@@ -135,7 +135,7 @@ function refresh() {
   notes = notes.map(Note.pc);
 
   var chords;
-  var intervalString;
+  var intervalString = "";
 
   //console.log("\nnotes: " + JSON.stringify(notes));
 
@@ -143,50 +143,38 @@ function refresh() {
 
   if (notes.length > 2) {
     chords = detectChord(notes);
+
+    if (chords.length > 0) {
+      //console.log("chords: " + JSON.stringify(chords));
+    } else {
+      //check interval
+      // if (notes.length > 1) {
+      //   console.log("check interval1");
+      //   //const distance = notes.map(Interval.distance);
+      //   const distance = Interval.distance(notes[0], notes[1]);
+      //   //console.log("str: " + notes.toString());
+      //   //console.log("distance: " + distance);
+      //   var info = Interval.get(distance);
+      //   console.log("info1: " + JSON.stringify(info));
+      //   var quality = getSemitones(info.semitones);
+      //   intervalString = notes[0] + " " + quality;
+      //   //console.log("displayString: " + intervalString);
+      // }
+    }
   } else {
     if (notes.length == 2) {
-      const distance = Interval.distance(notes[0], notes[1]);
-      //console.log("str: " + notes.toString());
+      //console.log("check interval");
 
+      const distance = Interval.distance(notes[0], notes[1]);
+
+      //console.log("str: " + notes.toString());
       //console.log("distance: " + distance);
 
       var info = Interval.get(distance);
 
       //console.log("info: " + JSON.stringify(info));
 
-      //var d = distance.charAt(1);
-      //console.log("d: " + d);
-
-      //var b = distance.charAt(0);
-      //console.log("b: " + b);
-
-      //var intervalOb = { M: "Major", P: "Perfect", m: "Minor", "1P": "Octave" };
-
       var quality = getSemitones(info.semitones);
-
-      // if (distance == "1P") {
-      //   ss = "Octave";
-      // } else if (distance == "5d") {
-      //   ss = "Tritone";
-      // } else if (d == "M") {
-      //   ss = "Major";
-      // } else if (d == "P") {
-      //   ss = "Perfect";
-      // } else if (d == "m") {
-      //   ss = "Minor";
-      // }
-
-      // else if (d == "d") {
-      //   ss = "Diminished";
-      // }
-
-      // if (ss == "Tritone" || ss == "Octave") {
-      //   b = "";
-      // } else {
-      //   b = ordinal(b);
-      // }
-
-      // intervalString = notes[0] + " " + ss + " " + b;
 
       intervalString = notes[0] + " " + quality;
 
@@ -202,6 +190,8 @@ function refresh() {
   //   fadeAllNotes2();
   // }
 
+  //console.log("intervalString: " + intervalString);
+
   setNotesHtml(notes.map(keyToHtml).join(" "));
 
   if (chords && chords.length) {
@@ -212,7 +202,6 @@ function refresh() {
     //to do: add midi keyboard testing
 
     // console.log("chord: " + JSON.stringify(chord));
-
     // var c = chord.tonic + chord.name;
 
     // if (c == "Cmaj7") {
@@ -238,7 +227,7 @@ function refresh() {
     // if (previousChord) {
     //   setChordHtml(chordToHtml(previousChord));
     // }
-    if (notes.length == 2) {
+    if (notes.length > 1 && intervalString != "") {
       //console.log("show it");
       setChordHtml(intervalString);
     } else {

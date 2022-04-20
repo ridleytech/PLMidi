@@ -135,4 +135,35 @@ s3
 
 https://plmidifiles.s3.us-east-2.amazonaws.com/Lord+You're+Holy.mid
 
-It's working now. As far as the popup, I would say use the button link option. But there are 2 issues. 1st is I can't hide the close button on the pop-up which would allow the user to bypass putting in their info. 2nd issue I can't capture when a user submits their info 
+
+      //var d = distance.charAt(1);
+      //console.log("d: " + d);
+
+      //var b = distance.charAt(0);
+      //console.log("b: " + b);
+
+      //var intervalOb = { M: "Major", P: "Perfect", m: "Minor", "1P": "Octave" };
+
+// if (distance == "1P") {
+      //   ss = "Octave";
+      // } else if (distance == "5d") {
+      //   ss = "Tritone";
+      // } else if (d == "M") {
+      //   ss = "Major";
+      // } else if (d == "P") {
+      //   ss = "Perfect";
+      // } else if (d == "m") {
+      //   ss = "Minor";
+      // }
+
+      // else if (d == "d") {
+      //   ss = "Diminished";
+      // }
+
+      // if (ss == "Tritone" || ss == "Octave") {
+      //   b = "";
+      // } else {
+      //   b = ordinal(b);
+      // }
+
+      // intervalString = notes[0] + " " + ss + " " + b;

@@ -122,19 +122,17 @@ echo "{\"data\":";
   $object->status = "upload error";
 }
 
+// if ( move_uploaded_file( $_FILES[ 'afile' ][ 'tmp_name' ], "uploads/" . $filename ) ) {
 
+//   //echo "file moved\r\n";			
+//   //list($width, $height) = getimagesize($source);
 
-if ( move_uploaded_file( $_FILES[ 'afile' ][ 'tmp_name' ], "uploads/" . $filename ) ) {
+//   // $object = new stdClass();
+//   // $object->status = "media upload";
+//   // $object->filename = $filename;
 
-  //echo "file moved\r\n";			
-  //list($width, $height) = getimagesize($source);
-
-  // $object = new stdClass();
-  // $object->status = "media upload";
-  // $object->filename = $filename;
-
-  //echo "image upload";
-}
+//   //echo "image upload";
+// }
 
 // echo "{\"data\":";
 // echo "{\"uploadData\":";

@@ -766,7 +766,7 @@ export class FancyMidiPlayer {
 
     //this.pauseMidi();
 
-    console.log("pause playback prevent play speed glitch");
+    //console.log("pause playback prevent play speed glitch");
     if (this.currentlyPlaying) {
       this.player.pause();
     }
