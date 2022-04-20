@@ -6,7 +6,7 @@ import { Midi } from "@tonaljs/tonal";
 const keyboardContainer = document.getElementById("keyboard");
 const keyboardContainer2 = document.getElementById("keyboardNotes");
 
-const notesDisplay = document.getElementById("notesDisplay");
+//const notesDisplay = document.getElementById("notesDisplay");
 
 const NOTE_RADIUS = 5;
 const NOTE_WHITE_WIDTH = 40;
@@ -63,6 +63,7 @@ const NOTE_BLACK_TEMPLATE = (props, posX, color) => `\
 
 var NOTE_NAME_TEMPLATE = (props, posX, color) => {
   //console.log("color: " + color);
+  //console.log("props: " + JSON.stringify(props));
 
   return `\
 
@@ -71,7 +72,11 @@ var NOTE_NAME_TEMPLATE = (props, posX, color) => {
   }-display" class="note display" transform="translate(${posX},0)" style="color: white;" 
 >
 <text class="piano-key-name-played-notes" x="${
-    color == "#bf3a2b" ? NOTE_WHITE_WIDTH / 2 - 14 : NOTE_WHITE_WIDTH / 2
+    props.acc == "#"
+      ? NOTE_WHITE_WIDTH / 2 - 18
+      : props.letter != "C"
+      ? NOTE_WHITE_WIDTH / 2 + 4
+      : NOTE_WHITE_WIDTH / 2
   }" y="${
     NOTE_WHITE_HEIGHT - NOTE_NAME_BOTTOM_OFFSET - 140
   }" text-anchor="middle">${Midi.midiToNoteName(props.midi, {
@@ -265,7 +270,11 @@ export function setAccidentalKeyboard(val) {
     props.midi
   }-display" class="note display" transform="translate(${posX},0)" style="color: white;">
   <text class="piano-key-name-played-notes" x="${
-    color == "#bf3a2b" ? NOTE_WHITE_WIDTH / 2 - 14 : NOTE_WHITE_WIDTH / 2
+    props.acc == "#"
+      ? NOTE_WHITE_WIDTH / 2 - 18
+      : props.letter != "C"
+      ? NOTE_WHITE_WIDTH / 2 + 4
+      : NOTE_WHITE_WIDTH / 2
   }" y="${
     NOTE_WHITE_HEIGHT - NOTE_NAME_BOTTOM_OFFSET - 140
   }" text-anchor="middle">${Midi.midiToNoteName(props.midi, {
@@ -487,13 +496,17 @@ export function setModWheel(mod) {
 }
 
 export function render(reset) {
+  //console.log("render");
+
   const noteStart = getSetting("noteStart");
   const noteEnd = getSetting("noteEnd");
   const pitchWheelEnabled = getSetting("pitchWheelEnabled");
   const modWheelEnabled = getSetting("modWheelEnabled");
   const colorNote = getSetting("colorNote");
-  const colorNoteWhite = mixRGB(colorNote, "#ffffff", 0.4);
-  const colorNoteBlack = colorNote;
+  const colorNote2 = getSetting("colorNote2");
+
+  const colorNoteWhite = colorNote;
+  const colorNoteBlack = colorNote2;
 
   const wheels = [];
 
@@ -532,8 +545,10 @@ export function renderAccidental() {
   const pitchWheelEnabled = getSetting("pitchWheelEnabled");
   const modWheelEnabled = getSetting("modWheelEnabled");
   const colorNote = getSetting("colorNote");
-  const colorNoteWhite = mixRGB(colorNote, "#ffffff", 0.4);
-  const colorNoteBlack = colorNote;
+  const colorNote2 = getSetting("colorNote2");
+
+  const colorNoteWhite = colorNote;
+  const colorNoteBlack = colorNote2;
 
   const wheels = [];
 

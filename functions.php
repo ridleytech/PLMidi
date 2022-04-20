@@ -1,8 +1,11 @@
 <?php
 
+//header("Content-Type: application/json; charset=UTF-8");
+
 error_reporting( E_ERROR | E_PARSE );
 
 date_default_timezone_set( 'America/Detroit' );
+$date = date( "Y-m-d H:i:s" );
 
 if ( !function_exists( "GetSQLValueString" ) ) {
     function GetSQLValueString( $theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "" ) {
@@ -10,7 +13,7 @@ if ( !function_exists( "GetSQLValueString" ) ) {
             $theValue = get_magic_quotes_gpc() ? stripslashes( $theValue ) : $theValue;
         }
 
-        $theValue = function_exists( "mysql_real_escape_string" ) ? mysql_real_escape_string( $theValue ) : mysql_escape_string( $theValue );
+        $theValue = function_exists( "mysqli_real_escape_string" ) ? mysqli_real_escape_string( $link,$theValue ) : mysqli_escape_string( $theValue );
 
         switch ( $theType ) {
             case "text":
@@ -106,12 +109,12 @@ if ( !isset( $_SESSION ) ) {
 
 $date = date( "Y-m-d H:i:s" );
 
-if ( !isset( $_SESSION[ 'uid' ] ) && !isset( $_POST[ 'mobile' ] ) ) {
+if ( !isset( $_SESSION[ 'uid' ] ) && !isset( $_GET[ 'mobile' ] ) ) {
     //$_SESSION[ 'uid' ] = "1";
 }
 
 $colname_rsModelInfo = "-1";
-if ( isset( $_SESSION[ 'uid' ] ) && !isset( $_POST[ 'mobile' ] ) ) {
+if ( isset( $_SESSION[ 'uid' ] ) && !isset( $_GET[ 'mobile' ] ) ) {
     $colname_rsModelInfo = $_SESSION[ 'uid' ];
 }
 
@@ -136,4 +139,12 @@ function generateRandomTicket( $length = 10 ) {
 }
 
 
-?>
+function unsetValue(array $array, $value, $strict = TRUE)
+{
+    if(($key = array_search($value, $array, $strict)) !== FALSE) {
+        unset($array[$key]);
+    }
+    return $array;
+}
+
+//echo "sort: {$_GET['sort']}";

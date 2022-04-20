@@ -1,6 +1,11 @@
 //import { selectMIDIIn } from "./midi";
 import { render } from "./ui";
 import qs from "qs";
+import { FancyMidiPlayer } from "../midi";
+
+// setTimeout(() => {
+//   const fmp = new FancyMidiPlayer(document);
+// }, 5000);
 
 const DEFAULT_SETTINGS = {
   midiIn: null,
@@ -9,7 +14,8 @@ const DEFAULT_SETTINGS = {
   latinNotationEnabled: false,
   pitchWheelEnabled: false,
   modWheelEnabled: false,
-  colorNote: "#bf3a2b",
+  colorNote: "#2bce1f",
+  colorNote2: "#f6fa43",
   colorPitchWheelDown: "#bf3a2b",
   colorPitchWheelUp: "#44ffaa",
   colorModWheel: "#44bbff",
@@ -24,14 +30,58 @@ const DEFAULT_SETTINGS = {
 let customSettings = {};
 
 export function getSetting(name) {
+  // if (name == "colorNote") {
+  //   console.log("customSettings: " + name + " : " + customSettings[name]);
+  // } else if (name == "colorNote2") {
+  //   console.log("customSettings: " + name + " : " + customSettings[name]);
+  // }
+
   return customSettings[name] !== undefined
     ? customSettings[name]
     : DEFAULT_SETTINGS[name];
 }
 
 export function setSetting(name, value) {
+  window.localStorage.setItem(name, value);
+
   customSettings[name] = value;
   saveQueryParams();
+
+  updateKeys();
+}
+
+function updateKeys() {
+  var headTag = document.getElementsByTagName("head")[0];
+
+  let keysSheet = document.getElementById("keysSheet");
+
+  if (keysSheet) {
+    headTag.removeChild(keysSheet);
+  }
+
+  var style = document.createElement("style");
+  style.id = "keysSheet";
+  style.type = "text/css";
+  style.innerHTML =
+    ".note.white.active .piano-key {filter: url(#insetKey); fill: " +
+    getSetting("colorNote") +
+    "; } .note.black.active .piano-key {filter: url(#insetKey); fill: " +
+    getSetting("colorNote") +
+    ";}.note.white.activeRight .piano-key {filter: url(#insetKey); fill: " +
+    getSetting("colorNote2") +
+    ";} .note.black.activeRight .piano-key {filter: url(#insetKey); fill: " +
+    getSetting("colorNote2") +
+    ";} .note.white.activeUser .piano-key {filter: url(#insetKey); fill: " +
+    getSetting("colorNote") +
+    ";}  .note.black.activeUser .piano-key {filter: url(#insetKey); fill: " +
+    getSetting("colorNote") +
+    ";} .note.white.activeUserRight .piano-key {filter: url(#insetKey); fill: " +
+    getSetting("colorNote2") +
+    ";} .note.black.activeUserRight .piano-key {filter: url(#insetKey); fill: " +
+    getSetting("colorNote2") +
+    "; }";
+
+  headTag.appendChild(style);
 }
 
 function qsValueDecoder(str, decoder, charset) {
@@ -54,13 +104,49 @@ function qsValueDecoder(str, decoder, charset) {
 }
 
 function parseQueryParams() {
-  const newSettings = qs.parse(window.location.search, {
+  //console.log("window.location.search: " + window.location.search);
+
+  var search = window.location.search;
+
+  if (!search) {
+    //console.log("no url vals");
+
+    if (window.localStorage.getItem("colorNote")) {
+      //console.log("ls colorNote: " + window.localStorage.getItem("colorNote"));
+
+      search = "?colorNote=" + window.localStorage.getItem("colorNote");
+    }
+
+    if (window.localStorage.getItem("colorNote2")) {
+      // console.log(
+      //   "ls colorNote2: " + window.localStorage.getItem("colorNote2")
+      // );
+
+      if (!window.localStorage.getItem("colorNote")) {
+        search = "?colorNote2=" + window.localStorage.getItem("colorNote2");
+      } else {
+        search =
+          search + "&colorNote2=" + window.localStorage.getItem("colorNote2");
+      }
+    }
+  }
+
+  const newSettings = qs.parse(search, {
     depth: 0,
     parseArrays: false,
     ignoreQueryPrefix: true,
     decoder: qsValueDecoder,
   });
+
+  //console.log("newSettings: " + JSON.stringify(newSettings));
+
   Object.assign(customSettings, newSettings);
+
+  const queryParams = qs.stringify(newSettings, { addQueryPrefix: true });
+
+  window.history.pushState(newSettings, "settings update", queryParams);
+
+  updateKeys();
 }
 
 function saveQueryParams() {
@@ -76,6 +162,10 @@ function onSettingChange(setting, evt) {
   }
 
   const { target } = evt;
+
+  // console.log(
+  //   "setting: " + setting + " type: " + target.type + " val: " + target.value
+  // );
 
   if (target.type === "checkbox") {
     setSetting(setting, !!target.checked);
@@ -100,6 +190,6 @@ export function initSettings() {
       element.value = getSetting(setting);
     }
 
-    //element.addEventListener("input", onSettingChange.bind(null, setting));
+    element.addEventListener("input", onSettingChange.bind(null, setting));
   }
 }

@@ -119,3 +119,12 @@ stage/
 clearFiles.php
 path.php
 files.php
+dist/
+aws/
+# s3/functions.php
+# s3/getFile.php
+# s3/upload.php
+# s3/config.php
+# s3/_notes/
+s3/
+db/

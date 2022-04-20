@@ -43,7 +43,7 @@ body {
     z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
 }
 #inner {
-    /* margin-top: 17px; */
+    margin-top: 15px;
     margin-left: 15px;
     position: absolute;
     color: white;
@@ -51,6 +51,9 @@ body {
 
 /* @media screen and (max-width: 645px) { */
 @media screen and (max-width: 950px) {
+#fileDiv {
+    margin-bottom: 15px;
+}
 .dropIndicator {
     min-height: 615px !important;
 }
@@ -739,6 +742,22 @@ body {
     justify-content: center;
     text-align: center;
 }
+.helpBtn {
+    height: 30px;
+    align-items: center;
+    background: yellow;
+    display: flex;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 10px 10px 7px 10px;
+    cursor: pointer;
+    border-bottom: 3px solid rgba(0,0,0,.2);
+    width: 60px;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 10px;
+    float: right;
+}
 .closeBtn {
     height: 30px;
     align-items: center;
@@ -754,6 +773,7 @@ body {
     text-align: center;
     margin-bottom: 10px;
     float: right;
+    z-index: 30;
 }
 .video {
     position: absolute;
@@ -766,6 +786,29 @@ body {
     padding: 20px;
     overflow: auto;
     display: none;
+}
+.help {
+    position: fixed;
+    z-index: 250;
+    background: rgba(1,1,1,0.5);
+    width: 100%;
+    min-height: 100%;
+    height: auto;
+    top: 0px;
+    padding: 20px;
+    overflow: auto;
+    display: none;
+}
+.optIn {
+    position: absolute;
+    z-index: 20;
+    background-color: #fffffff7;
+    width: 100%;
+    min-height: 100%;
+    height: auto;
+    top: 0px;
+    padding: 20px;
+    overflow: auto;/* display: none; */
 }
 .dropIndicator {
     position: absolute;
@@ -784,6 +827,14 @@ body {
 #info-container {
 /* border: 4px dashed #1f9716;opacity: .85; */
 }
+a.js-close.leadbox__close {
+    display: none !important;
+    background: #344e7e !important;
+}
+a.leadbox__close {
+    display: none !important;
+    background: #344e7e !important;
+}
 
 /* body {
    overflow-y: hidden;
@@ -791,17 +842,438 @@ body {
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-    href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-    rel="stylesheet"
-  />
-<script src="/src/input-knobs-master/input-knobs.js"></script> 
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
+<script src="/src/input-knobs-master/input-knobs.js"></script>
+<style id="keysSheet">
+  .note.white.active .piano-key {
+  /* fill: currentColor; */
+  fill: #2bce1f;
+  filter: url(#insetKey);
+}
+
+.note.white.activeRight .piano-key {
+  /* fill: currentColor; */
+  fill: #f6fa43;
+  filter: url(#insetKey);
+}
+
+.note.black.active .piano-key {
+  /* fill: currentColor; */
+  fill: #2bce1f;
+  filter: url(#insetKey);
+}
+
+.note.black.activeRight .piano-key {
+  /* fill: currentColor; */
+  fill: #f6fa43;
+  filter: url(#insetKey);
+}
+
+.note.white.activeUser .piano-key {
+  /* fill: currentColor; */
+  fill: #2bce1f;
+  filter: url(#insetKey);
+}
+
+.note.black.activeUser .piano-key {
+  /* fill: currentColor; */
+  fill: #2bce1f;
+  filter: url(#insetKey);
+}
+
+.note.white.activeUserRight .piano-key {
+  /* fill: currentColor; */
+  fill: #f6fa43;
+  filter: url(#insetKey);
+}
+
+.note.black.activeUserRight .piano-key {
+  /* fill: currentColor; */
+  fill: #f6fa43;
+  filter: url(#insetKey);
+}
+
+</style>
+<style id="leadCSS" type="text/css">
+
+/* .leadbox__close {
+    display:none !important;
+  } */
+  
+</style>
+
 <!-- <script src="libfluidsynth-2.1.9.js"></script>
-<script src="js-synthesizer.js"></script> -->
+<script src="js-synthesizer.js"></script> --> 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+<!-- <script src="https://embed.lpcontent.net/leadboxes/current/embed.js" async defer></script> <script>window.addEventListener('LPLeadboxesReady',function(){LPLeadboxes.addDelayedLeadbox('RbR2jRQUyquyorSaTxjMxh',{delay:'2s',views:1,dontShowFor:'1s',domain:'pianolessonwithwarren.lpages.co'});});</script> --> 
+
+<script>
+
+  function showPopup(){
+
+    const $leadForm = $("#leadForm");
+    $leadForm.css("display", "block");
+
+    const $body = $("body");
+    $body.css("overflow", "hidden");
+
+    // setTimeout(() => {
+    //   hidePopup()
+    // }, 3000);
+  }
+
+  function hidePopup(){
+
+    const $leadForm = $("#leadForm");
+    $leadForm.css("display", "none");
+
+    const $body = $("body");
+    $body.css("overflow", "auto");
+  }
+
+$(document).ready(function () {
+
+  if (window.localStorage.getItem("email")) {
+
+    //console.log("has saved email")
+
+    // const $leadForm = $("#leadForm");
+    // $leadForm.css("display", "none");
+
+      // setTimeout(() => {
+      //   showPopup()
+      // }, 2000);
+    }
+    else {
+
+      setTimeout(() => {
+        showPopup()
+        //after 5 minutes
+      }, 1000*60*2);
+    }
+
+// #sendMailForm takes the data from the form with given ID
+$( '#sendMailForm' ).submit(function ( e ) {
+
+//console.log("submit")
+
+  var data = {
+      'name': $('#name').val(),
+      'email': $('#email').val(),
+      'message' : $('#message').val()
+  };
+  // POST data to the php file
+  $.ajax({ 
+      url: 'https://pianolessonwithwarren.com/dev_site/PLMidi/mail.php', 
+      data: data,
+      type: 'POST',
+      success: function (data) {
+
+        $(".help").css("display", "none");
+
+        //console.log("data: "+JSON.stringify(data))
+    // For Notification
+          document.getElementById("sendMailForm").reset();
+          var $alertDiv = $(".mailResponse");
+          $alertDiv.show();
+          $alertDiv.find('.alert').removeClass('alert-danger alert-success');
+          $alertDiv.find('.mailResponseText').text("");
+          if(data.error){
+              $alertDiv.find('.alert').addClass('alert-danger');
+              $alertDiv.find('.mailResponseText').text(data.message);
+          }else{
+              $alertDiv.find('.alert').addClass('alert-success');
+              $alertDiv.find('.mailResponseText').text(data.message);
+          }
+      }
+  });
+  e.preventDefault();
+});
+
+
+      });
+
+
+//       setTimeout(() => {
+        
+//         var headTag = document.getElementsByTagName("head")[0];
+
+//   var style = document.createElement("style");
+//   style.id = "optInSheet";
+//   style.type = "text/css";
+//   style.innerHTML =
+//     ".js-close .leadbox__close {\n"+
+//     "display: none !important;\n"+
+//     "background: #344e7e !important;\n"+
+//     "}\n"+
+// ".leadbox__close {\n" +
+//   "display: none !important;\n" +
+//   "background: #344e7e !important;\n" +
+//   "}";
+
+
+//   headTag.appendChild(style);
+// console.log("add optin style")
+
+//       }, 5000);
+
+</script>
+<style>
+  #form_8 { font-size:14px; line-height:1.6; font-family:arial, helvetica, sans-serif; margin:0; }
+  #form_8 * { outline:0; }
+  ._form_hide { display:none; visibility:hidden; }
+  ._form_show { display:block; visibility:visible; }
+  #form_8._form-top { top:0; }
+  #form_8._form-bottom { bottom:0; }
+  #form_8._form-left { left:0; }
+  #form_8._form-right { right:0; }
+  #form_8 input[type="text"],#form_8 input[type="date"],#form_8 textarea { padding:6px; height:auto; border:#979797 1px solid; border-radius:4px; color:#000 !important; font-size:14px; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing:border-box; }
+  #form_8 textarea { resize:none; }
+  #form_8 ._submit { -webkit-appearance:none; cursor:pointer; font-family:arial, sans-serif; font-size:14px; text-align:center; background:#1ec908 !important; border:0 !important; -moz-border-radius:4px !important; -webkit-border-radius:4px !important; border-radius:4px !important; color:#fff !important; padding:10px !important; }
+  #form_8 ._close-icon { cursor:pointer; background-image:url('https://d226aj4ao1t61q.cloudfront.net/esfkyjh1u_forms-close-dark.png'); background-repeat:no-repeat; background-size:14.2px 14.2px; position:absolute; display:block; top:11px; right:9px; overflow:hidden; width:16.2px; height:16.2px; }
+  #form_8 ._close-icon:before { position:relative; }
+  #form_8 ._form-body { margin-bottom:30px; }
+  #form_8 ._form-image-left { width:150px; float:left; }
+  #form_8 ._form-content-right { margin-left:164px; }
+  #form_8 ._form-branding { color:#fff; font-size:10px; clear:both; text-align:left; margin-top:30px; font-weight:100; }
+  #form_8 ._form-branding ._logo { display:block; width:130px; height:14px; margin-top:6px; background-image:url('https://d226aj4ao1t61q.cloudfront.net/hh9ujqgv5_aclogo_li.png'); background-size:130px auto; background-repeat:no-repeat; }
+  #form_8 .form-sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0, 0, 0, 0); border:0; }
+  #form_8 ._form-label,#form_8 ._form_element ._form-label { font-weight:bold; margin-bottom:5px; display:block; }
+  #form_8._dark ._form-branding { color:#333; }
+  #form_8._dark ._form-branding ._logo { background-image:url('https://d226aj4ao1t61q.cloudfront.net/jftq2c8s_aclogo_dk.png'); }
+  #form_8 ._form_element { position:relative; margin-bottom:10px; font-size:0; max-width:100%; }
+  #form_8 ._form_element * { font-size:14px; }
+  #form_8 ._form_element._clear { clear:both; width:100%; float:none; }
+  #form_8 ._form_element._clear:after { clear:left; }
+  #form_8 ._form_element input[type="text"],#form_8 ._form_element input[type="date"],#form_8 ._form_element select,#form_8 ._form_element textarea:not(.g-recaptcha-response) { display:block; width:100%; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing:border-box; font-family:inherit; }
+  #form_8 ._field-wrapper { position:relative; }
+  #form_8 ._inline-style { float:left; }
+  #form_8 ._inline-style input[type="text"] { width:150px; }
+  #form_8 ._inline-style:not(._clear) + ._inline-style:not(._clear) { margin-left:20px; }
+  #form_8 ._form_element img._form-image { max-width:100%; }
+  #form_8 ._form_element ._form-fieldset { border:0; padding:0.01em 0 0 0; margin:0; min-width:0; }
+  #form_8 ._clear-element { clear:left; }
+  #form_8 ._full_width { width:100%; }
+  #form_8 ._form_full_field { display:block; width:100%; margin-bottom:10px; }
+  #form_8 input[type="text"]._has_error,#form_8 textarea._has_error { border:#f37c7b 1px solid; }
+  #form_8 input[type="checkbox"]._has_error { outline:#f37c7b 1px solid; }
+  #form_8 ._error { display:block; position:absolute; font-size:14px; z-index:10000001; }
+  #form_8 ._error._above { padding-bottom:4px; bottom:39px; right:0; }
+  #form_8 ._error._below { padding-top:4px; top:100%; right:0; }
+  #form_8 ._error._above ._error-arrow { bottom:0; right:15px; border-left:5px solid transparent; border-right:5px solid transparent; border-top:5px solid #f37c7b; }
+  #form_8 ._error._below ._error-arrow { top:0; right:15px; border-left:5px solid transparent; border-right:5px solid transparent; border-bottom:5px solid #f37c7b; }
+  #form_8 ._error-inner { padding:8px 12px; background-color:#f37c7b; font-size:14px; font-family:arial, sans-serif; color:#fff; text-align:center; text-decoration:none; -webkit-border-radius:4px; -moz-border-radius:4px; border-radius:4px; }
+  #form_8 ._error-inner._form_error { margin-bottom:5px; text-align:left; }
+  #form_8 ._button-wrapper ._error-inner._form_error { position:static; }
+  #form_8 ._error-inner._no_arrow { margin-bottom:10px; }
+  #form_8 ._error-arrow { position:absolute; width:0; height:0; }
+  #form_8 ._error-html { margin-bottom:10px; }
+  .pika-single { z-index:10000001 !important; }
+  #form_8 input[type="text"].datetime_date { width:69%; display:inline; }
+  #form_8 select.datetime_time { width:29%; display:inline; height:32px; }
+  #form_8 input[type="date"].datetime_date { width:69%; display:inline-flex; }
+  #form_8 input[type="time"].datetime_time { width:29%; display:inline-flex; }
+  @media all and (min-width:320px) and (max-width:667px) { ::-webkit-scrollbar { display:none; }
+  #form_8 { margin:0; width:100%; min-width:100%; max-width:100%; box-sizing:border-box; }
+  #form_8 * { -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing:border-box; font-size:1em; }
+  #form_8 ._form-content { margin:0; width:100%; }
+  #form_8 ._form-inner { display:block; min-width:100%; }
+  #form_8 ._form-title,#form_8 ._inline-style { margin-top:0; margin-right:0; margin-left:0; }
+  #form_8 ._form-title { font-size:1.2em; }
+  #form_8 ._form_element { margin:0 0 20px; padding:0; width:100%; }
+  #form_8 ._form-element,#form_8 ._inline-style,#form_8 input[type="text"],#form_8 label,#form_8 p,#form_8 textarea:not(.g-recaptcha-response) { float:none; display:block; width:100%; }
+  #form_8 ._row._checkbox-radio label { display:inline; }
+  #form_8 ._row,#form_8 p,#form_8 label { margin-bottom:0.7em; width:100%; }
+  #form_8 ._row input[type="checkbox"],#form_8 ._row input[type="radio"] { margin:0 !important; vertical-align:middle !important; }
+  #form_8 ._row input[type="checkbox"] + span label { display:inline; }
+  #form_8 ._row span label { margin:0 !important; width:initial !important; vertical-align:middle !important; }
+  #form_8 ._form-image { max-width:100%; height:auto !important; }
+  #form_8 input[type="text"] { padding-left:10px; padding-right:10px; font-size:16px; line-height:1.3em; -webkit-appearance:none; }
+  #form_8 input[type="radio"],#form_8 input[type="checkbox"] { display:inline-block; width:1.3em; height:1.3em; font-size:1em; margin:0 0.3em 0 0; vertical-align:baseline; }
+  #form_8 button[type="submit"] { padding:20px; font-size:1.5em; }
+  #form_8 ._inline-style { margin:20px 0 0 !important; }
+  }
+  #form_8 { position:relative; text-align:left; margin:25px auto 0; padding:20px; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing:border-box; zoom:1; background:#fff !important; border:0px solid #b0b0b0 !important; max-width:500px; -moz-border-radius:0px !important; -webkit-border-radius:0px !important; border-radius:0px !important; color:#000 !important; }
+  #form_8._inline-form,#form_8._inline-form ._form-content,#form_8._inline-form input,#form_8._inline-form ._submit { font-family:"IBM Plex Sans", Helvetica, sans-serif, 'IBM Plex Sans', arial, sans-serif; }
+  #form_8 ._form-title { font-size:22px; line-height:22px; font-weight:600; margin-bottom:0; }
+  #form_8:before,#form_8:after { content:" "; display:table; }
+  #form_8:after { clear:both; }
+  #form_8._inline-style { width:auto; display:inline-block; }
+  #form_8._inline-style input[type="text"],#form_8._inline-style input[type="date"] { padding:10px 12px; }
+  #form_8._inline-style button._inline-style { position:relative; top:27px; }
+  #form_8._inline-style p { margin:0; }
+  #form_8._inline-style ._button-wrapper { position:relative; margin:27px 12.5px 0 20px; }
+  #form_8 ._form-thank-you { position:relative; left:0; right:0; text-align:center; font-size:18px; }
+  @media all and (min-width:320px) and (max-width:667px) { #form_8._inline-form._inline-style ._inline-style._button-wrapper { margin-top:20px !important; margin-left:0 !important; }
+  }
+  </style>
+<link href="https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&family=Roboto&display=swap" rel="stylesheet">
+
 <body>
+
+<!-- intro video -->
+
 <div class="video">
   <div  class="closeBtn" id="closeBtn">Close</div>
   <iframe id="videoPlayer" src="https://player.vimeo.com/video/684832240?h=fc1855ef4a" width="100%" height="400" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+</div>
+<div class="help">
+  <div width="100%" height="400" frameborder="0">
+    <form name="sendMail" id="sendMailForm" style="position: relative;
+    text-align: left;
+    margin: 5px auto 0;
+    padding: 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    zoom: 1;
+    background: #fff !important;
+    border: 0px solid #b0b0b0 !important;
+    max-width: 500px;
+    -moz-border-radius: 0px !important;
+    -webkit-border-radius: 0px !important;
+    border-radius: 0px !important;
+    color: #000 !important;">
+      <div class="closeBtn" id="closeBtn2">Close</div>
+      <div style="margin-bottom: 20px">
+        <h4 style="color:green">Contact Us</h4>
+      </div>
+      <div class="form-group user-name">
+        <label for="name"  style="margin-bottom: 15px;">Name</label>
+        <!-- "id" for taking name -->
+        <div class="_form_element _x83770515 _full_width " style="margin-top: 10px;" >
+          <div class="_field-wrapper">
+            <input type="text" class="form-control" required="" id="name" placeholder="First Name" style="padding: 6px;
+        height: auto;
+        border: #979797 1px solid;
+        border-radius: 4px;
+        color: #000 !important;
+        font-size: 14px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box; width: 100%;">
+          </div>
+        </div>
+      </div>
+      <div class="form-group user-email">
+        <label for="email" class="_form-label">Email</label>
+        <!-- "id" for taking email -->
+        <div class="_form_element _x83770515 _full_width " style="margin-top: 10px;" >
+          <div class="_field-wrapper">
+            <input type="email" class="form-control" required="" id="email2" placeholder="Email Address" style="padding: 6px;
+        height: auto;
+        border: #979797 1px solid;
+        border-radius: 4px;
+        color: #000 !important;
+        font-size: 14px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box; width: 100%;">
+          </div>
+        </div>
+      </div>
+      <div class="form-group user-message"> 
+        <!-- <label for="message" class="sr-only">Message</label> --> 
+        <!-- "id" for taking message -->
+        <textarea style="padding: 6px;
+        height: 100px;
+        border: #979797 1px solid;
+        border-radius: 4px;
+        color: #000 !important;
+        font-size: 14px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box; width: 100%; margin-bottom: 15px;" class="form-control" required="" id="message" placeholder="Write Message"></textarea>
+      </div>
+      <!-- Notifications for 'error' Or 'successfully'-->
+      <div class="col-md-12 mailResponse" style="display:none;">
+        <div class="alert alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <p class="mailResponseText"></p>
+        </div>
+      </div>
+      <!-- submit button -->
+      <button type="submit" class="navBtn" style="height: 35px;">Send Message <i class="fa fa-paper-plane"></i></button>
+    </form>
+  </div>
+</div>
+<!-- <div class="optIn">
+  <div style="    height: 350px;
+  width: 350px;
+  margin-left: auto;
+  margin-right: auto;" frameborder="0">
+    <div style="margin-top: 35px; margin-bottom: 20px"><h4 style="color:green">Contact Us</h4></div>
+    <form name="sendMail" id="sendMailForm">
+      <div class="form-group user-name">
+        <label for="name" class="sr-only">Name</label>
+        <input type="text" class="form-control" required="" id="name" placeholder="First Name">
+      </div>
+      <div class="form-group user-email">
+        <label for="email" class="sr-only">Email</label>
+        <input type="email" class="form-control" required="" id="email" placeholder="Email Address">
+      </div>
+      <div class="form-group user-message"> 
+  
+        <textarea style="width: 220px; height: 100px;
+        margin-bottom: 15px;" class="form-control" required="" id="message" placeholder="Write Message"></textarea>
+      </div>
+      <div class="col-md-12 mailResponse" style="display:none;">
+        <div class="alert alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <p class="mailResponseText"></p>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Send Message <i class="fa fa-paper-plane"></i></button>
+    </form>
+  </div>
+</div> -->
+<div id="leadForm" style="position: fixed;
+width: 100%;
+height: 100%;
+z-index: 200;
+background: rgba(1,1,1,0.5); display: none;">
+  <form method="POST" target="_blank" action="https://pianolessonwithwarren.activehosted.com/proc.php" id="form_8" class="_form _form_8 _inline-form _dark" novalidate>
+    
+    <!-- <form method="POST" id="form_8" class="_form _form_8 _inline-form _dark" novalidate> -->
+    <input type="hidden" name="u" value="8" />
+    <input type="hidden" name="f" value="8" />
+    <input type="hidden" name="s" />
+    <input type="hidden" name="c" value="0" />
+    <input type="hidden" name="m" value="0" />
+    <input type="hidden" name="act" value="sub" />
+    <input type="hidden" name="v" value="2" />
+    <input type="hidden" name="or" value="449f657556987da0d079bfa1b1417399" />
+    <div class="_form-content">
+    <div class="_form_element _x60581300 _full_width _clear" >
+      <div class="_form-title" id="leadTitle" style="height: 50px;
+      display: flex;
+      align-items: center;">Enjoying the player? Complete the form below to continue!</div>
+    </div>
+    <div class="_form_element _x83770515 _full_width " >
+      <label for="fullname" class="_form-label" id="nameLbl"> First Name </label>
+      <div class="_field-wrapper">
+        <input type="text" id="fullname" name="fullname" placeholder="Type your name" value="" required/>
+      </div>
+      <!-- This STARTS the Custom Objects section --> 
+    </div>
+    <div class="_form_element _x52018988 _full_width " >
+    <label for="email" class="_form-label"  id="emailLbl"> Email* </label>
+    <div class="_field-wrapper">
+    <input type="text" id="email" name="email" value="" placeholder="Type your email" required/>
+    <!-- <div style="margin-top: 3px; cursor: pointer;" id="loginBtn">Already a member? Log in</div> -->
+    <input style="margin-top: 20px;height: 30px;
+    align-items: center;
+    background: yellow !important;
+    display: flex;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    border-bottom: 3px solid rgba(0,0,0,.2);
+    width: 180px;
+    justify-content: center;
+    text-align: center;" type="submit" value="Submit" id="submitBtn" >
+  </form>
 </div>
 <div id="app">
   <div id="settings">
@@ -868,12 +1340,17 @@ body {
           </label>
         </fieldset>
         <fieldset>
-          <legend>Colors:</legend>
+          <!-- <legend>Colors:</legend>
           <label
                 ><span>Note: </span>
             <input id="colorNote" type="color" tabindex="-1"
               />
           </label>
+          <label
+                ><span>Note2: </span>
+            <input id="colorNote2" type="color" tabindex="-1"
+              />
+          </label> -->
           <label
                 ><span>Pitch Up: </span
                 >
@@ -937,7 +1414,7 @@ body {
         style="
           position: absolute;
           z-index: 3;
-          top: 75px;
+          top: 65px;
           left: 70px;
           margin-top: -50px;
           margin-left: -50px;
@@ -959,22 +1436,33 @@ body {
       src="./assets/images/tempo-menu.png" id="nav-icon" style="display: none;" /> <img
       src="./assets/images/loop-menu.png" id="loop-icon" style="display: none;" /> </div>
   <div class="nav">
-    <div style="margin-right: 30px;" class="navBtn"><a href="http://pianolessonwithwarren.com" style="text-decoration: none;
+    <div style="margin-right: 10px;" class="navBtn"><a href="http://pianolessonwithwarren.com" style="text-decoration: none;
       color: black;font-weight: bold;    text-align: center;">BACK TO MAIN WEBSITE</a></div>
-    <div class="navBtn" style="font-weight: bold; text-align: center;" id="howToBtn">HOW TO USE PLAYER</div>
+    <div class="navBtn" style="font-weight: bold; text-align: center; margin-right: 10px;" id="howToBtn">HOW TO USE PLAYER</div>
+    <div class="helpBtn" style="font-weight: bold; text-align: center;" id="helpBtn">HELP</div>
   </div>
   <div id="info-container" style="background-color: black; height: 100px;"> 
     <!-- <div id="infoClose" style="color: white; display: none; padding: 10px 0 0 10px;">X</div> -->
-    <div class="nav2">
-      <div style="margin-right: 30px;" class="navBtn"><a href="http://pianolessonwithwarren.com" style="text-decoration: none;
+    <div class="nav2"> 
+      
+      <!-- <script src="https://embed.lpcontent.net/leadboxes/current/embed.js" async defer></script> <button  id="leadBtn"  data-leadbox-popup="eiVFY5ZZHGHmQEzD4U6tGE" data-leadbox-domain="doubler582.lpages.co" class="navBtn">Click here to subscribe</button>  -->
+      
+      <div style="margin-right: 10px;" class="navBtn"><a href="http://pianolessonwithwarren.com" style="text-decoration: none;
       color: black;font-weight: bold;text-align: center;">BACK TO MAIN WEBSITE</a></div>
-      <div class="navBtn" style="font-weight: bold;text-align: center;" id="howToBtn2">HOW TO USE PLAYER</div>
+      <div class="navBtn" style="font-weight: bold;text-align: center; margin-right: 10px;" id="howToBtn2">HOW TO USE PLAYER</div>
+      <div class="helpBtn" style="font-weight: bold; text-align: center;" id="helpBtn2">HELP</div>
     </div>
     <div style="display: flex; justify-content: center;
     flex-direction: column" id="info2">
       <div id="inner">
-        <div style="display: flex; flex-direction: column; align-items: center; padding: 10px;" id="fileDiv"> <span  id="file-name" style=""></span>
+        <div style="display: flex; flex-direction: column; align-items: center; " id="fileDiv"> <span  id="file-name" style=""></span>
           <input id="musical-piece" type="file" class="foo" tabindex="-1"  accept=".midi,.mid" />
+          <select name="midifiles" id="midifiles" style="margin-top: 10px;
+          width: 180px;
+          font-size: 12px;
+          height: 25px;
+          border-radius: 5px; display: none;">
+          </select>
         </div>
       </div>
       <!-- <div id="drop_zone">
@@ -1086,7 +1574,7 @@ body {
                 rgba(31, 151, 20, 1) 46%,
                 rgba(31, 151, 20, 1) 75%
               );
-              width: 280px;
+              width: 375px;
               height: 85px;
               align-items: center;
               color: white;
@@ -1096,7 +1584,7 @@ body {
               padding-right: 15px;
               justify-content: center;
               font-size: 40px;
-              letter-spacing: 2px;
+              letter-spacing: 2px;text-align: center;
             "
           > </div>
     <div id="buttons-container" style="text-align: center">
@@ -1131,6 +1619,32 @@ body {
           border: 3px solid black; text-align: center;
         "> </div>
 <div id="piano-pedal" style="display: flex; flex-direction: column; background-color: #232323;">
+  <div id="keyboardSettings" style="padding-bottom: 10px;
+  background-color: white; ">
+    <div style="margin: auto;
+  width: 175px; min-width: 175px;" id="settingsContainer">
+      <div style="width:100%; z-index: 101; display: flex;
+    align-items: center;
+    background-color: white;
+    margin-bottom: 5px;">
+        <div style="font-size: 16px;
+      width: 130px;">Left hand color:</div>
+        <input id="colorNote" type="color" tabindex="-1"/>
+      </div>
+      <div style="width:100%; z-index: 100;  display: flex;
+   align-items: center;
+   background-color: white;
+   ">
+        <div style="font-size: 16px;
+      width: 130px;">Right hand color:</div>
+        <input id="colorNote2" type="color" tabindex="-1"/>
+      </div>
+    </div>
+  </div>
+  <!-- <div style="width: 100%;
+  background-color: white;
+  padding: 10px;"><img src="./assets/images/settings.png" style="width: 25px;
+    height: 25px;cursor: pointer;" id="settingsBtn"/></div> -->
   <div id="keyboardNotes" style="filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4)); z-index: 1;"></div>
   <div id="keyboard" style="filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4)); z-index: 1;"></div>
   <div
@@ -1142,7 +1656,6 @@ body {
 
         filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4));"
         id="sustain-pedal2"
-    "
   ></div>
   <div
       id="midi-container"
@@ -1174,10 +1687,10 @@ body {
 <script src="/src/index.js"></script> 
 <script src="/src/chord-display/index.js"></script> 
 <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script> 
-<!-- <a title="Real Time Web Analytics" href="http://clicky.com/101356130"><img alt="Clicky" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>  -->
-<script async src="https://pianolessonwithwarren.com/dev_site/PLMidi/prod/dist/static.getclicky.com/101356130.js"></script>
-<!-- <noscript>
-<p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/101356130ns.gif" /></p>
-</noscript> -->
+<a style="display: none;" title="Real Time Web Analytics" href="http://clicky.com/101356620"><img alt="Clicky" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a> 
+<script async src="https://pianolessonwithwarren.com/midiplayer/static.getclicky.com/101356620.js"></script>
+<noscript>
+<p><img alt="Clicky" width="1" height="1" src="https://pianolessonwithwarren.com/midiplayer/in.getclicky.com/101356620ns.gif" /></p>
+</noscript>
 </body>
 </html>

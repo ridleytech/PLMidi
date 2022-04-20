@@ -34,7 +34,7 @@ const NOTE_CC_MODWHEEL = 1;
 const SUS_ON = 11;
 
 const enableKeyboard = true;
-var env = "dev";
+//var env = "dev";
 
 var url = "https://pianolessonwithwarren.com/dev_site";
 
@@ -87,11 +87,131 @@ const body = document.querySelector("#info-container");
 // const keyboardContainer = document.querySelector("#piano-pedal");
 // const dropIndicator = document.querySelector(".dropIndicator");
 const closeBtn = document.querySelector("#closeBtn");
+const closeBtn2 = document.querySelector("#closeBtn2");
+
 const video = document.querySelector(".video");
+const help = document.querySelector(".help");
+
 const videoPlayer = document.querySelector("#videoPlayer");
 
 const howToBtn = document.querySelector("#howToBtn");
 const howToBtn2 = document.querySelector("#howToBtn2");
+
+const helpBtn = document.querySelector("#helpBtn");
+const helpBtn2 = document.querySelector("#helpBtn2");
+
+const submitBtn = document.querySelector("#submitBtn");
+const email = document.querySelector("#email");
+const name = document.querySelector("#fullname");
+
+var myMidiFiles;
+
+// const loginBtn = document.querySelector("#loginBtn");
+
+// loginBtn.addEventListener("click", showLogin, true);
+
+function showLogin() {
+  console.log("showLogin");
+
+  const $leadTitle = $("#leadTitle");
+  const $nameLbl = $("#nameLbl");
+  const $emailLbl = $("#emailLbl");
+  const $fullname = $("#fullname");
+  const $email = $("#email");
+  const $loginBtn = $("#loginBtn");
+  const $submitBtn = $("#submitBtn");
+  const $form_8 = $("#form_8");
+
+  console.log("header: " + $("#leadTitle").text());
+  if (
+    $("#leadTitle").text() ==
+    "Enjoying the player? Complete the form below to continue!"
+  ) {
+    $leadTitle.html("Login");
+    $nameLbl.html("Username");
+    $emailLbl.html("Password");
+
+    $fullname.val("");
+    $fullname.attr("placeholder", "Type your username");
+
+    $email.val("");
+    $email.attr("placeholder", "Type your password");
+
+    $form_8.attr("action", null);
+    $form_8.attr("method", null);
+    $form_8.attr("target", null);
+    //$submitBtn.attr("type", null);
+
+    $loginBtn.html("New user? Sign up");
+  } else {
+    $leadTitle.html(
+      "Enjoying the player? Complete the form below to continue!"
+    );
+
+    $nameLbl.html("First Name");
+    $emailLbl.html("Username");
+
+    $fullname.val("");
+    $fullname.attr("placeholder", "Type your name");
+
+    $email.val("");
+    $email.attr("placeholder", "Type your email");
+
+    $loginBtn.html("Already a member? Log in");
+
+    $form_8.attr(
+      "action",
+      "https://pianolessonwithwarren.activehosted.com/proc.php"
+    );
+    $form_8.attr("method", "POST");
+    $form_8.attr("target", "_blank");
+    //$submitBtn.attr("type", "submit");
+  }
+}
+
+submitBtn.addEventListener("click", captureSubmit, true);
+
+function captureSubmit() {
+  //return;
+  if (validateEmail(email.value) && name.value.length) {
+    //save data
+
+    //console.log("save data");
+
+    // console.log("email: " + validateEmail(email.value));
+    // console.log("name: " + name.value);
+
+    window.localStorage.setItem("email", email.value);
+    window.localStorage.setItem("name", name.value);
+
+    const $leadForm = $("#leadForm");
+    $leadForm.css("display", "none");
+
+    const $body = $("body");
+    $body.css("overflow", "auto");
+  }
+}
+
+const validateEmail = (email) => {
+  return email.match(
+    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  );
+};
+
+const validate = () => {
+  const $result = $("#result");
+  const email = $("#email").val();
+  $result.text("");
+
+  if (validateEmail(email)) {
+    $result.text(email + " is valid :)");
+    $result.css("color", "green");
+  } else {
+    $result.text(email + " is not valid :(");
+    $result.css("color", "red");
+  }
+  return false;
+};
 
 const setAppBusy = (isBusy) => {
   const playButton = document.querySelector("#play-piece");
@@ -104,6 +224,10 @@ const setAppBusy = (isBusy) => {
   //const skipToButton = document.querySelector("#skip-to");
   const musicalPiecesSelect = document.querySelector("#musical-pieces");
   //const tempoSlider = document.querySelector("#input-k");
+
+  // const leadBtn = document.querySelector("#leadBtn");
+
+  // leadBtn.removeEventListener("click", e, false);
 
   if (isBusy) {
     playButton.setAttribute("disabled", true);
@@ -368,7 +492,7 @@ fmp.setInstrument(instrumentUrl).then(() => {
   //   dropIndicator.ondragleave = dragLeaveHandler2;
   // }
 
-  changePiece(0);
+  //changePiece(0);
 });
 
 closeBtn.addEventListener("click", closeVideo, true);
@@ -388,11 +512,45 @@ function closeVideo(ev) {
   });
 }
 
+closeBtn2.addEventListener("click", closeHelp, true);
+
+function closeHelp(ev) {
+  help.style.display = "none";
+
+  const $body = $("body");
+  $body.css("overflow", "auto");
+}
+
+// const settingsBtn = document.querySelector("#settingsBtn");
+
+// settingsBtn.addEventListener("click", manageSettings, true);
+
+function manageSettings(ev) {
+  const $keyboardSettings = $("#keyboardSettings");
+
+  //console.log("$keyboardSettings.display: " + $keyboardSettings.css("display"));
+
+  if ($keyboardSettings.css("display") == "none") {
+    $keyboardSettings.css("display", "block");
+  } else {
+    $keyboardSettings.css("display", "none");
+  }
+}
+
 howToBtn.addEventListener("click", openVideo, true);
 howToBtn2.addEventListener("click", openVideo, true);
+helpBtn.addEventListener("click", openHelp, true);
+helpBtn2.addEventListener("click", openHelp, true);
 
 function openVideo(ev) {
   video.style.display = "block";
+}
+
+function openHelp(ev) {
+  help.style.display = "block";
+
+  const $body = $("body");
+  $body.css("overflow", "hidden");
 }
 
 //var inner = document.getElementById("inner");
@@ -576,6 +734,38 @@ document.body.onkeyup = function (e) {
   }
 };
 
+document.querySelector("#midifiles").addEventListener(
+  "change",
+  function (e) {
+    //console.log("download file: " + e.target.value);
+
+    if (e.target.value) {
+      downloadFile(e.target.value);
+    }
+  },
+  false
+);
+
+document.querySelector("#colorNote").addEventListener(
+  "change",
+  function (e) {
+    //console.log("color changed: " + e.target.value);
+
+    fmp.assignKeys();
+  },
+  false
+);
+
+document.querySelector("#colorNote2").addEventListener(
+  "change",
+  function (e) {
+    //console.log("color2 changed: " + e.target.value);
+
+    fmp.assignKeys();
+  },
+  false
+);
+
 const fn = document.querySelector("#file-name");
 
 document.querySelector("#musical-piece").addEventListener(
@@ -588,7 +778,7 @@ document.querySelector("#musical-piece").addEventListener(
     fn.style.height = "15px";
     fn.innerHTML = file.name;
 
-    console.log("the file: ", file);
+    //console.log("the file: ", file);
 
     if (!file) return;
 
@@ -597,9 +787,164 @@ document.querySelector("#musical-piece").addEventListener(
   false
 );
 
+const getFiles = (file) => {
+  var debug = false;
+
+  if (debug) {
+    var data = {
+      data: {
+        uploadData: [
+          {
+            filename: "dave.mid",
+            url: "https://plmidifiles.s3.us-east-2.amazonaws.com/dgXrhGMELS.mid",
+          },
+          {
+            filename: "chopin_op27_1.mid",
+            url: "https://plmidifiles.s3.us-east-2.amazonaws.com/y22DPCbHj2.mid",
+          },
+          {
+            filename: "chopin_etude25_1.mid",
+            url: "https://plmidifiles.s3.us-east-2.amazonaws.com/pElNrO7WEw.mid",
+          },
+          {
+            filename: "chopin_ballade23_g_minor.mid",
+            url: "https://plmidifiles.s3.us-east-2.amazonaws.com/1VSpApTrsz.mid",
+          },
+          {
+            filename: "bach_inventions_774.mid",
+            url: "https://plmidifiles.s3.us-east-2.amazonaws.com/NRrGbr7IVZ.mid",
+          },
+        ],
+      },
+    };
+
+    myMidiFiles = data.data.uploadData;
+
+    if (myMidiFiles.length > 0) {
+      //console.log("show midi files");
+
+      var str = '<option value="" selected>Select a file...</option>';
+
+      myMidiFiles.forEach((element) => {
+        str +=
+          '<option value="' +
+          element.url +
+          '">' +
+          element.filename +
+          "</option>";
+      });
+      document.getElementById("midifiles").innerHTML = str;
+
+      showMidiFiles();
+
+      var testurl =
+        "https://plmidifiles.s3.us-east-2.amazonaws.com/NRrGbr7IVZ.mid";
+
+      var x = document
+        .getElementById("midifiles")
+        .querySelectorAll('option[value="' + testurl + '"]');
+      if (x.length === 1) {
+        //console.log(x[0].index);
+        document.getElementById("midifiles").selectedIndex = x[0].index;
+      }
+    }
+
+    return;
+  }
+
+  var xhr = new XMLHttpRequest();
+  xhr.open(
+    "GET",
+    url +
+      "/PLMidi/getmidifiles.php?userid2=" +
+      window.localStorage.getItem("userid2"),
+    true
+  );
+
+  // xhr.upload.onprogress = function (e) {
+  //   if (e.lengthComputable) {
+  //     var percentComplete = (e.loaded / e.total) * 100;
+  //     //console.log(percentComplete + "% uploaded");
+  //   }
+  // };
+
+  xhr.onload = function () {
+    if (this.status == 200) {
+      var resp = JSON.parse(this.response);
+
+      //console.log("files info2:", resp);
+
+      myMidiFiles = resp.data.uploadData.files;
+
+      var str = '<option value="" selected>Select a file...</option>';
+
+      myMidiFiles.forEach((element) => {
+        str +=
+          '<option value="' +
+          element.url +
+          '">' +
+          element.filename +
+          "</option>";
+      });
+
+      document.getElementById("midifiles").innerHTML = str;
+
+      //console.log("getFiles");
+
+      if (file) {
+        var x = document
+          .getElementById("midifiles")
+          .querySelectorAll('option[value="' + file + '"]');
+        if (x.length === 1) {
+          //console.log(x[0].index);
+          document.getElementById("midifiles").selectedIndex = x[0].index;
+        }
+      }
+
+      if (myMidiFiles.length > 0) {
+        //console.log("show midi files");
+        showMidiFiles();
+      }
+    }
+  };
+
+  xhr.send();
+};
+
+const showMidiFiles = () => {
+  const $midifiles = $("#midifiles");
+  $midifiles.css("display", "block");
+};
+
+function readableRandomStringMaker(length) {
+  for (
+    var s = "";
+    s.length < length;
+    s +=
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".charAt(
+        (Math.random() * 62) | 0
+      )
+  );
+  return s;
+}
+
+if (!window.localStorage.getItem("userid2")) {
+  var userid2 = readableRandomStringMaker(17);
+  window.localStorage.setItem("userid2", userid2);
+
+  //console.log("userid2: "+userid2);
+} else {
+  //console.log("userid2: " + window.localStorage.getItem("userid2"));
+}
+
+getFiles();
+
 const uploadFile = (file) => {
+  //console.log("uploadFile");
+
   var fd = new FormData();
   fd.append("afile", file);
+  fd.append("userid2", window.localStorage.getItem("userid2"));
   // These extra params aren't necessary but show that you can include other data.
   //fd.append("username", "Groucho");
 
@@ -622,7 +967,10 @@ const uploadFile = (file) => {
       if (resp.data.uploadData.status == "media upload") {
         //console.log("we good: " + resp.data.uploadData.filename);
 
-        downloadFile(resp.data.uploadData.filename);
+        //showMidiFiles();
+        getFiles(resp.data.uploadData.res);
+
+        downloadFile(resp.data.uploadData.res);
       }
 
       // var image = document.createElement("img");
@@ -637,16 +985,14 @@ const uploadFile = (file) => {
 const downloadFile = (path) => {
   //console.log("path b4: " + path);
 
-  var newpath = url + "/PLMidi/uploads/" + path;
-
-  //console.log("download path: " + newpath);
+  //console.log("download path: " + path);
 
   const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       //document.getElementById("demo").innerHTML = this.responseURL;
 
-      var newPiece = createMusicalPiece(99, "New Track", newpath);
+      var newPiece = createMusicalPiece(99, "New Track", path);
 
       setAppBusy(true);
       fmp.stopMidi();
@@ -655,7 +1001,7 @@ const downloadFile = (path) => {
       fmp.setMidi(newPiece.path).then(() => setAppBusy(false));
     }
   };
-  xhttp.open("GET", newpath);
+  xhttp.open("GET", path);
   xhttp.send();
 };
 
