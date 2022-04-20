@@ -34,13 +34,11 @@ const NOTE_CC_MODWHEEL = 1;
 const SUS_ON = 11;
 
 const enableKeyboard = true;
-var env = "dev";
+//var env = "dev";
 
 var url = "https://pianolessonwithwarren.com/dev_site";
 
-url = "http://localhost:8888/pianolesson";
-
-//var awsURL = "https://plmidifiles.s3.us-east-2.amazonaws.com/";
+//url = "http://localhost:8888/pianolesson";
 
 //JSSynth.waitForReady().then(loadSynthesizer);
 
@@ -107,6 +105,69 @@ const email = document.querySelector("#email");
 const name = document.querySelector("#fullname");
 
 var myMidiFiles;
+
+// const loginBtn = document.querySelector("#loginBtn");
+
+// loginBtn.addEventListener("click", showLogin, true);
+
+function showLogin() {
+  console.log("showLogin");
+
+  const $leadTitle = $("#leadTitle");
+  const $nameLbl = $("#nameLbl");
+  const $emailLbl = $("#emailLbl");
+  const $fullname = $("#fullname");
+  const $email = $("#email");
+  const $loginBtn = $("#loginBtn");
+  const $submitBtn = $("#submitBtn");
+  const $form_8 = $("#form_8");
+
+  console.log("header: " + $("#leadTitle").text());
+  if (
+    $("#leadTitle").text() ==
+    "Enjoying the player? Complete the form below to continue!"
+  ) {
+    $leadTitle.html("Login");
+    $nameLbl.html("Username");
+    $emailLbl.html("Password");
+
+    $fullname.val("");
+    $fullname.attr("placeholder", "Type your username");
+
+    $email.val("");
+    $email.attr("placeholder", "Type your password");
+
+    $form_8.attr("action", null);
+    $form_8.attr("method", null);
+    $form_8.attr("target", null);
+    //$submitBtn.attr("type", null);
+
+    $loginBtn.html("New user? Sign up");
+  } else {
+    $leadTitle.html(
+      "Enjoying the player? Complete the form below to continue!"
+    );
+
+    $nameLbl.html("First Name");
+    $emailLbl.html("Username");
+
+    $fullname.val("");
+    $fullname.attr("placeholder", "Type your name");
+
+    $email.val("");
+    $email.attr("placeholder", "Type your email");
+
+    $loginBtn.html("Already a member? Log in");
+
+    $form_8.attr(
+      "action",
+      "https://pianolessonwithwarren.activehosted.com/proc.php"
+    );
+    $form_8.attr("method", "POST");
+    $form_8.attr("target", "_blank");
+    //$submitBtn.attr("type", "submit");
+  }
+}
 
 submitBtn.addEventListener("click", captureSubmit, true);
 
@@ -676,9 +737,11 @@ document.body.onkeyup = function (e) {
 document.querySelector("#midifiles").addEventListener(
   "change",
   function (e) {
-    //console.log("download file: " + e.target.value);
+    console.log("download file: " + e.target.value);
 
-    downloadFile(e.target.value);
+    if (e.target.value) {
+      downloadFile(e.target.value);
+    }
   },
   false
 );
@@ -724,49 +787,79 @@ document.querySelector("#musical-piece").addEventListener(
   false
 );
 
-const getFiles = () => {
-  // var data = {
-  //   data: {
-  //     uploadData: [
-  //       {
-  //         filename: "dave.mid",
-  //         url: "https://plmidifiles.s3.us-east-2.amazonaws.com/dgXrhGMELS.mid",
-  //       },
-  //       {
-  //         filename: "chopin_op27_1.mid",
-  //         url: "https://plmidifiles.s3.us-east-2.amazonaws.com/y22DPCbHj2.mid",
-  //       },
-  //       {
-  //         filename: "chopin_etude25_1.mid",
-  //         url: "https://plmidifiles.s3.us-east-2.amazonaws.com/pElNrO7WEw.mid",
-  //       },
-  //       {
-  //         filename: "chopin_ballade23_g_minor.mid",
-  //         url: "https://plmidifiles.s3.us-east-2.amazonaws.com/1VSpApTrsz.mid",
-  //       },
-  //       {
-  //         filename: "bach_inventions_774.mid",
-  //         url: "https://plmidifiles.s3.us-east-2.amazonaws.com/NRrGbr7IVZ.mid",
-  //       },
-  //     ],
-  //   },
-  // };
+const getFiles = (file) => {
+  var debug = false;
 
-  // myMidiFiles = data.data.uploadData;
+  if (debug) {
+    var data = {
+      data: {
+        uploadData: [
+          {
+            filename: "dave.mid",
+            url: "https://plmidifiles.s3.us-east-2.amazonaws.com/dgXrhGMELS.mid",
+          },
+          {
+            filename: "chopin_op27_1.mid",
+            url: "https://plmidifiles.s3.us-east-2.amazonaws.com/y22DPCbHj2.mid",
+          },
+          {
+            filename: "chopin_etude25_1.mid",
+            url: "https://plmidifiles.s3.us-east-2.amazonaws.com/pElNrO7WEw.mid",
+          },
+          {
+            filename: "chopin_ballade23_g_minor.mid",
+            url: "https://plmidifiles.s3.us-east-2.amazonaws.com/1VSpApTrsz.mid",
+          },
+          {
+            filename: "bach_inventions_774.mid",
+            url: "https://plmidifiles.s3.us-east-2.amazonaws.com/NRrGbr7IVZ.mid",
+          },
+        ],
+      },
+    };
 
-  // <option value="volvo">Volvo</option>
-  //           <option value="saab">Saab</option>
-  //           <option value="mercedes">Mercedes</option>
-  //           <option value="audi">Audi</option>
+    myMidiFiles = data.data.uploadData;
 
-  //return;
-  // var fd = new FormData();
-  // fd.append("afile", file);
-  // These extra params aren't necessary but show that you can include other data.
-  //fd.append("username", "Groucho");
+    if (myMidiFiles.length > 0) {
+      //console.log("show midi files");
+
+      var str = '<option value="" selected>Select a file...</option>';
+
+      myMidiFiles.forEach((element) => {
+        str +=
+          '<option value="' +
+          element.url +
+          '">' +
+          element.filename +
+          "</option>";
+      });
+      document.getElementById("midifiles").innerHTML = str;
+
+      showMidiFiles();
+
+      var testurl =
+        "https://plmidifiles.s3.us-east-2.amazonaws.com/NRrGbr7IVZ.mid";
+
+      var x = document
+        .getElementById("midifiles")
+        .querySelectorAll('option[value="' + testurl + '"]');
+      if (x.length === 1) {
+        console.log(x[0].index);
+        document.getElementById("midifiles").selectedIndex = x[0].index;
+      }
+    }
+
+    return;
+  }
 
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", url + "/PLMidi/getmidifiles.php", true);
+  xhr.open(
+    "GET",
+    url +
+      "/PLMidi/getmidifiles.php?userid2=" +
+      window.localStorage.getItem("userid2"),
+    true
+  );
 
   // xhr.upload.onprogress = function (e) {
   //   if (e.lengthComputable) {
@@ -781,9 +874,9 @@ const getFiles = () => {
 
       console.log("files info2:", resp);
 
-      myMidiFiles = resp.data.uploadData;
+      myMidiFiles = resp.data.uploadData.files;
 
-      var str = "";
+      var str = '<option value="" selected>Select a file...</option>';
 
       myMidiFiles.forEach((element) => {
         str +=
@@ -796,9 +889,19 @@ const getFiles = () => {
 
       document.getElementById("midifiles").innerHTML = str;
 
-      console.log("getFiles");
+      //console.log("getFiles");
 
-      if (myMidiFiles.length > 1) {
+      if (file) {
+        var x = document
+          .getElementById("midifiles")
+          .querySelectorAll('option[value="' + file + '"]');
+        if (x.length === 1) {
+          console.log(x[0].index);
+          document.getElementById("midifiles").selectedIndex = x[0].index;
+        }
+      }
+
+      if (myMidiFiles.length > 0) {
         //console.log("show midi files");
         showMidiFiles();
       }
@@ -813,6 +916,27 @@ const showMidiFiles = () => {
   $midifiles.css("display", "block");
 };
 
+function readableRandomStringMaker(length) {
+  for (
+    var s = "";
+    s.length < length;
+    s +=
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".charAt(
+        (Math.random() * 62) | 0
+      )
+  );
+  return s;
+}
+
+if (!window.localStorage.getItem("userid2")) {
+  var userid2 = readableRandomStringMaker(17);
+  window.localStorage.setItem("userid2", userid2);
+
+  //console.log("userid2: "+userid2);
+} else {
+  console.log("userid2: " + window.localStorage.getItem("userid2"));
+}
+
 getFiles();
 
 const uploadFile = (file) => {
@@ -820,6 +944,7 @@ const uploadFile = (file) => {
 
   var fd = new FormData();
   fd.append("afile", file);
+  fd.append("userid2", window.localStorage.getItem("userid2"));
   // These extra params aren't necessary but show that you can include other data.
   //fd.append("username", "Groucho");
 
@@ -842,9 +967,10 @@ const uploadFile = (file) => {
       if (resp.data.uploadData.status == "media upload") {
         //console.log("we good: " + resp.data.uploadData.filename);
 
-        showMidiFiles();
+        //showMidiFiles();
+        getFiles(resp.data.uploadData.res);
 
-        downloadFile(resp.data.uploadData.filename);
+        downloadFile(resp.data.uploadData.res);
       }
 
       // var image = document.createElement("img");
@@ -865,7 +991,7 @@ const downloadFile = (path) => {
   //   newpath = path;
   // }
 
-  //console.log("download path: " + path);
+  console.log("download path: " + path);
 
   const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {

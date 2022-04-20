@@ -51,10 +51,9 @@ body {
 
 /* @media screen and (max-width: 645px) { */
 @media screen and (max-width: 950px) {
-
-  #fileDiv {
+#fileDiv {
     margin-bottom: 15px;
-  }
+}
 .dropIndicator {
     min-height: 615px !important;
 }
@@ -789,7 +788,7 @@ body {
     display: none;
 }
 .help {
-    position: absolute;
+    position: fixed;
     z-index: 250;
     background: rgba(1,1,1,0.5);
     width: 100%;
@@ -800,7 +799,6 @@ body {
     overflow: auto;
     display: none;
 }
-
 .optIn {
     position: absolute;
     z-index: 20;
@@ -810,8 +808,7 @@ body {
     height: auto;
     top: 0px;
     padding: 20px;
-    overflow: auto;
-    /* display: none; */
+    overflow: auto;/* display: none; */
 }
 .dropIndicator {
     position: absolute;
@@ -830,16 +827,13 @@ body {
 #info-container {
 /* border: 4px dashed #1f9716;opacity: .85; */
 }
-
 a.js-close.leadbox__close {
-  display: none !important;
-  background: #344e7e !important;
+    display: none !important;
+    background: #344e7e !important;
 }
-
 a.leadbox__close {
-  display: none !important;
-  background: #344e7e !important;
-
+    display: none !important;
+    background: #344e7e !important;
 }
 
 /* body {
@@ -912,7 +906,7 @@ a.leadbox__close {
 <script src="js-synthesizer.js"></script> --> 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
-<!-- <script src="https://embed.lpcontent.net/leadboxes/current/embed.js" async defer></script> <script>window.addEventListener('LPLeadboxesReady',function(){LPLeadboxes.addDelayedLeadbox('RbR2jRQUyquyorSaTxjMxh',{delay:'2s',views:1,dontShowFor:'1s',domain:'pianolessonwithwarren.lpages.co'});});</script> -->
+<!-- <script src="https://embed.lpcontent.net/leadboxes/current/embed.js" async defer></script> <script>window.addEventListener('LPLeadboxesReady',function(){LPLeadboxes.addDelayedLeadbox('RbR2jRQUyquyorSaTxjMxh',{delay:'2s',views:1,dontShowFor:'1s',domain:'pianolessonwithwarren.lpages.co'});});</script> --> 
 
 <script>
 
@@ -936,7 +930,7 @@ a.leadbox__close {
 
     const $body = $("body");
     $body.css("overflow", "auto");
-}
+  }
 
 $(document).ready(function () {
 
@@ -949,7 +943,7 @@ $(document).ready(function () {
 
       // setTimeout(() => {
       //   showPopup()
-      // }, 3000);
+      // }, 2000);
     }
     else {
 
@@ -957,7 +951,6 @@ $(document).ready(function () {
         showPopup()
         //after 5 minutes
       }, 1000*60*5);
-
     }
 
 // #sendMailForm takes the data from the form with given ID
@@ -1026,8 +1019,6 @@ $( '#sendMailForm' ).submit(function ( e ) {
 //       }, 5000);
 
 </script>
-
-
 <style>
   #form_8 { font-size:14px; line-height:1.6; font-family:arial, helvetica, sans-serif; margin:0; }
   #form_8 * { outline:0; }
@@ -1117,8 +1108,7 @@ $( '#sendMailForm' ).submit(function ( e ) {
   @media all and (min-width:320px) and (max-width:667px) { #form_8._inline-form._inline-style ._inline-style._button-wrapper { margin-top:20px !important; margin-left:0 !important; }
   }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&family=Roboto&display=swap" rel="stylesheet">
-  
+<link href="https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&family=Roboto&display=swap" rel="stylesheet">
 
 <body>
 
@@ -1145,18 +1135,16 @@ $( '#sendMailForm' ).submit(function ( e ) {
     -webkit-border-radius: 0px !important;
     border-radius: 0px !important;
     color: #000 !important;">
-  <div class="closeBtn" id="closeBtn2">Close</div>
-
-        <div style="margin-bottom: 20px"><h4 style="color:green">Contact Us</h4></div>
-
+      <div class="closeBtn" id="closeBtn2">Close</div>
+      <div style="margin-bottom: 20px">
+        <h4 style="color:green">Contact Us</h4>
+      </div>
       <div class="form-group user-name">
         <label for="name"  style="margin-bottom: 15px;">Name</label>
         <!-- "id" for taking name -->
         <div class="_form_element _x83770515 _full_width " style="margin-top: 10px;" >
-
-        <div class="_field-wrapper">
-
-        <input type="text" class="form-control" required="" id="name" placeholder="First Name" style="padding: 6px;
+          <div class="_field-wrapper">
+            <input type="text" class="form-control" required="" id="name" placeholder="First Name" style="padding: 6px;
         height: auto;
         border: #979797 1px solid;
         border-radius: 4px;
@@ -1165,16 +1153,15 @@ $( '#sendMailForm' ).submit(function ( e ) {
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box; width: 100%;">
-        </div></div>
+          </div>
+        </div>
       </div>
       <div class="form-group user-email">
         <label for="email" class="_form-label">Email</label>
         <!-- "id" for taking email -->
         <div class="_form_element _x83770515 _full_width " style="margin-top: 10px;" >
-
-        <div class="_field-wrapper">
-
-        <input type="email" class="form-control" required="" id="email2" placeholder="Email Address" style="padding: 6px;
+          <div class="_field-wrapper">
+            <input type="email" class="form-control" required="" id="email2" placeholder="Email Address" style="padding: 6px;
         height: auto;
         border: #979797 1px solid;
         border-radius: 4px;
@@ -1182,7 +1169,9 @@ $( '#sendMailForm' ).submit(function ( e ) {
         font-size: 14px;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
-        box-sizing: border-box; width: 100%;"></div></div>
+        box-sizing: border-box; width: 100%;">
+          </div>
+        </div>
       </div>
       <div class="form-group user-message"> 
         <!-- <label for="message" class="sr-only">Message</label> --> 
@@ -1239,15 +1228,14 @@ $( '#sendMailForm' ).submit(function ( e ) {
     </form>
   </div>
 </div> -->
-<div id="leadForm" style="position: absolute;
+<div id="leadForm" style="position: fixed;
 width: 100%;
 height: 100%;
 z-index: 200;
-background: rgba(1,1,1,0.5); display: none; ">
-
-<form method="POST" target="_blank" action="https://pianolessonwithwarren.activehosted.com/proc.php" id="form_8" class="_form _form_8 _inline-form _dark" novalidate>
-
-  <!-- <form method="POST" id="form_8" class="_form _form_8 _inline-form _dark" novalidate> -->
+background: rgba(1,1,1,0.5); display: none;">
+  <form method="POST" target="_blank" action="https://pianolessonwithwarren.activehosted.com/proc.php" id="form_8" class="_form _form_8 _inline-form _dark" novalidate>
+    
+    <!-- <form method="POST" id="form_8" class="_form _form_8 _inline-form _dark" novalidate> -->
     <input type="hidden" name="u" value="8" />
     <input type="hidden" name="f" value="8" />
     <input type="hidden" name="s" />
@@ -1258,26 +1246,22 @@ background: rgba(1,1,1,0.5); display: none; ">
     <input type="hidden" name="or" value="449f657556987da0d079bfa1b1417399" />
     <div class="_form-content">
     <div class="_form_element _x60581300 _full_width _clear" >
-    <div class="_form-title">
-    Enjoying the player? Complete the form below to continue!
-    </div>
+      <div class="_form-title" id="leadTitle" style="height: 50px;
+      display: flex;
+      align-items: center;">Enjoying the player? Complete the form below to continue!</div>
     </div>
     <div class="_form_element _x83770515 _full_width " >
-    <label for="fullname" class="_form-label">
-    First Name
-    </label>
-    <div class="_field-wrapper">
-    <input type="text" id="fullname" name="fullname" placeholder="Type your name" value="randall test" required/>
-    </div>
-    <!-- This STARTS the Custom Objects section -->
+      <label for="fullname" class="_form-label" id="nameLbl"> First Name </label>
+      <div class="_field-wrapper">
+        <input type="text" id="fullname" name="fullname" placeholder="Type your name" value="" required/>
+      </div>
+      <!-- This STARTS the Custom Objects section --> 
     </div>
     <div class="_form_element _x52018988 _full_width " >
-    <label for="email" class="_form-label">
-    Email*
-    </label>
+    <label for="email" class="_form-label"  id="emailLbl"> Email* </label>
     <div class="_field-wrapper">
-    <input type="text" id="email" name="email" value="registerrt1224@gmail.com" placeholder="Type your email" required/>
-    <div>Already a member? Log in</div>
+    <input type="text" id="email" name="email" value="" placeholder="Type your email" required/>
+    <!-- <div style="margin-top: 3px; cursor: pointer;" id="loginBtn">Already a member? Log in</div> -->
     <input style="margin-top: 20px;height: 30px;
     align-items: center;
     background: yellow !important;
@@ -1290,7 +1274,6 @@ background: rgba(1,1,1,0.5); display: none; ">
     justify-content: center;
     text-align: center;" type="submit" value="Submit" id="submitBtn" >
   </form>
-
 </div>
 <div id="app">
   <div id="settings">
@@ -1453,9 +1436,6 @@ background: rgba(1,1,1,0.5); display: none; ">
       src="./assets/images/tempo-menu.png" id="nav-icon" style="display: none;" /> <img
       src="./assets/images/loop-menu.png" id="loop-icon" style="display: none;" /> </div>
   <div class="nav">
-
-
-
     <div style="margin-right: 10px;" class="navBtn"><a href="http://pianolessonwithwarren.com" style="text-decoration: none;
       color: black;font-weight: bold;    text-align: center;">BACK TO MAIN WEBSITE</a></div>
     <div class="navBtn" style="font-weight: bold; text-align: center; margin-right: 10px;" id="howToBtn">HOW TO USE PLAYER</div>
@@ -1463,11 +1443,10 @@ background: rgba(1,1,1,0.5); display: none; ">
   </div>
   <div id="info-container" style="background-color: black; height: 100px;"> 
     <!-- <div id="infoClose" style="color: white; display: none; padding: 10px 0 0 10px;">X</div> -->
-    <div class="nav2">
-
+    <div class="nav2"> 
+      
       <!-- <script src="https://embed.lpcontent.net/leadboxes/current/embed.js" async defer></script> <button  id="leadBtn"  data-leadbox-popup="eiVFY5ZZHGHmQEzD4U6tGE" data-leadbox-domain="doubler582.lpages.co" class="navBtn">Click here to subscribe</button>  -->
-
-
+      
       <div style="margin-right: 10px;" class="navBtn"><a href="http://pianolessonwithwarren.com" style="text-decoration: none;
       color: black;font-weight: bold;text-align: center;">BACK TO MAIN WEBSITE</a></div>
       <div class="navBtn" style="font-weight: bold;text-align: center; margin-right: 10px;" id="howToBtn2">HOW TO USE PLAYER</div>
@@ -1482,7 +1461,8 @@ background: rgba(1,1,1,0.5); display: none; ">
           width: 180px;
           font-size: 12px;
           height: 25px;
-          border-radius: 5px; display: none;"></select>
+          border-radius: 5px; display: none;">
+          </select>
         </div>
       </div>
       <!-- <div id="drop_zone">
@@ -1577,8 +1557,6 @@ background: rgba(1,1,1,0.5); display: none; ">
       </div>
     </div>
   </div>
-
- 
   <div id="middle-content" style="margin-top: 30px;
         margin-left: auto;
         margin-right: auto;

@@ -7,10 +7,6 @@ $config = require( "s3/config.php" );
 
 include("./db/config.php");
 
-$pianolessons = mysql_pconnect( $hostname_pianolessons, $username_pianolessons, $password_pianolessons )or trigger_error( mysql_error(), E_USER_ERROR );
-
-//$pianolessons = mysqli_connect( $hostname_pianolessons, $username_pianolessons, $password_pianolessons, $database_pianolessons );
-
 use Aws\ S3\ S3Client;
 use Aws\ S3\ Exception\ S3Exception;
 
@@ -41,17 +37,7 @@ $date = date( "Y-m-d H:i:s" );
 $object = new stdClass();
 $object->filename = $filename;
 
-mysql_select_db( $database_pianolessons, $pianolessons );
 
-$query_rsFileData = sprintf(
-  "INSERT INTO midifiles (filename,s3name,userid,uploaddate) VALUES (%s,%s,%s,%s)",
-  GetSQLValueString( $keyname, "text" ),
-  GetSQLValueString( $filename, "text" ),
-  GetSQLValueString( 1, "int" ),
-  GetSQLValueString( $date, "date" )
-);
-
-$rsFileData = mysql_query( $query_rsFileData, $pianolessons )or die( mysql_error() );
 
 //$object->status = "data inserted";
 //
@@ -83,8 +69,7 @@ try {
     'ACL' => 'public-read'
   ] );
 
-  $object->status = "media upload";
-  $object->res = json_encode( $result[ 'ObjectURL' ] . PHP_EOL );
+
 
   // Print the URL to the object.
   //echo $result[ 'ObjectURL' ] . PHP_EOL;
@@ -95,6 +80,41 @@ try {
   //  echo "}";
   //  echo "}";
 
+
+if($debug == true)
+{
+	$query_rsFileData = sprintf(
+  "INSERT INTO midifiles (filename,s3name,userid2,uploaddate) VALUES (%s,%s,%s,%s)",
+  GetSQLValueString( $keyname, "text" ),
+  GetSQLValueString( $filename, "text" ),
+  GetSQLValueString( $_POST[ 'userid2' ], "text" ),
+  GetSQLValueString( $date, "date" )
+);
+	
+  $rsFileData = mysql_query( $query_rsFileData, $pianolessons )or die( mysql_error() );
+}
+else {
+	
+	$query_rsFileData = sprintf(
+  "INSERT INTO midifiles (filename,s3name,userid2,uploaddate) VALUES ('%s','%s','%s','".$date."')",
+		filter_var( $keyname, FILTER_SANITIZE_STRING ),
+		filter_var( $filename, FILTER_SANITIZE_STRING ),
+		filter_var( $_POST[ 'userid2' ], FILTER_SANITIZE_STRING ),
+);
+  $rsFileData = mysqli_query( $pianolessons, $query_rsFileData );
+}
+
+$object->status = "media upload";
+$object->res = $result[ 'ObjectURL' ];
+$object->userid = $_FILES[ 'userid2' ];
+$object->query = $query_rsFileData;
+
+echo "{\"data\":";
+  echo "{\"uploadData\":";
+  echo json_encode( $object );
+  echo "}";
+  echo "}";
+
 } catch ( S3Exception $e ) {
   //echo $e->getMessage() . PHP_EOL;
 
@@ -102,11 +122,8 @@ try {
   $object->status = "upload error";
 }
 
-echo "{\"data\":";
-echo "{\"uploadData\":";
-echo json_encode( $object );
-echo "}";
-echo "}";
+
+
 if ( move_uploaded_file( $_FILES[ 'afile' ][ 'tmp_name' ], "uploads/" . $filename ) ) {
 
   //echo "file moved\r\n";			
