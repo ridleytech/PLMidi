@@ -199,7 +199,7 @@ a {
   font-size: 22px;
   color: white !important;
   fill: white;
-  background-color: red;
+  /* background-color: red; */
   /* display: none; */
 }
 

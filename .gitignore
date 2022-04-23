@@ -128,3 +128,4 @@ aws/
 # s3/_notes/
 s3/
 db/
+debug/

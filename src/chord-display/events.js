@@ -147,6 +147,8 @@ function refresh() {
     if (chords.length > 0) {
       //console.log("chords: " + JSON.stringify(chords));
     } else {
+      //to do
+      //try filtering out duplicate notes from array to capture intervals
       //check interval
       // if (notes.length > 1) {
       //   console.log("check interval1");
@@ -203,6 +205,9 @@ function refresh() {
 
     // console.log("chord: " + JSON.stringify(chord));
     // var c = chord.tonic + chord.name;
+
+    //Chord.notes("CMaj7") // => ["C", "E", "G", "B"]
+    //Chord.notes("C", "maj7") // => ["C", "E", "G", "B"]
 
     // if (c == "Cmaj7") {
     //   //console.log("yup");

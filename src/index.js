@@ -38,7 +38,7 @@ const enableKeyboard = true;
 
 var url = "https://pianolessonwithwarren.com/dev_site";
 
-//url = "http://localhost:8888/pianolesson";
+url = "http://localhost:8888/pianolesson";
 
 //JSSynth.waitForReady().then(loadSynthesizer);
 
@@ -54,6 +54,32 @@ const pieces = [
     "../assets/midi/Lord You're Holy - Test.mid"
   ),
 ];
+
+// import { chord as detectChord } from "tonal/detect";
+// import * as Chord from "tonal-chord";
+
+//var notes = ["D#", "G", "A#", "D"];
+//var notes = ["C", "E", "G", "B", "D", "F"];
+
+//var notes = ["C", "E", "G", "B", "D", "F", "A"];
+
+//notes = ["C", "E", "G", "B"];
+
+//console.log("notes: " + JSON.stringify(Chord.notes("Cmaj13")));
+
+// var chords;
+
+// if (notes.length > 2) {
+//   chords = detectChord(notes);
+// }
+
+// //console.log("chords: " + JSON.stringify(chords));
+
+// setTimeout(() => {
+//   if (chords.length > 0) {
+//     console.log("chords: " + JSON.stringify(chords));
+//   }
+// }, 1000);
 
 var isChromium = window.chrome;
 var winNav = window.navigator;
@@ -928,13 +954,15 @@ function readableRandomStringMaker(length) {
   return s;
 }
 
+//window.localStorage.setItem("email", "registerrt1224@gmail.com");
+
 if (!window.localStorage.getItem("userid2")) {
   var userid2 = readableRandomStringMaker(17);
   window.localStorage.setItem("userid2", userid2);
 
-  //console.log("userid2: "+userid2);
+  //console.log("new userid2: " + userid2);
 } else {
-  //console.log("userid2: " + window.localStorage.getItem("userid2"));
+  //console.log("saved userid2: " + window.localStorage.getItem("userid2"));
 }
 
 getFiles();

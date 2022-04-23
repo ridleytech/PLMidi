@@ -3,7 +3,7 @@
 include("./db/config.php");
 
 //$query_rsFileInfo = "SELECT * FROM `midifiles` WHERE userid2 = '" . $_GET['userid2'] ."'";
-$query_rsFileInfo = "SELECT * FROM `midifiles`";
+$query_rsFileInfo = "SELECT * FROM `midifiles` order by filename ASC";
 
 $files = [];
 
