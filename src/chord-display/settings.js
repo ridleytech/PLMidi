@@ -14,8 +14,12 @@ const DEFAULT_SETTINGS = {
   latinNotationEnabled: false,
   pitchWheelEnabled: false,
   modWheelEnabled: false,
-  colorNote: "#2bce1f",
-  colorNote2: "#f6fa43",
+  // colorNote: "#2bce1f",
+  // colorNote2: "#f6fa43",
+
+  colorNote: window.localStorage.getItem("colorNote"),
+  colorNote2: window.localStorage.getItem("colorNote2"),
+
   colorPitchWheelDown: "#bf3a2b",
   colorPitchWheelUp: "#44ffaa",
   colorModWheel: "#44bbff",
@@ -32,9 +36,22 @@ let customSettings = {};
 export function getSetting(name) {
   // if (name == "colorNote") {
   //   console.log("customSettings: " + name + " : " + customSettings[name]);
-  // } else if (name == "colorNote2") {
+  // }
+
+  // if (name == "colorNote2") {
   //   console.log("customSettings: " + name + " : " + customSettings[name]);
   // }
+
+  if (name == "colorNote" || name == "colorNote2") {
+    if (window.localStorage.getItem("colorNote")) {
+      const newSettings = {
+        colorNote: window.localStorage.getItem("colorNote"),
+        colorNote2: window.localStorage.getItem("colorNote2"),
+      };
+
+      Object.assign(customSettings, newSettings);
+    }
+  }
 
   return customSettings[name] !== undefined
     ? customSettings[name]
@@ -45,12 +62,13 @@ export function setSetting(name, value) {
   window.localStorage.setItem(name, value);
 
   customSettings[name] = value;
-  saveQueryParams();
+
+  //saveQueryParams();
 
   updateKeys();
 }
 
-function updateKeys() {
+export function updateKeys() {
   var headTag = document.getElementsByTagName("head")[0];
 
   let keysSheet = document.getElementById("keysSheet");
@@ -64,21 +82,21 @@ function updateKeys() {
   style.type = "text/css";
   style.innerHTML =
     ".note.white.active .piano-key {filter: url(#insetKey); fill: " +
-    getSetting("colorNote") +
+    window.localStorage.getItem("colorNote") +
     "; } .note.black.active .piano-key {filter: url(#insetKey); fill: " +
-    getSetting("colorNote") +
+    window.localStorage.getItem("colorNote") +
     ";}.note.white.activeRight .piano-key {filter: url(#insetKey); fill: " +
     getSetting("colorNote2") +
     ";} .note.black.activeRight .piano-key {filter: url(#insetKey); fill: " +
     getSetting("colorNote2") +
     ";} .note.white.activeUser .piano-key {filter: url(#insetKey); fill: " +
-    getSetting("colorNote") +
+    window.localStorage.getItem("colorNote") +
     ";}  .note.black.activeUser .piano-key {filter: url(#insetKey); fill: " +
-    getSetting("colorNote") +
+    window.localStorage.getItem("colorNote") +
     ";} .note.white.activeUserRight .piano-key {filter: url(#insetKey); fill: " +
-    getSetting("colorNote2") +
+    window.localStorage.getItem("colorNote2") +
     ";} .note.black.activeUserRight .piano-key {filter: url(#insetKey); fill: " +
-    getSetting("colorNote2") +
+    window.localStorage.getItem("colorNote2") +
     "; }";
 
   headTag.appendChild(style);
@@ -105,6 +123,8 @@ function qsValueDecoder(str, decoder, charset) {
 
 function parseQueryParams() {
   //console.log("window.location.search: " + window.location.search);
+
+  return;
 
   var search = window.location.search;
 

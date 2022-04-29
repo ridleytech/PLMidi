@@ -38,7 +38,7 @@ const enableKeyboard = true;
 
 var url = "https://pianolessonwithwarren.com/dev_site";
 
-url = "http://localhost:8888/pianolesson";
+//url = "http://localhost:8888/pianolesson";
 
 //JSSynth.waitForReady().then(loadSynthesizer);
 
@@ -963,6 +963,17 @@ if (!window.localStorage.getItem("userid2")) {
   //console.log("new userid2: " + userid2);
 } else {
   //console.log("saved userid2: " + window.localStorage.getItem("userid2"));
+}
+
+if (!window.localStorage.getItem("colorNote")) {
+  console.log("set default c1");
+  window.localStorage.setItem("colorNote", "#2bce1f");
+}
+
+if (!window.localStorage.getItem("colorNote2")) {
+  console.log("set default c2");
+
+  window.localStorage.setItem("colorNot2e", "#f6fa43");
 }
 
 getFiles();

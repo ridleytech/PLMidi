@@ -1,6 +1,6 @@
 import Note from "tonal/note";
 import { range, mixRGB } from "./utils";
-import { getSetting } from "./settings";
+import { getSetting, updateKeys } from "./settings";
 import { Midi } from "@tonaljs/tonal";
 
 const keyboardContainer = document.getElementById("keyboard");
@@ -502,8 +502,15 @@ export function render(reset) {
   const noteEnd = getSetting("noteEnd");
   const pitchWheelEnabled = getSetting("pitchWheelEnabled");
   const modWheelEnabled = getSetting("modWheelEnabled");
-  const colorNote = getSetting("colorNote");
-  const colorNote2 = getSetting("colorNote2");
+
+  // console.log("render: " + "cn1: " + getSetting("colorNote"));
+  // console.log("render: " + "cn2: " + getSetting("colorNote2"));
+
+  // const colorNote = getSetting("colorNote");
+  // const colorNote2 = getSetting("colorNote2");
+
+  const colorNote = window.localStorage.getItem("colorNote");
+  const colorNote2 = window.localStorage.getItem("colorNote2");
 
   const colorNoteWhite = colorNote;
   const colorNoteBlack = colorNote2;
@@ -537,6 +544,8 @@ export function render(reset) {
     setPitchWheel(currentPitch);
     setModWheel(currentMod);
   }
+
+  updateKeys();
 }
 
 export function renderAccidental() {
@@ -544,8 +553,11 @@ export function renderAccidental() {
   const noteEnd = getSetting("noteEnd");
   const pitchWheelEnabled = getSetting("pitchWheelEnabled");
   const modWheelEnabled = getSetting("modWheelEnabled");
-  const colorNote = getSetting("colorNote");
-  const colorNote2 = getSetting("colorNote2");
+  // const colorNote = getSetting("colorNote");
+  // const colorNote2 = getSetting("colorNote2");
+
+  const colorNote = window.localStorage.getItem("colorNote");
+  const colorNote2 = window.localStorage.getItem("colorNote2");
 
   const colorNoteWhite = colorNote;
   const colorNoteBlack = colorNote2;
