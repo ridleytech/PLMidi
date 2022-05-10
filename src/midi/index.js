@@ -55,7 +55,9 @@ export class FancyMidiPlayer {
 
     this.barField = document.querySelector("#bar");
     this.beatField = document.querySelector("#beat");
+
     this.progressSlider = document.querySelector("#progressSlider");
+    this.midiContainer = document.querySelector("#midi-container");
 
     this.accidentalSwitch = document.querySelector("#accidentalSwitch");
     this.speedLbl = document.querySelector("#speed");
@@ -85,26 +87,31 @@ export class FancyMidiPlayer {
 
     this.ke = null;
 
-    this.playButton.onmouseout = () => {
-      this.buttonHovered = false;
-      //console.log("hovered: " + this.buttonHovered);
-    };
+    if (this.playButton) {
+      this.playButton.onmouseout = () => {
+        this.buttonHovered = false;
+        //console.log("hovered: " + this.buttonHovered);
+      };
 
-    this.playButton.onmouseover = () => {
-      this.buttonHovered = true;
-      //console.log("hovered: " + this.buttonHovered);
-    };
+      this.playButton.onmouseover = () => {
+        this.buttonHovered = true;
+        //console.log("hovered: " + this.buttonHovered);
+      };
 
-    this.playButton.onmouseover = () => {
-      this.buttonHovered = false;
-      //console.log("hovered: " + this.buttonHovered);
-    };
+      this.playButton.onmouseover = () => {
+        this.buttonHovered = false;
+        //console.log("hovered: " + this.buttonHovered);
+      };
+    }
 
     setTimeout(() => {
       // this.sliderWrapper = document.querySelector(".slider-wrapper");
       // this.sliderWrapper.style.display = "none";
-      this.noSliderWrapper = document.getElementById("noSliderWrapper");
-      this.noSliderWrapper.style.display = "none";
+
+      if (this.midiContainer) {
+        this.noSliderWrapper = document.getElementById("noSliderWrapper");
+        this.noSliderWrapper.style.display = "none";
+      }
       //console.log("sl: " + this.sliderWrapper);
 
       // this.pianoKeyNames = document.querySelector(".piano-key-name");
@@ -458,7 +465,9 @@ export class FancyMidiPlayer {
     }
 
     this.progressSlider.value = this.currentProgress;
-    this.loopSlider3.noUiSlider.set([null, this.currentProgress]);
+    if (this.loopSlider3) {
+      this.loopSlider3.noUiSlider.set([null, this.currentProgress]);
+    }
   }
 
   onNoteOnEvent(event) {
@@ -780,7 +789,10 @@ export class FancyMidiPlayer {
     //console.log("new tempo val for slider: " + newVal);
 
     //this.tempoSlider.value = newVal;
-    this.speedslider.noUiSlider.set(newVal);
+
+    if (this.speedslider) {
+      this.speedslider.noUiSlider.set(newVal);
+    }
 
     if (this.currentlyPlaying) {
       //console.log("resume play after speed change");
@@ -809,7 +821,9 @@ export class FancyMidiPlayer {
     this.speedLbl.innerHTML = speedPercentage.toFixed(0).toString() + "%";
 
     //this.tempoSlider.value = newVal;
-    this.speedslider.noUiSlider.set(newVal);
+    if (this.speedslider) {
+      this.speedslider.noUiSlider.set(newVal);
+    }
   }
 
   setStartLoop() {
@@ -823,12 +837,17 @@ export class FancyMidiPlayer {
 
     //this.loopSlider.val[0] = this.loopStart;
 
-    this.loopSlider2.noUiSlider.set([this.loopStart, this.loopEnd]);
-    this.loopSlider3.noUiSlider.set([
-      this.loopStart,
-      this.currentProgress,
-      this.loopEnd,
-    ]);
+    if (this.loopSlider2) {
+      this.loopSlider2.noUiSlider.set([this.loopStart, this.loopEnd]);
+    }
+
+    if (this.speedslider) {
+      this.speedslider.noUiSlider.set([
+        this.loopStart,
+        this.currentProgress,
+        this.loopEnd,
+      ]);
+    }
 
     //console.log("this.loopSlider: " + this.loopSlider.value[0]);
   }
@@ -842,12 +861,17 @@ export class FancyMidiPlayer {
 
     this.loopEnd = this.currentProgress;
 
-    this.loopSlider2.noUiSlider.set([this.loopStart, this.loopEnd]);
-    this.loopSlider3.noUiSlider.set([
-      this.loopStart,
-      this.currentProgress,
-      this.loopEnd,
-    ]);
+    if (this.loopSlider2) {
+      this.loopSlider2.noUiSlider.set([this.loopStart, this.loopEnd]);
+    }
+
+    if (this.loopSlider3) {
+      this.loopSlider3.noUiSlider.set([
+        this.loopStart,
+        this.currentProgress,
+        this.loopEnd,
+      ]);
+    }
     //this.loopSlider[1].value = this.loopEnd;
   }
 
@@ -866,12 +890,17 @@ export class FancyMidiPlayer {
       this.loopStart = 0;
       this.loopEnd = 100;
 
-      this.loopSlider2.noUiSlider.set([this.loopStart, this.loopEnd]);
-      this.loopSlider3.noUiSlider.set([
-        this.loopStart,
-        this.currentProgress,
-        this.loopEnd,
-      ]);
+      if (this.loopSlider2) {
+        this.loopSlider2.noUiSlider.set([this.loopStart, this.loopEnd]);
+      }
+
+      if (this.loopSlider3) {
+        this.loopSlider3.noUiSlider.set([
+          this.loopStart,
+          this.currentProgress,
+          this.loopEnd,
+        ]);
+      }
     } else {
       this.loopButton.classList.add("loopEnabled");
       //this.sliderWrapper.style.display = "block";
@@ -929,7 +958,11 @@ export class FancyMidiPlayer {
       this.player.skipToPercent(parseInt(this.currentProgress));
 
       this.progressSlider.value = this.currentProgress;
-      this.loopSlider3.noUiSlider.set([null, this.currentProgress]);
+
+      if (this.loopSlider3) {
+        this.loopSlider3.noUiSlider.set([null, this.currentProgress]);
+      }
+
       if (this.currentlyPlaying) {
         fadeAllNotes();
         this.currentNotes = [];
@@ -945,8 +978,10 @@ export class FancyMidiPlayer {
       this.player.skipToPercent(parseInt(this.currentProgress));
 
       this.progressSlider.value = this.currentProgress;
-      this.loopSlider3.noUiSlider.set([null, this.currentProgress]);
 
+      if (this.loopSlider3) {
+        this.loopSlider3.noUiSlider.set([null, this.currentProgress]);
+      }
       if (this.currentlyPlaying) {
         fadeAllNotes();
         this.currentNotes = [];
@@ -974,7 +1009,9 @@ export class FancyMidiPlayer {
     this.currentNotes = [];
     this.refresh();
 
-    this.playButton.classList.add("paused");
+    if (this.playButton) {
+      this.playButton.classList.add("paused");
+    }
 
     clearInterval(this.loopTimer);
     this.loopTimer = setInterval(() => {
@@ -992,7 +1029,9 @@ export class FancyMidiPlayer {
   }
 
   pauseMidi() {
-    this.playButton.classList.remove("paused");
+    if (this.playButton) {
+      this.playButton.classList.remove("paused");
+    }
     this.currentlyPlaying = false;
     clearInterval(this.loopTimer);
     clearInterval(this.songTimer);
@@ -1006,7 +1045,9 @@ export class FancyMidiPlayer {
     //console.log("stop midi");
     this.player.stop();
     this.currentlyPlaying = false;
-    this.playButton.classList.remove("paused");
+    if (this.playButton) {
+      this.playButton.classList.remove("paused");
+    }
 
     if (this.isLooping) {
       this.currentProgress = this.loopStart;
@@ -1026,8 +1067,10 @@ export class FancyMidiPlayer {
     this.beatField.innerHTML = ": " + this.displayBeat.toString();
     songLength.innerHTML = new Date(0 * 1000).toISOString().substr(11, 8);
     this.progressSlider.value = this.currentProgress;
-    this.loopSlider3.noUiSlider.set([null, this.currentProgress]);
 
+    if (this.loopSlider3) {
+      this.loopSlider3.noUiSlider.set([null, this.currentProgress]);
+    }
     this.currentNotes = [];
     this.refresh();
   }

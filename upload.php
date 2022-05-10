@@ -58,6 +58,11 @@ $s3 = new S3Client( [
 
 //echo "client<br>";
 
+if(!isset($_POST[ 'categoryid' ])){
+
+  $_POST[ 'categoryid' ] = "1";
+}
+
 //$query_rsFileInfo = "SELECT * FROM `midifiles` WHERE userid2 = '" . $_GET[ 'userid2' ] . "' AND filename = '" + $filename + "'";
 
 $query_rsFileInfo = "SELECT * FROM `midifiles` WHERE filename = '" . $keyname . "'";
@@ -105,7 +110,7 @@ if ( $totalRows_rsFileInfo > 0 ) {
     //      GetSQLValueString( $keyname, "text" )
     //    );
 
-    $query_rsFileData = "UPDATE midifiles SET s3name = '$filename',uploaddate = '$date' WHERE filename = '$keyname'";
+    $query_rsFileData = "UPDATE midifiles SET s3name = '$keyname',uploaddate = '$date' WHERE filename = '$keyname'";
 
     $rsFileData = mysql_query( $query_rsFileData, $pianolessons )or die( mysql_error() );
   } else {
@@ -117,7 +122,7 @@ if ( $totalRows_rsFileInfo > 0 ) {
     //      filter_var( $keyname, FILTER_SANITIZE_STRING )
     //    );
 
-    $query_rsFileData = "UPDATE midifiles SET s3name = '$filename',uploaddate = '$date' WHERE filename = '$keyname'";
+    $query_rsFileData = "UPDATE midifiles SET s3name = '$keyname',uploaddate = '$date' WHERE filename = '$keyname'";
 
     $rsFileData = mysqli_query( $pianolessons, $query_rsFileData );
   }
@@ -128,7 +133,7 @@ if ( $totalRows_rsFileInfo > 0 ) {
 
     $result = $s3->deleteObject( [
       'Bucket' => $bucket,
-      'Key' => $row_rsFileInfo[ 's3name' ],
+      'Key' => $keyname,
     ] );
 
   } catch ( S3Exception $e ) {
@@ -141,7 +146,7 @@ if ( $totalRows_rsFileInfo > 0 ) {
 
     $result = $s3->putObject( [
       'Bucket' => $bucket,
-      'Key' => $filename,
+      'Key' => $keyname,
       'SourceFile' => $source,
       'ACL' => 'public-read'
     ] );
@@ -156,7 +161,7 @@ if ( $totalRows_rsFileInfo > 0 ) {
     //  echo "}";
 
     $object = new stdClass();
-    $object->filename = $filename;
+    $object->filename = $keyname;
     //$object->status = "media upload";
     //$object->res = $result[ 'ObjectURL' ];
     $object->userid = $_POST[ 'userid2' ];
@@ -188,10 +193,11 @@ if ( $totalRows_rsFileInfo > 0 ) {
 
   if ( $debug == true ) {
     $query_rsFileData = sprintf(
-      "INSERT INTO midifiles (filename,s3name,userid2,uploaddate) VALUES (%s,%s,%s,%s)",
+      "INSERT INTO midifiles (filename,s3name,userid2,categoryid,uploaddate) VALUES (%s,%s,%s,%s,%s)",
       GetSQLValueString( $keyname, "text" ),
-      GetSQLValueString( $filename, "text" ),
+      GetSQLValueString( $keyname, "text" ),
       GetSQLValueString( $_POST[ 'userid2' ], "text" ),
+      GetSQLValueString( $_POST[ 'categoryid' ], "text" ),
       GetSQLValueString( $date, "date" )
     );
 
@@ -199,10 +205,11 @@ if ( $totalRows_rsFileInfo > 0 ) {
   } else {
 
     $query_rsFileData = sprintf(
-      "INSERT INTO midifiles (filename,s3name,userid2,uploaddate) VALUES ('%s','%s','%s','" . $date . "')",
+      "INSERT INTO midifiles (filename,s3name,userid2,categoryid,uploaddate) VALUES ('%s','%s','%s','%s','" . $date . "')",
       filter_var( $keyname, FILTER_SANITIZE_STRING ),
-      filter_var( $filename, FILTER_SANITIZE_STRING ),
-      filter_var( $_POST[ 'userid2' ], FILTER_SANITIZE_STRING )
+      filter_var( $keyname, FILTER_SANITIZE_STRING ),
+      filter_var( $_POST[ 'userid2' ], FILTER_SANITIZE_STRING),
+      filter_var( $_POST[ 'categoryid' ], FILTER_SANITIZE_STRING)
     );
     $rsFileData = mysqli_query( $pianolessons, $query_rsFileData );
   }
@@ -212,7 +219,7 @@ if ( $totalRows_rsFileInfo > 0 ) {
     // Upload data.
     $result = $s3->putObject( [
       'Bucket' => $bucket,
-      'Key' => $filename,
+      'Key' => $keyname,
       'SourceFile' => $source,
       'ACL' => 'public-read'
     ] );
@@ -227,7 +234,7 @@ if ( $totalRows_rsFileInfo > 0 ) {
     //  echo "}";
 
     $object = new stdClass();
-    $object->filename = $filename;
+    $object->filename = $keyname;
     //$object->status = "media upload";
     $object->res = $result[ 'ObjectURL' ];
     $object->userid = $userid;

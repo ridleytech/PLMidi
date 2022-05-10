@@ -4,6 +4,10 @@ const createMusicalPiece = (id, name, path) => ({ id, name, path });
 import "html-midi-player";
 import noUiSlider from "nouislider";
 import "nouislider/dist/nouislider.css";
+// import data from "./data/questions.json";
+import { Key } from "@tonaljs/tonal";
+
+//console.log("pitch quesitons: " + data.Pitch.level1Questions.length);
 
 //import * as JSSynth from "js-synthesizer";
 
@@ -14,6 +18,7 @@ import {
   pitchWheel,
   modWheel,
   polyPressure,
+  setCurrentQuestion,
 } from "./chord-display/events";
 import {
   // setChordHtml,
@@ -40,12 +45,10 @@ var url = "https://pianolessonwithwarren.com/dev_site";
 
 //url = "http://localhost:8888/pianolesson";
 
-var currentCategory;
-
 //JSSynth.waitForReady().then(loadSynthesizer);
 
 function loadSynthesizer() {
-  //console.log("load synth");
+  console.log("load synth");
   // process with JSSynth...
 }
 
@@ -62,7 +65,9 @@ const pieces = [
 
 //var notes = ["D#", "G", "A#", "D"];
 //var notes = ["C", "E", "G", "B", "D", "F"];
+
 //var notes = ["C", "E", "G", "B", "D", "F", "A"];
+
 //notes = ["C", "E", "G", "B"];
 
 //console.log("notes: " + JSON.stringify(Chord.notes("Cmaj13")));
@@ -114,11 +119,9 @@ const body = document.querySelector("#info-container");
 // const dropIndicator = document.querySelector(".dropIndicator");
 const closeBtn = document.querySelector("#closeBtn");
 const closeBtn2 = document.querySelector("#closeBtn2");
-const closeBtn3 = document.querySelector("#closeBtn3");
 
 const video = document.querySelector(".video");
 const help = document.querySelector(".help");
-const categories = document.querySelector(".categories");
 
 const videoPlayer = document.querySelector("#videoPlayer");
 
@@ -131,16 +134,49 @@ const helpBtn2 = document.querySelector("#helpBtn2");
 const submitBtn = document.querySelector("#submitBtn");
 const email = document.querySelector("#email");
 const name = document.querySelector("#fullname");
+const midiContainer = document.querySelector("#midi-container");
+const nextBtn = document.querySelector("#nextBtn");
 
 var myMidiFiles;
-var myMidiCategories;
+
+const resultDiv = document.getElementById("testResult");
+// resultDiv.innerHTML = "";
+
+const shuffle = (array) => {
+  var currentIndex = array.length,
+    temporaryValue,
+    randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+  return array;
+};
+
+var currentKey = "C";
+
+var currentQuestions = shuffle(Key.majorKey(currentKey).chords);
+var currentQuestionInd = -1;
+
+console.log("currentQuestions: " + JSON.stringify(currentQuestions));
+
+// var currenQuestion = currentQuestions[currentQuestionInd];
+// setCurrentQuestion(currenQuestion);
+// resultDiv.innerHTML = "Play " + currenQuestion;
 
 // const loginBtn = document.querySelector("#loginBtn");
-
 // loginBtn.addEventListener("click", showLogin, true);
 
 function showLogin() {
-  //console.log("showLogin");
+  console.log("showLogin");
 
   const $leadTitle = $("#leadTitle");
   const $nameLbl = $("#nameLbl");
@@ -151,7 +187,7 @@ function showLogin() {
   const $submitBtn = $("#submitBtn");
   const $form_8 = $("#form_8");
 
-  //console.log("header: " + $("#leadTitle").text());
+  console.log("header: " + $("#leadTitle").text());
   if (
     $("#leadTitle").text() ==
     "Enjoying the player? Complete the form below to continue!"
@@ -259,76 +295,106 @@ const setAppBusy = (isBusy) => {
   // leadBtn.removeEventListener("click", e, false);
 
   if (isBusy) {
-    playButton.setAttribute("disabled", true);
-    stopButton.setAttribute("disabled", true);
-    loopButton.setAttribute("disabled", true);
-    startLoopButton.setAttribute("disabled", true);
-    endLoopButton.setAttribute("disabled", true);
+    if (playButton) {
+      playButton.setAttribute("disabled", true);
+      stopButton.setAttribute("disabled", true);
+      loopButton.setAttribute("disabled", true);
+      startLoopButton.setAttribute("disabled", true);
+      endLoopButton.setAttribute("disabled", true);
+    }
 
     //musicalPiecesSelect.setAttribute("disabled", true);
   } else {
-    playButton.removeAttribute("disabled");
-    stopButton.removeAttribute("disabled");
-    loopButton.removeAttribute("disabled");
-    startLoopButton.removeAttribute("disabled");
-    endLoopButton.removeAttribute("disabled");
-
+    if (playButton) {
+      playButton.removeAttribute("disabled");
+      stopButton.removeAttribute("disabled");
+      loopButton.removeAttribute("disabled");
+      startLoopButton.removeAttribute("disabled");
+      endLoopButton.removeAttribute("disabled");
+    }
     //tempoSlider.value = 50;
 
     //musicalPiecesSelect.removeAttribute("disabled");
   }
 };
 
-var slider = document.getElementById("noslider");
+setTimeout(() => {
+  displayQuestion();
+}, 2000);
 
-noUiSlider.create(slider, {
-  start: [0, 100],
-  connect: true,
-  range: {
-    min: 0,
-    max: 100,
-  },
-});
-
-var slider2 = document.getElementById("noslider2");
-
-// noUiSlider.create(slider2, {
-//   start: [0, 10],
-//   connect: true,
-//   range: {
-//     min: 0,
-//     max: 100,
-//   },
-// });
-
-noUiSlider.create(slider2, {
-  start: [0, 10, 90],
-  connect: true,
-  range: {
-    min: 0,
-    max: 100,
-  },
-});
-
-//slider2.setAttribute("disabled", true);
-
-var origins = slider2.getElementsByClassName("noUi-origin");
-
-origins[0].setAttribute("disabled", true);
-
-var connect = slider2.querySelectorAll(".noUi-connect");
-
-//console.log("connect: " + connect);
-var classes = ["c-1-color", "c-2-color", "c-3-color"];
-
-for (var i = 0; i < connect.length; i++) {
-  connect[i].classList.add(classes[i]);
+if (nextBtn) {
+  nextBtn.addEventListener("click", nextQuestion, true);
+  function nextQuestion(e) {
+    displayQuestion();
+  }
 }
 
-slider2.noUiSlider.on("change", doSomething);
-// slider2.noUiSlider.on("change.one", function () {
-//   console.log("go");
-// });
+function displayQuestion() {
+  currentQuestionInd++;
+
+  console.log("currentQuestions: " + JSON.stringify(currentQuestions));
+
+  console.log("go to next question: " + currentQuestionInd);
+
+  var currentAnswer = currentQuestions[currentQuestionInd];
+  //setCurrentQuestion(currenQuestion);
+
+  resultDiv.innerHTML = "Play " + currentAnswer;
+
+  nextBtn.style.visibility = "hidden";
+
+  setCurrentQuestion(currentAnswer);
+}
+
+var slider = document.getElementById("noslider");
+
+if (slider) {
+  noUiSlider.create(slider, {
+    start: [0, 100],
+    connect: true,
+    range: {
+      min: 0,
+      max: 100,
+    },
+  });
+}
+
+var slider2 = document.getElementById("noslider2");
+if (slider2) {
+  noUiSlider.create(slider2, {
+    start: [0, 10, 90],
+    connect: true,
+    range: {
+      min: 0,
+      max: 100,
+    },
+  });
+
+  //slider2.setAttribute("disabled", true);
+
+  var origins = slider2.getElementsByClassName("noUi-origin");
+
+  origins[0].setAttribute("disabled", true);
+
+  var connect = slider2.querySelectorAll(".noUi-connect");
+
+  //console.log("connect: " + connect);
+  var classes = ["c-1-color", "c-2-color", "c-3-color"];
+
+  for (var i = 0; i < connect.length; i++) {
+    connect[i].classList.add(classes[i]);
+  }
+
+  slider2.noUiSlider.on("change", doSomething);
+  // slider2.noUiSlider.on("change.one", function () {
+  //   console.log("go");
+  // });
+
+  slider2.noUiSlider.on("change", doSomething);
+  // slider2.noUiSlider.on("change.one", function () {
+  //   console.log("go");
+  // });
+}
 
 function doSomething(values, handle, unencoded, tap, positions, noUiSlider) {
   //console.log("go2: " + parseInt(values[1]));
@@ -343,40 +409,39 @@ function doSomething(values, handle, unencoded, tap, positions, noUiSlider) {
   // noUiSlider: slider public Api (noUiSlider);
 }
 
-slider2.noUiSlider.on("change", doSomething);
-// slider2.noUiSlider.on("change.one", function () {
-//   console.log("go");
-// });
-
 //speed slider
 
 var speedslider = document.getElementById("noslider3");
 
-noUiSlider.create(speedslider, {
-  start: 50,
+if (speedslider) {
+  noUiSlider.create(speedslider, {
+    start: 50,
 
-  // Disable animation on value-setting,
-  // so the sliders respond immediately.
-  animate: false,
-  range: {
-    min: -45,
-    max: 100,
-  },
-});
+    // Disable animation on value-setting,
+    // so the sliders respond immediately.
+    animate: false,
+    range: {
+      min: -45,
+      max: 100,
+    },
+  });
+}
 
 //pitch slider
 
 var pitchSlider = document.getElementById("noslider4");
 
-noUiSlider.create(pitchSlider, {
-  start: 0,
+if (pitchSlider) {
+  noUiSlider.create(pitchSlider, {
+    start: 0,
 
-  animate: false,
-  range: {
-    min: -12,
-    max: 12,
-  },
-});
+    animate: false,
+    range: {
+      min: -12,
+      max: 12,
+    },
+  });
+}
 
 const fmp = new FancyMidiPlayer(document);
 setAppBusy(true);
@@ -387,8 +452,10 @@ fmp.setInstrument(instrumentUrl).then(() => {
   const startLoopButton = document.querySelector("#start-loop");
   const endLoopButton = document.querySelector("#end-loop");
 
-  playButton.addEventListener("click", handleCheckboxEvent, true);
-  playButton.addEventListener("keyup", handleCheckboxEvent, true);
+  if (playButton) {
+    playButton.addEventListener("click", handleCheckboxEvent, true);
+    playButton.addEventListener("keyup", handleCheckboxEvent, true);
+  }
 
   const navIconBtn = document.querySelector("#nav-icon");
   const loopNavBtn = document.querySelector("#loop-icon");
@@ -403,64 +470,82 @@ fmp.setInstrument(instrumentUrl).then(() => {
 
   //navCloseBtn.addEventListener("click", closeNav, true);
 
-  speedslider.noUiSlider.on("update", changeTempo);
+  if (speedslider) {
+    speedslider.noUiSlider.on("update", changeTempo);
 
-  function changeTempo(values, handle, unencoded, tap, positions, noUiSlider) {
-    //console.log("go3: " + parseInt(values));
+    function changeTempo(
+      values,
+      handle,
+      unencoded,
+      tap,
+      positions,
+      noUiSlider
+    ) {
+      //console.log("go3: " + parseInt(values));
 
-    fmp.updateTempoInput(parseInt(values));
+      fmp.updateTempoInput(parseInt(values));
+    }
+
+    speedslider.noUiSlider.on("change", setSliderTempo);
+
+    function setSliderTempo(
+      values,
+      handle,
+      unencoded,
+      tap,
+      positions,
+      noUiSlider
+    ) {
+      //console.log("go2: " + parseInt(values));
+
+      fmp.setSliderTempo(parseInt(values));
+
+      // values: Current slider values (array);
+      // handle: Handle that caused the event (number);
+      // unencoded: Slider values without formatting (array);
+      // tap: Event was caused by the user tapping the slider (boolean);
+      // positions: Left offset of the handles (array);
+      // noUiSlider: slider public Api (noUiSlider);
+    }
   }
 
-  speedslider.noUiSlider.on("change", setSliderTempo);
+  if (pitchSlider) {
+    pitchSlider.noUiSlider.on("update", changePitch);
 
-  function setSliderTempo(
-    values,
-    handle,
-    unencoded,
-    tap,
-    positions,
-    noUiSlider
-  ) {
-    //console.log("go2: " + parseInt(values));
+    function changePitch(
+      values,
+      handle,
+      unencoded,
+      tap,
+      positions,
+      noUiSlider
+    ) {
+      //console.log("go3: " + parseInt(values));
 
-    fmp.setSliderTempo(parseInt(values));
+      fmp.updatePitchSlider(parseInt(values));
+    }
 
-    // values: Current slider values (array);
-    // handle: Handle that caused the event (number);
-    // unencoded: Slider values without formatting (array);
-    // tap: Event was caused by the user tapping the slider (boolean);
-    // positions: Left offset of the handles (array);
-    // noUiSlider: slider public Api (noUiSlider);
-  }
+    pitchSlider.noUiSlider.on("change", setSliderPitch);
 
-  pitchSlider.noUiSlider.on("update", changePitch);
+    function setSliderPitch(
+      values,
+      handle,
+      unencoded,
+      tap,
+      positions,
+      noUiSlider
+    ) {
+      //console.log("go2: " + parseInt(values));
 
-  function changePitch(values, handle, unencoded, tap, positions, noUiSlider) {
-    //console.log("go3: " + parseInt(values));
+      fmp.updatePitchSlider(parseInt(values));
 
-    fmp.updatePitchSlider(parseInt(values));
-  }
-
-  pitchSlider.noUiSlider.on("change", setSliderPitch);
-
-  function setSliderPitch(
-    values,
-    handle,
-    unencoded,
-    tap,
-    positions,
-    noUiSlider
-  ) {
-    //console.log("go2: " + parseInt(values));
-
-    fmp.updatePitchSlider(parseInt(values));
-
-    // values: Current slider values (array);
-    // handle: Handle that caused the event (number);
-    // unencoded: Slider values without formatting (array);
-    // tap: Event was caused by the user tapping the slider (boolean);
-    // positions: Left offset of the handles (array);
-    // noUiSlider: slider public Api (noUiSlider);
+      // values: Current slider values (array);
+      // handle: Handle that caused the event (number);
+      // unencoded: Slider values without formatting (array);
+      // tap: Event was caused by the user tapping the slider (boolean);
+      // positions: Left offset of the handles (array);
+      // noUiSlider: slider public Api (noUiSlider);
+    }
   }
 
   function closeNav(e) {
@@ -502,10 +587,12 @@ fmp.setInstrument(instrumentUrl).then(() => {
     }
   }
 
-  stopButton.onclick = fmp.stopMidi.bind(fmp);
-  loopButton.onclick = fmp.manageLoop.bind(fmp);
-  startLoopButton.onclick = fmp.setStartLoop.bind(fmp);
-  endLoopButton.onclick = fmp.setEndLoop.bind(fmp);
+  if (stopButton) {
+    stopButton.onclick = fmp.stopMidi.bind(fmp);
+    loopButton.onclick = fmp.manageLoop.bind(fmp);
+    startLoopButton.onclick = fmp.setStartLoop.bind(fmp);
+    endLoopButton.onclick = fmp.setEndLoop.bind(fmp);
+  }
 
   //const drop = document.querySelector("#drop_zone");
 
@@ -543,18 +630,8 @@ function closeVideo(ev) {
 
 closeBtn2.addEventListener("click", closeHelp, true);
 
-closeBtn3.addEventListener("click", closeCategories, true);
-
 function closeHelp(ev) {
   help.style.display = "none";
-
-  const $body = $("body");
-  $body.css("overflow", "auto");
-}
-
-function closeCategories(ev) {
-  //console.log("close cats");
-  categories.style.display = "none";
 
   const $body = $("body");
   $body.css("overflow", "auto");
@@ -587,13 +664,6 @@ function openVideo(ev) {
 
 function openHelp(ev) {
   help.style.display = "block";
-
-  const $body = $("body");
-  $body.css("overflow", "hidden");
-}
-
-function openCategories(ev) {
-  categories.style.display = "block";
 
   const $body = $("body");
   $body.css("overflow", "hidden");
@@ -645,8 +715,6 @@ function dragOverHandler(ev) {
 //   ev.preventDefault();
 // }
 
-var file;
-
 function dropHandler(ev) {
   //console.log("File(s) dropped");
 
@@ -660,12 +728,6 @@ function dropHandler(ev) {
   // Prevent default behavior (Prevent file from being opened)
   ev.preventDefault();
 
-  if (!currentCategory || currentCategory == "All") {
-    document.getElementById("midicategories").style.background = "red";
-    openCategories();
-    return;
-  }
-
   if (ev.dataTransfer.items) {
     //console.log("first");
 
@@ -675,7 +737,7 @@ function dropHandler(ev) {
       //console.log("item: " + ev.dataTransfer.items[i].path);
 
       if (ev.dataTransfer.items[i].kind === "file") {
-        file = ev.dataTransfer.items[i].getAsFile();
+        var file = ev.dataTransfer.items[i].getAsFile();
 
         var filename = file.name;
 
@@ -712,10 +774,6 @@ function dropHandler(ev) {
     }
   }
 }
-
-const showCategories = () => {
-  document.getElementById("midicategories").style.background = "red";
-};
 
 const changePiece = (pieceId) => {
   //console.log("pieceid: " + pieceId);
@@ -755,27 +813,33 @@ const changePiece = (pieceId) => {
 //     fmp.updatePitchSlider(e.target.value);
 //   });
 
-document
-  .querySelector("#progressSlider")
-  .addEventListener("input", function (e) {
-    //console.log("progress: " + e.target.value);
+if (midiContainer) {
+  document
+    .querySelector("#progressSlider")
+    .addEventListener("input", function (e) {
+      //console.log("progress: " + e.target.value);
 
-    fmp.movePlayhead(e.target.value);
+      fmp.movePlayhead(e.target.value);
+    });
+}
+
+if (document.querySelector("#tempo")) {
+  document.querySelector("#tempo").addEventListener("change", function (e) {
+    //console.log("e: " + e.target.value);
+
+    fmp.setTempoInput(e.target.value);
   });
+}
 
-document.querySelector("#tempo").addEventListener("change", function (e) {
-  //console.log("e: " + e.target.value);
+if (document.querySelector("#accidentalSwitch")) {
+  document
+    .querySelector("#accidentalSwitch")
+    .addEventListener("change", function (e) {
+      //console.log("e: " + JSON.stringify(e.checked));
 
-  fmp.setTempoInput(e.target.value);
-});
-
-document
-  .querySelector("#accidentalSwitch")
-  .addEventListener("change", function (e) {
-    //console.log("e: " + JSON.stringify(e.checked));
-
-    fmp.setAccidental(e.target.value);
-  });
+      fmp.setAccidental(e.target.value);
+    });
+}
 
 //control playback with keyboard
 
@@ -791,38 +855,19 @@ document.body.onkeyup = function (e) {
     fmp.movePlayheadFwd();
   }
 };
+if (document.querySelector("#midifiles")) {
+  document.querySelector("#midifiles").addEventListener(
+    "change",
+    function (e) {
+      //console.log("download file: " + e.target.value);
 
-document.querySelector("#midifiles").addEventListener(
-  "change",
-  function (e) {
-    //console.log("download file: " + e.target.value);
-
-    if (e.target.value) {
-      downloadFile(e.target.value);
-    }
-  },
-  false
-);
-
-document.querySelector("#midicategories").addEventListener(
-  "change",
-  function (e) {
-    //console.log("get files file: " + e.target.value);
-    //return;
-    if (e.target.value) {
-      currentCategory = e.target.value;
-
-      if (currentCategory && currentCategory != "All") {
-        document.getElementById("midicategories").style.background = "white";
+      if (e.target.value) {
+        downloadFile(e.target.value);
       }
-
-      getFiles(null, e.target.value);
-    } else {
-      getFiles(null, null);
-    }
-  },
-  false
-);
+    },
+    false
+  );
+}
 
 document.querySelector("#colorNote").addEventListener(
   "change",
@@ -846,33 +891,27 @@ document.querySelector("#colorNote2").addEventListener(
 
 const fn = document.querySelector("#file-name");
 
-document.querySelector("#musical-piece").addEventListener(
-  "change",
-  function (e) {
-    if (!currentCategory || currentCategory == "All") {
-      document.getElementById("midicategories").style.background = "red";
-      openCategories();
-      return;
-    }
+if (document.querySelector("#musical-piece")) {
+  document.querySelector("#musical-piece").addEventListener(
+    "change",
+    function (e) {
+      var file = this.files[0];
 
-    var file = this.files[0];
+      //fn.style.marginRight = "10px";
+      fn.style.marginBottom = "8px";
+      fn.style.height = "15px";
+      fn.innerHTML = file.name;
 
-    //fn.style.marginRight = "10px";
-    fn.style.marginBottom = "8px";
-    fn.style.height = "15px";
-    fn.innerHTML = file.name;
+      //console.log("the file: ", file);
 
-    //console.log("the file: ", file);
+      if (!file) return;
 
-    if (!file) return;
-
-    uploadFile(file);
-  },
-  false
-);
-
-const getFiles = (file, id) => {
-  //console.log("getFiles");
+      uploadFile(file);
+    },
+    false
+  );
+}
+const getFiles = (file) => {
   var debug = false;
 
   if (debug) {
@@ -937,19 +976,14 @@ const getFiles = (file, id) => {
     return;
   }
 
-  var newurl =
-    url +
-    "/PLMidi/getmidifiles.php?userid2=" +
-    window.localStorage.getItem("userid2");
-
-  if (id) {
-    newurl = newurl + "&categoryid=" + id;
-  }
-
-  //console.log("newurl: " + newurl);
-
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", newurl, true);
+  xhr.open(
+    "GET",
+    url +
+      "/PLMidi/getmidifiles.php?userid2=" +
+      window.localStorage.getItem("userid2"),
+    true
+  );
 
   // xhr.upload.onprogress = function (e) {
   //   if (e.lengthComputable) {
@@ -1001,126 +1035,9 @@ const getFiles = (file, id) => {
   xhr.send();
 };
 
-const getCategories = (file) => {
-  //console.log("getFiles");
-  var debug = false;
-
-  if (debug) {
-    var data = {
-      data: {
-        uploadData: [
-          {
-            filename: "dave.mid",
-            url: "https://plmidifiles.s3.us-east-2.amazonaws.com/dgXrhGMELS.mid",
-          },
-          {
-            filename: "chopin_op27_1.mid",
-            url: "https://plmidifiles.s3.us-east-2.amazonaws.com/y22DPCbHj2.mid",
-          },
-          {
-            filename: "chopin_etude25_1.mid",
-            url: "https://plmidifiles.s3.us-east-2.amazonaws.com/pElNrO7WEw.mid",
-          },
-          {
-            filename: "chopin_ballade23_g_minor.mid",
-            url: "https://plmidifiles.s3.us-east-2.amazonaws.com/1VSpApTrsz.mid",
-          },
-          {
-            filename: "bach_inventions_774.mid",
-            url: "https://plmidifiles.s3.us-east-2.amazonaws.com/NRrGbr7IVZ.mid",
-          },
-        ],
-      },
-    };
-
-    myMidiFiles = data.data.uploadData;
-
-    if (myMidiFiles.length > 0) {
-      //console.log("show midi files");
-
-      var str = '<option value="" selected>Select a file...</option>';
-
-      myMidiFiles.forEach((element) => {
-        str +=
-          '<option value="' +
-          element.url +
-          '">' +
-          element.filename +
-          "</option>";
-      });
-      document.getElementById("midifiles").innerHTML = str;
-
-      showMidiFiles();
-
-      var testurl =
-        "https://plmidifiles.s3.us-east-2.amazonaws.com/NRrGbr7IVZ.mid";
-
-      var x = document
-        .getElementById("midifiles")
-        .querySelectorAll('option[value="' + testurl + '"]');
-      if (x.length === 1) {
-        //console.log(x[0].index);
-        document.getElementById("midifiles").selectedIndex = x[0].index;
-      }
-    }
-
-    return;
-  }
-
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", url + "/PLMidi/getmidicategories.php", true);
-
-  xhr.onload = function () {
-    if (this.status == 200) {
-      var resp = JSON.parse(this.response);
-
-      //console.log("files info2:", resp);
-
-      myMidiCategories = resp.data.uploadData.files;
-
-      var str = '<option value="All" selected>All categories</option>';
-
-      myMidiCategories.forEach((element) => {
-        str +=
-          '<option value="' +
-          element.categoryid +
-          '">' +
-          element.categoryname +
-          "</option>";
-      });
-
-      document.getElementById("midicategories").innerHTML = str;
-
-      //console.log("getFiles");
-
-      if (file) {
-        var x = document
-          .getElementById("midicategories")
-          .querySelectorAll('option[value="' + categoryid + '"]');
-        if (x.length === 1) {
-          //console.log(x[0].index);
-          document.getElementById("midicategories").selectedIndex = x[0].index;
-        }
-      }
-
-      if (myMidiCategories.length > 0) {
-        //console.log("show midi files");
-        showMidiCatgories();
-      }
-    }
-  };
-
-  xhr.send();
-};
-
 const showMidiFiles = () => {
   const $midifiles = $("#midifiles");
   $midifiles.css("display", "block");
-};
-
-const showMidiCatgories = () => {
-  const $midicategories = $("#midicategories");
-  $midicategories.css("display", "block");
 };
 
 function readableRandomStringMaker(length) {
@@ -1147,17 +1064,16 @@ if (!window.localStorage.getItem("userid2")) {
 }
 
 if (!window.localStorage.getItem("colorNote")) {
-  //console.log("set default c1");
+  console.log("set default c1");
   window.localStorage.setItem("colorNote", "#2bce1f");
 }
 
 if (!window.localStorage.getItem("colorNote2")) {
-  //console.log("set default c2");
+  console.log("set default c2");
 
   window.localStorage.setItem("colorNot2e", "#f6fa43");
 }
 
-getCategories();
 getFiles();
 
 const uploadFile = (file) => {
@@ -1166,8 +1082,6 @@ const uploadFile = (file) => {
   var fd = new FormData();
   fd.append("afile", file);
   fd.append("userid2", window.localStorage.getItem("userid2"));
-  fd.append("categoryid", currentCategory);
-
   // These extra params aren't necessary but show that you can include other data.
   //fd.append("username", "Groucho");
 
@@ -1187,14 +1101,11 @@ const uploadFile = (file) => {
 
       //console.log("Server got:", resp);
 
-      if (
-        resp.data.uploadData.status == "new file" ||
-        resp.data.uploadData.status == "replace file"
-      ) {
+      if (resp.data.uploadData.status == "media upload") {
         //console.log("we good: " + resp.data.uploadData.filename);
 
         //showMidiFiles();
-        getFiles(resp.data.uploadData.res, null);
+        getFiles(resp.data.uploadData.res);
 
         downloadFile(resp.data.uploadData.res);
       }

@@ -8,17 +8,6 @@
 </head>
 
 <style>
-
-  #loop {
-
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
-  }
 #app {
     background-color: white !important;
 }
@@ -54,7 +43,7 @@ body {
     z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
 }
 #inner {
-    margin-top: 25px;
+    margin-top: 15px;
     margin-left: 15px;
     position: absolute;
     color: white;
@@ -79,7 +68,7 @@ body {
     left: 50% !important;
     transform: translate(-50%, -50%);
     margin-left: 0px !important;
-    top: 18% !important;
+    top: 25% !important;
 }
 #inner {
     /* width: 100% !important; */
@@ -96,7 +85,7 @@ body {
 }
 #speedInputContainer {
     position: relative !important;
-    right: 0px !important;
+    right: 10px !important;
     margin-top: 5px !important;
     margin-left: auto !important;
     margin-right: auto !important;
@@ -798,18 +787,6 @@ body {
     overflow: auto;
     display: none;
 }
-.categories {
-    position: absolute;
-    z-index: 150;
-    background-color: hsla(0,0%,0%,.3);
-    
-    width: 100%;
-    min-height: 100%;
-    height: auto;
-    top: 0px;
-    padding: 20px;
-    overflow: auto;
-}
 .help {
     position: fixed;
     z-index: 250;
@@ -1123,43 +1100,9 @@ $(document).ready(function () {
 
 <!-- intro video -->
 
-<!-- <div class="categories">
-  <div  class="closeBtn" id="closeBtn3">Close</div>
-  <select name="midicategories2" id="midicategories2" style="margin-top: 5px;
-  width: 180px;
-  font-size: 12px;
-  height: 25px;
-  border-radius: 5px; height: 20px; display: none;">
-  </select></div> -->
-
-  <div class="categories" style="display: none;">
-      <div class="" id="categoryTitle" style="display: flex;
-      align-items: center;
-      height: 300px;
-      margin-left: auto;
-      margin-right: auto;
-      background: white;
-      width: 400px;padding: 20px;
-    flex-direction: column;     -ms-transform: translateY(30%);
-    transform: translateY(30%);">
-    <img src="./assets/images/info.png" style="width: 100px;">
-    <div style="margin-top: 20px; font-size: 27px;">Information</div>
-    <div style="height: 100%;
-    align-items: center;
-    display: flex;
-    text-align: center;margin-top: 20px;">Please select a midi file category,<br>then upload the file.</div> 
-      
-      <div  class="closeBtn" id="closeBtn3" style="    float: unset;
-          margin-left: auto;
-          margin-right: auto;
-          margin-top: 20px;">Close</div>
-          
-        </div>
-          
-
-  </div>
 <div class="video">
   <div  class="closeBtn" id="closeBtn">Close</div>
+  <iframe id="videoPlayer" src="https://player.vimeo.com/video/684832240?h=fc1855ef4a" width="100%" height="400" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
 </div>
 <div class="help">
   <div width="100%" height="400" frameborder="0">
@@ -1239,7 +1182,6 @@ $(document).ready(function () {
     </form>
   </div>
 </div>
-
 <div id="leadForm" style="position: fixed;
 width: 100%;
 height: 100%;
@@ -1410,7 +1352,7 @@ background: rgba(1,1,1,0.5); display: none;">
   </div>
 
 
-  <div id="info-container" style="background-color: black; height: 115px;"> 
+  <div id="info-container" style="background-color: black; height: 100px;"> 
     <!-- <div id="infoClose" style="color: white; display: none; padding: 10px 0 0 10px;">X</div> -->
     
 
@@ -1424,26 +1366,14 @@ background: rgba(1,1,1,0.5); display: none;">
       <div class="helpBtn" style="font-weight: bold; text-align: center;" id="helpBtn2">HELP</div>
     </div>
 
-    <div style="display: flex; justify-content: center;
-    flex-direction: column" id="info2">
+
+    <div style="display: flex;
+    align-items: center;
+    height: 100px;" id="info2">
+
+
       <div id="inner">
-        <div style="display: flex; flex-direction: column; align-items: center; " id="fileDiv"> <span id="file-name" style=""></span>
-          <input id="musical-piece" type="file" class="foo" tabindex="-1"  accept=".midi,.mid"  />
 
-          <select name="midicategories" id="midicategories" style="margin-top: 5px;
-          width: 180px;
-          font-size: 12px;
-          height: 25px;
-          border-radius: 5px; height: 20px; display: none;">
-          </select>
-
-          <select name="midifiles" id="midifiles" style="margin-top: 5px;
-          width: 180px;
-          font-size: 12px;
-          height: 25px;
-          border-radius: 5px; height: 20px; display: none;">
-          </select>
-        </div>
       </div>
       <!-- <div id="drop_zone">
         <p>Drag one or more files to this Drop Zone ...</p>
@@ -1452,7 +1382,7 @@ background: rgba(1,1,1,0.5); display: none;">
       <div
             id="file-info"
             style="
-              display: flex;
+              display: none;
               height: 85px;
               align-items: center;
               color: white;
@@ -1462,65 +1392,20 @@ background: rgba(1,1,1,0.5); display: none;">
               justify-content: space-evenly;
               margin-left: auto;
               margin-right: auto;
-            ">
+            "
+          >
 
-        <div style="padding-top: 15px; height: 75px; text-align: center">
-          <div class="headerLbl"><strong>Key</strong></div>
-          <div id="keySig"  class="headerLbl" style="padding-top: 10px">C major</div>
-        </div>
-        <div
-              style="
-                padding-top: 15px;
-                padding-right: 0px;
-                height: 75px;
-                text-align: center;
-                padding-left: 0px;
-              "
-            >
-          <div class="headerLbl"><strong>Tempo</strong></div>
-          <input
-                id="tempo"
-                style="
-                  padding: 5px;
-                  width: 35px;
-                  text-align: center;
-                  margin-top: 5px;
-                  background-color: #1f971700;
-                  border: 1px solid gray;
-                  color: white;
-                "
-                value="120" tabindex="-1"/>
-          bpm </div>
-        <div style="padding-top: 15px; height: 75px; text-align: center">
-          <div class="headerLbl"><strong>Bar</strong></div>
-          <div id="bar" class="headerLbl" style="padding-top: 10px">1</div>
-        </div>
-        <div style="padding-top: 15px; height: 75px; text-align: center">
-          <div class="headerLbl"><strong>Beat</strong></div>
-          <div id="beat"  class="headerLbl" style="padding-top: 10px; text-align: left">: 1</div>
-        </div>
-        <div style="padding-top: 15px; height: 75px; text-align: center">
-          <div class="headerLbl"><strong>Signature</strong></div>
-          <div id="timeSig"  class="headerLbl" style="padding-top: 10px">4/4</div>
-        </div>
-        <div style="padding-top: 15px; height: 75px; text-align: center">
-          <div class="headerLbl"><strong>Time</strong></div>
-          <div id="songLength" class="headerLbl" style="padding-top: 10px">00:00:00</div>
-        </div>
+       
       </div>
-      <div id="speedInputContainer">
-        <div>
-          <div id="noslider3" class="settingsSlider"></div>
-          <!-- <input type="range" class="input-knob" id="input-k" min="-45"   data-fgcolor="#FCFF00" data-bgcolor="#1F9717" tabindex="-1"/> -->
-          <div class="speed-lbl" style="color: white; font-size: 14px;text-align: center;">Speed</div>
-          <div id="speed" style="padding-top: 7px; color: white; font-size: 14px; text-align: center;">100%</div>
-        </div>
-        <div style="text-align: center;">
-          <div id="noslider4" class="settingsSlider"></div>
-          <!-- <input type="range" class="input-knob" id="input-pitch-k"  data-fgcolor="#FCFF00" data-bgcolor="#1F9717" data-min="-12" data-max="12" min="-12" max="12" tabindex="-1"/> -->
-          <div class="pitch-lbl2" style="color: white; font-size: 14px;text-align: center;">Transpose</div>
-          <div id="pitch" style="padding-top: 7px; color: white; font-size: 14px; text-align: center;">0 st</div>
-        </div>
+
+              <div style="font-size: 30px;
+              width: 100%;
+              text-align: center; color: white;" id="testResult"></div> 
+
+      <div id="speedInputContainer" style="right: 10px;
+      width: unset;">
+        
+
         <div style="display: flex;
         flex-direction: column;">
           <label class="switch">
@@ -1531,7 +1416,6 @@ background: rgba(1,1,1,0.5); display: none;">
             <div>&sharp;</div>
             <div>&flat;</div>
           </div>
-          <div style="padding-top: 7px; color: white; font-size: 14px; text-align: center;height: 25px;"></div>
         </div>
       </div>
     </div>
@@ -1539,7 +1423,8 @@ background: rgba(1,1,1,0.5); display: none;">
   <div id="middle-content" style="margin-top: 30px;
         margin-left: auto;
         margin-right: auto;
-        margin-bottom: 30px;">
+        /* margin-bottom: 30px; */
+        ">
 
 
     <div
@@ -1568,21 +1453,28 @@ background: rgba(1,1,1,0.5); display: none;">
               letter-spacing: 2px;text-align: center;
             "
           > </div>
-    <div id="buttons-container" style="text-align: center">
+    <!-- <div id="buttons-container" style="text-align: center">
       <button id="play-piece"  disabled="" style="user-select:none" tabindex="-1"></button>
       <button id="stop-piece"  disabled="" style="user-select:none" tabindex="-1"></button>
-    </div>
+    </div> -->
     
     <!-- <div id="testDiv" style="text-align: center;
     margin-top: 20px;">
       <div style="font-size: 20px;">Play C maj7</div> 
       <div style="font-size: 15px;"> <label class="switch">
         <input type="checkbox" id="accidentalSwitch" tabindex="-1">
-        <span class="slider1 round"></span> </label><span style="margin-left: 10px;">Allow arpeggiation</span> </div> 
+        <span class="slider1 round"></span> </label><span style="margin-left: 10px;">Allow arpeggiation</span> 
+    </div> 
       <div style="color: #1f9716; margin-top: 20px;
       font-size: 30px; min-height: 30px" id="testResult"></div>
-    </div> --> 
+    </div>  -->
+
+ 
   </div>
+  <button style="width: 200px;
+  height: 35px;
+  margin-bottom: 20px; margin-left: auto;
+    margin-right: auto; visibility: hidden;" class="navBtn" id="nextBtn">NEXT</button>
 </div>
 <div
         id="notesDisplay"
@@ -1604,6 +1496,8 @@ background: rgba(1,1,1,0.5); display: none;">
   background-color: white; ">
     <div style="margin: auto;
   width: 175px; min-width: 175px;" id="settingsContainer">
+  <!-- <div id="resultDiv"></div> -->
+
       <div style="width:100%; z-index: 101; display: flex;
     align-items: center;
     background-color: white;
@@ -1638,7 +1532,7 @@ background: rgba(1,1,1,0.5); display: none;">
         filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.4));"
         id="sustain-pedal2"
   ></div>
-  <div
+  <!-- <div
       id="midi-container"
       style="
         margin-top: 15px;
@@ -1662,12 +1556,11 @@ background: rgba(1,1,1,0.5); display: none;">
       <button id="start-loop" class="loopBtn" tabindex="-1">Set Loop Start</button>
       <button id="end-loop" class="loopBtn" tabindex="-1">Set Loop End</button>
     </div>
-  </div>
+  </div> -->
 </div>
 </div>
-<script src="/src/index.js"></script> 
+<script src="/src/testing.js"></script> 
 <script src="/src/chord-display/index.js"></script> 
 <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script> 
-<script async src="//static.getclicky.com/101356620.js"></script>
 </body>
 </html>

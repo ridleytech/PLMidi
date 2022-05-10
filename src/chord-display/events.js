@@ -1,6 +1,6 @@
 import Note from "tonal/note";
 //import Note from "tonal";
-import { Note as Note2, Interval } from "@tonaljs/tonal";
+import { Note as Note2, Interval, Key } from "@tonaljs/tonal";
 import { chord as detectChord } from "tonal/detect";
 import {
   highlightNote,
@@ -19,6 +19,7 @@ import { chordToHtml, keyToHtml } from "./chords";
 import { setAccidentalKeyboard } from "./keyboard";
 
 const resultDiv = document.getElementById("testResult");
+const nextBtn = document.getElementById("nextBtn");
 
 const currentNotes = [];
 let currentPitch = 0;
@@ -30,6 +31,12 @@ let lastNoteTimer = null;
 var lastNoteSeconds = 0;
 var isSharps = false;
 
+var isTesting = false;
+var currentTest = "progressions";
+var currentAnswer;
+
+var guessTimer;
+var currentGuess;
 export function noteOn(noteNumber) {
   //console.log("noteOn events: " + noteNumber);
   if (!currentNotes.includes(noteNumber)) {
@@ -203,17 +210,27 @@ function refresh() {
 
     //to do: add midi keyboard testing
 
-    // console.log("chord: " + JSON.stringify(chord));
-    // var c = chord.tonic + chord.name;
+    if (isTesting) {
+      currentTest = "chords";
 
-    //Chord.notes("CMaj7") // => ["C", "E", "G", "B"]
-    //Chord.notes("C", "maj7") // => ["C", "E", "G", "B"]
+      currentGuess = chord.tonic + chord.name;
+      console.log("currentGuess: " + currentGuess);
+      //currentAnswer = "Cmaj7";
 
-    // if (c == "Cmaj7") {
-    //   //console.log("yup");
+      if (!guessTimer) {
+        guessTimer = setTimeout(() => {
+          //console.log("start guess timer");
+          //console.log("lastNoteSeconds: " + lastNoteSeconds);
 
-    //   resultDiv.innerHTML = "CORRECT";
-    // }
+          //Chord.notes("CMaj7") // => ["C", "E", "G", "B"]
+          //Chord.notes("C", "maj7") // => ["C", "E", "G", "B"]
+
+          //console.log("chord: " + JSON.stringify(chord));
+
+          checkGuess();
+        }, 2000);
+      }
+    }
 
     if (previousChord) {
       fadeTonics();
@@ -245,6 +262,27 @@ function refresh() {
 
     //setChordHtml(""); //orig setting
   }
+}
+
+function checkGuess() {
+  console.log(
+    "currentGuess: " + currentGuess + " currentAnswer: " + currentAnswer
+  );
+
+  if (currentTest == "chords") {
+    if (currentGuess == currentAnswer) {
+      console.log("yup");
+
+      resultDiv.innerHTML = "CORRECT";
+    } else {
+      console.log("nope");
+
+      resultDiv.innerHTML = "INCORRECT";
+    }
+  }
+
+  nextBtn.style.visibility = "visible";
+  guessTimer = null;
 }
 
 function getSemitones(s) {
@@ -283,6 +321,11 @@ function ordinal(n) {
   var s = ["th", "st", "nd", "rd"];
   var v = n % 100;
   return n + (s[(v - 20) % 10] || s[v] || s[0]);
+}
+
+export function setCurrentQuestion(answer) {
+  //console.log("setCurrentQuestion: " + answer);
+  currentAnswer = answer;
 }
 
 export const controller = onEvent.bind(this, "controller");

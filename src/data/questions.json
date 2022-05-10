@@ -1,0 +1,1608 @@
+{
+  "Pitch": {
+    "level1Questions": [
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["A"],
+        "file": "A",
+        "id": 1,
+        "keys": [0, 1]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["B"],
+        "file": "B",
+        "id": 2,
+        "keys": [0, 2]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["C"],
+        "file": "C",
+        "id": 3,
+        "keys": [0, 3]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["D"],
+        "file": "D",
+        "id": 4,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["E"],
+        "file": "E",
+        "id": 5,
+        "keys": [0, 1]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["F"],
+        "file": "F",
+        "id": 6,
+        "keys": [0, 2]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["G"],
+        "file": "G",
+        "id": 7,
+        "keys": [0, 3]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["C"],
+        "file": "C",
+        "id": 3,
+        "keys": [0, 3]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["D"],
+        "file": "D",
+        "id": 4,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["E"],
+        "file": "E",
+        "id": 5,
+        "keys": [0, 1]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["F"],
+        "file": "F",
+        "id": 6,
+        "keys": [0, 2]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["G"],
+        "file": "G",
+        "id": 7,
+        "keys": [0, 3]
+      }
+    ],
+    "level1Answers": ["Major 2nd", "Major 3rd", "Perfect 4th", "Perfect 5th"],
+    "level1Instructions": [
+      "Using your keyboard, listen to the audio and write the correct note letter name in the provided boxes.",
+      "This level will consist of twelve 12 questions.",
+      "You need to score a 11/12 to past the quiz."
+    ],
+    "level1PassScore": 91,
+    "level2Questions": [
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["A"],
+        "file": "A",
+        "id": 1,
+        "keys": [0, 1]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["B"],
+        "file": "B",
+        "id": 2,
+        "keys": [0, 2]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["C"],
+        "file": "C",
+        "id": 3,
+        "keys": [0, 3]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["D"],
+        "file": "D",
+        "id": 4,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["E"],
+        "file": "E",
+        "id": 5,
+        "keys": [0, 1]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["F"],
+        "file": "F",
+        "id": 6,
+        "keys": [0, 2]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["G"],
+        "file": "G",
+        "id": 7,
+        "keys": [0, 3]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["Db", "C#"],
+        "file": "Db",
+        "id": 3,
+        "keys": [0, 3]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["Eb", "D#"],
+        "file": "Eb",
+        "id": 4,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["Gb", "F#"],
+        "file": "Gb",
+        "id": 5,
+        "keys": [0, 1]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["Ab", "G#"],
+        "file": "Ab",
+        "id": 6,
+        "keys": [0, 2]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["Bb", "A#"],
+        "file": "Bb",
+        "id": 7,
+        "keys": [0, 3]
+      }
+    ],
+    "level2Answers": ["Major 2nd", "Major 3rd", "Perfect 4th", "Perfect 5th"],
+    "level2Instructions": [
+      "Using your keyboard, listen to the audio and write the correct note letter name in the provided boxes.",
+      "This level will consist of twelve 12 questions.",
+      "You need to score a 11/12 to past the quiz."
+    ],
+    "level2PassScore": 91,
+    "level3Questions": [
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["A"],
+        "file": "A",
+        "id": 1,
+        "keys": [0, 1]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["B"],
+        "file": "B",
+        "id": 2,
+        "keys": [0, 2]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["C"],
+        "file": "C",
+        "id": 3,
+        "keys": [0, 3]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["D"],
+        "file": "D",
+        "id": 4,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["E"],
+        "file": "E",
+        "id": 5,
+        "keys": [0, 1]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["F"],
+        "file": "F",
+        "id": 6,
+        "keys": [0, 2]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["G"],
+        "file": "G",
+        "id": 7,
+        "keys": [0, 3]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["Db", "C#"],
+        "file": "Db",
+        "id": 8,
+        "keys": [0, 3]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["Eb", "D#"],
+        "file": "Eb",
+        "id": 9,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["Gb", "F#"],
+        "file": "Gb",
+        "id": 10,
+        "keys": [0, 1]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["Ab", "G#"],
+        "file": "Ab",
+        "id": 11,
+        "keys": [0, 2]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["Bb", "A#"],
+        "file": "Bb",
+        "id": 12,
+        "keys": [0, 3]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["A"],
+        "file": "A2",
+        "id": 13,
+        "keys": [0, 1]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["B"],
+        "file": "B2",
+        "id": 14,
+        "keys": [0, 2]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["C"],
+        "file": "C2",
+        "id": 15,
+        "keys": [0, 3]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["D"],
+        "file": "D2",
+        "id": 16,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["E"],
+        "file": "E2",
+        "id": 17,
+        "keys": [0, 1]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["F"],
+        "file": "F2",
+        "id": 18,
+        "keys": [0, 2]
+      },
+      {
+        "Question": "Using your keyboard, listen to the audio below then write the correct note letter name in the box below.",
+        "Answers": ["G"],
+        "file": "G2",
+        "id": 19,
+        "keys": [0, 3]
+      }
+    ],
+    "level3Answers": ["Major 2nd", "Major 3rd", "Perfect 4th", "Perfect 5th"],
+    "level3Instructions": [
+      "Using your keyboard, listen to the audio and write the correct note letter name in the provided boxes.",
+      "This level will consist of twelve 12 questions.",
+      "You need to score a 11/12 to past the quiz."
+    ],
+    "level3PassScore": 91
+  },
+  "Interval": {
+    "level1Questions": [
+      {
+        "Question": "What is the distance between C and D?",
+        "Answer": "Major 2nd"
+      },
+      {
+        "Question": "What is the distance between C and E?",
+        "Answer": "Major 3rd"
+      },
+      {
+        "Question": "What is the distance between C and F?",
+        "Answer": "Perfect 4th"
+      },
+      {
+        "Question": "What is the distance between C and G?",
+        "Answer": "Perfect 5th"
+      },
+      {
+        "Question": "What is the distance between C and A?",
+        "Answer": "Major 6th"
+      },
+      {
+        "Question": "What is the distance between C and B?",
+        "Answer": "Major 7th"
+      },
+      {
+        "Question": "What is the distance between C and C?",
+        "Answer": "Octave"
+      }
+    ],
+    "level1Answers": [
+      "Major 2nd",
+      "Major 3rd",
+      "Perfect 4th",
+      "Perfect 5th",
+      "Major 6th",
+      "Major 7th",
+      "Octave"
+    ],
+    "level1Instructions": [
+      "For this quiz, find the interval distance between 2 notes.",
+      "This level will consist of 7 multiple choice questions.",
+      "You need to score a 6/7 to past the quiz.",
+      "This quiz should be completed using ONLY your ear. No keyboard."
+    ],
+    "level1PassScore": 85,
+    "level2Questions": [
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Major 2nd",
+        "file": "major2ndC",
+        "id": 1,
+        "keys": [0, 1]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Major 3rd",
+        "file": "major3rdC",
+        "id": 2,
+        "keys": [0, 2]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Perfect 4th",
+        "file": "perfect4thC",
+        "id": 3,
+        "keys": [0, 3]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Perfect 5th",
+        "file": "perfect5thC",
+        "id": 4,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Major 2nd",
+        "file": "major2ndC",
+        "id": 5,
+        "keys": [0, 1]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Major 3rd",
+        "file": "major3rdC",
+        "id": 6,
+        "keys": [0, 2]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Perfect 4th",
+        "file": "perfect4thC",
+        "id": 7,
+        "keys": [0, 3]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Perfect 5th",
+        "file": "perfect5thC",
+        "id": 8,
+        "keys": [0, 4]
+      }
+    ],
+    "level2Answers": ["Major 2nd", "Major 3rd", "Perfect 4th", "Perfect 5th"],
+    "level2Instructions": [
+      "For this quiz, find the interval distance between 2 notes.",
+      "This level will consist of 8 multiple choice questions.",
+      "You need to score a 7/8 to past the quiz.",
+      "This quiz should be completed using ONLY your ear. No keyboard."
+    ],
+    "level2PassScore": 87,
+    "level3Questions": [
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Minor 2nd",
+        "file": "minor2ndC",
+        "id": 1,
+        "keys": [0, 1]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Major 2nd",
+        "file": "major2ndC",
+        "id": 2,
+        "keys": [0, 1]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Minor 3rd",
+        "file": "minor3rdC",
+        "id": 3,
+        "keys": [0, 2]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Major 3rd",
+        "file": "major3rdC",
+        "id": 4,
+        "keys": [0, 2]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Perfect 4th",
+        "file": "perfect4thC",
+        "id": 5,
+        "keys": [0, 3]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Perfect 5th",
+        "file": "perfect5thC",
+        "id": 6,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Major 6th",
+        "file": "major6thC",
+        "id": 7,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Major 7th",
+        "file": "major7thC",
+        "id": 8,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Perfect 5th",
+        "file": "perfect5thC",
+        "id": 9,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Major 6th",
+        "file": "major6thC",
+        "id": 10,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Major 7th",
+        "file": "major7thC",
+        "id": 11,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Octave",
+        "file": "octaveC",
+        "id": 12,
+        "keys": [0, 1]
+      }
+    ],
+    "level3Answers": [
+      "Minor 2nd",
+      "Major 2nd",
+      "Minor 3rd",
+      "Major 3rd",
+      "Perfect 4th",
+      "Perfect 5th",
+      "Major 6th",
+      "Major 7th",
+      "Octave"
+    ],
+    "level3Instructions": [
+      "For this quiz, find the interval distance between 2 notes.",
+      "This level will consist of 12 multiple choice questions.",
+      "You need to score a 10/12 to past the quiz.",
+      "This quiz should be completed using ONLY your ear. No keyboard."
+    ],
+    "level3PassScore": 83,
+    "level4Questions": [
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Minor 3rd",
+        "file": "minor3rdC",
+        "id": 1,
+        "keys": [0, 2]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Major 3rd",
+        "file": "major3rdC",
+        "id": 2,
+        "keys": [0, 2]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Perfect 4th",
+        "file": "perfect4thC",
+        "id": 3,
+        "keys": [0, 3]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Augmented 4th",
+        "file": "Augmented4thC",
+        "id": 4,
+        "keys": [0, 3]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Perfect 5th",
+        "file": "perfect5thC",
+        "id": 5,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Major 6th",
+        "file": "major6thC",
+        "id": 6,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Minor 6th",
+        "file": "minor6thC",
+        "id": 7,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Major 7th",
+        "file": "major7thC",
+        "id": 8,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Minor 7th",
+        "file": "minor7thC",
+        "id": 9,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Augmented 4th",
+        "file": "Augmented4thC",
+        "id": 10,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Minor 6th",
+        "file": "minor6thC",
+        "id": 11,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Minor 7th",
+        "file": "minor7thC",
+        "id": 12,
+        "keys": [0, 4]
+      }
+    ],
+    "level4Answers": [
+      "Minor 3rd",
+      "Major 3rd",
+      "Augmented 4th",
+      "Perfect 4th",
+      "Perfect 5th",
+      "Major 6th",
+      "Minor 6th",
+      "Major 7th",
+      "Minor 7th"
+    ],
+    "level4Instructions": [
+      "For this quiz, find the interval distance between 2 notes.",
+      "This level will consist of 12 multiple choice questions.",
+      "You need to score a 10/12 to past the quiz.",
+      "This quiz should be completed using ONLY your ear. No keyboard."
+    ],
+    "level4PassScore": 83,
+    "level5Questions": [
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Minor 2nd",
+        "file": "minor2ndC",
+        "id": 1,
+        "keys": [0, 1]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Major 2nd",
+        "file": "major2ndC",
+        "id": 2,
+        "keys": [0, 1]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Minor 3rd",
+        "file": "minor3rdC",
+        "id": 3,
+        "keys": [0, 2]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Major 3rd",
+        "file": "major3rdC",
+        "id": 4,
+        "keys": [0, 2]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Perfect 4th",
+        "file": "perfect4thC",
+        "id": 5,
+        "keys": [0, 3]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Augmented 4th",
+        "file": "Augmented4thC",
+        "id": 6,
+        "keys": [0, 3]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Perfect 5th",
+        "file": "perfect5thC",
+        "id": 7,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Major 6th",
+        "file": "major6thC",
+        "id": 8,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Minor 6th",
+        "file": "minor6thC",
+        "id": 9,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Minor 7th",
+        "file": "minor7thC",
+        "id": 10,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Major 7th",
+        "file": "major7thC",
+        "id": 11,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Minor 9th",
+        "file": "minor9thC",
+        "id": 12,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Major 9th",
+        "file": "major9thC",
+        "id": 13,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Major 11th",
+        "file": "major11thC",
+        "id": 14,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Augmented 11th",
+        "file": "Augmented11thC",
+        "id": 15,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Minor 13th",
+        "file": "minor13thC",
+        "id": 16,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Major 13th",
+        "file": "major13thC",
+        "id": 17,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Minor 9th",
+        "file": "minor9thC",
+        "id": 18,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Augmented 11th",
+        "file": "Augmented11thC",
+        "id": 19,
+        "keys": [0, 4]
+      },
+      {
+        "Question": "Listen to the audio, what interval is being played?",
+        "Answer": "Minor 13th",
+        "file": "minor13thC",
+        "id": 20,
+        "keys": [0, 4]
+      }
+    ],
+    "level5Answers": [
+      "Minor 2nd",
+      "Major 2nd",
+      "Minor 3rd",
+      "Major 3rd",
+      "Perfect 4th",
+      "Augmented 4th",
+      "Perfect 5th",
+      "Minor 6th",
+      "Major 6th",
+      "Minor 7th",
+      "Major 7th",
+      "Octave",
+      "Minor 9th",
+      "Major 9th",
+      "Augmented 11th",
+      "Minor 11th",
+      "Major 11th",
+      "Minor 13th",
+      "Major 13th"
+    ],
+    "level5Instructions": [
+      "For this quiz, find the interval distance between 2 notes.",
+      "This level will consist of 20 multiple choice questions.",
+      "You need to score a 17/20 to past the quiz.",
+      "This quiz should be completed using ONLY your ear. No keyboard."
+    ],
+    "level5PassScore": 85
+  },
+  "Triads": {
+    "Chords": ["C", "D", "E", "F", "G", "A", "B", "Eb", "Gb", "Ab", "Bb", "Db"],
+    "level1Instructions": [
+      "For this quiz, identify the quality of the chord.",
+      "This level will consist of 12 multiple choice questions.",
+      "You need to score a 10/12 to past the quiz.",
+      "This quiz should be completed using ONLY your ear. No keyboard."
+    ],
+    "level1Answers": ["Major", "Minor", "sus4"],
+    "level1PassScore": 83,
+    "level2Instructions": [
+      "For this quiz, identify the quality of the chord.",
+      "This level will consist of 12 multiple choice questions.",
+      "You need to score a 10/12 to past the quiz.",
+      "This quiz should be completed using ONLY your ear. No keyboard."
+    ],
+    "level2Answers": ["Major", "Minor", "sus4"],
+    "level2PassScore": 83,
+    "level3Instructions": [
+      "For this quiz, identify the quality of the chord.",
+      "This level will consist of 12 multiple choice questions.",
+      "You need to score a 10/12 to past the quiz.",
+      "This quiz should be completed using ONLY your ear. No keyboard."
+    ],
+    "level3Answers": ["Major", "Minor", "sus4", "Augmented"],
+    "level3PassScore": 83,
+    "level4Instructions": [
+      "For this quiz, identify the quality of the chord.",
+      "This level will consist of 12 multiple choice questions.",
+      "You need to score a 10/12 to past the quiz.",
+      "This quiz should be completed using ONLY your ear. No keyboard."
+    ],
+    "level4Answers": ["Major", "Minor", "sus4", "Augmented", "Diminished"],
+    "level4PassScore": 83
+  },
+  "Sevenths": {
+    "Chords": ["C", "D", "E", "F", "G", "A", "B", "Eb", "Gb", "Ab", "Bb", "Db"],
+    "Chords2": [
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "A",
+      "B",
+      "Eb",
+      "Gb",
+      "Ab",
+      "Bb",
+      "Db",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "level5Instructions": [
+      "For this quiz, identify the quality of the chord.",
+      "This level will consist of 12 multiple choice questions.",
+      "You need to score a 10/12 to past the quiz.",
+      "This quiz should be completed using ONLY your ear. No keyboard."
+    ],
+    "level5Answers": ["Major 7", "Minor 7"],
+    "level5PassScore": 83,
+    "level6Instructions": [
+      "For this quiz, identify the quality of the chord.",
+      "This level will consist of 12 multiple choice questions.",
+      "You need to score a 10/12 to past the quiz.",
+      "This quiz should be completed using ONLY your ear. No keyboard."
+    ],
+    "level6Answers": ["Major 7", "Minor 7", "Dominant 7"],
+    "level6PassScore": 83,
+    "level7Instructions": [
+      "For this quiz, identify the quality of the chord.",
+      "This level will consist of 12 multiple choice questions.",
+      "You need to score a 10/12 to past the quiz.",
+      "This quiz should be completed using ONLY your ear. No keyboard."
+    ],
+    "level7Answers": ["Major 7", "Minor 7", "Dominant 7", "Augmented 7"],
+    "level7PassScore": 83,
+    "level8Instructions": [
+      "For this quiz, identify the quality of the chord.",
+      "This level will consist of 12 multiple choice questions.",
+      "You need to score a 10/12 to past the quiz.",
+      "This quiz should be completed using ONLY your ear. No keyboard."
+    ],
+    "level8Answers": [
+      "Major 7",
+      "Minor 7",
+      "Dominant 7",
+      "Augmented 7",
+      "Diminished 7"
+    ],
+    "level8PassScore": 83,
+    "level9Instructions": [
+      "For this quiz, identify the quality of the chord.",
+      "This level will consist of 12 multiple choice questions.",
+      "You need to score a 10/12 to past the quiz.",
+      "This quiz should be completed using ONLY your ear. No keyboard."
+    ],
+    "level9Answers": [
+      "Major 7",
+      "Minor 7",
+      "Dominant 7",
+      "Augmented 7",
+      "Diminished 7",
+      "Minor 7 b5"
+    ],
+    "level9PassScore": 83,
+    "level10Instructions": [
+      "For this quiz, identify the quality of the chord.",
+      "This level will consist of 16 multiple choice questions.",
+      "You need to score a 14/16 to past the quiz.",
+      "This quiz should be completed using ONLY your ear. No keyboard."
+    ],
+    "level10Answers": [
+      "Major 7",
+      "Minor 7",
+      "Dominant 7",
+      "Augmented 7",
+      "Diminished 7",
+      "Minor 7 b5",
+      "Minor Major 7"
+    ],
+    "level10PassScore": 87
+  },
+  "Bass": {
+    "Scales": ["C", "D", "E", "F", "G", "A", "B", "Eb", "Gb", "Ab", "Bb", "Db"],
+    "Question": "For the key of %, fill in the remaining missing notes.",
+    "level1Questions": [
+      {
+        "Answers": ["C", "F", "C"],
+        "file": "b11"
+      },
+      {
+        "Answers": ["C", "G", "C"],
+        "file": "b12"
+      },
+      {
+        "Answers": ["D", "G", "C"],
+        "file": "b13"
+      },
+      {
+        "Answers": ["A", "G", "C"],
+        "file": "b14"
+      },
+      {
+        "Answers": ["F", "G", "C"],
+        "file": "b15"
+      },
+      {
+        "Answers": ["G", "F", "C"],
+        "file": "b16"
+      },
+      {
+        "Answers": ["A", "F", "C"],
+        "file": "b17"
+      },
+      {
+        "Answers": ["E", "F", "C"],
+        "file": "b18"
+      },
+      {
+        "Answers": ["D", "E", "C"],
+        "file": "b19"
+      },
+      {
+        "Answers": ["B", "G", "C"],
+        "file": "b110"
+      },
+      {
+        "Answers": ["B", "E", "A"],
+        "file": "b111"
+      },
+      {
+        "Answers": ["D", "G", "A"],
+        "file": "b112"
+      }
+    ],
+    "level1Instructions": [
+      "Using only your ear, fill in the notes played in the audio. You will be given the first note for reference.",
+      "This level will consist of twelve 12 questions.",
+      "You need to score a 11/12 to past the quiz."
+    ],
+    "level1PassScore": 91,
+    "level1Answers": [],
+    "level2Questions": [
+      {
+        "Answers": ["A", "D", "G", "C"],
+        "file": "b21"
+      },
+      {
+        "Answers": ["D", "G", "A", "C"],
+        "file": "b22"
+      },
+      {
+        "Answers": ["E", "D", "F", "E"],
+        "file": "b23"
+      },
+      {
+        "Answers": ["F", "E", "D", "C"],
+        "file": "b24"
+      },
+      {
+        "Answers": ["C", "G", "A", "F"],
+        "file": "b25"
+      },
+      {
+        "Answers": ["A", "F", "G", "C"],
+        "file": "b26"
+      },
+      {
+        "Answers": ["G", "B", "C", "D"],
+        "file": "b27"
+      },
+      {
+        "Answers": ["B", "D", "F", "A"],
+        "file": "b28"
+      },
+      {
+        "Answers": ["B", "E", "A", "C"],
+        "file": "b29"
+      },
+      {
+        "Answers": ["C", "A", "D", "G"],
+        "file": "b210"
+      },
+      {
+        "Answers": ["G", "E", "A", "D"],
+        "file": "b211"
+      },
+      {
+        "Answers": ["C", "C", "F", "E"],
+        "file": "b212"
+      }
+    ],
+    "level2Instructions": [
+      "Using only your ear, fill in the notes played in the audio. You will be given the first note for reference.",
+      "This level will consist of twelve 12 questions.",
+      "You need to score a 11/12 to past the quiz."
+    ],
+    "level2PassScore": 91,
+    "level2Answers": [],
+    "level3Questions": [
+      {
+        "Answers": ["C", "F", "D", "G", "C"],
+        "file": "b31"
+      },
+      {
+        "Answers": ["C", "A", "D", "G", "C"],
+        "file": "b32"
+      },
+      {
+        "Answers": ["E", "A", "D", "G", "C"],
+        "file": "b33"
+      },
+      {
+        "Answers": ["C", "B", "E", "A", "G"],
+        "file": "b34"
+      },
+      {
+        "Answers": ["D", "B", "C", "G", "F"],
+        "file": "b35"
+      },
+      {
+        "Answers": ["G", "F", "D", "G", "C"],
+        "file": "b36"
+      },
+      {
+        "Answers": ["F", "G", "A", "G", "C"],
+        "file": "b37"
+      },
+      {
+        "Answers": ["A", "B", "C", "D", "E"],
+        "file": "b38"
+      },
+      {
+        "Answers": ["B", "E", "A", "D", "G"],
+        "file": "b39"
+      },
+      {
+        "Answers": ["C", "F", "D", "G", "C"],
+        "file": "b31"
+      },
+      {
+        "Answers": ["C", "E", "D", "A", "G"],
+        "file": "b311"
+      },
+      {
+        "Answers": ["C", "D", "F", "E", "A"],
+        "file": "b312"
+      }
+    ],
+    "level3Instructions": [
+      "Using only your ear, fill in the notes played in the audio. You will be given the first note for reference.",
+      "This level will consist of twelve 12 questions.",
+      "You need to score a 11/12 to past the quiz."
+    ],
+    "level3PassScore": 91,
+    "level3Answers": [],
+
+    "level4Questions": [
+      {
+        "Answers": ["C", "F", "F#", "G", "C"],
+        "file": "b41"
+      },
+      {
+        "Answers": ["C", "Bb", "A", "C#", "D"],
+        "file": "b42"
+      },
+      {
+        "Answers": ["C", "A", "F#", "D", "G"],
+        "file": "b43"
+      },
+      {
+        "Answers": ["C", "B", "E", "G#", "A"],
+        "file": "b44"
+      },
+      {
+        "Answers": ["C", "E", "G", "Bb", "A"],
+        "file": "b45"
+      },
+      {
+        "Answers": ["G", "Bb", "D", "C", "F"],
+        "file": "b46"
+      },
+      {
+        "Answers": ["C", "G", "E", "G#", "A"],
+        "file": "b47"
+      },
+      {
+        "Answers": ["C", "E", "Eb", "D", "F#", "G"],
+        "file": "b48"
+      },
+      {
+        "Answers": ["F", "C#", "D", "G", "C"],
+        "file": "b49"
+      },
+      {
+        "Answers": ["E", "G#", "A", "C#", "D", "B", "C"],
+        "file": "b410"
+      },
+      {
+        "Answers": ["C", "B", "D#", "E", "D", "F#", "G"],
+        "file": "b411"
+      },
+      {
+        "Answers": ["C", "Bb", "A", "C#", "D", "F#", "G", "B", "C"],
+        "file": "b412"
+      }
+    ],
+    "level4Instructions": [
+      "Using only your ear, fill in the notes played in the audio. You will be given the first note for reference.",
+      "This level will consist of twelve 12 questions.",
+      "You need to score a 11/12 to past the quiz."
+    ],
+    "level4PassScore": 91,
+    "level4Answers": []
+  },
+  "Progression": {
+    "level1Questions": [
+      {
+        "Answers": ["1", "4", "1"],
+        "file": "p11"
+      },
+      {
+        "Answers": ["2", "5", "1"],
+        "file": "p12"
+      },
+      {
+        "Answers": ["1", "5", "1"],
+        "file": "p13"
+      },
+      {
+        "Answers": ["4", "5", "1"],
+        "file": "p14"
+      },
+      {
+        "Answers": ["4", "5", "6"],
+        "file": "p15"
+      },
+      {
+        "Answers": ["5", "4", "1"],
+        "file": "p16"
+      },
+      {
+        "Answers": ["3", "2", "1"],
+        "file": "p17"
+      },
+      {
+        "Answers": ["2", "3", "1"],
+        "file": "p18"
+      },
+      {
+        "Answers": ["1", "2", "5"],
+        "file": "p19"
+      },
+      {
+        "Answers": ["4", "3", "2"],
+        "file": "p110"
+      },
+      {
+        "Answers": ["1", "7", "6"],
+        "file": "p111"
+      },
+      {
+        "Answers": ["4", "2", "1"],
+        "file": "p112"
+      }
+    ],
+    "level1Instructions": [
+      "Listen to the chord progressions played in the audio, then write the chord number in the boxes.",
+      "You're given the first chord as a reference.",
+      "This level will consist of twelve 12 questions.",
+      "You need to score a 11/12 to past the quiz."
+    ],
+    "level1PassScore": 91,
+    "level1Answers": [],
+    "level2Questions": [
+      {
+        "Answers": ["1", "4", "5", "4"],
+        "file": "p21"
+      },
+      {
+        "Answers": ["1", "5", "4", "5"],
+        "file": "p22"
+      },
+      {
+        "Answers": ["1", "6", "2", "5"],
+        "file": "p23"
+      },
+      {
+        "Answers": ["1", "3", "2", "5"],
+        "file": "p24"
+      },
+      {
+        "Answers": ["1", "5", "6", "4"],
+        "file": "p25"
+      },
+      {
+        "Answers": ["4", "6", "5", "1"],
+        "file": "p26"
+      },
+      {
+        "Answers": ["6", "4", "5", "1"],
+        "file": "p27"
+      },
+      {
+        "Answers": ["2", "6", "4", "5"],
+        "file": "p28"
+      },
+      {
+        "Answers": ["3", "2", "6", "5"],
+        "file": "p29"
+      },
+      {
+        "Answers": ["5", "2", "4", "1"],
+        "file": "p210"
+      },
+      {
+        "Answers": ["7", "1", "2", "6"],
+        "file": "p211"
+      },
+      {
+        "Answers": ["4", "2", "3", "6"],
+        "file": "p212"
+      }
+    ],
+    "level2Instructions": [
+      "Listen to the chord progressions played in the audio, then write the chord number in the boxes.",
+      "You're given the first chord as a reference.",
+      "This level will consist of twelve 12 questions.",
+      "You need to score a 11/12 to past the quiz."
+    ],
+    "level2PassScore": 91,
+    "level2Answers": [],
+    "level3Questions": [
+      {
+        "Answers": ["1", "3", "6", "2", "5"],
+        "file": "p31"
+      },
+      {
+        "Answers": ["1", "5", "4", "5", "1"],
+        "file": "p32"
+      },
+      {
+        "Answers": ["1", "4", "2", "5", "1"],
+        "file": "p33"
+      },
+      {
+        "Answers": ["1", "2", "3", "6", "4"],
+        "file": "p34"
+      },
+      {
+        "Answers": ["1", "6", "5", "4", "1"],
+        "file": "p35"
+      },
+      {
+        "Answers": ["1", "7", "6", "4", "2"],
+        "file": "p36"
+      },
+      {
+        "Answers": ["2", "5", "3", "6", "4"],
+        "file": "p37"
+      },
+      {
+        "Answers": ["2", "3", "5", "2", "4"],
+        "file": "p38"
+      },
+      {
+        "Answers": ["2", "4", "3", "7", "1"],
+        "file": "p39"
+      },
+      {
+        "Answers": ["3", "5", "2", "4", "1"],
+        "file": "p310"
+      },
+      {
+        "Answers": ["3", "6", "2", "5", "1"],
+        "file": "p311"
+      },
+      {
+        "Answers": ["3", "2", "6", "4", "5"],
+        "file": "p312"
+      }
+    ],
+    "level3Instructions": [
+      "Listen to the chord progressions played in the audio, then write the chord number in the boxes.",
+      "You're given the first chord as a reference.",
+      "This level will consist of twelve 12 questions.",
+      "You need to score a 11/12 to past the quiz."
+    ],
+    "level3PassScore": 91,
+    "level3Answers": [],
+    "level4Questions": [
+      {
+        "Answers": ["Cmaj7", "Fmaj7", "Cmaj7"],
+        "file": "p41"
+      },
+      {
+        "Answers": ["Dm7", "G7", "Cmaj7"],
+        "file": "p42"
+      },
+      {
+        "Answers": ["Cmaj7", "G7", "Cmaj7"],
+        "file": "p43"
+      },
+      {
+        "Answers": ["Fmaj7", "G7", "Cmaj7"],
+        "file": "p44"
+      },
+      {
+        "Answers": ["Fmaj7", "G7", "Am7"],
+        "file": "p45"
+      },
+      {
+        "Answers": ["G7", "Fmaj7", "Cmaj7"],
+        "file": "p46"
+      },
+      {
+        "Answers": ["Em7", "Dm7", "Cmaj7"],
+        "file": "p47"
+      },
+      {
+        "Answers": ["Dm7", "Em7", "Cmaj7"],
+        "file": "p48"
+      },
+      {
+        "Answers": ["Cmaj7", "Dm7", "G7"],
+        "file": "p49"
+      },
+      {
+        "Answers": ["Fmaj7", "Em7", "Dm7"],
+        "file": "p410"
+      },
+      {
+        "Answers": ["Cmaj7", "Bm7b5", "Am7"],
+        "file": "p411"
+      },
+      {
+        "Answers": ["Fmaj7", "Dm7", "Cmaj7"],
+        "file": "p412"
+      }
+    ],
+    "level4Instructions": [
+      "Listen to the chord progressions played in the audio, then write the chord name and quality in the boxes.",
+      "Here are examples of how the chords should be written ( C7, Cmaj7, Cm7, Cm7b5)",
+      "You're given the first chord as a reference.",
+      "This level will consist of twelve 12 questions.",
+      "You need to score a 11/12 to past the quiz."
+    ],
+    "level4PassScore": 91,
+    "level4Answers": [],
+    "level5Questions": [
+      {
+        "Answers": ["Gmaj7", "Cmaj7", "D7", "Cmaj7"],
+        "file": "p51"
+      },
+      {
+        "Answers": ["Gmaj7", "D7", "Cmaj7", "D7"],
+        "file": "p52"
+      },
+      {
+        "Answers": ["Gmaj7", "Em7", "Am7", "D7"],
+        "file": "p53"
+      },
+      {
+        "Answers": ["Gmaj7", "Bm7", "Am7", "D7"],
+        "file": "p54"
+      },
+      {
+        "Answers": ["Gmaj7", "D7", "Em7", "Cmaj7"],
+        "file": "p55"
+      },
+      {
+        "Answers": ["Cmaj7", "Em7", "D7", "Gmaj7"],
+        "file": "p56"
+      },
+      {
+        "Answers": ["Em7", "Cmaj7", "D7", "Gmaj7"],
+        "file": "p57"
+      },
+      {
+        "Answers": ["Am7", "Em7", "Cmaj7", "D7"],
+        "file": "p58"
+      },
+      {
+        "Answers": ["Bm7", "Am7", "Em7", "D7"],
+        "file": "p59"
+      },
+      {
+        "Answers": ["D7", "Am7", "Cmaj7", "Gmaj7"],
+        "file": "p510"
+      },
+      {
+        "Answers": ["F#m7b5", "Gmaj7", "Am7", "Em7"],
+        "file": "p511"
+      },
+      {
+        "Answers": ["Cmaj7", "Am7", "Bm7", "Em7"],
+        "file": "p512"
+      }
+    ],
+    "level5Instructions": [
+      "Listen to the chord progressions played in the audio, then write the chord name and quality in the boxes.",
+      "Here are examples of how the chords should be written ( C7, Cmaj7, Cm7, Cm7b5)",
+      "You're given the first chord as a reference.",
+      "This level will consist of twelve 12 questions.",
+      "You need to score a 11/12 to past the quiz."
+    ],
+    "level5PassScore": 91,
+    "level5Answers": [],
+    "level6Questions": [
+      {
+        "Answers": ["Emaj7", "G#m7", "C#m7", "F#m7", "B7"],
+        "file": "p61"
+      },
+      {
+        "Answers": ["Emaj7", "B7", "Amaj7", "B7", "Emaj7"],
+        "file": "p62"
+      },
+      {
+        "Answers": ["Emaj7", "Amaj7", "F#m7", "B7", "Emaj7"],
+        "file": "p63"
+      },
+      {
+        "Answers": ["Emaj7", "F#m7", "G#m7", "C#m7", "Amaj7"],
+        "file": "p64"
+      },
+      {
+        "Answers": ["Emaj7", "C#m7", "B7", "Amaj7", "Emaj7"],
+        "file": "p65"
+      },
+      {
+        "Answers": ["Emaj7", "D#m7b5", "C#m7", "Amaj7", "F#m7"],
+        "file": "p66"
+      },
+      {
+        "Answers": ["F#m7", "B7", "G#m7", "C#m7", "Amaj7"],
+        "file": "p67"
+      },
+      {
+        "Answers": ["F#m7", "G#m7", "B7", "F#m7", "Amaj7"],
+        "file": "p68"
+      },
+      {
+        "Answers": ["F#m7", "Amaj7", "G#m7", "D#dim7", "Emaj7"],
+        "file": "p69"
+      },
+      {
+        "Answers": ["G#m7", "B7", "F#m7", "Amaj7", "Emaj7"],
+        "file": "p610"
+      },
+      {
+        "Answers": ["G#m7", "C#m7", "F#m7", "B7", "Emaj7"],
+        "file": "p611"
+      },
+      {
+        "Answers": ["G#m7", "F#m7", "C#m7", "Amaj7", "B7"],
+        "file": "p612"
+      }
+    ],
+    "level6Instructions": [
+      "Listen to the chord progressions played in the audio, then write the chord name and quality in the boxes.",
+      "Here are examples of how the chords should be written ( C7, Cmaj7, Cm7, Cm7b5)",
+      "You're given the first chord as a reference.",
+      "This level will consist of twelve 12 questions.",
+      "You need to score a 11/12 to past the quiz."
+    ],
+    "level6PassScore": 91,
+    "level6Answers": [],
+    "level7Questions": [
+      {
+        "Answers": ["Cmaj7", "E7", "A7", "D7", "G7", "Cmaj7"],
+        "file": "p71"
+      },
+      {
+        "Answers": ["C7", "G7", "F7", "G7", "Cmaj7", "A7"],
+        "file": "p72"
+      },
+      {
+        "Answers": ["Cmaj7", "F7", "D7", "G7", "Cmaj7", "E7"],
+        "file": "p73"
+      },
+      {
+        "Answers": ["C7", "D7", "E7", "A7", "F7", "G7"],
+        "file": "p74"
+      },
+      {
+        "Answers": ["C7", "A7", "G7", "F7", "Cmaj7", "D7"],
+        "file": "p75"
+      },
+      {
+        "Answers": ["Cmaj7", "Bm7b5", "E7", "A7", "F7", "D7"],
+        "file": "p76"
+      },
+      {
+        "Answers": ["Dm7", "Gmaj7", "Em7", "Am7", "Fmaj7", "Cmaj7"],
+        "file": "p77"
+      },
+      {
+        "Answers": ["Dm7", "G7", "E7", "A7", "Fmaj7", "C7"],
+        "file": "p78"
+      },
+      {
+        "Answers": ["Dm7", "F7", "Bm7b5", "E7", "A7", "G7"],
+        "file": "p79"
+      },
+      {
+        "Answers": ["Em7", "G7", "Dm7", "F7", "Cmaj7", "A7"],
+        "file": "p710"
+      },
+      {
+        "Answers": ["E7", "A7", "D7", "G7", "C7", "Bm7b5"],
+        "file": "p711"
+      },
+      {
+        "Answers": ["E7", "D7", "A7", "F7", "G7", "C7"],
+        "file": "p712"
+      }
+    ],
+    "level7Instructions": [
+      "Listen to the chord progressions played in the audio, then write the chord name and quality in the boxes.",
+      "Here are examples of how the chords should be written ( C7, Cmaj7, Cm7, Cm7b5)",
+      "You're given the first chord as a reference.",
+      "This level will consist of twelve 12 questions.",
+      "You need to score a 11/12 to past the quiz."
+    ],
+    "level7PassScore": 91,
+    "level7Answers": []
+  },
+  "Chords": {
+    "C": ["C", "D", "E", "F", "G", "A", "B", "Eb", "Gb", "Ab", "Bb", "Db"],
+    "D": ["D", "E", "F", "G", "A", "B", "Eb", "Gb", "Ab", "Bb", "Db", "C"],
+    "E": ["E", "F", "G", "A", "B", "Eb", "Gb", "Ab", "Bb", "Db", "C", "D"],
+    "F": ["F", "G", "A", "B", "Eb", "Gb", "Ab", "Bb", "Db", "C", "D", "E"],
+    "G": ["G", "A", "B", "Eb", "Gb", "Ab", "Bb", "Db", "C", "D", "E", "F"],
+    "A": ["A", "B", "Eb", "Gb", "Ab", "Bb", "Db", "C", "D", "E", "F", "G"],
+    "B": ["B", "Eb", "Gb", "Ab", "Bb", "Db", "C", "D", "E", "F", "G", "A"],
+    "Eb": ["Eb", "Gb", "Ab", "Bb", "Db", "C", "D", "E", "F", "G", "A", "B"],
+    "Gb": ["Gb", "Ab", "Bb", "Db", "C", "D", "E", "F", "G", "A", "B", "Eb"],
+    "Ab": ["Ab", "Bb", "Db", "C", "D", "E", "F", "G", "A", "B", "Eb", "Gb"],
+    "Bb": ["Bb", "Db", "C", "D", "E", "F", "G", "A", "B", "Eb", "Gb", "Ab"],
+    "Db": ["Db", "C", "D", "E", "F", "G", "A", "B", "Eb", "Gb", "Ab", "Bb"]
+  }
+}

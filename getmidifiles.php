@@ -3,7 +3,14 @@
 include("./db/config.php");
 
 //$query_rsFileInfo = "SELECT * FROM `midifiles` WHERE userid2 = '" . $_GET['userid2'] ."'";
-$query_rsFileInfo = "SELECT * FROM `midifiles` order by filename ASC";
+$query_rsFileInfo = "SELECT * FROM `midifiles`";
+
+if($_GET['categoryid'] && $_GET['categoryid'] != "All"){
+  
+  $query_rsFileInfo .= " WHERE categoryid = " . $_GET['categoryid'];
+}
+
+$query_rsFileInfo .= " order by filename ASC";
 
 $files = [];
 
@@ -38,9 +45,15 @@ else {
   }
 }
 
-$myObj2 = new stdClass;
-$myObj2->files = $files;
-$myObj2->query = $query_rsFileInfo;
+  $myObj2 = new stdClass;
+  $myObj2->query = $query_rsFileInfo;
+
+if($totalRows_rsFileInfo){
+  $myObj2->files = $files;
+}
+else{
+  $myObj2->files = [];
+}
 
 echo "{\"data\":";
 echo "{\"uploadData\":";
