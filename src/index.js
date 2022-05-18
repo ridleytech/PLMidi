@@ -660,7 +660,7 @@ function dropHandler(ev) {
   // Prevent default behavior (Prevent file from being opened)
   ev.preventDefault();
 
-  if (!currentCategory || currentCategory == "All") {
+  if (!currentCategory || currentCategory == "") {
     document.getElementById("midicategories").style.background = "red";
     openCategories();
     return;
@@ -818,6 +818,8 @@ document.querySelector("#midicategories").addEventListener(
 
       getFiles(null, e.target.value);
     } else {
+      currentCategory = null;
+
       getFiles(null, null);
     }
   },
@@ -849,7 +851,7 @@ const fn = document.querySelector("#file-name");
 document.querySelector("#musical-piece").addEventListener(
   "change",
   function (e) {
-    if (!currentCategory || currentCategory == "All") {
+    if (!currentCategory || currentCategory == "") {
       document.getElementById("midicategories").style.background = "red";
       openCategories();
       return;
@@ -994,6 +996,8 @@ const getFiles = (file, id) => {
       if (myMidiFiles.length > 0) {
         //console.log("show midi files");
         showMidiFiles();
+      } else {
+        hideMidiFiles();
       }
     }
   };
@@ -1078,7 +1082,7 @@ const getCategories = (file) => {
 
       myMidiCategories = resp.data.uploadData.files;
 
-      var str = '<option value="All" selected>All categories</option>';
+      var str = '<option value="" selected>Select a category</option>';
 
       myMidiCategories.forEach((element) => {
         str +=
@@ -1116,6 +1120,11 @@ const getCategories = (file) => {
 const showMidiFiles = () => {
   const $midifiles = $("#midifiles");
   $midifiles.css("display", "block");
+};
+
+const hideMidiFiles = () => {
+  const $midifiles = $("#midifiles");
+  $midifiles.css("display", "none");
 };
 
 const showMidiCatgories = () => {
@@ -1194,7 +1203,7 @@ const uploadFile = (file) => {
         //console.log("we good: " + resp.data.uploadData.filename);
 
         //showMidiFiles();
-        getFiles(resp.data.uploadData.res, null);
+        getFiles(resp.data.uploadData.res, currentCategory);
 
         downloadFile(resp.data.uploadData.res);
       }

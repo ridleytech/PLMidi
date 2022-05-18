@@ -19,6 +19,7 @@ import {
   modWheel,
   polyPressure,
   setCurrentQuestion,
+  initProgressions,
 } from "./chord-display/events";
 import {
   // setChordHtml,
@@ -161,12 +162,15 @@ const shuffle = (array) => {
   return array;
 };
 
-var currentKey = "C";
+var currentKey; // = "C";
 
-var currentQuestions = shuffle(Key.majorKey(currentKey).chords);
-var currentQuestionInd = -1;
+var currentQuestions; // = shuffle(Key.majorKey(currentKey).chords);
+var currentQuestionInd; // = -1;
+var quesstionTotal;
 
-console.log("currentQuestions: " + JSON.stringify(currentQuestions));
+var currentTest = "progressions";
+
+setKey("C");
 
 // var currenQuestion = currentQuestions[currentQuestionInd];
 // setCurrentQuestion(currenQuestion);
@@ -330,20 +334,38 @@ if (nextBtn) {
 }
 
 function displayQuestion() {
-  currentQuestionInd++;
+  if (currentTest == "chords") {
+    currentQuestionInd++;
 
-  console.log("currentQuestions: " + JSON.stringify(currentQuestions));
+    if (currentQuestionInd == quesstionTotal) {
+      console.log("test ended");
+      return;
+    }
 
-  console.log("go to next question: " + currentQuestionInd);
+    console.log("currentQuestions1: " + JSON.stringify(currentQuestions));
 
-  var currentAnswer = currentQuestions[currentQuestionInd];
-  //setCurrentQuestion(currenQuestion);
+    console.log("go to next question: " + currentQuestionInd);
 
-  resultDiv.innerHTML = "Play " + currentAnswer;
+    var currentAnswer = currentQuestions[currentQuestionInd];
+    //setCurrentQuestion(currenQuestion);
 
-  nextBtn.style.visibility = "hidden";
+    resultDiv.innerHTML = "Play " + currentAnswer;
 
-  setCurrentQuestion(currentAnswer);
+    //const scale = document.getElementById("scale");
+
+    //$("#scale").html = currentKey + ": " + currentQuestionInd + " of " + quesstionTotal;
+
+    // var d = currentQuestionInd + 1;
+
+    // scale.innerHTML = currentKey + " Major: " + d + " of " + quesstionTotal;
+
+    nextBtn.style.visibility = "hidden";
+
+    setCurrentQuestion(currentAnswer);
+  }
+  // else if (currentTest == "progressions") {
+  //   initProgressions();
+  // }
 }
 
 var slider = document.getElementById("noslider");
@@ -1305,6 +1327,87 @@ export function initializeMidi() {
     navigator.requestMIDIAccess().then(onMIDIStarted, onMIDISystemError);
   } else {
     setAppError("Your browser has no MIDI features.");
+  }
+}
+
+var progressionChords = [];
+var progressionNumbers = [];
+var progressionIndexes = [];
+
+function getRandom(arr, n) {
+  var result = new Array(n),
+    len = arr.length,
+    taken = new Array(len);
+  if (n > len)
+    throw new RangeError("getRandom: more elements taken than available");
+  while (n--) {
+    var x = Math.floor(Math.random() * len);
+    result[n] = arr[x in taken ? taken[x] : x];
+    taken[x] = --len in taken ? taken[len] : len;
+  }
+  return result;
+}
+
+function shiftArrayToRight(arr, places) {
+  for (var i = 0; i < places; i++) {
+    arr.unshift(arr.pop());
+  }
+}
+
+function Rotate(arr, n) {
+  if (n === 0) {
+    return arr;
+  }
+
+  var left = n < 0;
+  n = Math.abs(left ? n : arr.length - n);
+
+  return arr.map(() => {
+    n = n < arr.length ? n : 0;
+
+    return arr[n++];
+  });
+}
+
+export function setKey(key) {
+  //console.log("setCurrentQuestion: " + answer);
+  currentKey = key;
+
+  var keyStuff = Key.majorKey(currentKey);
+
+  currentQuestions = shuffle(keyStuff.chords);
+
+  //console.log("stuff: " + JSON.stringify(keyStuff));
+  //console.log("grades: " + JSON.stringify(keyStuff.grades));
+
+  currentQuestionInd = -1;
+
+  quesstionTotal = currentQuestions.length;
+
+  console.log("currentQuestions: " + JSON.stringify(currentQuestions));
+
+  if (currentTest == "progressions") {
+    progressionNumbers = getRandom(keyStuff.grades, 3);
+    progressionIndexes = [];
+    progressionChords = [];
+    console.log("progressionNumbers: " + JSON.stringify(progressionNumbers));
+
+    var sortedChords = Rotate(keyStuff.chords.sort(), -2);
+    console.log("sortedChords: " + JSON.stringify(sortedChords));
+
+    progressionNumbers.forEach((element) => {
+      var ind = keyStuff.grades.indexOf(element);
+      console.log("ind: " + ind);
+      progressionIndexes.push(ind);
+      progressionChords.push(sortedChords[ind]);
+    });
+
+    console.log("progressionChords: " + JSON.stringify(progressionChords));
+
+    initProgressions({
+      progressionNumbers: progressionNumbers,
+      progressionChords: progressionChords,
+    });
   }
 }
 

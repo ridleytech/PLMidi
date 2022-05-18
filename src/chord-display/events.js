@@ -31,12 +31,20 @@ let lastNoteTimer = null;
 var lastNoteSeconds = 0;
 var isSharps = false;
 
-var isTesting = false;
+var isTesting = true;
 var currentTest = "progressions";
+
 var currentAnswer;
 
 var guessTimer;
 var currentGuess;
+var guessEnabled = true;
+var progressionChords; // = ["Em7", "Dm7", "Fmaj7"];
+var progressionNumbers;
+var progressionChordAnswers; // = [];
+var progressionTotals; // = 4;
+var progressionIndex; // = 0;
+
 export function noteOn(noteNumber) {
   //console.log("noteOn events: " + noteNumber);
   if (!currentNotes.includes(noteNumber)) {
@@ -210,25 +218,36 @@ function refresh() {
 
     //to do: add midi keyboard testing
 
-    if (isTesting) {
-      currentTest = "chords";
-
+    if (isTesting && guessEnabled) {
       currentGuess = chord.tonic + chord.name;
-      console.log("currentGuess: " + currentGuess);
-      //currentAnswer = "Cmaj7";
 
-      if (!guessTimer) {
-        guessTimer = setTimeout(() => {
-          //console.log("start guess timer");
-          //console.log("lastNoteSeconds: " + lastNoteSeconds);
+      if (currentTest == "chords") {
+        console.log("currentGuess: " + currentGuess);
+        //currentAnswer = "Cmaj7";
 
-          //Chord.notes("CMaj7") // => ["C", "E", "G", "B"]
-          //Chord.notes("C", "maj7") // => ["C", "E", "G", "B"]
+        if (!guessTimer) {
+          guessTimer = setTimeout(() => {
+            //console.log("start guess timer");
+            //console.log("lastNoteSeconds: " + lastNoteSeconds);
 
-          //console.log("chord: " + JSON.stringify(chord));
+            //Chord.notes("CMaj7") // => ["C", "E", "G", "B"]
+            //Chord.notes("C", "maj7") // => ["C", "E", "G", "B"]
 
-          checkGuess();
-        }, 2000);
+            //console.log("chord: " + JSON.stringify(chord));
+
+            guessEnabled = false;
+
+            checkGuess();
+          }, 500);
+        }
+      } else if (currentTest == "progressions") {
+        if (!guessTimer) {
+          guessTimer = setTimeout(() => {
+            guessEnabled = false;
+
+            checkProgressionGuess();
+          }, 500);
+        }
       }
     }
 
@@ -262,6 +281,50 @@ function refresh() {
 
     //setChordHtml(""); //orig setting
   }
+}
+
+function checkProgressionGuess() {
+  progressionChordAnswers.push(currentGuess);
+  console.log("progressionChords: " + JSON.stringify(progressionChordAnswers));
+  guessTimer = null;
+  guessEnabled = true;
+
+  if (progressionChordAnswers.length == progressionTotals) {
+    //check answer
+    console.log("end test");
+
+    resultDiv.innerHTML = "CORRECT";
+    guessEnabled = false;
+
+    return;
+  } else if (currentAnswer != currentGuess) {
+    console.log("error");
+  }
+
+  progressionIndex++;
+
+  currentAnswer = progressionChords[progressionIndex];
+
+  console.log("currentAnswer: " + currentAnswer);
+
+  var format = "Play ";
+
+  progressionNumbers.forEach((element, ind) => {
+    if (ind == progressionIndex) {
+      format +=
+        "<span style='color:#1f9716'>" + progressionNumbers[ind] + "</span>";
+    } else {
+      format += progressionNumbers[ind];
+    }
+
+    if (ind < progressionNumbers.length - 1) {
+      format += ", ";
+    }
+  });
+
+  progressionIndex;
+
+  resultDiv.innerHTML = format;
 }
 
 function checkGuess() {
@@ -326,6 +389,53 @@ function ordinal(n) {
 export function setCurrentQuestion(answer) {
   //console.log("setCurrentQuestion: " + answer);
   currentAnswer = answer;
+  guessEnabled = true;
+  currentTest = "chords";
+}
+
+// setTimeout(() => {
+//   initProgressions();
+// }, 2000);
+
+export function initProgressions(data) {
+  progressionChords = data.progressionChords;
+  progressionNumbers = data.progressionNumbers;
+  progressionChordAnswers = [];
+  progressionTotals = progressionNumbers.length;
+  progressionIndex = 0;
+  currentAnswer = progressionChords[progressionIndex];
+
+  // var format =
+  //   "Play <span style='color:#1f9716'>" +
+  //   progressionNumbers[0] +
+  //   "</span>, " +
+  //   progressionNumbers[1] +
+  //   ", " +
+  //   progressionNumbers[2] +
+  //   "";
+
+  var format = "Play ";
+
+  progressionNumbers.forEach((element, ind) => {
+    if (ind == progressionIndex) {
+      format +=
+        "<span style='color:#1f9716'>" + progressionNumbers[ind] + "</span>";
+    } else {
+      format += progressionNumbers[ind];
+    }
+
+    if (ind < progressionNumbers.length - 1) {
+      format += ", ";
+    }
+  });
+
+  progressionIndex;
+
+  resultDiv.innerHTML = format;
+  //resultDiv.innerHTML = "Play " + progressionNumbers.toString();
+
+  console.log("currentAnswer: " + currentAnswer);
+  currentTest = "progressions";
 }
 
 export const controller = onEvent.bind(this, "controller");

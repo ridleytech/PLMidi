@@ -5,9 +5,14 @@ include("./db/config.php");
 //$query_rsFileInfo = "SELECT * FROM `midifiles` WHERE userid2 = '" . $_GET['userid2'] ."'";
 $query_rsFileInfo = "SELECT * FROM `midifiles`";
 
-if($_GET['categoryid'] && $_GET['categoryid'] != "All"){
+if($_GET['categoryid']){
   
   $query_rsFileInfo .= " WHERE categoryid = " . $_GET['categoryid'];
+}
+else
+{
+  $query_rsFileInfo .= " WHERE 0 = 1";
+
 }
 
 $query_rsFileInfo .= " order by filename ASC";

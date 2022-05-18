@@ -6,7 +6,7 @@ include( "./db/config.php" );
 //$query_rsFileInfo = "SELECT * FROM `midifiles` WHERE userid2 = '" . $_GET['userid2'] ."'";
 $query_rsFileInfo = "SELECT a.*,b.* FROM (SELECT * FROM midifiles) as a INNER JOIN (SELECT categoryid,categoryname FROM midicategories) as b ON a.categoryid = b.categoryid";
 
-$query_rsCategories = "SELECT categoryid,categoryname FROM midicategories";
+$query_rsCategories = "SELECT categoryid,categoryname FROM midicategories  order by categoryname ASC";
 
 if ( $_GET[ 'categoryid' ] ) {
 
@@ -113,7 +113,7 @@ if ( $totalRows_rsFileInfo ) {
 
 foreach ( $files as $x ) {
 
-  echo "<div class=\"file\" id=\"$x->fileid\">" . $x->filename . "<select class=\"category\" style=\"margin-left: 10px; margin-bottom: 10px;\">";
+  echo "<div class=\"file\" style=\"display:flex;\" id=\"$x->fileid\">" . $x->filename . "<select class=\"category\" style=\"margin-left: 10px; margin-bottom: 10px;\">";
 
   foreach ( $categories as $z ) {
 
@@ -124,7 +124,7 @@ foreach ( $files as $x ) {
     }
   }
 
-  echo "</select><a href=\"$x->url\" style=\"margin-left: 10px\">download</a></div>";
+  echo "</select><a href=\"$x->url\" style=\"margin-left: 10px\">download</a><div class=\"delete\" style=\"margin-left: 10px; cursor:pointer;\">delete</div></div>";
 
 }
 
@@ -142,10 +142,9 @@ foreach ( $files as $x ) {
 		
 		var categoryid = $( this ).val();
 		
-		console.log("val: "+categoryid + " for file "+currentFile);
+		//console.log("val: "+categoryid + " for file "+currentFile);
 		
 		//return;
-		
 		
 		var newurl = url +
     "/PLMidi/updateFileInfo.php?fileid=" +
@@ -162,6 +161,38 @@ foreach ( $files as $x ) {
     if (this.readyState==4 && this.status==200) {
 		
 		console.log(this.responseText)
+    }
+  }
+  xmlhttp.open("GET",newurl,true);
+  xmlhttp.send();
+});
+
+
+$( ".delete" ).click(function() {
+  //alert( "Handler for .change() called." );
+		
+		var categoryid = $( this ).val();
+		
+		//console.log("delete file "+currentFile);
+
+		//return;
+		
+		var newurl = url +
+    "/PLMidi/deleteFile.php?fileid=" + currentFile;
+
+  //console.log("newurl: " + newurl);
+		
+  var xmlhttp=new XMLHttpRequest();
+  xmlhttp.onreadystatechange=function() {
+	  
+	  //console.log("change")
+    if (this.readyState==4 && this.status==200) {
+		
+      console.log(this.responseText)
+
+    setTimeout(() => {
+      location.reload(true);
+    }, 1000);
     }
   }
   xmlhttp.open("GET",newurl,true);
