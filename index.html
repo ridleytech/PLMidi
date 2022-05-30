@@ -810,6 +810,19 @@ body {
     padding: 20px;
     overflow: auto;
 }
+
+.mobile {
+    position: absolute;
+    z-index: 150;
+    background-color: hsla(0,0%,0%,.3);
+    
+    width: 100%;
+    min-height: 100%;
+    height: auto;
+    top: 0px;
+    padding: 20px;
+    overflow: auto;
+}
 .help {
     position: fixed;
     z-index: 250;
@@ -1123,12 +1136,7 @@ $(document).ready(function () {
 
 <!-- intro video -->
 
-<div id="version" style="    position: absolute;
-right: 5px;
-color: white;
-z-index: 1000;
-font-size: 12px;
-text-align: center; top: 5px;">Version 1.3</div>
+
 
   <div class="categories" style="display: none;">
       <div class="" id="categoryTitle" style="display: flex;
@@ -1236,6 +1244,33 @@ text-align: center; top: 5px;">Version 1.3</div>
       <button type="submit" class="navBtn" style="height: 35px;">Send Message <i class="fa fa-paper-plane"></i></button>
     </form>
   </div>
+</div>
+
+<div class="mobile"  style="display: none;">
+  <div class="" id="categoryTitle" style="display: flex;
+  align-items: center;
+  height: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  background: white;
+  width: 400px;padding: 20px;
+flex-direction: column;     -ms-transform: translateY(30%);
+transform: translateY(30%);">
+<img src="./assets/images/info.png" style="width: 100px;">
+<div style="margin-top: 20px; font-size: 27px;">Information</div>
+<div style="height: 100%;
+align-items: center;
+display: flex;
+text-align: center;margin-top: 20px;">This MIDI Player is not yet compatible with mobile devices. Please access the player from a destkop or laptop computer for a better experience.</div> 
+  
+  <div  class="closeBtn" id="closeBtn4" style="float: unset;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 20px;">Close</div>
+      
+    </div>
+      
+
 </div>
 
 <div id="leadForm" style="position: fixed;
@@ -1371,6 +1406,12 @@ background: rgba(1,1,1,0.5); display: none;">
       </fieldset>
     </form>
   </div>
+  <div id="version" style="    position: absolute;
+right: 5px;
+color: white;
+z-index: 1000;
+font-size: 12px;
+text-align: center; top: 5px;">Version 1.3</div>
   <img
         id="header-logo"
         src="./assets/images/header-logo@3x.png"
